@@ -1,0 +1,27 @@
+{
+  "name": "tradezilla",
+  "version": "1.0.0",
+  "description": "eCommerce webapp",
+  "main": "index.js",
+  "scripts": {
+    "test": "nodemon index"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghimiresaurav/TradeZilla.git"
+  },
+  "keywords": [
+    "eCommerce",
+    "online-store",
+    "tradezilla",
+    "online-trade",
+    "online-buy",
+    "online-sell"
+  ],
+  "author": "Saurav Ghimire, Sajag Pradhanang, Sagar Raj Thapaliya, Kabin Bhandari",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ghimiresaurav/TradeZilla/issues"
+  },
+  "homepage": "https://github.com/ghimiresaurav/TradeZilla#readme"
+}

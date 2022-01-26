@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "eCommerce webapp",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "test": "nodemon index"
+    "dev": "nodemon index"
   },
   "repository": {
     "type": "git",

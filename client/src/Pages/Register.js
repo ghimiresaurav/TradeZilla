@@ -1,4 +1,6 @@
 import styled from 'styled-components';
+import { useState } from "react";
+import RegisterForm from "../Pages/RegisterForm";
 
 
 const Container = styled.div`
@@ -19,6 +21,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
     width: 40%;
     padding: 20px;
+    height: 75vh;
     background-color: #ffffff;
 `;
 
@@ -29,47 +32,108 @@ const Title = styled.h1`
 
 const Form = styled.form`
     display: flex;
-    flex-wrap: wrap;
-`;
+    flex-direction: column;
+  `;
 
-const Input = styled.input`
-    flex: 1;
-    min-width: 40%;
-    margin: 20px 10px 0 0;
-    padding: 10px;
-`;
-
-const Agreement = styled.span`
+const Agreement = styled.div`
     font-size: 12px;
-    margin: 20px 0;
+    margin: 20px 0 0 0;
+    padding-left: 50px;
+    padding-right: 50px;
 `;
 
-const Button = styled.button`
-    width: 40%;
-    border: none;
-    padding: 15px 20px;
-    background-color: teal;
-    color: #ffffff;
-    cursor: pointer;
-`;
+
 
 
 const Register = () => {
+    const [values, setValues] = useState({
+        username: "",
+        email: "",
+        birthday: "",
+        password: "",
+        confirmPassword: "",
+    });
+
+    const inputs = [
+        {
+            id: 1,
+            name: "username",
+            type: "text",
+            placeholder: "Username",
+            errorMessage:
+              "Username should be 3-16 characters and shouldn't include any special character!",
+            label: "Username",
+            pattern: "^[A-Za-z0-9]{3,16}$",
+            required: true, 
+        },
+
+        {
+            id: 2,
+            name: "email",
+            type: "email",
+            placeholder: "Email",
+            errorMessage: "It should be a valid email address!",
+            label: "Email",
+            required: true,
+          },
+
+          {
+            id: 3,
+            name: "birthday",
+            type: "date",
+            placeholder: "Birthday",
+            label: "Birthday",
+          },
+
+          {
+            id: 4,
+            name: "password",
+            type: "password",
+            placeholder: "Password",
+            errorMessage:
+              "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+            label: "Password",
+            pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+            required: true,
+          },
+
+          {
+            id: 5,
+            name: "confirmPassword",
+            type: "password",
+            placeholder: "Confirm Password",
+            errorMessage: "Passwords don't match!",
+            label: "Confirm Password",
+            pattern: values.password,
+            required: true,
+          },
+    ];
+
+    const handleSubmit = (e) => {
+        e.preventDefault();        
+      };
+    
+      const onChange = (e) => {
+        setValues({ ...values, [e.target.name]: e.target.value });
+      };
+    console.log(values);
     return (
         <Container>
             <Wrapper>
                 <Title>CREATE AN ACCOUNT</Title>
-                <Form>
-                    <Input placeholder = "name"></Input>
-                    <Input placeholder = "last name"></Input>
-                    <Input placeholder = "username"></Input>
-                    <Input placeholder = "email"></Input>
-                    <Input placeholder = "password"></Input>
-                    <Input placeholder = "confirm password"></Input>
+                <Form onSubmit={handleSubmit}>
+                {inputs.map((input) => (
+         <RegisterForm
+                key={input.id}
+                {...input}
+                value={values[input.name]}
+                onChange={onChange}
+          />
+        ))}
                     <Agreement>
                         By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
                     </Agreement>
-                    <Button>CREATE</Button>
+                    <button>Submit</button>                    
                 </Form>
             </Wrapper>
         </Container>

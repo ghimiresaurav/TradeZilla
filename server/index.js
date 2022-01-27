@@ -6,7 +6,7 @@ import cors from "cors";
 import register from "./controllers/register.js";
 
 // Config environment variables
-dotenv.config();
+dotenv.config({ path: "../.env" });
 
 const app = express();
 

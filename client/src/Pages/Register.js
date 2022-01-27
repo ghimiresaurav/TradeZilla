@@ -112,19 +112,22 @@ const Register = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(values),
+      body: JSON.stringify({
+        name: values.username,
+        email: values.email,
+        password: values.password,
+        dob: values.birthday,
+      }),
     });
 
     const response = await resp.json();
     console.log(response);
-
-    // console.log(values);
   };
 
   const onChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
-  // console.log(values);
+
   return (
     <Container>
       <Wrapper>

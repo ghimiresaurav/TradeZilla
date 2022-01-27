@@ -2,20 +2,24 @@ import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
 
+// Import controllers
+import register from "./controllers/register.js";
+
+// Config environment variables
 dotenv.config();
 
 const app = express();
+
+// Use json
 app.use(express.json());
+// Allow Resource sharing
 app.use(cors({ origin: process.env.CLIENT }));
 
 app.get("/", (req, res) => {
   res.send("hello");
 });
 
-app.post("/register", (req, res) => {
-  console.log(req.body);
-  return res.json({ message: "Data received" });
-});
+app.post("/register", register);
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));

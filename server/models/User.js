@@ -1,9 +1,7 @@
-// import { mongoose } from "mongoose";
-import { Mongoose } from "mongoose";
+import mongoose from "mongoose";
 import mongooseHidden from "mongoose-hidden";
-// mongooseHidden();
 
-const UserSchema = new Mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   name: {
     type: String,
     required: true,

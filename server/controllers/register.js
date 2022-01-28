@@ -12,7 +12,6 @@ const register = async (req, res) => {
   // Connect to the atlas database
   mongoose
     .connect(process.env.DB_URI)
-    .then(() => console.log("Connected to atlas"))
     .catch((err) => console.error(`Error: ${err}`));
 
   // Check whether the email is already registered or not

@@ -45,6 +45,7 @@ const login = async (req, res) => {
     message: "Login Successful",
     token,
     id: user._id,
+    name: user.name,
   });
 };
 

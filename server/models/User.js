@@ -11,27 +11,22 @@ const UserSchema = new mongoose.Schema({
     type: String,
     lowercase: true,
     validate: {
-      validator: function (e) {
-        const emailRegex =
-          /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-        return emailRegex.test(e);
-      },
+      validator: (e) =>
+        /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(
+          e
+        ),
       message: (props) => `${props.value} is not a valid email.`,
     },
     required: true,
   },
   password: {
     type: String,
-    validate: {
-      validator: function (p) {
-        const passwordRegex =
-          /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9])(?=.{8,})/;
-        return passwordRegex.test(p);
-      },
-      message: "The password is not strong enough.",
-    },
     required: true,
     hide: true,
+  },
+  dob: {
+    type: Date,
+    required: true,
   },
   joinedOn: {
     type: Date,

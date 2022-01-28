@@ -6,13 +6,14 @@ import cors from "cors";
 import register from "./controllers/register.js";
 
 // Config environment variables
-dotenv.config({ path: "../.env" });
+dotenv.config();
 
 const app = express();
 
 // Use json
 app.use(express.json());
-// Allow Resource sharing
+
+// Allow Resource sharing with CORS
 app.use(cors({ origin: process.env.CLIENT }));
 
 app.get("/", (req, res) => {

@@ -43,7 +43,7 @@ const Agreement = styled.div`
 
 const Register = () => {
   const [values, setValues] = useState({
-    username: "",
+    name: "",
     email: "",
     birthday: "",
     password: "",
@@ -53,13 +53,17 @@ const Register = () => {
   const inputs = [
     {
       id: 1,
-      name: "username",
+      name: "name",
       type: "text",
-      placeholder: "Username",
+      placeholder: "Full Name",
       errorMessage:
-        "Username should be 3-16 characters and shouldn't include any special character!",
-      label: "Username",
-      pattern: "^[A-Za-z0-9]{3,16}$",
+        "Fullname should be 5-16 characters and shouldn't include any special character!",
+      label: "Full Name",
+      //initially used by sagar
+      // pattern: "^[A-Za-z0-9]{3,16}$",
+
+      //what i(saurav) tried, which didn't work either
+      // pattern: new RegExp("/^[a-z ,.'-]+$/i"),
       required: true,
     },
 
@@ -113,7 +117,7 @@ const Register = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: values.username,
+        name: values.name,
         email: values.email,
         password: values.password,
         dob: values.birthday,

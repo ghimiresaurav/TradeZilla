@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 `;
 
 const Title = styled.h1`
+  text-align: center;
   font-size: 24px;
   font-weight: 300;
 `;
@@ -57,13 +58,9 @@ const Register = () => {
       type: "text",
       placeholder: "Full Name",
       errorMessage:
-        "Fullname should be 5-16 characters and shouldn't include any special character!",
-      label: "Full Name",
-      //initially used by sagar
-      // pattern: "^[A-Za-z0-9]{3,16}$",
-
-      //what i(saurav) tried, which didn't work either
-      // pattern: new RegExp("/^[a-z ,.'-]+$/i"),
+        "Please enter your full name",
+      label: "Full Name:",
+      pattern: "^[a-zA-Z]{4,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$",
       required: true,
     },
 
@@ -72,8 +69,9 @@ const Register = () => {
       name: "email",
       type: "email",
       placeholder: "Email",
-      errorMessage: "It should be a valid email address!",
-      label: "Email",
+      errorMessage: "Please enter a valid email address!",
+      label: "Email Address:",
+      pattern: "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$",
       required: true,
     },
 
@@ -81,8 +79,8 @@ const Register = () => {
       id: 3,
       name: "birthday",
       type: "date",
-      placeholder: "Birthday",
-      label: "Birthday",
+      // placeholder: "Birthday",
+      label: "Birthday:",
     },
 
     {
@@ -92,7 +90,7 @@ const Register = () => {
       placeholder: "Password",
       errorMessage:
         "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
-      label: "Password",
+      label: "Password:",
       pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
       required: true,
     },
@@ -103,7 +101,7 @@ const Register = () => {
       type: "password",
       placeholder: "Confirm Password",
       errorMessage: "Passwords don't match!",
-      label: "Confirm Password",
+      label: "Confirm Password:",
       pattern: values.password,
       required: true,
     },

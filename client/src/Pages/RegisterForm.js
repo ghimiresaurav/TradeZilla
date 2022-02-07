@@ -4,8 +4,10 @@ import "./RegisterForm.css";
 
 
 const Label = styled.label`
+    display: flex;
+    margin: 10px 0 0 15px;
     font-size: 12px;
-    color: gray;
+    color: #02222e;
 `;
 
 const RegisterForm = (props) => {

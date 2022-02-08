@@ -10,7 +10,7 @@ import register from "./controllers/register";
 const app: Application = express();
 
 app.use(express.json());
-
+app.use(cors({ origin: process.env.CLIENT }));
 app.get("/", (req: Request, res: Response) => {
   return res.json({ message: "Hello" });
 });

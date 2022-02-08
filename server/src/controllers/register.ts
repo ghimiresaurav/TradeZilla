@@ -3,9 +3,6 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
 import { User, UserType } from "../models/User";
-import dotenv from "dotenv";
-
-dotenv.config({ path: "../../.env" });
 
 const register = async (req: Request, res: Response) => {
   // Extract user-inputted information from request object

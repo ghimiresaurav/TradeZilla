@@ -6,16 +6,15 @@ dotenv.config();
 
 //import controllers
 import register from "./controllers/register";
+import login from "./controllers/login";
 
 const app: Application = express();
 
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT }));
-app.get("/", (req: Request, res: Response) => {
-  return res.json({ message: "Hello" });
-});
 
 app.post("/register", register);
+app.post("/login", login);
 
 const PORT: number = parseInt(<string>process.env.PORT) || 5000;
 

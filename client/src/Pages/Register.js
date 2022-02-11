@@ -19,8 +19,9 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 40%;
+  margin-top: 40px;
   padding: 20px;
-  height: 75vh;
+  height: 95vh;
   background-color: #ffffff;
 `;
 

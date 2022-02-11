@@ -11,7 +11,7 @@ span{
 
 input{
      border-radius: 3px;
-     border: 1px solid black;
+     border: 0px solid black;
      box-shadow: 3px 3px 5px grey;
      min-width: 60%;
      margin: 10px 10px 0px 70px;
@@ -19,6 +19,9 @@ input{
      display: flex;
 }
 
+input:focus {
+    outline: 0;
+}
  button {
     width: 60%;
     border: none;

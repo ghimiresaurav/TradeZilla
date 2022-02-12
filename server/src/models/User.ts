@@ -1,7 +1,5 @@
 import mongoose from "mongoose";
-// import dotenv from "dotenv";
-
-// dotenv.config({ path: "../../.env" });
+import { ItemSchema, ItemType } from "./Item";
 
 interface UserType {
   name: string;
@@ -9,6 +7,7 @@ interface UserType {
   password: String;
   dob: Date;
   joinedOn: Date;
+  cart: [ItemType];
 }
 
 const UserSchema = new mongoose.Schema<UserType>({
@@ -43,6 +42,7 @@ const UserSchema = new mongoose.Schema<UserType>({
     immutable: true,
     default: new Date(),
   },
+  cart: [ItemSchema],
 });
 
 const model = mongoose.model<UserType>("User", UserSchema);

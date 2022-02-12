@@ -4,6 +4,7 @@ interface ProductType {
   title: string;
   vendor: Types.ObjectId;
   postedOn: Date;
+  quantity: Number;
   rating: Number;
   mfgDate: Date;
 }
@@ -22,6 +23,10 @@ const ProductSchema = new Schema<ProductType>({
     type: Date,
     default: new Date(),
     immutable: true,
+  },
+  quantity: {
+    type: Number,
+    required: true,
   },
   rating: {
     type: Number,

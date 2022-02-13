@@ -1,11 +1,6 @@
-<<<<<<< HEAD
-import styled from 'styled-components';
-// import TopBars from '../Components/TopBars';
-=======
 import styled from "styled-components";
 import RegisterForm from "./RegisterForm";
 import { useState } from "react";
->>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
 
 const Container = styled.div`
   width: 100%;
@@ -31,6 +26,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
+  text-align: center;
 `;
 
 const Form = styled.form`
@@ -38,21 +34,24 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
+const LoginForm = styled.input`
+  min-width: 90%;
   margin: 10px 0;
   padding: 10px;
+  border-radius: 3px;
+  border: 0px solid black;
+  box-shadow: 3px 3px 5px grey;    
+  display: flex;
 `;
 
 const Button = styled.button`
   width: 40%;
   border: none;
-  padding: 15px 20px;
+  padding: 10px 0;
   background-color: teal;
   color: #ffffff;
   cursor: pointer;
-  margin-bottom: 10px;
+  border-radius: 3px;
 `;
 
 const Link = styled.a`
@@ -111,24 +110,11 @@ const Login = () => {
 
   return (
     <Container>
-<<<<<<< HEAD
-        {/* <TopBars/> */}
-        <Wrapper>
-            <Title>SIGN IN</Title>
-            <Form>
-                <Input placeholder = "Username"></Input>
-                <Input placeholder = "Password"></Input>
-                <Button>LOGIN</Button>
-                <Link>Forgot Password?</Link>
-                <Link>Create New Account</Link>
-            </Form>
-        </Wrapper>
-=======
       <Wrapper>
-        <Title>SIGN IN</Title>
+           <Title>SIGN IN</Title>
         <Form onSubmit={login}>
           {inputs.map((input) => (
-            <RegisterForm
+            <LoginForm
               key={input.id}
               {...input}
               value={values[input.name]}
@@ -140,9 +126,8 @@ const Login = () => {
           <Button>LOGIN</Button>
           <Link>Forgot Password?</Link>
           <Link>Create New Account</Link>
-        </Form>
+        </Form>      
       </Wrapper>
->>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
     </Container>
   );
 };

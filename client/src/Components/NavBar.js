@@ -6,10 +6,6 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {mobile} from '../responsive';
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
-
-=======
->>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
 
 const Container = styled.div`
     width: 100%;
@@ -18,11 +14,7 @@ const Container = styled.div`
     // position: ${({scrollNav}) => (scrollNav ? 'fixed': 'relative')};
     top: 0;
     z-index: 10;
-<<<<<<< HEAD
-
-=======
     
->>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
     ${mobile({height: "50px"})}
 `;
 
@@ -106,8 +98,6 @@ const SignIn = styled.a`
     font-size: 14px;
     margin-left: 10px;
 `;
-<<<<<<< HEAD
-=======
 
 const Cart = styled.div`
     cursor: pointer;
@@ -151,23 +141,7 @@ const NavBar = ({props, toggle}) => {
         textDecoration: "none",
         color: "#ffffff"
     };
->>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
 
-const Cart = styled.div`
-    cursor: pointer;
-    margin-left: 30px;
-    
-    ${mobile({marginRight: "25px"})};
-`;
-
-
-const NavBar = ({toggle}) => {
-
-    const linkStyle = {
-        textDecoration: "none",
-        color: "#ffffff"
-    };
-    
     return (
         <Container>
             <Wrapper>
@@ -189,29 +163,17 @@ const NavBar = ({toggle}) => {
                 </Center>
                 <Right>
                     <Link style = {linkStyle} to = {"/login"}>
-<<<<<<< HEAD
-                        <SignInContainer> 
-                                <PersonIcon/>
-                                <SignIn>SIGN IN</SignIn>
-                        </SignInContainer>
-                    </Link>
-                    <Link style = {linkStyle} to = {"/cart"}>
-=======
                         <SignInContainer>
                             <PersonIcon/>
                             <SignIn>SIGN IN</SignIn>
                         </SignInContainer>
                     </Link>
                     <Link style = {linkStyle} to = {"/cart"}> 
->>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
                         <Cart>
                             <Badge badgeContent={8} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
                         </Cart>
                     </Link>
-<<<<<<< HEAD
-=======
                     {/* <RightJSX loggedIn={props.loggedIn} /> */}
->>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
                 </Right>
             </Wrapper>
         </Container>

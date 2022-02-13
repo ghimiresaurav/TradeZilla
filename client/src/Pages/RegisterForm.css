@@ -2,30 +2,41 @@
     font-family: Arial, Helvetica, sans-serif;
 }
   
-span{
+#message{
     font-size: 12px;
     padding: 3px;
     color: red;
     display: none;
 }
 
-input{
+.register{
      border-radius: 3px;
      border: 0px solid black;
      box-shadow: 3px 3px 5px grey;
-     min-width: 60%;
-     margin: 10px 10px 0px 70px;
+     width: 100%;
+     /* margin: 10px 10px 0px 70px; */
      padding: 10px;
      display: flex;
 }
 
-input:focus {
+.register::placeholder{
+  padding-left: 10px;
+}
+
+#userField {  
+    display: block;
+    height: 13vh; 
+}
+
+.register:focus {
     outline: 2px solid #00ccff;
 }
- button {
+
+ #submitForm {
     width: 60%;
     border: none;
     margin:20px 0 0 75px ;
+    overflow: hidden;
     padding: 15px 20px;
     font-size: 16px;
     background-color: teal;
@@ -35,11 +46,11 @@ input:focus {
 
  }
 
-input:invalid[focused="true"]{
+.register[focused="true"]{
     outline: 2px solid  #ff3333;
 }
 
-input:invalid[focused="true"] ~ span{
+.register:invalid[focused="true"] ~ #message{
     display: block;
     margin-top: 5px;
 }

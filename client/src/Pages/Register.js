@@ -19,10 +19,10 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 40%;
-  /* margin-top: 40px; */
+  min-width: 380px;
   padding: 20px;
-  height: 90vh;
-  background-color: #ffffff;
+  overflow: hidden;
+  background-color: #f2f2f2;
 `;
 
 const Title = styled.h1`
@@ -34,7 +34,8 @@ const Title = styled.h1`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
-  margin: 25px 0 0 30px;
+  margin: auto;
+  width: 80%;
 `;
 
 const Agreement = styled.div`
@@ -152,7 +153,7 @@ const Register = () => {
             By creating an account, I consent to the processing of my personal
             data in accordance with the <b>PRIVACY POLICY</b>
           </Agreement>
-          <button>Submit</button>
+          <button id="submitForm">Submit</button>
         </Form>
       </Wrapper>
     </Container>

@@ -1,24 +1,32 @@
-import React from 'react'
 import styled from 'styled-components'
 import SearchIcon from '@mui/icons-material/Search';
+import MenuIcon from '@mui/icons-material/Menu';
+import PersonIcon from '@mui/icons-material/Person';
 import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
-import { useState } from "react";
+import {mobile} from '../responsive';
+import { Link } from "react-router-dom";
+
 
 const Container = styled.div`
     width: 100%;
     height: 60px;
     background-color: #000000;
-    position: ${props=> props.pos};
-    z-index: 100;
+    // position: ${({scrollNav}) => (scrollNav ? 'fixed': 'relative')};
+    top: 0;
+    z-index: 10;
+
+    ${mobile({height: "50px"})}
 `;
 
 const Wrapper = styled.div`
     display: flex;
     justify-content: space-between;
-    padding: 10px 20px;
+    padding: 10px 80px;
     color: #ffffff;
     align-items: center;
+
+    ${mobile({padding: "10px 0"})}
 `;
 
 const Left = styled.div`
@@ -27,25 +35,33 @@ const Left = styled.div`
     align-items: center;
 `;
 
-const Language = styled.div`
-    font-size: 14px;
-    cursor: pointer;
+const MenuContainer = styled.div`
+    display: none;
+    ${mobile({display: "flex", margin: "0 25px", cursor: "pointer"})}
 `;
 
 const SearchContainer = styled.div`
+    width: 60%;
     border: 0.5px solid white;
     display: flex;
     align-items: center;
-    margin-left: 25px;
-    padding: 5px;
+    padding: 5px 10px;
+
+    ${mobile({display: "none"})}
 `;
 
 const Input = styled.input`
+    width: 100%;
     border: none;
-    background-color: #000000;
+    background-color: transparent;
     color: #ffffff;
     outline: none;
-`;
+
+    ::placeholder{
+        color: white;
+        opacity: 90%;
+        letter-spacing: 2px;
+}`;
 
 const Center = styled.div`
     flex: 1;
@@ -54,6 +70,8 @@ const Center = styled.div`
 
 const Logo = styled.h1`
     font-weight: bold;
+
+    ${mobile({fontSize: "24px"})}
 `;
 
 const Right = styled.div`
@@ -63,40 +81,71 @@ const Right = styled.div`
     justify-content: flex-end;
 `;
 
-const MenuItem = styled.div`
-    font-size: 14px;
+
+const SignInContainer = styled.div`
     cursor: pointer;
-    margin-left: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover{
+        color: #ded9d9;
+    }
+
+    ${mobile({display: "none"})};
 `;
 
-const NavBar = () => {
-    const [pos] = useState(0);
-    const posFunction = (direction) =>{
-        if (Container.top === "0px" ){
-            pos = "relative"
-        }
-        else {
-           pos = "fixed"
-        } 
-    };
+const SignIn = styled.a`
+    font-size: 14px;
+    margin-left: 10px;
+`;
 
+const Cart = styled.div`
+    cursor: pointer;
+    margin-left: 30px;
+    
+    ${mobile({marginRight: "25px"})};
+`;
+
+
+const NavBar = ({toggle}) => {
+
+    const linkStyle = {
+        textDecoration: "none",
+        color: "#ffffff"
+    };
+    
     return (
-        <Container pos = {"relative"}>
+        <Container>
             <Wrapper>
                 <Left>
-                    <Language>EN</Language>
+                    <MenuContainer onClick = {toggle}>
+                        <MenuIcon/>
+                    </MenuContainer>  
                     <SearchContainer>
-                        <Input/>
+                        <Input placeholder = "Search TradeZilla..."/>
                         <SearchIcon/>
                     </SearchContainer>
                 </Left>
-                <Center><Logo>TradeZilla</Logo></Center>
+                <Center>
+                    <Link style = {linkStyle} to = {"/"}>
+                        <Logo>
+                            TradeZilla
+                        </Logo>
+                    </Link>
+                </Center>
                 <Right>
-                    <MenuItem>REGISTER</MenuItem>
-                    <MenuItem>SIGN IN</MenuItem>
-                    <MenuItem>
-                        <Badge badgeContent={4} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
-                    </MenuItem>
+                    <Link style = {linkStyle} to = {"/login"}>
+                        <SignInContainer> 
+                                <PersonIcon/>
+                                <SignIn>SIGN IN</SignIn>
+                        </SignInContainer>
+                    </Link>
+                    <Link style = {linkStyle} to = {"/cart"}>
+                        <Cart>
+                            <Badge badgeContent={8} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
+                        </Cart>
+                    </Link>
                 </Right>
             </Wrapper>
         </Container>

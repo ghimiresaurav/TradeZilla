@@ -33,17 +33,19 @@ const Arrow = styled.div`
 `;
 
 const Wrapper = styled.div`
+    width: 100%;
     height: 100%;
     display: flex;
     transition: all 1.5s ease;
-    transform: translateX(${props=>props.slideIndex * -100}vw);
+    transform: translateX(${(props) => props.slideIndex * -100}vw);
 `;
 
 const Slide = styled.div`
+    width: 100%;
     height: 100vh;
     display: flex;
     align-item: center;
-    background-color: #${props=> props.bg};
+    background-color: #${(props) => props.bg};
 `;
 
 const ImgContainer = styled.div`
@@ -73,9 +75,15 @@ const Desc = styled.p`
 
 const Button = styled.button`
     padding: 10px;
-    font-size: 2opx;
+    font-size: 20px;
     background-color: transparent;
     cursor: pointer;
+    transition: all 0.5s ease;
+
+    &:hover{
+        background-color: #000000;
+        color: #ffffff;
+    }
 `;
 
 
@@ -83,10 +91,10 @@ const Slider = () => {
     const [slideIndex, setSlideIndex] = useState(0);
     const handleClick = (direction) =>{
         if (direction === "left"){
-            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2) 
+            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2); 
         }
         else {
-            setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0)
+            setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
         } 
     };
 
@@ -96,19 +104,18 @@ const Slider = () => {
                 <ArrowLeftOutlinedIcon/>
             </Arrow>
             <Wrapper slideIndex = {slideIndex}>
-                {sliderItems.map(item => (
+                {sliderItems.map((item) => (
                     <Slide bg = {item.bg} key = {item.id}> {/*We need to include a unique key while using map; it will work without it but shows warning in the console*/}
-                    <ImgContainer>
-                        <Image src = {item.img}/>
-                    </ImgContainer>
-                    <InfoContainer>
-                        <Title>{item.title}</Title>
-                        <Desc>{item.desc}</Desc>
-                        <Button>SHOP NOW</Button>
-                    </InfoContainer>
-                 </Slide>
-                ))}
-               
+                        <ImgContainer>
+                            <Image src = {item.img}/>
+                        </ImgContainer>
+                        <InfoContainer>
+                            <Title>{item.title}</Title>
+                            <Desc>{item.desc}</Desc>
+                            <Button>SHOP NOW</Button>
+                        </InfoContainer>
+                    </Slide>
+                ))}  
             </Wrapper>
             <Arrow direction = "right" onClick = {()=>handleClick("right")}>
                 <ArrowRightOutlinedIcon/>
@@ -116,7 +123,5 @@ const Slider = () => {
         </Container>
     )
 }
-
-
 
 export default Slider

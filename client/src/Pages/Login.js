@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+// import TopBars from '../Components/TopBars';
 
 const Container = styled.div`
     width: 100%;
@@ -60,6 +60,7 @@ const Link = styled.a`
 const Login = () => {
   return (
     <Container>
+        {/* <TopBars/> */}
         <Wrapper>
             <Title>SIGN IN</Title>
             <Form>

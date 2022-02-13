@@ -16,17 +16,19 @@ const Container = styled.div`
 `;
 
 const Popup = styled.div`
-    background-color: #fcf5f5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    
+    background-color: #fcf5f5;   
     width: 50%;
     height: 60vh;
 `;
 
+const CloseArea = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+`;
+
 const CloseButton = styled.div`
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 30px;
@@ -35,11 +37,19 @@ const CloseButton = styled.div`
     transition: 0.5s;
     color: #000000;
     cursor: pointer;
+    background-color: #ffffff;
 
     &:hover{
         background-color: #000000;
         color: #ffffff;
     }
+`;
+
+const Content = styled.div`
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin: 80px 0;
 `;
 
 const Title = styled.h1`
@@ -54,7 +64,7 @@ const Description = styled.div`
 `;
 
 const InputContainer = styled.div`
-    width: 50%;
+    width: 80%;
     height: 40px;
     background-color: #ffffff;
     display: flex;
@@ -81,17 +91,21 @@ const NewsletterPopup = (props) => {
     return (props.trigger) ? (
             <Container>
                 <Popup>
-                    <CloseButton onClick={()=> props.setTrigger(false)}>
-                        <CloseIcon/>
-                    </CloseButton>
-                    <Title>NewsLetter</Title>
-                    <Description>Get timely updates from your favourite products.</Description>
-                    <InputContainer>
-                        <Input placeholder = "Your Email"/>
-                        <Button>
-                            <SendIcon/>
-                        </Button>
-                    </InputContainer>
+                    <CloseArea>
+                        <CloseButton onClick={()=> props.setTrigger(false)}>
+                            <CloseIcon/>
+                        </CloseButton>
+                    </CloseArea>
+                    <Content>
+                        <Title>NewsLetter</Title>
+                        <Description>Get timely updates from your favourite products.</Description>
+                        <InputContainer>
+                            <Input placeholder = "Your Email"/>
+                            <Button>
+                                <SendIcon/>
+                            </Button>
+                        </InputContainer>
+                    </Content>
                 </Popup>
             </Container>
         ) : "";

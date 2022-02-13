@@ -1,12 +1,14 @@
 import styled from "styled-components";
-import NavBar from "../Components/NavBar";
-import Announcement from "../Components/Announcement";
+import TopBars from "../Components/TopBars";
 import Footer from "../Components/Footer";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 
-const Container = styled.div``;
+const Container = styled.div`
+  position: absolute;
+  top: 85px;
+`;
 
 const Wrapper = styled.div`
   padding: 50px;
@@ -128,8 +130,7 @@ const Product = () => {
 
   return (
     <Container>
-      <Announcement />
-      <NavBar />
+      <TopBars/>
       <Wrapper>
         <ImgContainer>
           <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />

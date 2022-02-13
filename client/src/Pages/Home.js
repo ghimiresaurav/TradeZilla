@@ -3,7 +3,6 @@ import TopBars from '../Components/TopBars';
 import Slider from '../Components/Slider'
 import Categories from '../Components/Categories'
 import Products from '../Components/Products'
-import NewsLetter from '../Components/NewsLetter'
 import Footer from '../Components/Footer'
 import NewsletterPopup from '../Components/NewsletterPopup';
 import ReturnTop from '../Components/ReturnTop';
@@ -21,6 +20,10 @@ const Home = () => {
         }, 3000);
     }, [])
 
+    const noScroll = () => {
+        window.scrollTo(0, 0);
+    };
+
     return (
         <div>
             <Announcement />
@@ -29,7 +32,7 @@ const Home = () => {
             <Categories />
             <Products />
             <Footer />
-            <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/>
+            <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup} scroll = {noScroll}/>
             <ReturnTop/>
         </div>
     );

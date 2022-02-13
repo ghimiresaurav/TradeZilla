@@ -1,16 +1,17 @@
 import styled from 'styled-components';
-import Announcement from '../Components/Announcement';
-import NavBar from '../Components/NavBar';
+import TopBars from '../Components/TopBars';
 import Footer from '../Components/Footer';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 
 const Container = styled.div`
-
+    position: absolute;
+    top: 85px;
 `;
 
 const Wrapper = styled.div`
-    padding: 20px;
+    padding-top: 80px;
+    margin: 0 50px;
 `;
 
 const Title = styled.h1`
@@ -163,8 +164,7 @@ const Button = styled.button`
 const Cart = () => {
   return (
     <Container>
-        <Announcement/>
-        <NavBar/>
+        <TopBars/>
         <Wrapper>
             <Title>YOUR BAG</Title>
             <Top>

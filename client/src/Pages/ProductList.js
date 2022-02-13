@@ -1,16 +1,25 @@
 import React from 'react';
-import NavBar from '../Components/NavBar';
+import TopBars from '../Components/TopBars';
 import Announcement from '../Components/Announcement';
 import Products from '../Components/Products';
 import Footer from '../Components/Footer';
 import styled from 'styled-components';
 
-const Container = styled.div`
 
+const Container = styled.div`
+  position: absolute;
+  top: 85px;
 `;
 
+const Wrapper = styled.div`
+  padding-top: 50px;
+  width: 90%;
+  margin: auto;
+`;
+
+
 const Title = styled.h1`
-  margin: 20px;
+  
 `;
 
 const FilterContainer = styled.div`
@@ -41,8 +50,8 @@ const Option = styled.option`
  const ProductList = () => {
    return (
     <Container>
-        <Announcement/>
-        <NavBar/>
+      <TopBars/>
+      <Wrapper>
         <Title>Dresses</Title>
         <FilterContainer>
             <Filter>
@@ -75,7 +84,8 @@ const Option = styled.option`
             </Filter>
         </FilterContainer>
         <Products/>
-        <Footer/>
+      </Wrapper>  
+      <Footer/>
    </Container>
    )
  }

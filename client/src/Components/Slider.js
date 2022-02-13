@@ -91,7 +91,11 @@ const Slider = () => {
     const [slideIndex, setSlideIndex] = useState(0);
     const handleClick = (direction) =>{
         if (direction === "left"){
+<<<<<<< HEAD
             setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2); 
+=======
+            setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+>>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
         }
         else {
             setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
@@ -115,7 +119,11 @@ const Slider = () => {
                             <Button>SHOP NOW</Button>
                         </InfoContainer>
                     </Slide>
+<<<<<<< HEAD
                 ))}  
+=======
+                ))}
+>>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
             </Wrapper>
             <Arrow direction = "right" onClick = {()=>handleClick("right")}>
                 <ArrowRightOutlinedIcon/>
@@ -124,4 +132,8 @@ const Slider = () => {
     )
 }
 
+<<<<<<< HEAD
 export default Slider
+=======
+export default Slider
+>>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a

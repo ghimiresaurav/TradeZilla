@@ -12,7 +12,13 @@ const Container = styled.div`
     transition: 0.5s ease;
 `;
 
+<<<<<<< HEAD
 const TopBars = () => {
+=======
+const TopBars = (props) => {
+
+    console.log(props);
+>>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
 
     const [scrollNav, setScrollNav] = useState(false)
 
@@ -37,7 +43,11 @@ const TopBars = () => {
 
     return (
         <Container scrollNav = {scrollNav}>
+<<<<<<< HEAD
             <NavBar toggle = {toggle}/>
+=======
+            <NavBar loggedIn={props.loggedIn} toggle = {toggle} />
+>>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
             <MenuBar isOpen = {isOpen} toggle = {toggle}/>
         </Container>
     )

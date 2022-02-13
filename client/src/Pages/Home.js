@@ -11,6 +11,7 @@ const Home = () => {
 
     return (
         <div>
+<<<<<<< HEAD
             <Announcement/>
             <TopBars/>
             <Slider/>
@@ -18,9 +19,18 @@ const Home = () => {
             <Products/>
             <NewsLetter/>
             <Footer/>
+=======
+            <Announcement />
+            <TopBars/>
+            <Slider />
+            <Categories />
+            <Products />
+            <NewsLetter />
+            <Footer />
+>>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
             <ReturnTop/>
         </div>
-    )
-}
+    );
+};
 
-export default Home
+export default Home;

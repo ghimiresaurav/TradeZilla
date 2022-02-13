@@ -1,79 +1,158 @@
-import styled from 'styled-components';
-
+import styled from "styled-components";
+import { useState } from "react";
+import RegisterForm from "../Pages/RegisterForm";
 
 const Container = styled.div`
-    width: 100%;
-    height: 100vh;
-    background: linear-gradient(
-                    rgba(255, 255, 255, 0.5),
-                    rgba(255, 255, 255, 0.5)
-                ),
-                url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
-                center;
-    background-size: cover;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+      center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const Wrapper = styled.div`
-    width: 40%;
-    padding: 20px;
-    background-color: #ffffff;
+  width: 40%;
+  margin-top: 40px;
+  padding: 20px;
+  height: 95vh;
+  background-color: #ffffff;
 `;
 
 const Title = styled.h1`
-    font-size: 24px;
-    font-weight: 300;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 300;
 `;
 
 const Form = styled.form`
-    display: flex;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
 `;
 
-const Input = styled.input`
-    flex: 1;
-    min-width: 40%;
-    margin: 20px 10px 0 0;
-    padding: 10px;
+const Agreement = styled.div`
+  font-size: 12px;
+  margin: 20px 0 0 0;
+  padding-left: 50px;
+  padding-right: 50px;
 `;
-
-const Agreement = styled.span`
-    font-size: 12px;
-    margin: 20px 0;
-`;
-
-const Button = styled.button`
-    width: 40%;
-    border: none;
-    padding: 15px 20px;
-    background-color: teal;
-    color: #ffffff;
-    cursor: pointer;
-`;
-
 
 const Register = () => {
-    return (
-        <Container>
-            <Wrapper>
-                <Title>CREATE AN ACCOUNT</Title>
-                <Form>
-                    <Input placeholder = "name"></Input>
-                    <Input placeholder = "last name"></Input>
-                    <Input placeholder = "username"></Input>
-                    <Input placeholder = "email"></Input>
-                    <Input placeholder = "password"></Input>
-                    <Input placeholder = "confirm password"></Input>
-                    <Agreement>
-                        By creating an account, I consent to the processing of my personal data in accordance with the <b>PRIVACY POLICY</b>
-                    </Agreement>
-                    <Button>CREATE</Button>
-                </Form>
-            </Wrapper>
-        </Container>
-    )
-}
+  const [values, setValues] = useState({
+    name: "",
+    email: "",
+    birthday: "",
+    password: "",
+    confirmPassword: "",
+  });
 
-export default Register
+  const inputs = [
+    {
+      id: 1,
+      name: "name",
+      type: "text",
+      placeholder: "Full Name",
+      errorMessage:
+        "Please enter your full name",
+      label: "Full Name:",
+      pattern: "^[a-zA-Z]{4,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$",
+      required: true,
+    },
+
+    {
+      id: 2,
+      name: "email",
+      type: "email",
+      placeholder: "Email",
+      errorMessage: "Please enter a valid email address!",
+      label: "Email Address:",
+      pattern: "^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$",
+      required: true,
+    },
+
+    {
+      id: 3,
+      name: "birthday",
+      type: "date",
+      // placeholder: "Birthday",
+      label: "Birthday:",
+    },
+
+    {
+      id: 4,
+      name: "password",
+      type: "password",
+      placeholder: "Password",
+      errorMessage:
+        "Password should be 8-20 characters and include at least 1 letter, 1 number and 1 special character!",
+      label: "Password:",
+      pattern: `^(?=.*[0-9])(?=.*[a-zA-Z])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,20}$`,
+      required: true,
+    },
+
+    {
+      id: 5,
+      name: "confirmPassword",
+      type: "password",
+      placeholder: "Confirm Password",
+      errorMessage: "Passwords don't match!",
+      label: "Confirm Password:",
+      pattern: values.password,
+      required: true,
+    },
+  ];
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const resp = await fetch("http://localhost:5000/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        dob: values.birthday,
+      }),
+    });
+
+    const response = await resp.json();
+    console.log(response);
+  };
+
+  const onChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
+
+  return (
+    <Container>
+      <Wrapper>
+        <Title>CREATE AN ACCOUNT</Title>
+        <Form onSubmit={handleSubmit}>
+          {inputs.map((input) => (
+            <RegisterForm
+              key={input.id}
+              {...input}
+              value={values[input.name]}
+              onChange={onChange}
+            />
+          ))}
+          <Agreement>
+            By creating an account, I consent to the processing of my personal
+            data in accordance with the <b>PRIVACY POLICY</b>
+          </Agreement>
+          <button>Submit</button>
+        </Form>
+      </Wrapper>
+    </Container>
+  );
+};
+
+export default Register;

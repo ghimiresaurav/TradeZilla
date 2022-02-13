@@ -37,14 +37,15 @@ const Wrapper = styled.div`
     height: 100%;
     display: flex;
     transition: all 1.5s ease;
-    transform: translateX(${props=>props.slideIndex * -100}vw);
+    transform: translateX(${(props) => props.slideIndex * -100}vw);
 `;
 
 const Slide = styled.div`
+    width: 100%;
     height: 100vh;
     display: flex;
     align-item: center;
-    background-color: #${props=> props.bg};
+    background-color: #${(props) => props.bg};
 `;
 
 const ImgContainer = styled.div`
@@ -103,7 +104,7 @@ const Slider = () => {
                 <ArrowLeftOutlinedIcon/>
             </Arrow>
             <Wrapper slideIndex = {slideIndex}>
-                {sliderItems.map(item => (
+                {sliderItems.map((item) => (
                     <Slide bg = {item.bg} key = {item.id}> {/*We need to include a unique key while using map; it will work without it but shows warning in the console*/}
                         <ImgContainer>
                             <Image src = {item.img}/>

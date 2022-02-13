@@ -8,7 +8,6 @@ import Globalstyle from './globalStyles';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 
-
 const isLoggedIn = () => localStorage.getItem("name") && localStorage.getItem("userId") && localStorage.getItem("token");
 
 function App() {

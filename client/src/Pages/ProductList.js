@@ -2,7 +2,6 @@ import React from 'react';
 import NavBar from '../Components/NavBar';
 import Announcement from '../Components/Announcement';
 import Products from '../Components/Products';
-import NewsLetter from '../Components/NewsLetter';
 import Footer from '../Components/Footer';
 import styled from 'styled-components';
 
@@ -76,7 +75,6 @@ const Option = styled.option`
             </Filter>
         </FilterContainer>
         <Products/>
-        <NewsLetter/>
         <Footer/>
    </Container>
    )

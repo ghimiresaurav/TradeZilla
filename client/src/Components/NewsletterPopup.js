@@ -6,14 +6,24 @@ const Container = styled.div`
     position: fixed;
     top: 0;
     left: 0;
-    width: 60%;
-    height: 60vh;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+`;
+
+const Popup = styled.div`
     background-color: #fcf5f5;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    z-index: 2000;
+    
+    width: 50%;
+    height: 60vh;
 `;
 
 const CloseButton = styled.div`
@@ -70,17 +80,19 @@ const Button = styled.button`
 const NewsletterPopup = (props) => {
     return (props.trigger) ? (
             <Container>
-                <CloseButton>
-                    <CloseIcon/>
-                </CloseButton>
-                <Title>NewsLetter</Title>
-                <Description>Get timely updates from your favourite products.</Description>
-                <InputContainer>
-                    <Input placeholder = "Your Email"/>
-                    <Button>
-                        <SendIcon/>
-                    </Button>
-                </InputContainer>
+                <Popup>
+                    <CloseButton onClick={()=> props.setTrigger(false)}>
+                        <CloseIcon/>
+                    </CloseButton>
+                    <Title>NewsLetter</Title>
+                    <Description>Get timely updates from your favourite products.</Description>
+                    <InputContainer>
+                        <Input placeholder = "Your Email"/>
+                        <Button>
+                            <SendIcon/>
+                        </Button>
+                    </InputContainer>
+                </Popup>
             </Container>
         ) : "";
 }

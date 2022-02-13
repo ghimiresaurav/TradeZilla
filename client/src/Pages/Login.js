@@ -26,6 +26,7 @@ const Wrapper = styled.div`
 const Title = styled.h1`
   font-size: 24px;
   font-weight: 300;
+  text-align: center;
 `;
 
 const Form = styled.form`
@@ -33,21 +34,24 @@ const Form = styled.form`
   flex-direction: column;
 `;
 
-const Input = styled.input`
-  flex: 1;
-  min-width: 40%;
+const LoginForm = styled.input`
+  min-width: 90%;
   margin: 10px 0;
   padding: 10px;
+  border-radius: 3px;
+  border: 0px solid black;
+  box-shadow: 3px 3px 5px grey;    
+  display: flex;
 `;
 
 const Button = styled.button`
   width: 40%;
   border: none;
-  padding: 15px 20px;
+  padding: 10px 0;
   background-color: teal;
   color: #ffffff;
   cursor: pointer;
-  margin-bottom: 10px;
+  border-radius: 3px;
 `;
 
 const Link = styled.a`
@@ -107,10 +111,10 @@ const Login = () => {
   return (
     <Container>
       <Wrapper>
-        <Title>SIGN IN</Title>
+           <Title>SIGN IN</Title>
         <Form onSubmit={login}>
           {inputs.map((input) => (
-            <RegisterForm
+            <LoginForm
               key={input.id}
               {...input}
               value={values[input.name]}
@@ -122,7 +126,7 @@ const Login = () => {
           <Button>LOGIN</Button>
           <Link>Forgot Password?</Link>
           <Link>Create New Account</Link>
-        </Form>
+        </Form>      
       </Wrapper>
     </Container>
   );

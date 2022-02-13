@@ -5,7 +5,7 @@ import "./RegisterForm.css";
 
 const Label = styled.label`
     display: flex;
-    margin: 10px 0 0 15px;
+    margin: 10px 0 10px 0;
     font-size: 12px;
     color: #02222e;
 `;
@@ -19,9 +19,9 @@ const RegisterForm = (props) => {
   };
 
   return (
-    <div>
+    <div id='userField'>
       <Label>{label}</Label>
-      <input
+      <input className='register'
         {...inputProps}
         onChange={onChange}
         onBlur={handleFocus}
@@ -30,7 +30,7 @@ const RegisterForm = (props) => {
         }
         focused={focused.toString()}
       />
-      <span>{errorMessage}</span>
+      <span id='message'>{errorMessage}</span>
     </div>
   );
 };

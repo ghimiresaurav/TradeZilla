@@ -1,14 +1,12 @@
-import styled from 'styled-components';
-import NavBar from '../Components/NavBar';
-import Announcement from '../Components/Announcement';
-import Newsletter from '../Components/NewsLetter';
-import Footer from '../Components/Footer';
-import RemoveIcon from '@mui/icons-material/Remove';
-import AddIcon from '@mui/icons-material/Add';
+import styled from "styled-components";
+import NavBar from "../Components/NavBar";
+import Announcement from "../Components/Announcement";
+import Footer from "../Components/Footer";
+import RemoveIcon from "@mui/icons-material/Remove";
+import AddIcon from "@mui/icons-material/Add";
+import { useState } from "react";
 
-const Container = styled.div`
-
-`;
+const Container = styled.div``;
 
 const Wrapper = styled.div`
   padding: 50px;
@@ -64,7 +62,7 @@ const FilterColor = styled.div`
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  background-color: ${props=>props.color};
+  background-color: ${(props) => props.color};
   margin: 0 5px;
   cursor: pointer;
 `;
@@ -74,9 +72,7 @@ const FilterSize = styled.select`
   padding: 5px;
 `;
 
-const FilterSizeOption = styled.option`
-
-`;
+const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
   width: 40%;
@@ -110,57 +106,77 @@ const Button = styled.button`
   font-weight: 500;
   // transition: 0.5s ease all;
 
-  &:hover{
+  &:hover {
     background-color: #f8f4f4;
   }
 `;
 
-
 const Product = () => {
+  const [count, setCount] = useState(1);
+
+  function decrementCount() {
+    if (count > 1) {
+      setCount((prevCount) => prevCount - 1);
+    }
+  }
+
+  function incrementCount() {
+    if (count < 10) {
+      setCount((prevCount) => prevCount + 1);
+    }
+  }
+
   return (
     <Container>
-        <Announcement/>
-        <NavBar/>
-        <Wrapper>
-          <ImgContainer>
-            <Image src = "https://i.ibb.co/S6qMxwr/jean.jpg" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>Denim Jumpsuit</Title>
-            <Desc>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</Desc>
-            <Price>Rs. 1000</Price>
-            <FilterContainer>
-              <Filter>
-                <FilterTitle>Color</FilterTitle>
-                <FilterColor color = "black"/>
-                <FilterColor color = "darkblue"/>
-                <FilterColor color = "gray"/>
-              </Filter>
-              <Filter>
-                <FilterTitle>Size</FilterTitle>
-                <FilterSize>
+      <Announcement />
+      <NavBar />
+      <Wrapper>
+        <ImgContainer>
+          <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+        </ImgContainer>
+        <InfoContainer>
+          <Title>Denim Jumpsuit</Title>
+          <Desc>
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat. Duis aute irure dolor in
+            reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+            pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
+            culpa qui officia deserunt mollit anim id est laborum.
+          </Desc>
+          <Price>Rs. 1000</Price>
+          <FilterContainer>
+            <Filter>
+              <FilterTitle>Color</FilterTitle>
+              <FilterColor color="black" />
+              <FilterColor color="darkblue" />
+              <FilterColor color="gray" />
+            </Filter>
+            <Filter>
+              <FilterTitle>Size</FilterTitle>
+              <FilterSize>
                 <FilterSizeOption>S</FilterSizeOption>
                 <FilterSizeOption>M</FilterSizeOption>
                 <FilterSizeOption>L</FilterSizeOption>
                 <FilterSizeOption>XL</FilterSizeOption>
                 <FilterSizeOption>XXL</FilterSizeOption>
-                </FilterSize>
-              </Filter>
-            </FilterContainer>
-            <AddContainer>
-              <AmountContainer>
-                <RemoveIcon/>
-                <Amount>1</Amount>
-                <AddIcon/>
-              </AmountContainer>
-              <Button>ADD TO CART</Button>
-            </AddContainer>
-          </InfoContainer>
-        </Wrapper>
-        <Newsletter/>
-        <Footer/>
+              </FilterSize>
+            </Filter>
+          </FilterContainer>
+          <AddContainer>
+            <AmountContainer>
+              <RemoveIcon onClick={decrementCount} />
+              <Amount>{count}</Amount>
+              <AddIcon onClick={incrementCount} />
+            </AmountContainer>
+            <Button>ADD TO CART</Button>
+          </AddContainer>
+        </InfoContainer>
+      </Wrapper>
+      <Footer />
     </Container>
-  ) 
-}
+  );
+};
 
-export default Product
+export default Product;

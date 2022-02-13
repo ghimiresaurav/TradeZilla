@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Announcement = () => {
-    return (
+    return ( 
         <Container>
             <marquee width = "100%" direction = "left">Free Delivery on Order over Rs. 3000!</marquee>
         </Container>

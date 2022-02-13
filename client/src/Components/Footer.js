@@ -60,7 +60,7 @@ const List = styled.ul`
 `;
 
 const ListItem = styled.li`
-    width: 50%; /*this will dive the list into two columns*/
+    width: 50%; /*divide the list into two columns*/
     margin-bottom: 10px;
 `;
 

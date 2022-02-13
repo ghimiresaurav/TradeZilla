@@ -2,7 +2,7 @@ import styled from 'styled-components'
 
 const Container = styled.div`
     height: 25px;
-    background-color: #ffffff;
+    background-color: #ded9d9;
     color: #000000;
     display: flex;
     justify-content: center;
@@ -14,7 +14,7 @@ const Container = styled.div`
 const Announcement = () => {
     return (
         <Container>
-            <marquee width = "60%" direction = "left">Free Delivery on Order over Rs. 3000!</marquee>
+            <marquee width = "100%" direction = "left">Free Delivery on Order over Rs. 3000!</marquee>
         </Container>
     )
 }

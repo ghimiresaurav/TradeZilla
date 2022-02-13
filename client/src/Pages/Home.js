@@ -1,24 +1,26 @@
-import React from "react";
-import Announcement from "../Components/Announcement";
-import NavBar from "../Components/NavBar";
-import Slider from "../Components/Slider";
-import Categories from "../Components/Categories";
-import Products from "../Components/Products";
-import NewsLetter from "../Components/NewsLetter";
-import Footer from "../Components/Footer";
+import Announcement from '../Components/Announcement'
+import TopBars from '../Components/TopBars';
+import Slider from '../Components/Slider'
+import Categories from '../Components/Categories'
+import Products from '../Components/Products'
+import NewsLetter from '../Components/NewsLetter'
+import Footer from '../Components/Footer'
+import ReturnTop from '../Components/ReturnTop';
 
-const Home = (props) => {
-  return (
-    <div>
-      <Announcement />
-      <NavBar loggedIn={props.loggedIn} />
-      <Slider />
-      <Categories />
-      <Products />
-      <NewsLetter />
-      <Footer />
-    </div>
-  );
+const Home = () => {
+
+    return (
+        <div>
+            <Announcement />
+            <TopBars/>
+            <Slider />
+            <Categories />
+            <Products />
+            <NewsLetter />
+            <Footer />
+            <ReturnTop/>
+        </div>
+    );
 };
 
 export default Home;

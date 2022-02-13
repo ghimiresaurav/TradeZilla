@@ -19,9 +19,9 @@ const Container = styled.div`
 
 const Wrapper = styled.div`
   width: 40%;
-  margin-top: 40px;
+  /* margin-top: 40px; */
   padding: 20px;
-  height: 95vh;
+  height: 90vh;
   background-color: #ffffff;
 `;
 
@@ -34,6 +34,7 @@ const Title = styled.h1`
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  margin: 25px 0 0 30px;
 `;
 
 const Agreement = styled.div`
@@ -80,8 +81,11 @@ const Register = () => {
       id: 3,
       name: "birthday",
       type: "date",
-      // placeholder: "Birthday",
-      label: "Birthday:",
+      min: "1900-01-01",
+      max: "2005-12-31",
+      errorMessage: "Please enter your date of birth",
+      label: "Date of Birth:",
+      required: true,
     },
 
     {

@@ -5,7 +5,9 @@ import Categories from '../Components/Categories'
 import Products from '../Components/Products'
 import NewsLetter from '../Components/NewsLetter'
 import Footer from '../Components/Footer'
+import NewsletterPopup from '../Components/NewsletterPopup';
 import ReturnTop from '../Components/ReturnTop';
+
 
 const Home = () => {
 
@@ -18,6 +20,7 @@ const Home = () => {
             <Products />
             <NewsLetter />
             <Footer />
+            {/* <NewsletterPopup trigger = {true}/> */}
             <ReturnTop/>
         </div>
     );

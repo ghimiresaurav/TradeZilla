@@ -1,6 +1,11 @@
+<<<<<<< HEAD
+import styled from 'styled-components';
+// import TopBars from '../Components/TopBars';
+=======
 import styled from "styled-components";
 import RegisterForm from "./RegisterForm";
 import { useState } from "react";
+>>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
 
 const Container = styled.div`
   width: 100%;
@@ -106,6 +111,19 @@ const Login = () => {
 
   return (
     <Container>
+<<<<<<< HEAD
+        {/* <TopBars/> */}
+        <Wrapper>
+            <Title>SIGN IN</Title>
+            <Form>
+                <Input placeholder = "Username"></Input>
+                <Input placeholder = "Password"></Input>
+                <Button>LOGIN</Button>
+                <Link>Forgot Password?</Link>
+                <Link>Create New Account</Link>
+            </Form>
+        </Wrapper>
+=======
       <Wrapper>
         <Title>SIGN IN</Title>
         <Form onSubmit={login}>
@@ -124,6 +142,7 @@ const Login = () => {
           <Link>Create New Account</Link>
         </Form>
       </Wrapper>
+>>>>>>> 63eea585e4728ac3010bef4ac3766df28850050a
     </Container>
   );
 };

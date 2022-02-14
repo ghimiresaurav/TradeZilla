@@ -7,9 +7,16 @@ import Footer from '../Components/Footer'
 import NewsletterPopup from '../Components/NewsletterPopup';
 import ReturnTop from '../Components/ReturnTop';
 import { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import './test.css';
 
+const Test = styled.body`
+    overflow-y: hidden;
+`;
 
 const Home = () => {
+
+    document.title = 'TradeZilla | Online Shopping';
 
     const [timedPopup, setTimedPopup] = useState(false);
 
@@ -20,9 +27,12 @@ const Home = () => {
         }, 3000);
     }, [])
 
-    const noScroll = () => {
-        window.scrollTo(0, 0);
-    };
+    if(timedPopup){
+        document.body.classList.add('active-modal');
+    }
+    else{
+        document.body.classList.remove('active-modal');
+    }
 
     return (
         <div>
@@ -32,7 +42,7 @@ const Home = () => {
             <Categories />
             <Products />
             <Footer />
-            <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup} scroll = {noScroll}/>
+            <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/>
             <ReturnTop/>
         </div>
     );

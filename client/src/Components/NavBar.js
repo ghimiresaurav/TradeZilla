@@ -106,33 +106,34 @@ const Cart = styled.div`
     ${mobile({marginRight: "25px"})};
 `;
 
-// const RightJSX = (props) => {
-//   const getInitials = (name) => {
-//     const x = name.split(" ");
-//     return x[0].split("")[0] + x[x.length - 1].split("")[0];
-//   };
+const RightJSX = (props) => {
 
-//   return props.loggedIn ? (
-//     <Right>
-//       <SignInContainer>
-//         {getInitials(localStorage.getItem("name"))}
-//       </SignInContainer>
-//       <Cart>
-//           <Badge badgeContent={0} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
-//       </Cart>
-//     </Right>
-//   ) : (
-//     <Right>
-//       <SignInContainer>
-//           <PersonIcon/>
-//           <SignIn>SIGN IN</SignIn>
-//       </SignInContainer>
-//       <Cart>
-//           <Badge badgeContent={0} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
-//       </Cart>
-//     </Right>
-//   );
-// };
+  const getInitials = (name) => {
+    const x = name.split(" ");
+    return x[0].split("")[0] + x[x.length - 1].split("")[0];
+  };
+
+  return props.loggedIn ? (
+    <Right>
+      <SignInContainer>
+        {getInitials(localStorage.getItem("name"))}
+      </SignInContainer>
+      <Cart>
+          <Badge badgeContent={0} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
+      </Cart>
+    </Right>
+  ) : (
+    <Right>
+      <SignInContainer>
+          <PersonIcon/>
+          <SignIn>SIGN IN</SignIn>
+      </SignInContainer>
+      <Cart>
+          <Badge badgeContent={0} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
+      </Cart>
+    </Right>
+  );
+};
 
 
 const NavBar = ({props, toggle}) => {

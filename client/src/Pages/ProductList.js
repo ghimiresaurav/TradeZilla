@@ -1,6 +1,5 @@
 import React from 'react';
 import TopBars from '../Components/TopBars';
-import Announcement from '../Components/Announcement';
 import Products from '../Components/Products';
 import Footer from '../Components/Footer';
 import styled from 'styled-components';
@@ -48,6 +47,9 @@ const Option = styled.option`
 
 
  const ProductList = () => {
+
+  document.title = 'Product List | TradeZilla';
+
    return (
     <Container>
       <TopBars/>

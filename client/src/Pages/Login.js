@@ -62,6 +62,9 @@ const Link = styled.a`
 `;
 
 const Login = () => {
+
+  document.title = 'Sign In | TradeZilla';
+
   const [values, setValues] = useState({
     email: "",
     password: "",

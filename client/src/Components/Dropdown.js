@@ -10,6 +10,7 @@ function Dropdown() {
 
     return (
         <>
+            <div className='arrow'></div>
             <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
                 {MenuItems.map((item, index) => {
                     return (

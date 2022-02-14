@@ -114,6 +114,9 @@ const Button = styled.button`
 `;
 
 const Product = () => {
+
+  document.title = 'Product | TradeZilla';
+
   const [count, setCount] = useState(1);
 
   function decrementCount() {

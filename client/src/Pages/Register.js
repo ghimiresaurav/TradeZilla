@@ -46,6 +46,9 @@ const Agreement = styled.div`
 `;
 
 const Register = () => {
+
+  document.title = 'Register | TradeZilla';
+
   const [values, setValues] = useState({
     name: "",
     email: "",

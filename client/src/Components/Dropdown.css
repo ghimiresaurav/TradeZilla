@@ -1,9 +1,12 @@
 .dropdown-menu{
     width: 200px;
     position: absolute;
-    top: 100px;
+    top: 100px; /*60+ 40*/
     list-style: none;
     text-align: start;
+    border-bottom: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #000000;
 }
 
 .dropdown-menu li {
@@ -26,4 +29,16 @@
     text-decoration: none;
     color: #000000;
     padding: 10px;
+}
+
+.arrow{
+    width: 20px;
+    height: 20px;
+    background-color: #ffffff;
+    position: relative;
+    top: 20px;
+    /* right: 10px; */
+    z-index: 0;
+    transform: rotate(45deg);
+    border: 2px solid #000000;
 }

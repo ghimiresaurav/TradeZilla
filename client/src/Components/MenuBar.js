@@ -12,6 +12,7 @@ const Container = styled.div`
     z-index: 100;
     left: ${({isOpen}) => (isOpen ? '0px' : '-300px')};
     transition: 0.3s ease-in-out;
+    border-bottom: 2px solid #000000;
 
     ${mobile({
         width: "300px",
@@ -78,7 +79,7 @@ const MenuItem = styled.a`
 
 const MenuBar = ({isOpen, toggle}) => {
 
-    const [dropdown, setDropdown] = useState(false);
+    const [dropdown, setDropdown] = useState(true);///false
 
     const onMouseEnter = () => {
         if(window.innerWidth < 960){
@@ -94,7 +95,7 @@ const MenuBar = ({isOpen, toggle}) => {
             setDropdown(false);
         }
         else{
-            setDropdown(false);
+            setDropdown(true);//false
         }
     };
 
@@ -109,9 +110,13 @@ const MenuBar = ({isOpen, toggle}) => {
                 <MenuItem onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
                     Best Sellers{dropdown && <Dropdown/>}
                 </MenuItem>
-                <MenuItem>Today's Deal</MenuItem>
+                <MenuItem>
+                    Today's Deal
+                </MenuItem>
                 <MenuItem>Fashion</MenuItem>
-                <MenuItem>Electronics</MenuItem>
+                <MenuItem onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                    Electronics{dropdown && <Dropdown/>}
+                </MenuItem>
                 <MenuItem>Home and Kitchen</MenuItem>
                 <MenuItem>Groceries</MenuItem>
                 <MenuItem>Books</MenuItem>

@@ -15,10 +15,19 @@ const Container = styled.div`
     justify-content: center;
 `;
 
+const OuterArea = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    // background-color: black;
+`;
+
+
 const Popup = styled.div`
     background-color: #fcf5f5;   
     width: 50%;
     height: 60vh;
+    z-index: 10000;
 `;
 
 const CloseArea = styled.div`
@@ -90,6 +99,7 @@ const Button = styled.button`
 const NewsletterPopup = (props) => {
     return (props.trigger) ? (
             <Container>
+                <OuterArea onClick={()=> props.setTrigger(false)}></OuterArea>
                 <Popup>
                     <CloseArea>
                         <CloseButton onClick={()=> props.setTrigger(false)}>

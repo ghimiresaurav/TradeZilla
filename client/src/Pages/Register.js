@@ -1,10 +1,21 @@
 import styled from "styled-components";
-import { useState } from "react";
+import TopBars from "../Components/TopBars";
 import RegisterForm from "../Pages/RegisterForm";
+import Footer from "../Components/Footer";
+import { useState } from "react";
+import {mobile} from '../responsive';
 
 const Container = styled.div`
   width: 100%;
-  height: 100vh;
+  position: absolute;
+  top: 100px;
+
+  ${mobile({top: "50px"})}
+`;
+
+const ContentArea = styled.div`
+  width: 100%;
+  padding: 50px 0;
   background: linear-gradient(
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
@@ -17,12 +28,23 @@ const Container = styled.div`
   justify-content: center;
 `;
 
-const Wrapper = styled.div`
+const WhiteArea = styled.div`
   width: 40%;
+  min-width: 300px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+
+const Wrapper = styled.div`
+  width: 100%;
   min-width: 380px;
   padding: 20px;
   overflow: hidden;
-  background-color: #f2f2f2;
 `;
 
 const Title = styled.h1`
@@ -141,24 +163,30 @@ const Register = () => {
 
   return (
     <Container>
-      <Wrapper>
-        <Title>CREATE AN ACCOUNT</Title>
-        <Form onSubmit={handleSubmit}>
-          {inputs.map((input) => (
-            <RegisterForm
-              key={input.id}
-              {...input}
-              value={values[input.name]}
-              onChange={onChange}
-            />
-          ))}
-          <Agreement>
-            By creating an account, I consent to the processing of my personal
-            data in accordance with the <b>PRIVACY POLICY</b>
-          </Agreement>
-          <button id="submitForm">Submit</button>
-        </Form>
-      </Wrapper>
+      <TopBars/>
+      <ContentArea>
+        <WhiteArea>
+          <Wrapper>
+            <Title>CREATE AN ACCOUNT</Title>
+            <Form onSubmit={handleSubmit}>
+              {inputs.map((input) => (
+                <RegisterForm
+                  key={input.id}
+                  {...input}
+                  value={values[input.name]}
+                  onChange={onChange}
+                />
+              ))}
+              <Agreement>
+                By creating an account, I consent to the processing of my personal
+                data in accordance with the <b>PRIVACY POLICY</b>
+              </Agreement>
+              <button id="submitForm">Submit</button>
+            </Form>
+          </Wrapper>
+        </WhiteArea>
+      </ContentArea>
+      <Footer/>
     </Container>
   );
 };

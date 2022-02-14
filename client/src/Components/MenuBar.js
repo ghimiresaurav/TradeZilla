@@ -62,24 +62,25 @@ const Wrapper = styled.div`
 const MenuItem = styled.a`
     height: 40px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     font-size: 18px;
     font-weight: 500;
-    padding: 0px 15px;
+    padding: 8px 15px;
     cursor: pointer;
 
     &:hover{
         background-color: lightgray;
+        border-bottom: 2px solid #000000;
     }
 
     ${mobile({borderBottom: "1px solid gray"})}
 `;
 
 
-
 const MenuBar = ({isOpen, toggle}) => {
 
-    const [dropdown, setDropdown] = useState(true);///false
+    const [dropdown, setDropdown] = useState(false);
 
     const onMouseEnter = () => {
         if(window.innerWidth < 960){
@@ -95,7 +96,7 @@ const MenuBar = ({isOpen, toggle}) => {
             setDropdown(false);
         }
         else{
-            setDropdown(true);//false
+            setDropdown(false);
         }
     };
 
@@ -108,14 +109,16 @@ const MenuBar = ({isOpen, toggle}) => {
             </CloseArea>
             <Wrapper>
                 <MenuItem onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                    Best Sellers{dropdown && <Dropdown/>}
+                        Best Sellers
+                        {dropdown && <Dropdown/>}
                 </MenuItem>
                 <MenuItem>
                     Today's Deal
                 </MenuItem>
                 <MenuItem>Fashion</MenuItem>
                 <MenuItem onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
-                    Electronics{dropdown && <Dropdown/>}
+                    Electronics
+                    {dropdown && <Dropdown/>}
                 </MenuItem>
                 <MenuItem>Home and Kitchen</MenuItem>
                 <MenuItem>Groceries</MenuItem>

@@ -6,13 +6,13 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import RoomIcon from '@mui/icons-material/Room';
 import PhoneIcon from '@mui/icons-material/Phone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-// import { Link } from "react-router-dom";
+import {mobile} from '../responsive';
+import { Link } from "react-router-dom";
 
 const Container = styled.div`
     width: 100%;
     background-color: #000000;
     color: #ffffff;
-    padding:;
 `;
 
 const Wrapper = styled.div`
@@ -20,6 +20,8 @@ const Wrapper = styled.div`
     width: 90%;
     margin: auto;
     padding: 50px 0;
+
+    ${mobile({display: "block", width: "80%"})}
 `;
 
 
@@ -27,6 +29,8 @@ const Left = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
+    
+    ${mobile({marginBottom: "40px"})}
 `;
 
 const Logo = styled.h1`
@@ -59,6 +63,8 @@ const Center = styled.div`
     display: flex;
     flex-direction: column;
     // align-items: center;
+
+    ${mobile({marginBottom: "40px"})}
 `;
 
 const Title = styled.h3`
@@ -106,68 +112,78 @@ const CopyRight = styled.div`
 `;
 
 const Footer = () => {
-  return (
-    <Container>
-        <Wrapper>
-            <Left>
-                <Logo>TradeZilla</Logo>
-                <Desc>Buy Sell Anything! We are here for your service. Proudly an ecommerce site since 2010.</Desc>
-                <SocialContainer>
-                    <a href = "https://www.facebook.com" target="_blank">
-                        <SocialIcon color = "3B5999">
-                            <FacebookIcon/>
-                        </SocialIcon>
-                    </a>
-                    <a href = "https://www.twitter.com" target="_blank">
-                        <SocialIcon color = "E4405F">
-                            <TwitterIcon/>
-                        </SocialIcon>
-                    </a>
-                    <a href = "https://www.instagram.com" target="_blank">
-                        <SocialIcon color = "55ACEE">
-                            <InstagramIcon/>
-                        </SocialIcon>
-                    </a>
-                    <a href = "https://www.pinterest.com" target="_blank">
-                        <SocialIcon color = "E60023">
-                            <PinterestIcon/>
-                        </SocialIcon>
-                    </a>    
-                </SocialContainer>
-            </Left>
-            <Center>
-                <Title>Useful Links</Title>
-                <List>
-                    <ListItem>My Account</ListItem>
-                    <ListItem>Order Tracking</ListItem>
-                    <ListItem>Order History</ListItem>
-                    <ListItem>Wishlist</ListItem>
-                    <ListItem>Blog</ListItem>
-                    <ListItem>Careers</ListItem>
-                    <ListItem>About Us</ListItem>
-                    <ListItem>Terms</ListItem>
-                    <ListItem>Privacy Policy</ListItem>
-                </List>
-            </Center>
-            <Right>
-                <Title>Contact</Title>
-                <ContactItem>
-                    <RoomIcon style = {{marginRight: "10px"}}/>Hattiban, Lalitpur
-                </ContactItem>
-                <ContactItem>
-                    <PhoneIcon style = {{marginRight: "10px"}}/>+977 01 5251234
-                </ContactItem>
-                <ContactItem>
-                    <MailOutlineIcon style = {{marginRight: "10px"}}/>info@tradezilla.com
-                </ContactItem>
-                <Payment src = "https://i.ibb.co/Qfvn4z6/payment.png"/>
-            </Right>
-        </Wrapper>
-        <CopyRight>
-            © 2022. TradeZilla, Inc. All Rights Reserved.
-        </CopyRight>
-    </Container>
-  )
+
+    const linkStyle = {
+        textDecoration: "none",
+        color: "#ffffff"
+    };
+
+    return (
+        <Container>
+            <Wrapper>
+                <Left>
+                    <Link to = {"/"} style = {linkStyle}>
+                        <Logo>
+                            TradeZilla
+                        </Logo>
+                    </Link>
+                    <Desc>Buy Sell Anything! We are here for your service. Proudly an ecommerce site since 2010.</Desc>
+                    <SocialContainer>
+                        <a href = "https://www.facebook.com" target="_blank">
+                            <SocialIcon color = "3B5999">
+                                <FacebookIcon/>
+                            </SocialIcon>
+                        </a>
+                        <a href = "https://www.twitter.com" target="_blank">
+                            <SocialIcon color = "E4405F">
+                                <TwitterIcon/>
+                            </SocialIcon>
+                        </a>
+                        <a href = "https://www.instagram.com" target="_blank">
+                            <SocialIcon color = "55ACEE">
+                                <InstagramIcon/>
+                            </SocialIcon>
+                        </a>
+                        <a href = "https://www.pinterest.com" target="_blank">
+                            <SocialIcon color = "E60023">
+                                <PinterestIcon/>
+                            </SocialIcon>
+                        </a>    
+                    </SocialContainer>
+                </Left>
+                <Center>
+                    <Title>Useful Links</Title>
+                    <List>
+                        <ListItem>My Account</ListItem>
+                        <ListItem>Order Tracking</ListItem>
+                        <ListItem>Order History</ListItem>
+                        <ListItem>Wishlist</ListItem>
+                        <ListItem>Blog</ListItem>
+                        <ListItem>Careers</ListItem>
+                        <ListItem>About Us</ListItem>
+                        <ListItem>Terms</ListItem>
+                        <ListItem>Privacy Policy</ListItem>
+                    </List>
+                </Center>
+                <Right>
+                    <Title>Contact</Title>
+                    <ContactItem>
+                        <RoomIcon style = {{marginRight: "10px"}}/>Hattiban, Lalitpur
+                    </ContactItem>
+                    <ContactItem>
+                        <PhoneIcon style = {{marginRight: "10px"}}/>+977 01 5251234
+                    </ContactItem>
+                    <ContactItem>
+                        <MailOutlineIcon style = {{marginRight: "10px"}}/>info@tradezilla.com
+                    </ContactItem>
+                    <Payment src = "https://i.ibb.co/Qfvn4z6/payment.png"/>
+                </Right>
+            </Wrapper>
+            <CopyRight>
+                © 2022. TradeZilla, Inc. All Rights Reserved.
+            </CopyRight>
+        </Container>
+    )
 }
 
 export default Footer

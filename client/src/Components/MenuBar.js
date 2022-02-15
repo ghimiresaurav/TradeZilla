@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {mobile} from '../responsive';
 import CloseIcon from '@mui/icons-material/Close';
-import Dropdown from './Dropdown';
+import {DropdownBestSellers, DropdownTodaysDeal, DropdownFashion,  DropdownElectronics, DropdownHomeKitchen, DropdownGroceries, DropdownBooks} from './Dropdown';
 import { useState } from 'react';
 
 const Container = styled.div`
@@ -78,27 +78,128 @@ const MenuItem = styled.a`
 `;
 
 
+
 const MenuBar = ({isOpen, toggle}) => {
 
-    const [dropdown, setDropdown] = useState(false);
 
-    const onMouseEnter = () => {
+    //Best Sellers Dropdown
+    const [dropdownBestSellers, setDropdownBestSellers] = useState(false);
+
+    const showBestSellers = () => {
         if(window.innerWidth < 960){
-            setDropdown(false);
+            setDropdownBestSellers(false);
         }
         else{
-            setDropdown(true);
+            setDropdownBestSellers(true);
+
         }
     };
 
-    const onMouseLeave = () => {
+    const hideBestSellers = () => {
+        setDropdownBestSellers(false);
+    };
+
+
+    //Today's Deal Dropdown
+    const [dropdownTodaysDeal, setDropdownTodaysDeal] = useState(false);
+
+    const showTodaysDeal = () => {
         if(window.innerWidth < 960){
-            setDropdown(false);
+            setDropdownTodaysDeal(false);
         }
         else{
-            setDropdown(false);
+            setDropdownTodaysDeal(true);
+
         }
     };
+
+    const hideTodaysDeal = () => {
+        setDropdownTodaysDeal(false);
+    };
+
+
+    //Fashion Dropdown
+    const [dropdownFashion, setDropdownFashion] = useState(false);
+
+    const showFashion = () => {
+        if(window.innerWidth < 960){
+            setDropdownFashion(false);
+        }
+        else{
+            setDropdownFashion(true);
+        }
+    };
+
+    const hideFashion = () => {
+        setDropdownFashion(false);
+    };
+
+
+    //Electronics Dropdown
+    const [dropdownElectronics, setDropdownElectronics] = useState(false);
+
+    const showElectronics = () => {
+        if(window.innerWidth < 960){
+            setDropdownElectronics(false);
+        }
+        else{
+            setDropdownElectronics(true);
+        }
+    };
+
+    const hideElectronics = () => {
+        setDropdownElectronics(false);
+    };
+
+
+    //Home and Kitchen Dropdown
+    const [dropdownHomeKitchen, setDropdownHomeKitchen] = useState(false);
+
+    const showHomeKitchen = () => {
+        if(window.innerWidth < 960){
+            setDropdownHomeKitchen(false);
+        }
+        else{
+            setDropdownHomeKitchen(true);
+        }
+    };
+
+    const hideHomeKitchen = () => {
+        setDropdownHomeKitchen(false);
+    };
+
+    //Groceries Dropdown
+    const [dropdownGroceries, setDropdownGroceries] = useState(false);
+
+    const showGroceries = () => {
+        if(window.innerWidth < 960){
+            setDropdownGroceries(false);
+        }
+        else{
+            setDropdownGroceries(true);
+        }
+    };
+
+    const hideGroceries= () => {
+        setDropdownGroceries(false);
+    };
+
+    //Books Dropdown
+    const [dropdownBooks, setDropdownBooks] = useState(false);
+
+    const showBooks = () => {
+        if(window.innerWidth < 960){
+            setDropdownBooks(false);
+        }
+        else{
+            setDropdownBooks(true);
+        }
+    };
+
+    const hideBooks= () => {
+        setDropdownBooks(false);
+    };
+
 
     return(
         <Container isOpen = {isOpen}>
@@ -108,21 +209,34 @@ const MenuBar = ({isOpen, toggle}) => {
                 </CloseButton>
             </CloseArea>
             <Wrapper>
-                <MenuItem onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                 <MenuItem onMouseEnter={showBestSellers} onMouseLeave={hideBestSellers}>
                         Best Sellers
-                        {dropdown && <Dropdown/>}
+                        {dropdownBestSellers && <DropdownBestSellers/>}
                 </MenuItem>
-                <MenuItem>
+                <MenuItem onMouseEnter={showTodaysDeal} onMouseLeave={hideTodaysDeal}>
                     Today's Deal
+                    {dropdownTodaysDeal && <DropdownTodaysDeal/>}
                 </MenuItem>
-                <MenuItem>Fashion</MenuItem>
-                <MenuItem onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+                <MenuItem onMouseEnter={showFashion} onMouseLeave={hideFashion}>
+                    Fashion
+                    {dropdownFashion && <DropdownFashion/>}
+                </MenuItem>
+                <MenuItem onMouseEnter={showElectronics} onMouseLeave={hideElectronics}>
                     Electronics
-                    {dropdown && <Dropdown/>}
+                    {dropdownElectronics && <DropdownElectronics/>}
                 </MenuItem>
-                <MenuItem>Home and Kitchen</MenuItem>
-                <MenuItem>Groceries</MenuItem>
-                <MenuItem>Books</MenuItem>
+                <MenuItem onMouseEnter={showHomeKitchen} onMouseLeave={hideHomeKitchen}>
+                    Home and Kitchen
+                    {dropdownHomeKitchen && <DropdownHomeKitchen/>}
+                </MenuItem>
+                <MenuItem onMouseEnter={showGroceries} onMouseLeave={hideGroceries}>
+                    Groceries
+                    {dropdownGroceries && <DropdownGroceries/>}
+                </MenuItem>
+                <MenuItem onMouseEnter={showBooks} onMouseLeave={hideBooks}>
+                    Books
+                    {dropdownBooks && <DropdownBooks/>}
+                </MenuItem>
             </Wrapper>
         </Container>
     )

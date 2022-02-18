@@ -8,11 +8,13 @@ import NewsletterPopup from '../Components/NewsletterPopup';
 import ReturnTop from '../Components/ReturnTop';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import './test.css';
 
-const Test = styled.body`
-    overflow-y: hidden;
+
+const Container = styled.div`
+    height: ${(props) => props.setHeight};
+    overflow-y: ${(props) => props.setOverflow};
 `;
+
 
 const Home = () => {
 
@@ -27,15 +29,27 @@ const Home = () => {
         }, 3000);
     }, [])
 
-    if(timedPopup){
-        document.body.classList.add('active-modal');
-    }
-    else{
-        document.body.classList.remove('active-modal');
+    function checkPopup(argument){
+        if(timedPopup){
+            if (argument === "height"){
+                return "100vh";
+            }
+            else{
+                return "hidden";
+            }    
+        }
+        else{
+            if (argument === "height"){
+                return "";
+            }
+            else{
+                return "none";
+            }
+        }
     }
 
     return (
-        <div>
+        <Container setHeight = {checkPopup("height")} setOverflow = {checkPopup("overflow")}>
             <Announcement />
             <TopBars/>
             <Slider />
@@ -44,7 +58,7 @@ const Home = () => {
             <Footer />
             <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/>
             <ReturnTop/>
-        </div>
+        </Container>
     );
 };
 

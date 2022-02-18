@@ -1,24 +1,43 @@
 import { BestSellers, TodaysDeal, Fashion, Electronics, HomeandKitchen, Groceries, Books } from '../datas/MenuItems'
-import { useState } from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-import './Dropdown.css';
 
 
 const Container = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-top: 2px;
 `;
 
 const Arrow = styled.div`
     width: 20px;
     height: 20px;
     background-color: #ffffff;
-    top: 4px;
-    z-index: 0;
     transform: rotate(45deg);
     border: 2px solid #000000;
+    z-index: 1000:
+`;
+
+const DropdownList = styled.ul`
+    width: 200px;
+    position: absolute;
+    margin-top: 8px; //(20/2 - 2 = 8) height of arrow/2 - margin-top of the dropdown container
+    list-style: none;
+    text-align: start;  
+    border-bottom: 2px solid #000000;
+    border-left: 2px solid #000000;
+    border-right: 2px solid #000000;
+    z-index: 300;
+`;
+
+const DropdownItem = styled.li`
+    background: #ffffff;
+    cursor: pointer;
+
+    &:hover{
+        text-decoration: underline;  
+    }
 `;
 
 const SubCategory = styled.div`
@@ -38,54 +57,44 @@ const linkStyle = {
 
 function DropdownBestSellers() {
 
-    const [click, setClick] = useState(false);
-
-    const handleClick = () => setClick(!click);
-
-
     return (
         <Container>
             <Arrow/>
-            <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
+            <DropdownList>
                 {BestSellers.map((item, index) => {
                     return (
-                        <li key = {index}>
-                            <Link to = {item.path} onClick = {() => setClick(false)} style = {linkStyle}>
+                        <DropdownItem key = {index}>
+                            <Link to = {item.path} style = {linkStyle}>
                                 <SubCategory>
                                     {item.title}
                                 </SubCategory> 
                             </Link>
-                        </li>
+                        </DropdownItem>
                     );
                 })}
-            </ul>
+            </DropdownList>
         </Container>
     )
 }
 
 function DropdownTodaysDeal() {
 
-    const [click, setClick] = useState(false);
-
-    const handleClick = () => setClick(!click);
-
-
     return (
         <Container>
             <Arrow/>
-            <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
+            <DropdownList>
                 {TodaysDeal.map((item, index) => {
                     return (
-                        <li key = {index}>
-                            <Link to = {item.path} onClick = {() => setClick(false)} style = {linkStyle}>
+                        <DropdownItem key = {index}>
+                            <Link to = {item.path} style = {linkStyle}>
                                 <SubCategory>
                                     {item.title}
                                 </SubCategory> 
                             </Link>
-                        </li>
+                        </DropdownItem>
                     );
                 })}
-            </ul>
+            </DropdownList>
         </Container>
     )
 }
@@ -93,27 +102,22 @@ function DropdownTodaysDeal() {
 
 function DropdownFashion() {
 
-    const [click, setClick] = useState(false);
-
-    const handleClick = () => setClick(!click);
-
-
     return (
         <Container>
             <Arrow/>
-            <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
+            <DropdownList>
                 {Fashion.map((item, index) => {
                     return (
-                        <li key = {index}>
-                            <Link to = {item.path} onClick = {() => setClick(false)} style = {linkStyle}>
+                        <DropdownItem key = {index}>
+                            <Link to = {item.path} style = {linkStyle}>
                                 <SubCategory>
                                     {item.title}
                                 </SubCategory> 
                             </Link>
-                        </li>
+                        </DropdownItem>
                     );
                 })}
-            </ul>
+            </DropdownList>
         </Container>
     )
 }
@@ -121,27 +125,22 @@ function DropdownFashion() {
 
 function DropdownElectronics() {
 
-    const [click, setClick] = useState(false);
-
-    const handleClick = () => setClick(!click);
-
-
     return (
         <Container>
             <Arrow/>
-            <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
+            <DropdownList>
                 {Electronics.map((item, index) => {
                     return (
-                        <li key = {index}>
-                            <Link to = {item.path} onClick = {() => setClick(false)} style = {linkStyle}>
+                        <DropdownItem key = {index}>
+                            <Link to = {item.path} style = {linkStyle}>
                                 <SubCategory>
                                     {item.title}
                                 </SubCategory> 
                             </Link>
-                        </li>
+                        </DropdownItem>
                     );
                 })}
-            </ul>
+            </DropdownList>
         </Container>
     )
 }
@@ -149,27 +148,22 @@ function DropdownElectronics() {
 
 function DropdownHomeKitchen() {
 
-    const [click, setClick] = useState(false);
-
-    const handleClick = () => setClick(!click);
-
-
     return (
         <Container>
             <Arrow/>
-            <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
+            <DropdownList>
                 {HomeandKitchen.map((item, index) => {
                     return (
-                        <li key = {index}>
-                            <Link to = {item.path} onClick = {() => setClick(false)} style = {linkStyle}>
+                        <DropdownItem key = {index}>
+                            <Link to = {item.path} style = {linkStyle}>
                                 <SubCategory>
                                     {item.title}
                                 </SubCategory> 
                             </Link>
-                        </li>
+                        </DropdownItem>
                     );
                 })}
-            </ul>
+            </DropdownList>
         </Container>
     )
 }
@@ -177,27 +171,22 @@ function DropdownHomeKitchen() {
 
 function DropdownGroceries() {
 
-    const [click, setClick] = useState(false);
-
-    const handleClick = () => setClick(!click);
-
-
     return (
         <Container>
             <Arrow/>
-            <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
+            <DropdownList>
                 {Groceries.map((item, index) => {
                     return (
-                        <li key = {index}>
-                            <Link to = {item.path} onClick = {() => setClick(false)} style = {linkStyle}>
+                        <DropdownItem key = {index}>
+                            <Link to = {item.path} style = {linkStyle}>
                                 <SubCategory>
                                     {item.title}
                                 </SubCategory> 
                             </Link>
-                        </li>
+                        </DropdownItem>
                     );
                 })}
-            </ul>
+            </DropdownList>
         </Container>
     )
 }
@@ -205,31 +194,52 @@ function DropdownGroceries() {
 
 function DropdownBooks() {
 
-    const [click, setClick] = useState(false);
-
-    const handleClick = () => setClick(!click);
-
-
     return (
         <Container>
             <Arrow/>
-            <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
+            <DropdownList>
                 {Books.map((item, index) => {
                     return (
-                        <li key = {index}>
-                            <Link to = {item.path} onClick = {() => setClick(false)} style = {linkStyle}>
+                        <DropdownItem key = {index}>
+                            <Link to = {item.path} style = {linkStyle}>
                                 <SubCategory>
                                     {item.title}
                                 </SubCategory> 
                             </Link>
-                        </li>
+                        </DropdownItem>
                     );
                 })}
-            </ul>
+            </DropdownList>
         </Container>
     )
 }
 
+// function DropdownBooks() {
+
+//     const [click, setClick] = useState(false);
+
+//     const handleClick = () => setClick(!click);
+
+
+//     return (
+//         <Container>
+//             <Arrow/>
+//             <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
+//                 {Books.map((item, index) => {
+//                     return (
+//                         <li key = {index}>
+//                             <Link to = {item.path} onClick = {() => setClick(false)} style = {linkStyle}>
+//                                 <SubCategory>
+//                                     {item.title}
+//                                 </SubCategory> 
+//                             </Link>
+//                         </li>
+//                     );
+//                 })}
+//             </ul>
+//         </Container>
+//     )
+// }
 
 export {
     DropdownBestSellers,

@@ -9,6 +9,7 @@ import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import {mobile} from '../responsive';
 import { Link } from "react-router-dom";
 
+
 const Container = styled.div`
     width: 100%;
     background-color: #000000;
@@ -49,13 +50,40 @@ const SocialIcon = styled.div`
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    color: #ffffff;
     background-color: #${props=>props.color};
     display: flex;
     align-items: center;
     justify-content: center;
     margin-right: 20px;
     cursor: pointer;
+    transition: 0.5s;
+    overflow: hidden;
+    position: relative; //important
+
+    &:hover{
+        transform: translateY(-5px);
+    }
+
+    ::before{
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 10px;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.5);
+        transform: skewX(25deg) translateX(50px);
+        transition: 0.5s;
+    }
+
+    &:hover::before{
+        transform: skewX(25deg) translateX(-50px);
+    }
+`;
+
+const SocialLink = styled.a`
+    text-decoration: none;
+    color: #ffffff;
 `;
 
 const Center = styled.div`
@@ -129,26 +157,26 @@ const Footer = () => {
                     </Link>
                     <Desc>Buy Sell Anything! We are here for your service. Proudly an ecommerce site since 2010.</Desc>
                     <SocialContainer>
-                        <a href = "https://www.facebook.com" target="_blank">
-                            <SocialIcon color = "3B5999">
+                        <SocialIcon color = "3B5999">
+                            <SocialLink href = "https://www.facebook.com" target="_blank">
                                 <FacebookIcon/>
-                            </SocialIcon>
-                        </a>
-                        <a href = "https://www.twitter.com" target="_blank">
-                            <SocialIcon color = "E4405F">
+                            </SocialLink>
+                        </SocialIcon>
+                        <SocialIcon color = "E4405F">
+                            <SocialLink  href = "https://www.twitter.com" target="_blank">   
                                 <TwitterIcon/>
-                            </SocialIcon>
-                        </a>
-                        <a href = "https://www.instagram.com" target="_blank">
-                            <SocialIcon color = "55ACEE">
+                            </SocialLink>
+                        </SocialIcon>
+                        <SocialIcon color = "55ACEE">
+                            <SocialLink  href = "https://www.instagram.com" target="_blank">
                                 <InstagramIcon/>
-                            </SocialIcon>
-                        </a>
-                        <a href = "https://www.pinterest.com" target="_blank">
-                            <SocialIcon color = "E60023">
+                            </SocialLink>
+                        </SocialIcon>
+                        <SocialIcon color = "E60023">
+                            <SocialLink  href = "https://www.pinterest.com" target="_blank">
                                 <PinterestIcon/>
-                            </SocialIcon>
-                        </a>    
+                            </SocialLink>
+                        </SocialIcon>
                     </SocialContainer>
                 </Left>
                 <Center>

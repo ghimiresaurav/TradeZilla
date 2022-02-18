@@ -66,7 +66,7 @@ const MenuItem = styled.a`
     align-items: center;
     font-size: 18px;
     font-weight: 500;
-    padding: 8px 15px;
+    padding: 9px 15px;
     cursor: pointer;
 
     &:hover{

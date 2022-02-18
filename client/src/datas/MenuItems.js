@@ -28,12 +28,12 @@ export const TodaysDeal = [
         cName: "dropdown-link"
     },
     {
-        title: "Tablets",
+        title: "Wallet",
         path: "../pages/Login",
         cName: "dropdown-link"
     },
     {
-        title: "Laptops",
+        title: "Gifts",
         path: "../pages/Login",
         cName: "dropdown-link"
     },

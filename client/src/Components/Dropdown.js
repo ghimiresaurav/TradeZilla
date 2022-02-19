@@ -221,8 +221,20 @@ function DropdownUser() {
         <Container>
             <Arrow/>
             <DropdownList>
-                <DropdownItem><SubCategory>My Account</SubCategory></DropdownItem>
-                <DropdownItem><SubCategory>Log Out</SubCategory></DropdownItem>
+                <DropdownItem>
+                    <Link to = './cart' style = {linkStyle}>
+                        <SubCategory>
+                            My Account
+                        </SubCategory>
+                    </Link>
+                </DropdownItem>
+                <DropdownItem>
+                    <Link to = '/cart' style = {linkStyle}>
+                        <SubCategory>
+                            Log Out
+                        </SubCategory>
+                    </Link>
+            </DropdownItem>
             </DropdownList>
         </Container>
     )

@@ -132,48 +132,44 @@ const Cart = styled.div`
 
 const RightJSX = (props) => {
 
-  const getInitials = (name) => {
-    const x = name.split(" ");
-    return x[0].split("")[0] + x[x.length - 1].split("")[0];
-  };
+    console.log(props.loggedIn);
 
-  const [dropdownUser, setDropdownUser] = useState(false);
+    const getInitials = (name) => {
+        const x = name.split(" ");
+        return x[0].split("")[0] + x[x.length - 1].split("")[0];
+    };
 
-  const showDropdown = () => {
-      if(window.innerWidth < 960){
-          setDropdownUser(false);
-      }
-      else{
-          setDropdownUser(true);
-      }
-  };
+    const [dropdownUser, setDropdownUser] = useState(false);
 
-  const hideDropdown= () => {
-      setDropdownUser(false);
-  };
+    const showDropdown = () => {
+        if(window.innerWidth < 960){
+            setDropdownUser(false);
+        }
+        else{
+            setDropdownUser(true);
+        }
+    };
 
-  return props.loggedIn ? (
-    <Right>
-      <UserField onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
-        <UserName>
-            {getInitials(localStorage.getItem("name"))}
-        </UserName>
-        {dropdownUser && <DropdownUser/>}
-      </UserField>
-      <Cart>
-          <Badge badgeContent={0} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
-      </Cart>
-    </Right>
-  ) : (
-    <Right>
-      <SignInContainer>
-          <PersonIcon/>
-          <SignIn>SIGN IN</SignIn>
-      </SignInContainer>
-      <Cart>
-          <Badge badgeContent={0} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
-      </Cart>
-    </Right>
+    const hideDropdown= () => {
+        setDropdownUser(false);
+    };
+
+    return props.loggedIn ? (
+
+        <UserField onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
+            <UserName>
+                {getInitials(localStorage.getItem("name"))}
+            </UserName>
+            {dropdownUser && <DropdownUser/>}
+        </UserField>
+
+    ) : (
+
+        <SignInContainer>
+            <PersonIcon/>
+            <SignIn>SIGN IN</SignIn>
+        </SignInContainer>
+      
   );
 };
 
@@ -204,7 +200,14 @@ const NavBar = (props, toggle) => {
                         </Logo>
                     </Link>
                 </Center>
-                <RightJSX loggedIn={props.loggedIn} />
+                <Right>
+                    <RightJSX loggedIn={props.loggedIn} />
+                    <Cart>
+                        <Link style = {linkStyle} to = {"/cart"}>
+                            <Badge badgeContent={2} color="primary"><ShoppingCartOutlinedIcon/></Badge>
+                        </Link>        
+                    </Cart>
+                </Right>
             </Wrapper>
         </Container>
     )

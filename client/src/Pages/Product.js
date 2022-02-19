@@ -113,7 +113,7 @@ const Button = styled.button`
   }
 `;
 
-const Product = () => {
+const Product = (props) => {
 
   document.title = 'Product | TradeZilla';
 
@@ -133,7 +133,7 @@ const Product = () => {
 
   return (
     <Container>
-      <TopBars/>
+      <TopBars loggedIn = {props.loggedIn}/>
       <Wrapper>
         <ImgContainer>
           <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />

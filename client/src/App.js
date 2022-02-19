@@ -20,12 +20,12 @@ function App() {
       <Globalstyle/>
       <Router>
         <Routes>
-          <Route exact path="/" element={userLoggedIn ? <Home loggedIn = "true"/> : <Home loggedIn = "false"/> }/>
-          <Route path="/product-list/:category" element={<ProductList/>}/>
-          <Route path="/product/:id" element={<Product/>}/>
+          <Route exact path="/" element={userLoggedIn ? <Home loggedIn = "true"/> : <Home loggedIn = "false"/>}/>
+          <Route path="/product-list/:category" element={userLoggedIn ? <ProductList loggedIn = "true"/> : <ProductList loggedIn = "false"/>}/>
+          <Route path="/product/:id" element={userLoggedIn ? <Product loggedIn = "true"/> : <Product loggedIn = "false"/> }/>
           <Route path="/register" element = {userLoggedIn ? <Navigate to = "/"/> : <Register/>}/>
           <Route path="/login" element={userLoggedIn ? <Navigate to = "/"/> :<Login/>}/>
-          <Route path="/cart" element={<Cart/>}/>
+          <Route path="/cart" element={userLoggedIn ? <Cart loggedIn = "true"/> : <Cart loggedIn = "false"/>}/>
         </Routes>
       </Router>
     </>

@@ -18,8 +18,6 @@ const Container = styled.div`
 
 const Home = (props) => {
 
-    console.log("jhjhnjk" + props.loggedIn);
-
     document.title = 'TradeZilla | Online Shopping';
 
     const [timedPopup, setTimedPopup] = useState(false);

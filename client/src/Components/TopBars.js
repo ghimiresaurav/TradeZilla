@@ -15,8 +15,6 @@ const Container = styled.div`
 
 const TopBars = (props) => {
 
-    console.log(props.loggedIn);
-
     const [scrollNav, setScrollNav] = useState(false)
 
     const changeNav = () => {

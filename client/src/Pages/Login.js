@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import TopBars from "../Components/TopBars";
-import RegisterForm from "./RegisterForm";
 import Footer from "../Components/Footer";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -126,9 +125,11 @@ const Login = () => {
       localStorage.setItem("token", response.token);
       localStorage.setItem("userId", response.id);
       localStorage.setItem("name", response.name);
-      window.location.assign("/p/dash");
+      window.location.assign("/");
     }
     console.log(response);
+    console.log(resp);
+    console.log(values);
   };
 
   const inputs = [

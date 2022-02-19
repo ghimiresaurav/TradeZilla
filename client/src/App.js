@@ -20,7 +20,7 @@ function App() {
       <Globalstyle/>
       <Router>
         <Routes>
-          <Route exact path="/" element={userLoggedIn ? <Home LoggedIn = "true"/> : <Home LoggedIn = "false"/> }/>
+          <Route exact path="/" element={userLoggedIn ? <Home loggedIn = "true"/> : <Home loggedIn = "false"/> }/>
           <Route path="/product-list/:category" element={<ProductList/>}/>
           <Route path="/product/:id" element={<Product/>}/>
           <Route path="/register" element = {userLoggedIn ? <Navigate to = "/"/> : <Register/>}/>

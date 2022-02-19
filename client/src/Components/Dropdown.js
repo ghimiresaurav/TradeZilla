@@ -16,7 +16,7 @@ const Arrow = styled.div`
     background-color: #ffffff;
     transform: rotate(45deg);
     border: 2px solid #000000;
-    z-index: 1000:
+    // z-index: 1000;
 `;
 
 const DropdownList = styled.ul`
@@ -28,7 +28,7 @@ const DropdownList = styled.ul`
     border-bottom: 2px solid #000000;
     border-left: 2px solid #000000;
     border-right: 2px solid #000000;
-    z-index: 300;
+    // z-index: 300;
 `;
 
 const DropdownItem = styled.li`
@@ -214,6 +214,20 @@ function DropdownBooks() {
     )
 }
 
+
+function DropdownUser() {
+
+    return (
+        <Container>
+            <Arrow/>
+            <DropdownList>
+                <DropdownItem><SubCategory>My Account</SubCategory></DropdownItem>
+                <DropdownItem><SubCategory>Log Out</SubCategory></DropdownItem>
+            </DropdownList>
+        </Container>
+    )
+}
+
 // function DropdownBooks() {
 
 //     const [click, setClick] = useState(false);
@@ -248,5 +262,6 @@ export {
     DropdownElectronics,
     DropdownHomeKitchen,
     DropdownGroceries,
-    DropdownBooks
+    DropdownBooks,
+    DropdownUser
 };

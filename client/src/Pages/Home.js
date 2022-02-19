@@ -16,7 +16,9 @@ const Container = styled.div`
 `;
 
 
-const Home = () => {
+const Home = (props) => {
+
+    console.log("jhjhnjk" + props.loggedIn);
 
     document.title = 'TradeZilla | Online Shopping';
 
@@ -51,7 +53,7 @@ const Home = () => {
     return (
         <Container setHeight = {checkPopup("height")} setOverflow = {checkPopup("overflow")}>
             <Announcement />
-            <TopBars/>
+            <TopBars loggedIn = {props.loggedIn}/>
             <Slider />
             <Categories />
             <Products />

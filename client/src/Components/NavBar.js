@@ -132,8 +132,6 @@ const Cart = styled.div`
 
 const RightJSX = (props) => {
 
-    console.log(props.loggedIn);
-
     const getInitials = (name) => {
         const x = name.split(" ");
         return x[0].split("")[0] + x[x.length - 1].split("")[0];
@@ -174,7 +172,7 @@ const RightJSX = (props) => {
 };
 
 
-const NavBar = (props, toggle) => {
+const NavBar = (props) => {
 
     const linkStyle = {
         textDecoration: "none",
@@ -185,7 +183,7 @@ const NavBar = (props, toggle) => {
         <Container>
             <Wrapper>
                 <Left>
-                    <MenuContainer onClick = {toggle}>
+                    <MenuContainer onClick = {props.toggle}>
                         <MenuIcon/>
                     </MenuContainer>  
                     <SearchContainer>

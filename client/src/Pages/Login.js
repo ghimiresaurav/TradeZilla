@@ -4,6 +4,8 @@ import Footer from "../Components/Footer";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {mobile} from '../responsive';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const Container = styled.div`
 	width: 100%;
@@ -57,14 +59,33 @@ const Form = styled.form`
 	flex-direction: column;
 `;
 
-const LoginForm = styled.input`
-	margin: 10px 0;
-	padding: 10px;
-	border-radius: 3px;
-	border: 0px solid black;
-	box-shadow: 3px 3px 5px grey;
-	display: flex;
+const InputContainer = styled.div`  
+  display: flex;
+  border: 2px solid #757575;
+  align-items: center;
+  height: 40px;
+  margin-bottom: 10px;
+  // background-color: green;
 `;
+
+const Input = styled.input`
+	margin: 0px 5px;
+	padding: 10px;
+	border: none;
+  outline: none;
+  width: 100%;
+  height: 80%;
+
+  ::placeholder{
+    font-size: 12px;
+  }
+`;
+
+const PasswordOption = styled.div`
+  margin-right: 10px;
+  cursor: pointer;
+`;
+
 
 const Button = styled.button`
 	margin: 15px 0;
@@ -98,6 +119,22 @@ const Login = () => {
     textDecoration: "none",
     color: "#000000"
   };
+
+  const [passwordVisibility, setPasswordVisibility] = useState(false);
+
+  const changePasswordVisibility = () =>{
+    setPasswordVisibility(!passwordVisibility);
+  }
+
+  // const passwordType = () =>{
+  //   console.log("PasswoRD Visible " + passwordVisibility);
+  //   if (passwordVisibility){
+  //     return "text";
+  //   }
+  //   else{
+  //     return "password";
+  //   }
+  // }
 
   const [values, setValues] = useState({
     email: "",
@@ -156,18 +193,25 @@ const Login = () => {
         <WhiteArea>
           <Wrapper>
             <Title>SIGN IN</Title>
-            <Form onSubmit={login}>
-              {inputs.map((input) => (
+            <Form>
+              {/* {inputs.map((input) => (
                 <LoginForm
                   key={input.id}
                   {...input}
                   value={values[input.name]}
                   onChange={handleChange}
                 />
-              ))}
-              {/* <Input placeholder="Username"></Input>
-                      <Input placeholder="Password"></Input> */}
-              <Button>LOGIN</Button>
+              ))} */}
+              <InputContainer>
+                <Input placeholder="Username"></Input>
+              </InputContainer>
+              <InputContainer>
+                <Input placeholder="Password" type = {passwordVisibility ? "text" : "password"} style = {{fontFamily: "Verdana", fontSize: "20px"}}></Input>
+                <PasswordOption onClick = {changePasswordVisibility}>
+                  {passwordVisibility ? (<VisibilityOffIcon/>) : (<VisibilityIcon/>)}
+                </PasswordOption>
+              </InputContainer>
+              <Button onSubmit={login}>LOGIN</Button>
               <ForgotPassword>
                 Forgot Password?
               </ForgotPassword>

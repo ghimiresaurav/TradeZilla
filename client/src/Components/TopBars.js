@@ -34,6 +34,7 @@ const TopBars = (props) => {
 
     const toggle = () =>{
         setIsOpen(!isOpen);
+        console.log("Check ........." + isOpen);
     };
 
     return (

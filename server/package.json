@@ -27,13 +27,15 @@
   },
   "homepage": "https://github.com/ghimiresaurav/TradeZilla#readme",
   "dependencies": {
+    "@types/nodemailer": "^6.4.4",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
     "dotenv": "^14.2.0",
     "express": "^4.17.2",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.1.7",
-    "mongoose-hidden": "^1.9.1"
+    "mongoose-hidden": "^1.9.1",
+    "nodemailer": "^6.7.2"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.0",

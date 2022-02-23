@@ -7,6 +7,7 @@ dotenv.config();
 //import controllers
 import register from "./controllers/register";
 import login from "./controllers/login";
+import mail from "./controllers/email";
 
 const app: Application = express();
 
@@ -15,6 +16,7 @@ app.use(cors({ origin: process.env.CLIENT }));
 
 app.post("/register", register);
 app.post("/login", login);
+app.get("/email", mail);
 
 const PORT: number = parseInt(<string>process.env.PORT) || 5000;
 

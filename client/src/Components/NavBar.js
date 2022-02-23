@@ -131,6 +131,7 @@ const Cart = styled.div`
 
 
 const RightJSX = (props) => {
+    props.loggedIn = false;
 
     const getInitials = (name) => {
         const x = name.split(" ");

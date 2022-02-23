@@ -4,6 +4,7 @@ import Product from './Pages/Product';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Cart from './Pages/Cart';
+import SellOnTradeZilla from './Pages/SellOnTradeZilla';
 import Globalstyle from './globalStyles';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
@@ -26,6 +27,7 @@ function App() {
           <Route path="/register" element = {userLoggedIn ? <Navigate to = "/"/> : <Register/>}/>
           <Route path="/login" element={userLoggedIn ? <Navigate to = "/"/> :<Login/>}/>
           <Route path="/cart" element={userLoggedIn ? <Cart loggedIn = "true"/> : <Cart loggedIn = "false"/>}/>
+          <Route path="/sellontradezilla" element={userLoggedIn ? <SellOnTradeZilla loggedIn = "true"/> : <SellOnTradeZilla loggedIn = "false"/>}/>       
         </Routes>
       </Router>
     </>

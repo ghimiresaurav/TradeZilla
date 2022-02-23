@@ -7,6 +7,7 @@ interface UserType {
   password: String;
   dob: Date;
   joinedOn: Date;
+  verified: boolean;
   cart: [ItemType];
 }
 
@@ -41,6 +42,10 @@ const UserSchema = new mongoose.Schema<UserType>({
     type: Date,
     immutable: true,
     default: new Date(),
+  },
+  verified: {
+    type: Boolean,
+    default: false,
   },
   cart: [ItemSchema],
 });

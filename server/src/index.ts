@@ -9,10 +9,15 @@ import register from "./controllers/register";
 import login from "./controllers/login";
 import mail from "./controllers/email";
 
+// Import Route
+import loggedInRoute from "./routes/loggedIn";
+
 const app: Application = express();
 
 app.use(express.json());
 app.use(cors({ origin: process.env.CLIENT }));
+
+app.use("/s", loggedInRoute);
 
 app.post("/register", register);
 app.post("/login", login);

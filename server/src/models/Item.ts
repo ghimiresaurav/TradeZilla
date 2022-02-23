@@ -1,13 +1,13 @@
 import mongoose from "mongoose";
 
 interface ItemType {
-  item: mongoose.Types.ObjectId;
+  item_id: mongoose.Types.ObjectId;
   quantity: Number;
   addedOn: Date;
 }
 
 const ItemSchema = new mongoose.Schema<ItemType>({
-  item: {
+  item_id: {
     type: mongoose.Types.ObjectId,
     required: true,
   },

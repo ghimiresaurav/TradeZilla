@@ -1,15 +1,15 @@
-import { Schema, model, Types } from "mongoose";
+import mongoose from "mongoose";
 
 interface ProductType {
   title: string;
-  vendor: Types.ObjectId;
+  vendor: mongoose.Types.ObjectId;
   postedOn: Date;
   quantity: Number;
   rating: Number;
   mfgDate: Date;
 }
 
-const ProductSchema = new Schema<ProductType>({
+const ProductSchema = new mongoose.Schema<ProductType>({
   title: {
     type: String,
     required: true,
@@ -17,7 +17,7 @@ const ProductSchema = new Schema<ProductType>({
   },
   vendor: {
     required: true,
-    type: Types.ObjectId,
+    type: mongoose.Types.ObjectId,
   },
   postedOn: {
     type: Date,
@@ -37,5 +37,10 @@ const ProductSchema = new Schema<ProductType>({
   },
 });
 
-const ProductModel = model<ProductType>("Product", ProductSchema);
+const ProductModel = mongoose.model<ProductType>("Product", ProductSchema);
 export { ProductModel as Product, ProductType };
+
+// review: {
+//   rating: Number,
+//   comment: String
+// }

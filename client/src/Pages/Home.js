@@ -26,7 +26,7 @@ const Home = (props) => {
     useEffect(() => {
         setTimeout(() => {
             setTimedPopup(true);
-        }, 3000);
+        }, 10000);
     }, [])
 
     function checkPopup(argument){

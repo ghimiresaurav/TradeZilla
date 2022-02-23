@@ -46,13 +46,13 @@ const Option = styled.option`
 `;
 
 
- const ProductList = () => {
+ const ProductList = (props) => {
 
   document.title = 'Product List | TradeZilla';
 
    return (
     <Container>
-      <TopBars/>
+      <TopBars loggedIn = {props.loggedIn}/>
       <Wrapper>
         <Title>Dresses</Title>
         <FilterContainer>

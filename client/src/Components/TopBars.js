@@ -15,8 +15,6 @@ const Container = styled.div`
 
 const TopBars = (props) => {
 
-    console.log(props);
-
     const [scrollNav, setScrollNav] = useState(false)
 
     const changeNav = () => {
@@ -36,6 +34,7 @@ const TopBars = (props) => {
 
     const toggle = () =>{
         setIsOpen(!isOpen);
+        console.log("Check ........." + isOpen);
     };
 
     return (

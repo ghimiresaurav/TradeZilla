@@ -59,14 +59,14 @@ const Wrapper = styled.div`
     ${mobile({display: "block", width: "80%"})}
 `;
 
-const MenuItem = styled.a`
+const MenuItem = styled.div`
     height: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     font-size: 18px;
     font-weight: 500;
-    padding: 8px 15px;
+    padding: 9px 15px;
     cursor: pointer;
 
     &:hover{

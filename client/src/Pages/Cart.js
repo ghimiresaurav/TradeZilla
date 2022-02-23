@@ -163,13 +163,13 @@ const Button = styled.button`
 `;
 
 
-const Cart = () => {
+const Cart = (props) => {
 
     document.title = 'Cart | Tradezilla';
 
     return (
         <Container>
-            <TopBars/>
+            <TopBars loggedIn = {props.loggedIn}/>
             <Wrapper>
                 <Title>YOUR BAG</Title>
                 <Top>

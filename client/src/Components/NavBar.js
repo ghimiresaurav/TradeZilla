@@ -6,6 +6,8 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
 import {mobile} from '../responsive';
 import { Link } from "react-router-dom";
+import { DropdownUser } from './Dropdown';
+import { useState } from 'react';
 
 const Container = styled.div`
     width: 100%;
@@ -94,6 +96,27 @@ const SignInContainer = styled.div`
     ${mobile({display: "none"})};
 `;
 
+const UserField = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    height: 40px;
+    width: 40px;
+    padding: 9px 0;
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    position: relative;
+
+    ${mobile({display: "none"})};
+`;
+
+const UserName = styled.div`
+    // position: absolute;
+    // margin-bottom: 9px;
+    // background-color: green;
+`;
+
 const SignIn = styled.a`
     font-size: 14px;
     margin-left: 10px;
@@ -106,37 +129,50 @@ const Cart = styled.div`
     ${mobile({marginRight: "25px"})};
 `;
 
+
 const RightJSX = (props) => {
 
-  const getInitials = (name) => {
-    const x = name.split(" ");
-    return x[0].split("")[0] + x[x.length - 1].split("")[0];
-  };
+    const getInitials = (name) => {
+        const x = name.split(" ");
+        return x[0].split("")[0] + x[x.length - 1].split("")[0];
+    };
 
-  return props.loggedIn ? (
-    <Right>
-      <SignInContainer>
-        {getInitials(localStorage.getItem("name"))}
-      </SignInContainer>
-      <Cart>
-          <Badge badgeContent={0} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
-      </Cart>
-    </Right>
-  ) : (
-    <Right>
-      <SignInContainer>
-          <PersonIcon/>
-          <SignIn>SIGN IN</SignIn>
-      </SignInContainer>
-      <Cart>
-          <Badge badgeContent={0} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
-      </Cart>
-    </Right>
+    const [dropdownUser, setDropdownUser] = useState(false);
+
+    const showDropdown = () => {
+        if(window.innerWidth < 960){
+            setDropdownUser(false);
+        }
+        else{
+            setDropdownUser(true);
+        }
+    };
+
+    const hideDropdown= () => {
+        setDropdownUser(false);
+    };
+
+    return props.loggedIn ? (
+
+        <UserField onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
+            <UserName>
+                {getInitials(localStorage.getItem("name"))}
+            </UserName>
+            {dropdownUser && <DropdownUser/>}
+        </UserField>
+
+    ) : (
+
+        <SignInContainer>
+            <PersonIcon/>
+            <SignIn>SIGN IN</SignIn>
+        </SignInContainer>
+      
   );
 };
 
 
-const NavBar = ({props, toggle}) => {
+const NavBar = (props) => {
 
     const linkStyle = {
         textDecoration: "none",
@@ -147,7 +183,7 @@ const NavBar = ({props, toggle}) => {
         <Container>
             <Wrapper>
                 <Left>
-                    <MenuContainer onClick = {toggle}>
+                    <MenuContainer onClick = {props.toggle}>
                         <MenuIcon/>
                     </MenuContainer>  
                     <SearchContainer>
@@ -163,18 +199,12 @@ const NavBar = ({props, toggle}) => {
                     </Link>
                 </Center>
                 <Right>
-                    <Link style = {linkStyle} to = {"/login"}>
-                        <SignInContainer>
-                            <PersonIcon/>
-                            <SignIn>SIGN IN</SignIn>
-                        </SignInContainer>
-                    </Link>
-                    <Link style = {linkStyle} to = {"/cart"}> 
-                        <Cart>
-                            <Badge badgeContent={8} color="primary"><ShoppingCartOutlinedIcon/></Badge>        
-                        </Cart>
-                    </Link>
-                    {/* <RightJSX loggedIn={props.loggedIn} /> */}
+                    <RightJSX loggedIn={props.loggedIn} />
+                    <Cart>
+                        <Link style = {linkStyle} to = {"/cart"}>
+                            <Badge badgeContent={2} color="primary"><ShoppingCartOutlinedIcon/></Badge>
+                        </Link>        
+                    </Cart>
                 </Right>
             </Wrapper>
         </Container>

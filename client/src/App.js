@@ -5,6 +5,7 @@ import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Cart from './Pages/Cart';
 import SellOnTradeZilla from './Pages/SellOnTradeZilla';
+import OTP from './Pages/OTP';
 import Globalstyle from './globalStyles';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
@@ -31,6 +32,7 @@ function App() {
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>
           <Route path="/cart" element={<Cart loggedIn={isLoggedIn()} />}/>
           <Route path="/sellontradezilla" element={<SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
+          <Route path="/otp" element={<OTP loggedIn = {isLoggedIn()}/>}/>
         </Routes>
       </Router>
     </>

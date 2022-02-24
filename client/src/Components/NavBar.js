@@ -117,7 +117,7 @@ const UserName = styled.div`
 	// background-color: green;
 `;
 
-const SignIn = styled.a`
+const SignIn = styled.div`
 	font-size: 14px;
 	margin-left: 10px;
 `;

@@ -4,6 +4,7 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 import { User, UserType } from "../models/User";
+import { ValidToken, ValidTokenType } from "../models/ValidToken";
 
 const login = async (req: Request, res: Response) => {
   // Extract user inputs
@@ -42,6 +43,18 @@ const login = async (req: Request, res: Response) => {
     <string>process.env.TOKEN_SECRET,
     { expiresIn: "7d" }
   );
+
+  try {
+    //create an instance of the valid token
+    const validToken = await ValidToken.create({
+      token,
+    });
+
+    //save the token to database
+    await validToken.save();
+  } catch (e: any) {
+    console.error(e.message);
+  }
 
   // Return a success message with the token and other useful information
   return res.json({

@@ -6,3 +6,17 @@ export const mobile = (props) =>{
             ${props}
         `
 }
+
+export const tab = (props) =>{
+    return css`
+        @media only screen and (max-width: 860px){
+            ${props}
+        `
+}
+
+export const vTab = (props) =>{
+    return css`
+        @media only screen and (max-width: 700px){
+            ${props}
+        `
+}

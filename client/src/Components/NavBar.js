@@ -4,7 +4,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import PersonIcon from "@mui/icons-material/Person";
 import Badge from "@mui/material/Badge";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { mobile } from "../responsive";
+import { mobile, tab, vTab } from "../responsive";
 import { Link } from "react-router-dom";
 import { DropdownUser } from "./Dropdown";
 import { useState } from "react";
@@ -34,6 +34,8 @@ const Left = styled.div`
 	flex: 1;
 	display: flex;
 	align-items: center;
+
+	// background-color: green;
 `;
 
 const MenuContainer = styled.div`
@@ -45,8 +47,11 @@ const SearchContainer = styled.div`
 	width: 60%;
 	border: 0.5px solid white;
 	display: flex;
+	justify-content: center;
 	align-items: center;
 	padding: 5px 10px;
+
+	${vTab({width: "20%"})}
 
 	${mobile({ display: "none" })}
 `;
@@ -63,6 +68,8 @@ const Input = styled.input`
 		opacity: 90%;
 		letter-spacing: 2px;
 	}
+
+	${tab({display: "none"})}
 `;
 
 const Center = styled.div`
@@ -93,6 +100,8 @@ const SignInContainer = styled.div`
 		color: #ded9d9;
 	}
 
+	${vTab({ display: "none" })}
+
 	${mobile({ display: "none" })};
 `;
 
@@ -107,6 +116,8 @@ const UserField = styled.div`
 	border: 2px solid #ffffff;
 	border-radius: 50%;
 	position: relative;
+
+	${vTab({ display: "none" })};
 
 	${mobile({ display: "none" })};
 `;

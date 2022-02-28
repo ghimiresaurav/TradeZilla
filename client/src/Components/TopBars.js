@@ -15,20 +15,20 @@ const Container = styled.div`
 
 const TopBars = (props) => {
 
-    const [scrollNav, setScrollNav] = useState(false)
+    const [scrollNav, setScrollNav] = useState(false);
 
     const changeNav = () => {
         if(window.scrollY >= 25){
-            setScrollNav(true)
+            setScrollNav(true);
         }
         else{
-           setScrollNav(false) 
+           setScrollNav(false);
         }
     }
 
-    useEffect(() => {
-        window.addEventListener('scroll', changeNav)
-    }, [])
+    // useEffect(() => {
+    //     window.addEventListener('scroll', changeNav)
+    // }, [])
 
     const[isOpen, setIsOpen] = useState(false);
 

@@ -21,7 +21,7 @@ const Arrow = styled.div`
 const DropdownList = styled.ul`
   width: 200px;
   position: absolute;
-  margin-top: 8px; //(20/2 - 2 = 8) height of arrow/2 - margin-top of the dropdown container
+  margin-top: 10px; //(20/2 - 2 = 8) height of arrow/2 - margin-top of the dropdown container
   list-style: none;
   text-align: start;
   border-bottom: 2px solid #000000;

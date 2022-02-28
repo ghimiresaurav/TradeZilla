@@ -1,27 +1,43 @@
 import styled from "styled-components";
-import { mobile } from "../responsive";
+import { mobile, tab } from "../responsive";
 import CloseIcon from "@mui/icons-material/Close";
 // import {DropdownBestSellers, DropdownTodaysDeal, DropdownFashion,  DropdownElectronics, DropdownHomeKitchen, DropdownGroceries, DropdownBooks} from './Dropdown';
 import { DropdownCat } from "./Dropdown";
 import { useState } from "react";
 
-const Container = styled.div`
+
+const ContainerMain = styled.div`
   width: 100%;
-  height: 40px;
-  display: flex;
   background-color: #ffffff;
-  z-index: 100;
   left: ${({ isOpen }) => (isOpen ? "0px" : "-300px")};
   transition: 0.3s ease-in-out;
   border-bottom: 2px solid #000000;
+  z-index: 100;
+  
+  ${tab({
+    overflow: "hidden",
+    overflowX: "auto", //adds scroll during overflow and removes when not needed
+    border: "none"
+  })}
 
   ${mobile({
     width: "300px",
     height: "100vh",
     position: "fixed",
     top: "0",
+    overflowX: "",
+    border: "none"
+  })}
+`;
+
+
+const Container = styled.div`
+  display: flex;
+
+  ${mobile({
     display: "block",
   })}
+  
 `;
 
 const CloseArea = styled.div`
@@ -50,7 +66,6 @@ const CloseButton = styled.div`
 `;
 
 const Wrapper = styled.div`
-  width: 80%;
   margin: auto;
   display: flex;
   align-items: center;
@@ -72,7 +87,7 @@ const MenuItem = styled.div`
 
   &:hover {
     background-color: lightgray;
-    border-bottom: 2px solid #000000;
+    // border-bottom: 2px solid #000000;
   }
 
   ${mobile({ borderBottom: "1px solid gray" })}
@@ -185,43 +200,45 @@ const MenuBar = ({ isOpen, toggle }) => {
   };
 
   return (
-    <Container isOpen={isOpen}>
-      <CloseArea>
-        <CloseButton onClick={toggle}>
-          <CloseIcon />
-        </CloseButton>
-      </CloseArea>
-      <Wrapper>
-        <MenuItem onMouseEnter={showBestSellers} onMouseLeave={hideBestSellers}>
-          Best Sellers
-          {dropdownBestSellers && <DropdownCat cat="BestSellers" />}
-        </MenuItem>
-        <MenuItem onMouseEnter={showTodaysDeal} onMouseLeave={hideTodaysDeal}>
-          Today's Deal
-          {dropdownTodaysDeal && <DropdownCat cat="TodaysDeal" />}
-        </MenuItem>
-        <MenuItem onMouseEnter={showFashion} onMouseLeave={hideFashion}>
-          Fashion
-          {dropdownFashion && <DropdownCat cat="Fashion" />}
-        </MenuItem>
-        <MenuItem onMouseEnter={showElectronics} onMouseLeave={hideElectronics}>
-          Electronics
-          {dropdownElectronics && <DropdownCat cat="Electronics" />}
-        </MenuItem>
-        <MenuItem onMouseEnter={showHomeKitchen} onMouseLeave={hideHomeKitchen}>
-          Home and Kitchen
-          {dropdownHomeKitchen && <DropdownCat cat="HomeandKitchen" />}
-        </MenuItem>
-        <MenuItem onMouseEnter={showGroceries} onMouseLeave={hideGroceries}>
-          Groceries
-          {dropdownGroceries && <DropdownCat cat="Groceries" />}
-        </MenuItem>
-        <MenuItem onMouseEnter={showBooks} onMouseLeave={hideBooks}>
-          Books
-          {dropdownBooks && <DropdownCat cat="Books" />}
-        </MenuItem>
-      </Wrapper>
-    </Container>
+    <ContainerMain isOpen={isOpen}>
+      <Container>
+        <CloseArea>
+          <CloseButton onClick={toggle}>
+            <CloseIcon />
+          </CloseButton>
+        </CloseArea>
+        <Wrapper>
+          <MenuItem onMouseEnter={showBestSellers} onMouseLeave={hideBestSellers}>
+            Best&nbsp;Sellers
+            {dropdownBestSellers && <DropdownCat cat="BestSellers" />}
+          </MenuItem>
+          <MenuItem onMouseEnter={showTodaysDeal} onMouseLeave={hideTodaysDeal}>
+            Today's&nbsp;Deal
+            {dropdownTodaysDeal && <DropdownCat cat="TodaysDeal" />}
+          </MenuItem>
+          <MenuItem onMouseEnter={showFashion} onMouseLeave={hideFashion}>
+            Fashion
+            {dropdownFashion && <DropdownCat cat="Fashion" />}
+          </MenuItem>
+          <MenuItem onMouseEnter={showElectronics} onMouseLeave={hideElectronics}>
+            Electronics
+            {dropdownElectronics && <DropdownCat cat="Electronics" />}
+          </MenuItem>
+          <MenuItem onMouseEnter={showHomeKitchen} onMouseLeave={hideHomeKitchen}>
+            Home&nbsp;and&nbsp;Kitchen
+            {dropdownHomeKitchen && <DropdownCat cat="HomeandKitchen" />}
+          </MenuItem>
+          <MenuItem onMouseEnter={showGroceries} onMouseLeave={hideGroceries}>
+            Groceries
+            {dropdownGroceries && <DropdownCat cat="Groceries" />}
+          </MenuItem>
+          <MenuItem onMouseEnter={showBooks} onMouseLeave={hideBooks}>
+            Books
+            {dropdownBooks && <DropdownCat cat="Books" />}
+          </MenuItem>
+        </Wrapper>
+      </Container>
+    </ContainerMain>
   );
 };
 

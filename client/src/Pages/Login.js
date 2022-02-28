@@ -111,7 +111,7 @@ const Register = styled.div`
 	cursor: pointer;
 `;
 
-const Login = () => {
+const Login = (props) => {
 
   document.title = "Sign In | TradeZilla";
 
@@ -188,7 +188,7 @@ const Login = () => {
 
   return (
     <Container>
-      <TopBars />
+      <TopBars loggedIn = {props.loggedIn}/>
       <ContentArea>
         <WhiteArea>
           <Wrapper>

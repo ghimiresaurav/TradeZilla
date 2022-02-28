@@ -19,9 +19,7 @@ const OuterArea = styled.div`
     width: 100%;
     height: 100%;
     position: fixed;
-    // background-color: black;
 `;
-
 
 const Popup = styled.div`
     background-color: #fcf5f5;   
@@ -97,28 +95,29 @@ const Button = styled.button`
 
 
 const NewsletterPopup = (props) => {
+    
     return (props.trigger) ? (
-            <Container>
-                <OuterArea onClick={()=> props.setTrigger(false)}></OuterArea>
-                <Popup>
-                    <CloseArea>
-                        <CloseButton onClick={()=> props.setTrigger(false)}>
-                            <CloseIcon/>
-                        </CloseButton>
-                    </CloseArea>
-                    <Content>
-                        <Title>NewsLetter</Title>
-                        <Description>Get timely updates from your favourite products.</Description>
-                        <InputContainer>
-                            <Input placeholder = "Your Email"/>
-                            <Button>
-                                <SendIcon/>
-                            </Button>
-                        </InputContainer>
-                    </Content>
-                </Popup>
-            </Container>
-        ) : "";
+        <Container>
+            <OuterArea onClick={()=> props.setTrigger(false)}></OuterArea>
+            <Popup>
+                <CloseArea>
+                    <CloseButton onClick={()=> props.setTrigger(false)}>
+                        <CloseIcon/>
+                    </CloseButton>
+                </CloseArea>
+                <Content>
+                    <Title>NewsLetter</Title>
+                    <Description>Get timely updates from your favourite products.</Description>
+                    <InputContainer>
+                        <Input placeholder = "Your Email"/>
+                        <Button>
+                            <SendIcon/>
+                        </Button>
+                    </InputContainer>
+                </Content>
+            </Popup>
+        </Container>
+    ) : "";
 }
 
 export default NewsletterPopup

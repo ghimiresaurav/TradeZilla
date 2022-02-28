@@ -67,7 +67,7 @@ const Agreement = styled.div`
   padding-right: 50px;
 `;
 
-const Register = () => {
+const Register = (props) => {
 
   document.title = 'Register | TradeZilla';
 
@@ -163,7 +163,7 @@ const Register = () => {
 
   return (
     <Container>
-      <TopBars/>
+      <TopBars loggedIn = {props.loggedIn}/>
       <ContentArea>
         <WhiteArea>
           <Wrapper>

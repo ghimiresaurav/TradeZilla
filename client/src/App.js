@@ -32,7 +32,7 @@ function App() {
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>
           <Route path="/cart" element={<Cart loggedIn={isLoggedIn()} />}/>
           <Route path="/sellontradezilla" element={<SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
-          <Route path="/otp" element={<OTP loggedIn = {isLoggedIn()}/>}/>
+          <Route path="/otp" element={isLoggedIn() ? <Navigate to="/" /> : <OTP />}/>
         </Routes>
       </Router>
     </>

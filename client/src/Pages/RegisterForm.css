@@ -48,6 +48,8 @@
 
 .register[focused="true"]{
     outline: 2px solid  #ff3333;
+    /* outline: 2px solid  #00ccff; */
+
 }
 
 .register:invalid[focused="true"] ~ #message{

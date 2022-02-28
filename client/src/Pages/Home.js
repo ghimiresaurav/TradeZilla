@@ -22,7 +22,7 @@ const Home = (props) => {
 
     const [timedPopup, setTimedPopup] = useState(false);
 
-    //useEffect is neccessary otherwise every time we close the popup, it will reappear after 3 seconds
+    //useEffect is neccessary otherwise every time we close the popup, it will reappear after 10 seconds
     useEffect(() => {
         setTimeout(() => {
             setTimedPopup(true);

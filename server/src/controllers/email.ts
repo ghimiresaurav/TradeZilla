@@ -1,17 +1,18 @@
 import nodemailer, { Transporter } from "nodemailer";
+import { OTP, OTPType } from "../models/OTP";
+import bcrypt from "bcrypt";
+import mongoose from "mongoose";
 
 const user: string = <string>process.env.EMAIL;
 const pass: string = <string>process.env.EMAIL_PWORD;
-let recipient: string = "ghimiresaurav09@gmail.com";
-// recipient = "spd.sajag@gmail.com";
-recipient = "sp49041719@student.ku.edu.np";
 
 const min: number = 100000;
 const max: number = 999999;
 
 const getOTP = () => Math.round(Math.random() * (max - min) + min);
 
-const main = async () => {
+const main = async (recipient: string, user_id: string) => {
+  // Create a transporter for sending email
   const transporter: Transporter = nodemailer.createTransport({
     service: "gmail",
     auth: {
@@ -20,24 +21,44 @@ const main = async () => {
     },
   });
 
-  const OTP: number = getOTP();
+  // Genereate a random 6 digit number
+  const verificationCode: number = getOTP();
 
+  // Create mail options for sending the email
+  // This object specifies the sender, receiver, subject and email body
   const mailOptions: any = {
     from: user,
     to: recipient,
     subject: "EMAIL VERIFICAITON",
 
-    text: `DO NOT REPLY TO THIS EMAIL.\nYOUR EMAIL VERIFICATION CODE IS ${OTP}.\nDO NOT SHARE THIS CODE WITH ANYONE.`,
+    text: `DO NOT REPLY TO THIS EMAIL.\nYOUR EMAIL VERIFICATION CODE IS ${verificationCode}.\nDO NOT SHARE THIS CODE WITH ANYONE.`,
 
     html: `<h1>DO NOT REPLY TO THIS EMAIL</h1>
-    <h2>YOUR VERIFICATION CODE IS ${OTP}</h2>
+    <h2>YOUR VERIFICATION CODE IS ${verificationCode}</h2>
     <h2>DO NOT SHARE THIS CODE WITH ANYONE</h2>
     <strong>-TradeZilla</strong>`,
   };
 
-  transporter.sendMail(mailOptions, (err, res) => {
-    if (err) console.error(`ERROR: ${err}`);
-  });
+  // Connect to atlas databse
+  mongoose
+    .connect(<string>process.env.DB_URI)
+    .catch((e) => console.log(`Error: ${e.message}`));
+
+  try {
+    // Create an instance of OTP
+    const otp = await OTP.create({
+      code: await bcrypt.hash(verificationCode.toString(), 10),
+      user: user_id,
+    });
+
+    // Save the OTP to database
+    await otp.save();
+
+    // Send email to the user
+    transporter.sendMail(mailOptions);
+  } catch (e) {
+    console.error(`ERROR: ${e}`);
+  }
 };
 
 export default main;

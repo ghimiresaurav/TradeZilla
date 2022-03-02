@@ -3,8 +3,12 @@ import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
+// Import database models
 import { User, UserType } from "../models/User";
 import { ValidToken, ValidTokenType } from "../models/ValidToken";
+
+// Import Controllers
+import sendOTP from "./email";
 
 const login = async (req: Request, res: Response) => {
   // Extract user inputs
@@ -55,6 +59,9 @@ const login = async (req: Request, res: Response) => {
   } catch (e: any) {
     console.error(e.message);
   }
+
+  // If email of the user is not verified, send an OTP to the user for email verification
+  if (!user.isActive) sendOTP(user.email, user._id.toString());
 
   // Return a success message with the token and other useful information
   return res.json({

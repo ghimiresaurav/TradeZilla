@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 interface OTPType {
   user: mongoose.Types.ObjectId;
-  OTP: number;
+  code: string;
   expiresAt: Date;
 }
 
@@ -11,9 +11,9 @@ const OTPSchema = new mongoose.Schema<OTPType>({
     required: true,
     type: mongoose.Types.ObjectId,
   },
-  OTP: {
+  code: {
     required: true,
-    type: Number,
+    type: String,
   },
   expiresAt: {
     required: true,

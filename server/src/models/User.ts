@@ -7,7 +7,7 @@ interface UserType {
   password: String;
   dob: Date;
   joinedOn: Date;
-  verified: boolean;
+  isActive: boolean;
   cart: [ItemType];
 }
 
@@ -43,7 +43,7 @@ const UserSchema = new mongoose.Schema<UserType>({
     immutable: true,
     default: new Date(),
   },
-  verified: {
+  isActive: {
     type: Boolean,
     default: false,
   },

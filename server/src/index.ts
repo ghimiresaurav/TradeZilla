@@ -7,7 +7,6 @@ dotenv.config();
 //import controllers
 import register from "./controllers/register";
 import login from "./controllers/login";
-import mail from "./controllers/email";
 
 // Import Route
 import loggedInRoute from "./routes/loggedIn";
@@ -21,7 +20,6 @@ app.use("/s", loggedInRoute);
 
 app.post("/register", register);
 app.post("/login", login);
-app.get("/email", mail);
 
 const PORT: number = parseInt(<string>process.env.PORT) || 5000;
 

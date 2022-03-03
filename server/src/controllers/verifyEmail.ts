@@ -4,8 +4,18 @@ import bcrypt from "bcrypt";
 import { OTP, OTPType } from "../models/OTP";
 import { User } from "../models/User";
 
+const checkOtp = async (validOTPs: any, otp: number): Promise<Boolean> => {
+  for (let i = 0; i < validOTPs.length; i++) {
+    const validOTP = validOTPs[i];
+    if (await bcrypt.compare(otp.toString(), validOTP.code)) return true;
+  }
+  return false;
+};
+
 const verifyEmail = async (req: Request, res: Response) => {
-  const { otp }: { otp: Number } = req.body;
+  // Extract otp entered by user from req.body
+  const { otp }: { otp: number } = req.body;
+  // Get user id from res.locals, which was assigned by auth function
   const user_id = res.locals.id;
 
   // Connect to atlas database
@@ -14,32 +24,53 @@ const verifyEmail = async (req: Request, res: Response) => {
     .catch((e) => console.log(`error: ${e.message}`));
 
   // Get the OTP(associated to the requesting user) from database
-  const otpInDB = await OTP.findOne({ user: user_id });
+  let OTPs = await OTP.find({ user: user_id });
 
   // If no OTP is found, send an error message
-  if (!otpInDB)
+  if (!OTPs.length)
     return res.json({
       success: false,
       message: "There is no OTP associated to the user.",
     });
 
-  // Check if the user entered OTP is correct
-  const isOtpCorrect: Boolean = await bcrypt.compare(
-    otp.toString(),
-    otpInDB.code
-  );
+  // Filter the valid and expired OTPs
+  // Get only the OTPs that have not expired yet
+  const validOTPs = OTPs.filter((otp) => {
+    const rn = new Date();
+    if (rn.getTime() < otp.expiresAt.getTime()) return otp;
+  });
 
-  // If the user entered OTP is incorrect, send an error message
+  // Get the expired OTPs (OTPs that do not exist in validOTPs)
+  const expiredOTPs = OTPs.filter((otp) => !validOTPs.includes(otp));
+
+  // Delete the expired OTPS from the database
+  expiredOTPs.forEach(async (otp) => {
+    await OTP.findByIdAndDelete(otp._id);
+  });
+
+  // If there is no valid OTP, send an error message
+  if (!validOTPs.length)
+    return res.json({
+      success: false,
+      message: "Your OTP has already expired",
+    });
+
+  // Check if the user inputted OTP is correct
+  let isOtpCorrect: Boolean = await checkOtp(validOTPs, otp);
+
+  // If the otp entered by the user is incorrect, send an error message
   if (!isOtpCorrect)
     return res.json({ success: false, message: "Incorrect OTP" });
 
   // If everything is okay
-  //delete the otp from database
-  await OTP.deleteMany({ user: user_id });
-  //update the isActive flag of the user to true
-  // const user = await User.findById(user_id);
+
+  // Delete the remaining OTPS from database
+  validOTPs.forEach(async (otp) => {
+    await OTP.findByIdAndDelete(otp._id);
+  });
+
+  // update the isActive flag of the user to true
   await User.updateOne({ _id: user_id }, { isActive: true });
-  // user?.isActive = true;
   return res.json({ success: true, message: "Email verified" });
 };
 

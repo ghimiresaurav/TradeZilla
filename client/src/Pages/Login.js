@@ -124,16 +124,6 @@ const Login = () => {
 		setPasswordVisibility(!passwordVisibility);
 	};
 
-	// const passwordType = () =>{
-	//   console.log("PasswoRD Visible " + passwordVisibility);
-	//   if (passwordVisibility){
-	//     return "text";
-	//   }
-	//   else{
-	//     return "password";
-	//   }
-	// }
-
 	const [values, setValues] = useState({
 		email: "",
 		password: "",
@@ -162,27 +152,7 @@ const Login = () => {
 			localStorage.setItem("name", response.name);
 			window.location.assign("/");
 		}
-		console.log(response);
-		console.log(resp);
-		console.log(values);
 	};
-
-	const inputs = [
-		{
-			id: 1,
-			name: "email",
-			type: "email",
-			placeholder: "Email",
-			required: true,
-		},
-		{
-			id: 2,
-			name: "password",
-			type: "password",
-			placeholder: "Password",
-			required: true,
-		},
-	];
 
 	return (
 		<Container>
@@ -191,23 +161,25 @@ const Login = () => {
 				<WhiteArea>
 					<Wrapper>
 						<Title>SIGN IN</Title>
-						<Form>
-							{/* {inputs.map((input) => (
-                <LoginForm
-                  key={input.id}
-                  {...input}
-                  value={values[input.name]}
-                  onChange={handleChange}
-                />
-              ))} */}
+						<Form onSubmit={login}>
 							<InputContainer>
-								<Input placeholder="Username"></Input>
+								<Input 
+									placeholder="Username"
+									value={values.name}
+									name="email"
+									onChange={handleChange}
+									required= {true}
+								></Input>
 							</InputContainer>
 							<InputContainer>
 								<Input
 									placeholder="Password"
 									type={passwordVisibility ? "text" : "password"}
 									style={{ fontFamily: "Verdana", fontSize: "20px" }}
+									value={values.name}
+									name="password"
+									onChange={handleChange}
+									required= {true}
 								></Input>
 								<PasswordOption onClick={changePasswordVisibility}>
 									{passwordVisibility ? (
@@ -217,7 +189,7 @@ const Login = () => {
 									)}
 								</PasswordOption>
 							</InputContainer>
-							<Button onSubmit={login}>LOGIN</Button>
+							<Button type="submit">LOGIN</Button>
 							<ForgotPassword>Forgot Password?</ForgotPassword>
 							<Link to="/register" style={linkStyle}>
 								<Register>Create New Account</Register>

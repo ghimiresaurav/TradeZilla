@@ -53,6 +53,19 @@ const linkStyle = {
   color: "#000000",
 };
 
+const logout = async() =>{
+  console.log("Logout trigerred")
+  const resp = await fetch("http://localhost:5000/s/logout", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json"
+    },
+  })
+  const response = resp.json();
+  console.log(response)
+}
+
+
 function DropdownCat(props) {
   return (
     <Container>
@@ -83,8 +96,8 @@ function DropdownUser() {
           </Link>
         </DropdownItem>
         <DropdownItem>
-          <Link to="/cart" style={linkStyle}>
-            <SubCategory>Log Out</SubCategory>
+          <Link to="/" style={linkStyle}>
+            <SubCategory><button onClick = {logout}>Log Out</button></SubCategory>
           </Link>
         </DropdownItem>
       </DropdownList>

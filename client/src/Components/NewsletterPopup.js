@@ -26,6 +26,7 @@ const Popup = styled.div`
     width: 50%;
     height: 60vh;
     z-index: 10000;
+    min-width: 300px;
 `;
 
 const CloseArea = styled.div`
@@ -60,7 +61,7 @@ const Content = styled.div`
 `;
 
 const Title = styled.h1`
-    font-size: 70px;
+    font-size: 50px;
     margin-bottom: 20px;
 `;
 
@@ -68,6 +69,7 @@ const Description = styled.div`
     font-size: 24px;
     font-weight: 300;
     margin-bottom: 20px;
+    text-align: center;
 `;
 
 const InputContainer = styled.div`

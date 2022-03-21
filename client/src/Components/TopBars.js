@@ -6,8 +6,8 @@ import {useState, useEffect} from 'react';
 
 const Container = styled.div`
     width: 100%;
-    position: fixed;
-    // position: ${({scrollNav}) => (scrollNav ? 'fixed': 'relative')};
+    // position: fixed;
+    position: ${({scrollNav}) => (scrollNav ? 'fixed': 'relative')};
     top: 0;
     z-index: 200;
     transition: 0.5s ease;
@@ -26,9 +26,9 @@ const TopBars = (props) => {
         }
     }
 
-    // useEffect(() => {
-    //     window.addEventListener('scroll', changeNav)
-    // }, [])
+    useEffect(() => {
+        window.addEventListener('scroll', changeNav)
+    }, [])
 
     const[isOpen, setIsOpen] = useState(false);
 

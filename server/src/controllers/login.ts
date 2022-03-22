@@ -5,7 +5,6 @@ import jwt from "jsonwebtoken";
 
 // Import database models
 import { User, UserType } from "../models/User";
-import { ValidToken, ValidTokenType } from "../models/ValidToken";
 
 // Import Controllers
 import sendOTP from "./email";
@@ -47,18 +46,6 @@ const login = async (req: Request, res: Response) => {
     <string>process.env.TOKEN_SECRET,
     { expiresIn: "7d" }
   );
-
-  try {
-    //create an instance of the valid token
-    const validToken = await ValidToken.create({
-      token,
-    });
-
-    //save the token to database
-    await validToken.save();
-  } catch (e: any) {
-    console.error(e.message);
-  }
 
   // If email of the user is not verified, send an OTP to the user for email verification
   if (!user.isActive) sendOTP(user.email, user._id.toString());

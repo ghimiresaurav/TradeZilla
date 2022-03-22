@@ -31,8 +31,9 @@ function App() {
           <Route path="/register" element={isLoggedIn() ? <Navigate to="/" /> : <Register />}/>
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>
           <Route path="/cart" element={<Cart loggedIn={isLoggedIn()} />}/>
+          {/* <Route path="/myaccount" element={<MyAccount loggedIn = {isLoggedIn()}/>}/> */}
           <Route path="/sellontradezilla" element={<SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
-          <Route path="/otp" element={isLoggedIn() ? <Navigate to="/" /> : <OTP />}/>
+          <Route path="/otp" element={!isLoggedIn() ? <Navigate to="/" /> : <OTP />}/>
         </Routes>
       </Router>
     </>

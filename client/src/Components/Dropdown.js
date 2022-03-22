@@ -34,9 +34,9 @@ const DropdownItem = styled.li`
   background: #ffffff;
   cursor: pointer;
 
-  &:hover {
-    text-decoration: underline;
-  }
+  // &:hover {
+  //   text-decoration: underline;
+  // }
 `;
 
 const SubCategory = styled.div`
@@ -46,7 +46,12 @@ const SubCategory = styled.div`
     text-decoration: none;
     color: #000000;
     padding: 10px;
-}`;
+
+    
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 const linkStyle = {
   textDecoration: "none",
@@ -60,9 +65,10 @@ const logout = async() =>{
     headers: {
       "Content-Type": "application/json"
     },
+    body: JSON.stringify({id: localStorage.getItem("userId")})
   })
   const response = resp.json();
-  console.log(response)
+  console.log("Response: ", response)
 }
 
 
@@ -96,9 +102,9 @@ function DropdownUser() {
           </Link>
         </DropdownItem>
         <DropdownItem>
-          <Link to="/" style={linkStyle}>
-            <SubCategory><button onClick = {logout}>Log Out</button></SubCategory>
-          </Link>
+            <SubCategory onClick = {logout}>
+                Log Out
+            </SubCategory>
         </DropdownItem>
       </DropdownList>
     </Container>

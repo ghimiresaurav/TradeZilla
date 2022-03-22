@@ -18,7 +18,7 @@ const TopBars = (props) => {
     const [scrollNav, setScrollNav] = useState(false);
 
     const changeNav = () => {
-        if(window.scrollY >= 25){
+        if(window.scrollY > 25){
             setScrollNav(true);
         }
         else{

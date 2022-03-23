@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import CloseIcon from '@mui/icons-material/Close';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { useDropzone } from "react-dropzone";
+// import { useDropzone } from "react-dropzone";
+import { useState } from "react";
 
 const Container = styled.div`
     position: fixed;
@@ -30,11 +31,7 @@ const DropBox = styled.div`
     display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 20px;
-	border-width: 2px;
-	border-radius: 2px;
-	border-color: ${(props) => getColor(props)};
-	border-style: dashed;
+	padding: 20px 20px 0 20px;
 	background-color: #ffffff;
 	color: #000000;
 	outline: none;
@@ -48,6 +45,7 @@ const UploadIcon = styled.div`
     height: 120px;
     display: flex;
     justify-content: center;
+    margin-top: -20px;
     margin-bottom: 20px;
 `;
 
@@ -55,13 +53,23 @@ const DropZone = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 80%;
+    border-width: 7px;
+	border-radius: 2px;
+	border-color: ${(props) => getColor(props)};
+	border-style: dashed;
+    // border-style: ${(props) => getColor(props)};
+
 `;
 
 const CloseArea = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    // background-color: green;
 `;
 
 const CloseButton = styled.div`
@@ -122,10 +130,44 @@ const getColor = (props) => {
 
 const Upload = (props) => {
     
-	const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({ accept: "image/*" });
+	// const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({ accept: "image/*" });
 
+    const [header, setHeader] = useState(false);
+
+    const dragOver = (e) => {
+        e.preventDefault();
+    }
+
+    const dragEnter = (e) => {
+        e.preventDefault();
+        setHeader(true);
+    }
+
+    const dragLeave = (e) => {
+        e.preventDefault();
+        setHeader(false);
+    }
+
+    const fileDrop = (e) => {
+        e.preventDefault();
+        const files = e.dataTransfer.files;
+        props.setTrigger(false);
+        setHeader(false);
+        console.log(files);
+    }
+
+    
+
+    const headerText = () =>{
+        if (!header){
+            return "Drag & Drop to Upload File";
+        }
+        else{
+            return "Release to Upload";
+        }
+    }
+    
 	return (props.trigger) ? (
-    // return (
         <Container>
             <OuterArea></OuterArea>
             <DropBox>
@@ -134,13 +176,16 @@ const Upload = (props) => {
                         <CloseIcon/>
                     </CloseButton>
                 </CloseArea>
-                {/* <DropZone> */}
-                <DropZone {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
-                    <input {...getInputProps()} />
+                <DropZone onDragOver={dragOver}
+                    onDragEnter={dragEnter}
+                    onDragLeave={dragLeave}
+                    onDrop={fileDrop}>
+                {/* <DropZone {...getRootProps({ isFocused, isDragAccept, isDragReject })}> */}
+                    {/* <input {...getInputProps()} /> */}
                     <UploadIcon>
                         <CloudUploadIcon style = {{width: "120px", height:"120px"}}/>
                     </UploadIcon>
-                    <Header>Drag & Drop to Upload File</Header>
+                    <Header>{headerText()}</Header>
                     <Text>OR</Text>
                     <Button>Browse File</Button>
                 </DropZone>

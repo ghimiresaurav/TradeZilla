@@ -58,19 +58,20 @@ const linkStyle = {
   color: "#000000",
 };
 
-const logout = async() =>{
-  console.log("Logout trigerred")
-  const resp = await fetch("http://localhost:5000/s/logout", {
-    method: "DELETE",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({id: localStorage.getItem("userId")})
-  })
-  const response = resp.json();
-  console.log("Response: ", response)
-}
+const logout = async () => {
+  // const resp = await fetch("http://localhost:5000/s/logout", {
+  //   method: "DELETE",
+  //   headers: {
+  //     authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     "Content-Type": "application/json",
+  //   },
+  //   body: JSON.stringify({ id: localStorage.getItem("userId") }),
+  // });
 
+  localStorage.clear();
+  window.location.reload();
+  // redirect to home without triggering refresh
+};
 
 function DropdownCat(props) {
   return (
@@ -102,9 +103,11 @@ function DropdownUser() {
           </Link>
         </DropdownItem>
         <DropdownItem>
+          <Link to="./" style={linkStyle}>
             <SubCategory onClick = {logout}>
                 Log Out
             </SubCategory>
+          </Link>
         </DropdownItem>
       </DropdownList>
     </Container>

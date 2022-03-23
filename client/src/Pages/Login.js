@@ -81,6 +81,14 @@ const Input = styled.input`
 	}
 `;
 
+const ErrorText = styled.text`
+	color: red;
+	margin-top: -4px;
+	margin-bottom: 10px;
+	font-size: 14px;
+`;
+
+
 const PasswordOption = styled.div`
 	margin-right: 10px;
 	cursor: pointer;
@@ -171,6 +179,7 @@ const Login = () => {
 									required= {true}
 								></Input>
 							</InputContainer>
+							<ErrorText>Username is not correct.</ErrorText>
 							<InputContainer>
 								<Input
 									placeholder="Password"
@@ -189,6 +198,7 @@ const Login = () => {
 									)}
 								</PasswordOption>
 							</InputContainer>
+							<ErrorText>Password is not correct.</ErrorText>
 							<Button type="submit">LOGIN</Button>
 							<ForgotPassword>Forgot Password?</ForgotPassword>
 							<Link to="/register" style={linkStyle}>

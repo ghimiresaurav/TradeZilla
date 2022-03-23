@@ -8,6 +8,7 @@ import SellOnTradeZilla from './Pages/SellOnTradeZilla';
 import OTP from './Pages/OTP';
 import Globalstyle from './globalStyles';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Upload from './Components/Upload';
 
 const isLoggedIn = () => {
   if (
@@ -34,6 +35,7 @@ function App() {
           {/* <Route path="/myaccount" element={<MyAccount loggedIn = {isLoggedIn()}/>}/> */}
           <Route path="/sellontradezilla" element={<SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
           <Route path="/otp" element={!isLoggedIn() ? <Navigate to="/" /> : <OTP />}/>
+          <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>
         </Routes>
       </Router>
     </>

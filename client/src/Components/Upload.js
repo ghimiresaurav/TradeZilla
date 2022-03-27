@@ -2,7 +2,7 @@ import styled from "styled-components";
 import CloseIcon from '@mui/icons-material/Close';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { useState } from "react";
-import { mobile, tab, vTab } from "../responsive";
+import { mobile } from "../responsive";
 
 import { ImageConfig } from './ImageConfig';
 import PropTypes from 'prop-types';

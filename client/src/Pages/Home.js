@@ -53,13 +53,13 @@ const Home = (props) => {
 
     return (
         <Container setHeight = {checkPopup("height")} setOverflow = {checkPopup("overflow")}>
-            {/* <Announcement /> */}
+            <Announcement />
             <TopBars loggedIn = {props.loggedIn}/>
             <Slider />
             <Categories />
             <Products />
             <Footer />
-            <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/>
+            {/* <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/> */}
             <ReturnTop/>
         </Container>
     );

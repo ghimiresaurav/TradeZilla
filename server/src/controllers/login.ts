@@ -32,9 +32,7 @@ const login = async (req: Request, res: Response) => {
 
   // If password is incorrect, send an error message
   if (!isPasswordCorrect)
-    return res
-      .status(401)
-      .json({ success: false, message: "Incorrect Password" });
+    return res.json({ success: false, message: "Incorrect Password" });
 
   // If everything is okay, sign a token with the user's information
   const token = jwt.sign(

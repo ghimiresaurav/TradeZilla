@@ -266,7 +266,7 @@ const Upload = props => {
     }
 
     const fileDrop = (e) => {
-        // e.preventDefault();
+        e.preventDefault();
         setDragged(false);
 
         const newFile = e.target.files[0];
@@ -349,8 +349,8 @@ const Upload = props => {
                                     {
                                         fileList.map((item, index) => (
                                             <DropFilePreviewItem key={index}>
-                                                {/* <DropFileImg src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']} alt="" /> */}
-                                                <DropFileImg src=".../images/cover.png" alt="" />
+                                                <DropFileImg src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']} alt="" />
+                                                {/* <DropFileImg src=".../images/cover.png" alt="" /> */}
                                                 {/* <DropFileImg src="https://media.istockphoto.com/vectors/tie-icon-logo-vector-design-vector-id1186237183?k=20&m=1186237183&s=612x612&w=0&h=MiHnwu7gPu0raudz7cOe7xa645KAaUu0K6mq6sF2TFM=" alt="" /> */}
                                                 <DropFilePreviewItemInfo>
                                                     {/* <DropFileName>{item.name}</DropFileName>

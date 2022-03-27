@@ -98,7 +98,7 @@ function DropdownUser() {
       <Arrow />
       <DropdownList>
         <DropdownItem>
-          <Link to="./cart" style={linkStyle}>
+          <Link to="./useraccount" style={linkStyle}>
             <SubCategory>My Account</SubCategory>
           </Link>
         </DropdownItem>

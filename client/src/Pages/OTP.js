@@ -6,7 +6,7 @@ import { useState } from 'react';
 const Container = styled.div`
     width: 100%;
     position: absolute;
-    top: 100px;
+    /* top: 100px; */
 `;
 
 const ContentArea = styled.div`

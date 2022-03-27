@@ -237,7 +237,7 @@ const MaxedOut = () => {
             <div>
                 <div></div>
                 <div>
-                    You can upload maximun 5 photos.
+                    You can upload maximum 5 photos.
                 </div>
             </div>
         </>

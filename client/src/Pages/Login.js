@@ -165,7 +165,7 @@ const Login = () => {
 			localStorage.setItem("name", response.name);
 			window.location.assign("/");
 		} else{
-			const errorInField = response.message.split(" ")[0] == "User" ? "email" : "password";
+			const errorInField = response.message.split(" ")[1] == "email" ? "email" : "password";
 			setErrorText({ [errorInField]: response.message})
 		}
 	};

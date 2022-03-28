@@ -158,6 +158,7 @@ const Login = () => {
 			localStorage.setItem("token", response.token);
 			localStorage.setItem("userId", response.id);
 			localStorage.setItem("name", response.name);
+			localStorage.setItem("isActive", response.isActive);
 			window.location.assign("/");
 		}
 	};
@@ -171,12 +172,12 @@ const Login = () => {
 						<Title>SIGN IN</Title>
 						<Form onSubmit={login}>
 							<InputContainer>
-								<Input 
+								<Input
 									placeholder="Username"
 									value={values.name}
 									name="email"
 									onChange={handleChange}
-									required= {true}
+									required={true}
 								></Input>
 							</InputContainer>
 							<ErrorText>Username is not correct.</ErrorText>
@@ -188,7 +189,7 @@ const Login = () => {
 									value={values.name}
 									name="password"
 									onChange={handleChange}
-									required= {true}
+									required={true}
 								></Input>
 								<PasswordOption onClick={changePasswordVisibility}>
 									{passwordVisibility ? (

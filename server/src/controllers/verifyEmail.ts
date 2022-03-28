@@ -4,7 +4,7 @@ import bcrypt from "bcrypt";
 import { OTP, OTPType } from "../models/OTP";
 import { User } from "../models/User";
 
-const checkOtp = async (validOTPs: any, otp: number): Promise<Boolean> => {
+const checkOtp = async (validOTPs: any, otp: string): Promise<Boolean> => {
   for (let i = 0; i < validOTPs.length; i++) {
     const validOTP = validOTPs[i];
     if (await bcrypt.compare(otp.toString(), validOTP.code)) return true;
@@ -14,7 +14,7 @@ const checkOtp = async (validOTPs: any, otp: number): Promise<Boolean> => {
 
 const verifyEmail = async (req: Request, res: Response) => {
   // Extract otp entered by user from req.body
-  const { otp }: { otp: number } = req.body;
+  const { otp }: { otp: string } = req.body;
   // Get user id from res.locals, which was assigned by auth function
   const user_id = res.locals.id;
 

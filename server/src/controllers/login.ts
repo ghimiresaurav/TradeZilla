@@ -22,7 +22,10 @@ const login = async (req: Request, res: Response) => {
 
   //If the user does not exist, send an error message
   if (!user)
-    return res.json({ success: false, message: "The email address you entered isn't connected to an account" });
+    return res.json({
+      success: false,
+      message: "The email address you entered isn't connected to an account",
+    });
 
   // Check if the user entered correct password
   const isPasswordCorrect: boolean = await bcrypt.compare(
@@ -32,9 +35,7 @@ const login = async (req: Request, res: Response) => {
 
   // If password is incorrect, send an error message
   if (!isPasswordCorrect)
-    return res
-      .status(401)
-      .json({ success: false, message: "The password that you've entered is incorrect." });
+    return res.json({ success: false, message: "Incorrect Password" });
 
   // If everything is okay, sign a token with the user's information
   const token = jwt.sign(

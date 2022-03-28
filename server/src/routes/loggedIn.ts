@@ -16,7 +16,7 @@ router.get("/test", (req: Request, res: Response) => {
   return res.json("welcome");
 });
 
-router.get("/add-product", addProduct)
+router.get("/add-product", addProduct);
 
 router.post("/verify-email", verifyEmail);
 

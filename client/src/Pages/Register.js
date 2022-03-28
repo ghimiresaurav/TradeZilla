@@ -3,14 +3,14 @@ import TopBars from "../Components/TopBars";
 import RegisterForm from "../Pages/RegisterForm";
 import Footer from "../Components/Footer";
 import { useState } from "react";
-import {mobile} from '../responsive';
+import { mobile } from '../responsive';
 
 const Container = styled.div`
   width: 100%;
   position: absolute;
   top: 100px;
 
-  ${mobile({top: "50px"})}
+  ${mobile({ top: "50px" })}
 `;
 
 const ContentArea = styled.div`
@@ -162,7 +162,7 @@ const Register = (props) => {
 
   return (
     <Container>
-      <TopBars loggedIn = {props.loggedIn}/>
+      <TopBars loggedIn={props.loggedIn} />
       <ContentArea>
         <WhiteArea>
           <Wrapper>
@@ -170,23 +170,23 @@ const Register = (props) => {
             <Form onSubmit={handleSubmit}>
               {inputs.map((input) => (
                 <RegisterForm
-                  key={input.id}
                   {...input}
+                  key={input.id}
                   value={values[input.name]}
                   onChange={handleChange}
                 />
               ))}
               <Agreement>
-                  <input type="checkbox" id="select" />
-                     <label for="select"> By creating an account, I consent to the processing of my personal data in accordance with the <a href="../Policy" target="_">PRIVACY POLICY</a> </label>
-                       <br />    
+                <input type="checkbox" id="select" />
+                <label for="select"> By creating an account, I consent to the processing of my personal data in accordance with the <a href="../Policy" target="_">PRIVACY POLICY</a> </label>
+                <br />
               </Agreement>
-              <button id="submitForm">Submit</button>
+              <button id="submitForm" type="submit">Submit</button>
             </Form>
           </Wrapper>
         </WhiteArea>
       </ContentArea>
-      <Footer/>
+      <Footer />
     </Container>
   );
 };

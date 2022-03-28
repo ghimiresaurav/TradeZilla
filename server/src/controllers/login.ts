@@ -22,7 +22,10 @@ const login = async (req: Request, res: Response) => {
 
   //If the user does not exist, send an error message
   if (!user)
-    return res.json({ success: false, message: "User does not exist" });
+    return res.json({
+      success: false,
+      message: "The email address you entered isn't connected to an account",
+    });
 
   // Check if the user entered correct password
   const isPasswordCorrect: boolean = await bcrypt.compare(
@@ -55,6 +58,7 @@ const login = async (req: Request, res: Response) => {
     token,
     id: user._id,
     name: user.name,
+    isActive: user.isActive,
   });
 };
 

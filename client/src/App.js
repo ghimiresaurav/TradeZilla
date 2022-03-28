@@ -38,7 +38,7 @@ function App() {
           <Route path="/sellontradezilla" element={<SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
           <Route path="/otp" element={!isLoggedIn() ? <Navigate to="/" /> : <OTP />}/>
           <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>
-          <Route path="/policy" element={<Policy loggedIn = {isLoggedIn()}/>} />
+          <Route path="/privacy-policy" element={<Policy loggedIn = {isLoggedIn()}/>} />
         </Routes>
       </Router>
     </>

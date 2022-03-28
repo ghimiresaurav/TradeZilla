@@ -29,10 +29,10 @@ const Contents = styled.div`
    padding-top: 30px;
 `;
 
-function PrivacyPolicy() {
+function PrivacyPolicy(props) {
 	return (
 		<Container>
-			<TopBars />			
+			<TopBars loggedIn = {props.loggedIn}/>			
                 <Wrapper>
                 <Title>Privacy Policy</Title>
                 

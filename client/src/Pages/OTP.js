@@ -92,6 +92,10 @@ const Resend = styled.a`
 const OTP = (props) => {
   const [otp, setOtp] = useState(new Array(6).fill(""));
 
+  // const [userEmail, setUserEmail] = useState(localStorage.getItem("email"));
+  // console.log(localStorage.getItem("email"));
+  // setUserEmail();
+  
   const submitOTP = async () => {
     const resp = await fetch("http://localhost:5000/s/verify-email", {
       method: "POST",
@@ -131,8 +135,7 @@ const OTP = (props) => {
           <Wrapper>
             <Title>E-mail Verification</Title>
             <Label>
-              An e-mail with a 6-digit verification code was just sent to
-              danny@daniels.com
+              An e-mail with a 6-digit verification code was just sent to {localStorage.getItem("email")}
             </Label>
             <InputArea>
               {otp.map((data, index) => {

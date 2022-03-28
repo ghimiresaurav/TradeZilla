@@ -29,7 +29,10 @@ const Contents = styled.div`
    padding-top: 30px;
 `;
 
-function PrivacyPolicy(props) {
+const PrivacyPolicy = (props) =>{
+
+    document.title = 'Privacy Policy | TradeZilla';
+
 	return (
 		<Container>
 			<TopBars loggedIn = {props.loggedIn}/>			
@@ -157,9 +160,7 @@ function PrivacyPolicy(props) {
 
                             <p><b>Last Updated:</b> March 12, 2022</p><br />                                           
                             
-                </Contents>
-              
-                    
+                </Contents>       
                 </Wrapper>
 			<Footer />
 		</Container>

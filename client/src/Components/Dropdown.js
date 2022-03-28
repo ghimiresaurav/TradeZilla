@@ -46,6 +46,7 @@ const SubCategory = styled.div`
     text-decoration: none;
     color: #000000;
     padding: 10px;
+    font-size: 15px;
 
     
   &:hover {

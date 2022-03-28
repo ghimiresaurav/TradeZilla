@@ -124,10 +124,13 @@ const FieldInput = styled.div`
    font-size: 15px;
 `;
 
-function UserAccount() {
+const UserAccount = (props) =>{
+
+	document.title = 'Profile | TradeZilla';
+
 	return (
 		<Container>
-			<TopBars />			
+			<TopBars loggedIn={props.loggedIn} />	
                 <Wrapper>
                 
                 <WrapperLeft>

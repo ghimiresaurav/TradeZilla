@@ -7,7 +7,10 @@ import Cart from './Pages/Cart';
 import SellOnTradeZilla from './Pages/SellOnTradeZilla';
 import OTP from './Pages/OTP';
 import Globalstyle from './globalStyles';
+import UserAccount from './Pages/UserAccount';
+import Policy from './Pages/PrivacyPolicy';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import Upload from './Components/Upload';
 
 const isLoggedIn = () => {
   if (
@@ -31,8 +34,11 @@ function App() {
           <Route path="/register" element={isLoggedIn() ? <Navigate to="/" /> : <Register />}/>
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>
           <Route path="/cart" element={<Cart loggedIn={isLoggedIn()} />}/>
+          <Route path="/useraccount" element={<UserAccount loggedIn = {isLoggedIn()}/>}/>
           <Route path="/sellontradezilla" element={<SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
-          <Route path="/otp" element={isLoggedIn() ? <Navigate to="/" /> : <OTP />}/>
+          <Route path="/otp" element={!isLoggedIn() ? <Navigate to="/" /> : <OTP />}/>
+          <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>
+          <Route path="/policy" element={<Policy loggedIn = {isLoggedIn()}/>} />
         </Routes>
       </Router>
     </>

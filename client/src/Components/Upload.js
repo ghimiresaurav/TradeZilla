@@ -1,7 +1,11 @@
 import styled from "styled-components";
 import CloseIcon from '@mui/icons-material/Close';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import { useDropzone } from "react-dropzone";
+import { useState } from "react";
+import { mobile, tab, vTab } from "../responsive";
+
+import { ImageConfig } from './ImageConfig';
+import PropTypes from 'prop-types';
 
 const Container = styled.div`
     position: fixed;
@@ -30,16 +34,16 @@ const DropBox = styled.div`
     display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 20px;
-	border-width: 2px;
-	border-radius: 2px;
-	border-color: ${(props) => getColor(props)};
-	border-style: dashed;
+	padding: 20px 20px 0 20px;
 	background-color: #ffffff;
 	color: #000000;
 	outline: none;
 	transition: border 0.24s ease-in-out;
     z-index: 3000;
+
+    ${mobile({
+        overflowY: "auto",
+    })}
 `;
 
 const UploadIcon = styled.div`
@@ -48,20 +52,38 @@ const UploadIcon = styled.div`
     height: 120px;
     display: flex;
     justify-content: center;
+    margin-top: -20px;
     margin-bottom: 20px;
 `;
 
 const DropZone = styled.div`
     display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 90%;
+    height: 80%;
+    border-width: 7px;
+	border-radius: 2px;
+	border-color: ${(props) => getColor(props)};
+	// border-style: dashed;
+    border-style: ${({ dragged }) => (dragged ? "solid" : "dashed")};
+    // border-style: ${(props) => getColor(props)};
+`;
+
+const Wrapper = styled.div`
+    display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
 `;
+
 
 const CloseArea = styled.div`
     width: 100%;
     display: flex;
     justify-content: flex-end;
-    margin-bottom: 50px;
+    margin-bottom: 20px;
+    // background-color: green;
 `;
 
 const CloseButton = styled.div`
@@ -94,17 +116,107 @@ const Text = styled.span`
     margin: 10px 0 15px 0;
 `;
 
-const Button = styled.button`
-    padding: 10px 25px;
+const Input = styled.input`
+    display: none;
+    background-color: green;
+`;
+
+const Browse = styled.div`
+    padding: 10px 0px;
     font-size: 20px;
     font-weight: 500;
-    border: none;
-    outline: none;
     background: #000000;
     color: #ffffff;
     border-radius: 5px;
+`;
+
+const BrowseText = styled.label`
+    background-color: transparent;
+    padding: 10px 25px;
     cursor: pointer;
 `;
+
+const DropFileItems = styled.div`
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 25px;
+
+    ${mobile({
+        flexDirection: "column"
+    })}
+`;
+
+const DropFilePreview = styled.div`
+    margin-top: 30px;
+`;
+
+const DropFilePreviewTitle = styled.h1`
+    font-weight: 500;
+    text-align: center;
+`;
+
+const DropFileImg = styled.img`
+    width: 50px;
+    margin-right: 20px;
+`;
+
+const DropFilePreviewItemInfo = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+`;
+
+const DropFileName = styled.text`
+    overflow: hidden;
+    word-wrap: break-word;
+`;
+
+const DropFileSize = styled.text`
+    overflow: hidden;
+`;
+
+const RemoveDropFile = styled.span`
+    background-color: gray;
+    color: #000000;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    cursor: pointer;
+    transition: 0.3s ease;
+`;
+
+const DropFilePreviewItem = styled.div`
+    position: relative;
+    display: flex;
+    margin-bottom: 10px;
+    padding: 15px;
+    border-radius: 2px;
+    border: 2px dashed;
+    width: 100px;
+    height: 100px;
+    margin: 0 20px;
+    // overflow: hidden;
+
+    &:hover ${RemoveDropFile}{ //as we are using RemoveDropFile in DropFilePreviewItem, RemoveDropFile should be initialized before DropFilePreviewItem
+        // opacity: 1;
+        background-color: #000000;
+        color: #ffffff;
+    }
+
+    ${mobile({
+        width: "200px",
+        height: "200px",
+        marginBottom: "25px"
+    })}
+`;
+
 
 const getColor = (props) => {
 	if (props.isDragAccept) {
@@ -119,11 +231,83 @@ const getColor = (props) => {
 	return "#eeeeee";
 };
 
+const MaxedOut = () => {
+    return (
+        <>
+            <div>
+                <div></div>
+                <div>
+                    You can upload maximum 5 photos.
+                </div>
+            </div>
+        </>
+    )
+}
 
-const Upload = (props) => {
+const Upload = props => {
+
+    const [dragged, setDragged] = useState(false);
+
+    const [fileList, setFileList] = useState([]);
+
+    const dragOver = (e) => {
+        e.preventDefault();
+        setDragged(true);
+    }
+
+    const dragEnter = (e) => {
+        e.preventDefault();
+        setDragged(true);
+    }
+
+    const dragLeave = (e) => {
+        e.preventDefault();
+        setDragged(false);
+    }
+
+    const fileDrop = (e) => {
+        // e.preventDefault();
+        setDragged(false);
+
+        const newFile = e.target.files[0];
+        console.log(newFile)
+        if (newFile) {
+            const updatedList = [...fileList, newFile];
+            setFileList(updatedList);
+            props.onFileChange(updatedList);
+        }
+    }
+
+    const fileRemove = (file) => {
+        const updatedList = [...fileList];
+        updatedList.splice(fileList.indexOf(file), 1);
+        setFileList(updatedList);
+        props.onFileChange(updatedList);
+    }
+
+    const changeUI = (arg) =>{
+        if (!dragged){
+            if (arg === "headerText"){
+                return "Drag & Drop to Upload File";
+            }
+            else{
+                return 1;
+            }
+        }
+        else{
+            if (arg === "headerText"){
+                return "Release to Upload";
+            }
+            else{
+                return 0.6;
+            }
+        }
+    }
+
+    // const showWidth = () => {
+    //     console.log("Width is ", Browse.width);
+    // }
     
-	const { getRootProps, getInputProps, isFocused, isDragAccept, isDragReject } = useDropzone({ accept: "image/*" });
-
 	return (props.trigger) ? (
     // return (
         <Container>
@@ -134,20 +318,62 @@ const Upload = (props) => {
                         <CloseIcon/>
                     </CloseButton>
                 </CloseArea>
-                {/* <DropZone> */}
-                <DropZone {...getRootProps({ isFocused, isDragAccept, isDragReject })}>
-                    <input {...getInputProps()} />
-                    <UploadIcon>
-                        <CloudUploadIcon style = {{width: "120px", height:"120px"}}/>
-                    </UploadIcon>
-                    <Header>Drag & Drop to Upload File</Header>
-                    <Text>OR</Text>
-                    <Button>Browse File</Button>
+                <DropZone onDragOver={dragOver}
+                    onDragEnter={dragEnter}
+                    onDragLeave={dragLeave}
+                    onDrop={fileDrop}
+                    dragged = {dragged}>
+                    <Wrapper>
+                        <UploadIcon>
+                            <CloudUploadIcon style = {{width: "120px", height:"120px", opacity:changeUI("iconOpacity")}}/>
+                        </UploadIcon>
+                        <Header>{changeUI("headerText")}</Header>
+                        <Text>OR</Text>
+                        
+                        <Browse>
+                            <Input type="file" id="file" onChange={fileDrop} accept="image/*"/>
+                            <BrowseText htmlFor="file">
+                                Browse File
+                            </BrowseText>
+                        </Browse>
+                    </Wrapper>   
                 </DropZone>
+                {
+                    (fileList.length > 0) ? (
+                        (fileList.length <= 5) ? (
+                            <DropFilePreview>
+                                <DropFilePreviewTitle>
+                                    {/* Preview */}
+                                </DropFilePreviewTitle>
+                                <DropFileItems>
+                                    {
+                                        fileList.map((item, index) => (
+                                            <DropFilePreviewItem key={index}>
+                                                {/* <DropFileImg src={ImageConfig[item.type.split('/')[1]] || ImageConfig['default']} alt="" /> */}
+                                                <DropFileImg src=".../images/cover.png" alt="" />
+                                                {/* <DropFileImg src="https://media.istockphoto.com/vectors/tie-icon-logo-vector-design-vector-id1186237183?k=20&m=1186237183&s=612x612&w=0&h=MiHnwu7gPu0raudz7cOe7xa645KAaUu0K6mq6sF2TFM=" alt="" /> */}
+                                                <DropFilePreviewItemInfo>
+                                                    {/* <DropFileName>{item.name}</DropFileName>
+                                                    <DropFileSize>{item.size}B</DropFileSize> */}
+                                                </DropFilePreviewItemInfo>
+                                                <RemoveDropFile onClick={() => fileRemove(item)}>x</RemoveDropFile>
+                                            </DropFilePreviewItem>
+                                        ))
+                                    }
+                            </DropFileItems>
+                            </DropFilePreview>
+                        ) : (<MaxedOut/>)
+                    ) : null
+                }
             </DropBox>
         </Container>
-    ) : "";
     // )
+    ) : "";
+}
+
+
+Upload.propTypes = {
+    onFileChange: PropTypes.func
 }
 
 export default Upload;

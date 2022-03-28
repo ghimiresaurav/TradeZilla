@@ -147,7 +147,7 @@ const SellOnTradeZilla = () => {
                         <Category>
                             <Label>Category:</Label>
                             <Select>
-                                <Option disabled selected>Select</Option>
+                                {/* <Option disabled selected>Select</Option> */}
                                 <Option>Fashion</Option>
                                 <Option>Electronics</Option>
                                 <Option>Home and Kitchen</Option>
@@ -158,7 +158,7 @@ const SellOnTradeZilla = () => {
                         <SubCategory>
                             <Label>Sub Catergory:</Label>
                             <Select>
-                            <Option disabled selected>Select</Option>
+                            {/* <Option disabled selected>Select</Option> */}
                             </Select>
                         </SubCategory>
                     </Type>

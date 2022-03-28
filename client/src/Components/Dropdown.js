@@ -34,9 +34,9 @@ const DropdownItem = styled.li`
   background: #ffffff;
   cursor: pointer;
 
-  &:hover {
-    text-decoration: underline;
-  }
+  // &:hover {
+  //   text-decoration: underline;
+  // }
 `;
 
 const SubCategory = styled.div`
@@ -46,7 +46,12 @@ const SubCategory = styled.div`
     text-decoration: none;
     color: #000000;
     padding: 10px;
-}`;
+
+    
+  &:hover {
+    text-decoration: underline;
+  }
+`;
 
 const linkStyle = {
   textDecoration: "none",
@@ -64,6 +69,7 @@ const logout = async () => {
   // });
 
   localStorage.clear();
+  window.location.reload();
   // redirect to home without triggering refresh
 };
 
@@ -92,14 +98,14 @@ function DropdownUser() {
       <Arrow />
       <DropdownList>
         <DropdownItem>
-          <Link to="./cart" style={linkStyle}>
+          <Link to="./useraccount" style={linkStyle}>
             <SubCategory>My Account</SubCategory>
           </Link>
         </DropdownItem>
         <DropdownItem>
-          <Link to="/" style={linkStyle}>
-            <SubCategory>
-              <button onClick={logout}>Log Out</button>
+          <Link to="./" style={linkStyle}>
+            <SubCategory onClick = {logout}>
+                Log Out
             </SubCategory>
           </Link>
         </DropdownItem>

@@ -62,9 +62,8 @@ const Form = styled.form`
 
 const Agreement = styled.div`
   font-size: 12px;
-  margin: 20px 0 0 0;
-  padding-left: 50px;
-  padding-right: 50px;
+  margin: 20px 0;
+  
 `;
 
 const Register = (props) => {
@@ -178,8 +177,9 @@ const Register = (props) => {
                 />
               ))}
               <Agreement>
-                By creating an account, I consent to the processing of my personal
-                data in accordance with the <b>PRIVACY POLICY</b>
+                  <input type="checkbox" id="select" />
+                     <label for="select"> By creating an account, I consent to the processing of my personal data in accordance with the <a href="../Policy" target="_">PRIVACY POLICY</a> </label>
+                       <br />    
               </Agreement>
               <button id="submitForm">Submit</button>
             </Form>

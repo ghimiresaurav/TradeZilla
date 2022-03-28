@@ -155,11 +155,7 @@ const RightJSX = (props) => {
 	const [dropdownUser, setDropdownUser] = useState(false);
 
 	const showDropdown = () => {
-		if (window.innerWidth < 960) {
-			setDropdownUser(false);
-		} else {
-			setDropdownUser(true);
-		}
+		setDropdownUser(true);
 	};
 
 	const hideDropdown = () => {

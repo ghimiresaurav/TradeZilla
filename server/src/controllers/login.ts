@@ -58,6 +58,7 @@ const login = async (req: Request, res: Response) => {
     id: user._id,
     name: user.name,
     isActive: user.isActive,
+    email,
   });
 };
 

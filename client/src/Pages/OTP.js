@@ -4,15 +4,9 @@ import Footer from "../Components/Footer";
 import { useState } from "react";
 
 const Container = styled.div`
-<<<<<<< HEAD
   width: 100%;
   position: absolute;
-  top: 100px;
-=======
-    width: 100%;
-    position: absolute;
-    /* top: 100px; */
->>>>>>> 3d5ef20f14f0196322fadc9ce67a6c2f0d7be067
+  /* top: 100px; */
 `;
 
 const ContentArea = styled.div`

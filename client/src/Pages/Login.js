@@ -141,6 +141,11 @@ const Login = () => {
 		setValues({ ...values, [e.target.name]: e.target.value });
 	};
 
+	const [errorText, setErrorText] = useState({
+		email: "",
+		password: "",
+	})
+
 	const login = async (e) => {
 		e.preventDefault();
 
@@ -158,7 +163,12 @@ const Login = () => {
 			localStorage.setItem("token", response.token);
 			localStorage.setItem("userId", response.id);
 			localStorage.setItem("name", response.name);
-			window.location.assign("/");
+			localStorage.setItem("isActive", response.isActive);
+			localStorage.setItem("email", response.email);
+			localStorage.isActive? window.location.assign("/"):  window.location.assign("/otp");
+		} else {
+			const errorInField = response.message.split(" ")[1] === "email" ? "email" : "password";
+			setErrorText({ [errorInField]: response.message })
 		}
 	};
 
@@ -171,15 +181,15 @@ const Login = () => {
 						<Title>SIGN IN</Title>
 						<Form onSubmit={login} autoComplete="none">
 							<InputContainer>
-								<Input 
+								<Input
 									placeholder="Username"
 									value={values.name}
 									name="email"
 									onChange={handleChange}
-									required= {true}
+									required={true}
 								></Input>
 							</InputContainer>
-							<ErrorText>Username is not correct.</ErrorText>
+							<ErrorText>{errorText.email}</ErrorText>
 							<InputContainer>
 								<Input
 									placeholder="Password"
@@ -188,7 +198,7 @@ const Login = () => {
 									value={values.name}
 									name="password"
 									onChange={handleChange}
-									required= {true}
+									required={true}
 								></Input>
 								<PasswordOption onClick={changePasswordVisibility}>
 									{passwordVisibility ? (
@@ -198,7 +208,7 @@ const Login = () => {
 									)}
 								</PasswordOption>
 							</InputContainer>
-							<ErrorText>Password is not correct.</ErrorText>
+							<ErrorText>{errorText.password}</ErrorText>
 							<Button type="submit">LOGIN</Button>
 							<ForgotPassword>Forgot Password?</ForgotPassword>
 							<Link to="/register" style={linkStyle}>

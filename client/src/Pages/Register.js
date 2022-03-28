@@ -8,7 +8,7 @@ import {mobile} from '../responsive';
 const Container = styled.div`
   width: 100%;
   position: absolute;
-  top: 100px;
+  /* top: 100px; */
 
   ${mobile({top: "50px"})}
 `;
@@ -87,7 +87,7 @@ const Register = (props) => {
       errorMessage:
         "Please enter your full name",
       label: "Full Name:",
-      pattern: "^[a-zA-Z]{4,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$",
+      pattern: "^[a-zA-Z]{2,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$",
       required: true,
     },
 
@@ -145,7 +145,7 @@ const Register = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: values.name,
+        name: values.name.trim(),
         email: values.email,
         password: values.password,
         dob: values.birthday,
@@ -178,7 +178,7 @@ const Register = (props) => {
               ))}
               <Agreement>
                   <input type="checkbox" id="select" />
-                     <label for="select"> By creating an account, I consent to the processing of my personal data in accordance with the <a href="../Policy" target="_">PRIVACY POLICY</a> </label>
+                     <label htmlFor="select"> By creating an account, I consent to the processing of my personal data in accordance with the <a href="../Policy" target="_">PRIVACY POLICY</a> </label>
                        <br />    
               </Agreement>
               <button id="submitForm">Submit</button>

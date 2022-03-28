@@ -21,7 +21,6 @@ const Home = (props) => {
     document.title = 'TradeZilla | Online Shopping';
 
     const [timedPopup, setTimedPopup] = useState(false);
-
     //useEffect is neccessary otherwise every time we close the popup, it will reappear after 10 seconds
     useEffect(() => {
         setTimeout(() => {

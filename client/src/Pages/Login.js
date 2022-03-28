@@ -10,7 +10,7 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 const Container = styled.div`
 	width: 100%;
 	position: absolute;
-	top: 100px;
+	/* top: 100px; */
 
 	${mobile({ top: "50px" })}
 `;
@@ -81,7 +81,7 @@ const Input = styled.input`
 	}
 `;
 
-const ErrorText = styled.text`
+const ErrorText = styled.p`
 	color: red;
 	margin-top: -4px;
 	margin-bottom: 10px;
@@ -169,7 +169,7 @@ const Login = () => {
 				<WhiteArea>
 					<Wrapper>
 						<Title>SIGN IN</Title>
-						<Form onSubmit={login}>
+						<Form onSubmit={login} autoComplete="none">
 							<InputContainer>
 								<Input 
 									placeholder="Username"

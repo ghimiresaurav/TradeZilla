@@ -88,7 +88,6 @@ const ErrorText = styled.text`
 	font-size: 14px;
 `;
 
-
 const PasswordOption = styled.div`
 	margin-right: 10px;
 	cursor: pointer;

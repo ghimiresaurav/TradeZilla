@@ -13,15 +13,14 @@ import Payment from './Pages/Payment';
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Upload from './Components/Upload';
 
-const isLoggedIn = () => {
-  if (
-    localStorage.getItem("name") &&
+const isLoggedIn = () =>   
+   ( localStorage.getItem("name") &&
     localStorage.getItem("userId") &&
-    localStorage.getItem("token")
-  )
-    return true;
-  return false;
-};
+    localStorage.getItem("token") &&
+    localStorage.getItem("email") )
+
+// const isActive = localStorage.getItem("isActive");
+// console.log(isActive);
 
 function App() {
   return (
@@ -37,7 +36,7 @@ function App() {
           <Route path="/cart" element={<Cart loggedIn={isLoggedIn()} />}/>
           <Route path="/useraccount" element={<UserAccount loggedIn = {isLoggedIn()}/>}/>
           <Route path="/sellontradezilla" element={<SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
-          <Route path="/otp" element={!isLoggedIn() ? <Navigate to="/" /> : <OTP loggedIn = {isLoggedIn()}/>}/>
+          <Route path="/otp" element={(isLoggedIn() && !(localStorage.getItem("isActive") === "true") ? <OTP loggedIn = {isLoggedIn()}/> : <Navigate to="/" />)}/>
           <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>
           <Route path="/privacy-policy" element={<PrivacyPolicy loggedIn = {isLoggedIn()}/>} />
           {/* <Route path="/payment" element={!isLoggedIn() ? <Navigate to="/" /> : <Payment />}/> */}

@@ -141,6 +141,11 @@ const Login = () => {
 		setValues({ ...values, [e.target.name]: e.target.value });
 	};
 
+	const [errorText, setErrorText] = useState({
+		email: "",
+		password: "",
+	})
+
 	const login = async (e) => {
 		e.preventDefault();
 
@@ -160,6 +165,9 @@ const Login = () => {
 			localStorage.setItem("name", response.name);
 			localStorage.setItem("isActive", response.isActive);
 			window.location.assign("/");
+		} else{
+			const errorInField = response.message.split(" ")[1] == "email" ? "email" : "password";
+			setErrorText({ [errorInField]: response.message})
 		}
 	};
 
@@ -180,7 +188,7 @@ const Login = () => {
 									required={true}
 								></Input>
 							</InputContainer>
-							<ErrorText>Username is not correct.</ErrorText>
+							<ErrorText>{errorText.email}</ErrorText>
 							<InputContainer>
 								<Input
 									placeholder="Password"
@@ -199,7 +207,7 @@ const Login = () => {
 									)}
 								</PasswordOption>
 							</InputContainer>
-							<ErrorText>Password is not correct.</ErrorText>
+							<ErrorText>{errorText.password}</ErrorText>
 							<Button type="submit">LOGIN</Button>
 							<ForgotPassword>Forgot Password?</ForgotPassword>
 							<Link to="/register" style={linkStyle}>

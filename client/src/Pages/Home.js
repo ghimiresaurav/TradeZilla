@@ -59,7 +59,7 @@ const Home = (props) => {
             <Categories />
             <Products />
             <Footer />
-            <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/>
+            {/* <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/> */}
             <ReturnTop/>
         </Container>
     );

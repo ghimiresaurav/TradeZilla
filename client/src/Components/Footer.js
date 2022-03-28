@@ -8,6 +8,7 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
 import {mobile} from '../responsive';
 import { Link } from "react-router-dom";
+import FooterItems from "../datas/FooterItems";
 
 
 const Container = styled.div`
@@ -180,9 +181,17 @@ const Footer = () => {
                     </SocialContainer>
                 </Left>
                 <Center>
-                    <Title>Useful Links</Title>
-                    <List>
-                        <ListItem>My Account</ListItem>
+                    <Title>Useful Links</Title> 
+                        <List>
+                            {FooterItems.map((item) => (
+                                <ListItem key={item.title}>
+                                    <Link to={item.path} style={linkStyle}>
+                                        {item.title}
+                                    </Link>
+                                </ListItem>
+                            ))}
+                        </List>
+                        {/* <ListItem>My Account</ListItem>
                         <ListItem>Order Tracking</ListItem>
                         <ListItem>Order History</ListItem>
                         <ListItem>Wishlist</ListItem>
@@ -190,8 +199,8 @@ const Footer = () => {
                         <ListItem>Careers</ListItem>
                         <ListItem>About Us</ListItem>
                         <ListItem>Terms</ListItem>
-                        <ListItem>Privacy Policy</ListItem>
-                    </List>
+                        <ListItem>Privacy Policy</ListItem> */}
+                    
                 </Center>
                 <Right>
                     <Title>Contact</Title>

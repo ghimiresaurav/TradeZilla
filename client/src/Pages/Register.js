@@ -4,71 +4,122 @@ import RegisterForm from "../Pages/RegisterForm";
 import Footer from "../Components/Footer";
 import { useState } from "react";
 import { mobile } from '../responsive';
+import { Link } from "react-router-dom";
 
-const Container = styled.div`
-  width: 100%;
-  position: absolute;
-  top: 100px;
+const RegistrationComplete = (props) => {
 
-  ${mobile({ top: "50px" })}
-`;
+  const Container = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    // background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  `;
 
-const ContentArea = styled.div`
-  width: 100%;
-  padding: 50px 0;
-  background: linear-gradient(
-      rgba(255, 255, 255, 0.5),
-      rgba(255, 255, 255, 0.5)
-    ),
-    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
-      center;
-  background-size: cover;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+  const OuterArea = styled.div`
+    width: 100%;
+    height: 100%;
+    position: fixed;
+  `;
 
-const WhiteArea = styled.div`
-  width: 40%;
-  min-width: 300px;
-  padding: 20px;
-  background-color: #f2f2f2;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
+  const Popup = styled.div`
+      // background-color: #fcf5f5;   
+      background-color: #ffffff;   
+      width: 40%;
+      z-index: 10000;
+      min-width: 300px;
+      padding: 20px;
+      border-radius: 5px;
+      // box-shadow: 1px 1px 5px #888888, -1px -1px 5px #f2f2f2;
+  `;
 
+  const Content = styled.div`
+    display: flex;
+    align-items: left;
+    flex-direction: column;
+  `;
 
-const Wrapper = styled.div`
-  width: 100%;
-  min-width: 380px;
-  padding: 20px;
-  overflow: hidden;
-`;
+  const Title = styled.h1`
+    font-size: 25px;
+    margin-bottom: 20px;
+  `;
 
-const Title = styled.h1`
-  text-align: center;
-  font-size: 24px;
-  font-weight: 300;
-`;
+  const Description = styled.div`
+    font-size: 15px;
+    font-weight: 300;
+    margin-bottom: 10px;
+  `;
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
-  margin: auto;
-  width: 80%;
-`;
+  const ButtonArea = styled.div`
+    display: flex;
+    justify-content: flex-end;
+  `;
 
-const Agreement = styled.div`
-  font-size: 12px;
-  margin: 20px 0;
-  
-`;
+  const OkButton = styled.button`
+    padding: 8px 20px;
+    border-radius: 5px;
+    transition: 0.5s;
+    color: #ffffff;
+    cursor: pointer;
+    background-color: #000000;
+    border: none;
+
+    &:hover{
+        background-color: #000000;
+        color: #ffffff;
+    }
+  `;
+
+  return (props.trigger) ? (
+    <Container>
+      <OuterArea></OuterArea>
+      <Popup>
+        <Content>
+          <Title>Registration Complete</Title>
+          <Description>You have successfully registered your account. You can now login through your credentials.</Description>
+          <ButtonArea>
+            <Link to="/login">
+              <OkButton onClick={() => props.setTrigger(false)}>
+                OK
+              </OkButton>
+            </Link>
+          </ButtonArea>
+        </Content>
+      </Popup>
+    </Container>
+  ) : ""
+}
 
 const Register = (props) => {
 
   document.title = 'Register | TradeZilla';
+
+  const [registrationCompletePopup, setRegistrationCompletePopup] = useState(false);
+
+  function checkPopup(argument) {
+    if (registrationCompletePopup) {
+      if (argument === "height") {
+        return "100vh";
+      }
+      else {
+        return "hidden";
+      }
+    }
+    else {
+      if (argument === "height") {
+        return "";
+      }
+      else {
+        return "none";
+      }
+    }
+  }
 
   const [values, setValues] = useState({
     name: "",
@@ -154,14 +205,80 @@ const Register = (props) => {
 
     const response = await resp.json();
     console.log(response);
+
+    if (response.success) setRegistrationCompletePopup(true)
+
   };
 
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
 
+
+  const Container = styled.div`
+  // width: 100%;
+  // position: absolute;
+  // top: 100px;
+  height: ${(props) => props.setHeight};
+  overflow-y: ${(props) => props.setOverflow};
+
+  ${mobile({ top: "50px" })}
+`;
+
+  const ContentArea = styled.div`
+  width: 100%;
+  padding: 50px 0;
+  background: linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url("https://images.pexels.com/photos/6984661/pexels-photo-6984661.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+      center;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+  const WhiteArea = styled.div`
+  width: 40%;
+  min-width: 300px;
+  padding: 20px;
+  background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+`;
+
+
+  const Wrapper = styled.div`
+  width: 100%;
+  min-width: 380px;
+  padding: 20px;
+  overflow: hidden;
+`;
+
+  const Title = styled.h1`
+  text-align: center;
+  font-size: 24px;
+  font-weight: 300;
+`;
+
+  const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+  width: 80%;
+`;
+
+  const Agreement = styled.div`
+  font-size: 12px;
+  margin: 20px 0;
+  
+`;
   return (
-    <Container>
+    <Container setHeight={checkPopup("height")} setOverflow={checkPopup("overflow")}>
       <TopBars loggedIn={props.loggedIn} />
       <ContentArea>
         <WhiteArea>
@@ -187,6 +304,7 @@ const Register = (props) => {
         </WhiteArea>
       </ContentArea>
       <Footer />
+      <RegistrationComplete trigger={registrationCompletePopup} setTrigger={setRegistrationCompletePopup} />
     </Container>
   );
 };

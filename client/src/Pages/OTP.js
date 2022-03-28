@@ -106,6 +106,10 @@ const OTP = (props) => {
     });
     const response = await resp.json();
     console.log(response);
+    if (response.success){
+      localStorage.setItem("isActive", true);
+      window.location.assign("/");
+    }
   };
 
   const handleChange = (element, index) => {

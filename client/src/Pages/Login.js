@@ -164,7 +164,7 @@ const Login = () => {
 			localStorage.setItem("userId", response.id);
 			localStorage.setItem("name", response.name);
 			localStorage.setItem("isActive", response.isActive);
-			window.location.assign("/");
+			response.isActive ?  window.location.assign("/") : window.location.assign("/otp")
 		} else{
 			const errorInField = response.message.split(" ")[1] == "email" ? "email" : "password";
 			setErrorText({ [errorInField]: response.message})

@@ -7,6 +7,9 @@ interface ProductType {
   quantity: Number;
   rating: Number;
   mfgDate: Date;
+  category: string;
+  subcategory: string;
+  description: string;
 }
 
 const ProductSchema = new mongoose.Schema<ProductType>({
@@ -34,6 +37,21 @@ const ProductSchema = new mongoose.Schema<ProductType>({
   mfgDate: {
     type: Date,
     required: true,
+  },
+  category: {
+    type: String,
+    required: true,
+    minlength: 4,
+  },
+  subcategory: {
+    type: String,
+    required: true,
+    minlength: 4,
+  },
+  description: {
+    type: String,
+    required: true,
+    minlength: 10,
   },
 });
 

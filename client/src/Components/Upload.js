@@ -167,12 +167,12 @@ const DropFilePreviewItemInfo = styled.div`
     overflow: hidden;
 `;
 
-const DropFileName = styled.text`
+const DropFileName = styled.p`
     overflow: hidden;
     word-wrap: break-word;
 `;
 
-const DropFileSize = styled.text`
+const DropFileSize = styled.p`
     overflow: hidden;
 `;
 
@@ -328,7 +328,7 @@ const Upload = props => {
                             <CloudUploadIcon style = {{width: "120px", height:"120px", opacity:changeUI("iconOpacity")}}/>
                         </UploadIcon>
                         <Header>{changeUI("headerText")}</Header>
-                        <Text>OR</Text>
+                        <p>OR</p>
                         
                         <Browse>
                             <Input type="file" id="file" name="product-image" onChange={fileDrop} accept="image/*"/>

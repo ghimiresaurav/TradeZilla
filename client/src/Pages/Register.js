@@ -6,8 +6,7 @@ import { useState } from "react";
 import { mobile } from '../responsive';
 import { Link } from "react-router-dom";
 
-const RegistrationComplete = (props) => {
-
+const RegistrationComplete = (props) =>{
   const Container = styled.div`
     position: fixed;
     top: 0;
@@ -138,7 +137,7 @@ const Register = (props) => {
       errorMessage:
         "Please enter your full name",
       label: "Full Name:",
-      pattern: "^[a-zA-Z]{4,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$",
+      pattern: "^[a-zA-Z]{2,}(?: [a-zA-Z]+)?(?: [a-zA-Z]+)?$",
       required: true,
     },
 
@@ -196,7 +195,7 @@ const Register = (props) => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        name: values.name,
+        name: values.name.trim(),
         email: values.email,
         password: values.password,
         dob: values.birthday,

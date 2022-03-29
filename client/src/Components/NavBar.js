@@ -40,6 +40,7 @@ const Left = styled.div`
 
 const MenuContainer = styled.div`
 	display: none;
+	
 	${mobile({ display: "flex", margin: "0 25px", cursor: "pointer" })}
 `;
 

@@ -3,6 +3,7 @@ import TopBars from "../Components/TopBars";
 import Footer from "../Components/Footer";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
+import Comment from "../Components/Comment";
 import { useState } from "react";
 
 const Container = styled.div`
@@ -11,9 +12,10 @@ const Container = styled.div`
   left: 0;
 `;
 
-const Wrapper = styled.div`
+const ProductDetails = styled.div`
   padding: 50px;
   display: flex;
+  // background-color: red;
 `;
 
 const ImgContainer = styled.div`
@@ -135,7 +137,7 @@ const Product = (props) => {
   return (
     <Container>
       <TopBars loggedIn = {props.loggedIn}/>
-      <Wrapper>
+      <ProductDetails>
         <ImgContainer>
           <Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
         </ImgContainer>
@@ -178,7 +180,8 @@ const Product = (props) => {
             <Button>ADD TO CART</Button>
           </AddContainer>
         </InfoContainer>
-      </Wrapper>
+      </ProductDetails>
+      <Comment/>
       <Footer />
     </Container>
   );

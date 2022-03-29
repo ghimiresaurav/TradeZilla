@@ -35,7 +35,6 @@ const InfoSection = styled.div`
 	  height: 70vh;
     margin: 30px auto;
     border: 2px solid #000000;
-    /* background-color: red; */
 `;
 const SectionHeader = styled.div`
   width: 82%;

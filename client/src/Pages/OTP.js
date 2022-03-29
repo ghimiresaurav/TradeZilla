@@ -71,8 +71,9 @@ const Input = styled.input`
 	margin: 0px 3px;
 `;
 
-const ErrorMsg = styled.p`
-	color: red;
+const Message = styled.p`
+	// color: red;
+	color: ${(props) => props.setColor};
 	// margin-top: -4px;
 	margin-bottom: 10px;
 	font-size: 14px;
@@ -96,7 +97,7 @@ const Button = styled.button`
 	}
 `;
 
-const Resend = styled.a`
+const Resend = styled.p`
 	text-decoration: underline;
 	cursor: pointer;
 
@@ -105,12 +106,14 @@ const Resend = styled.a`
 	}
 `;
 
+
 const OTP = (props) => {
+	const [msgToUser, setMsgToUser] = useState("");
+	
 	const [otp, setOtp] = useState(new Array(6).fill(""));
-
+	
 	const [accountVerifiedPopup, setAccountVerifiedPopup] = useState(false);
-
-  const [errorMsg, setErrorMsg] = useState("");
+	
 
 	const submitOTP = async () => {
 		const resp = await fetch("http://localhost:5000/s/verify-email", {
@@ -127,12 +130,12 @@ const OTP = (props) => {
 		const response = await resp.json();
 		console.log(response);
 		if (response.success) {
-      setErrorMsg("");
+			setMsgToUser("");
 			setAccountVerifiedPopup(true);
 			localStorage.setItem("isActive", true);
 		}
     else{
-      setErrorMsg("The OTP you have entered is invalid.");
+		setMsgToUser("The OTP you have entered is invalid.");
     }
 	};
 
@@ -175,11 +178,11 @@ const OTP = (props) => {
 							</InputArea>
 						</InputOuterArea>
 						<p>OTP Entered - {otp.join("")}</p>
-            <ErrorMsg>{errorMsg}</ErrorMsg>
+            			<Message>{msgToUser}</Message>
 						<Button onClick={submitOTP}>Verify</Button>
 						<Label>
 							Didn't Receive a code?&nbsp;
-							<Resend>Request Again</Resend>
+							 <Resend setColor = "red" onClick={() => {setMsgToUser("New OTP has been sent");}}>Request Again</Resend>
 						</Label>
 					</Wrapper>
 				</OTPArea>

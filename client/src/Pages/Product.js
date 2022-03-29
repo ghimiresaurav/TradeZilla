@@ -7,8 +7,9 @@ import Comment from "../Components/Comment";
 import { useState } from "react";
 
 const Container = styled.div`
-  position: absolute;
-  top: 85px;
+  position: fixed;
+  top: 0;
+  left: 0;
 `;
 
 const ProductDetails = styled.div`

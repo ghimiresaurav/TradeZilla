@@ -130,62 +130,62 @@ function UserAccount() {
 			<TopBars />			
                 <Wrapper>
                 
-                <WrapperLeft>
-					<LeftDiv>								    					
-						<Link to="../cart" style={linkStyle}>
-							<LinkItem>Account Info</LinkItem>
-						</Link>	
+					<WrapperLeft>
+						<LeftDiv>								    					
+							<Link to="../useraccount" style={linkStyle}>
+								<LinkItem>Account Info</LinkItem>
+							</Link>	
 
-						<Link to="../cart" style={linkStyle}>
-						    <LinkItem>Payment</LinkItem>
-						</Link>
+							<Link to="../cart" style={linkStyle}>
+								<LinkItem>Payment</LinkItem>
+							</Link>
 
-						<Link to="../cart" style={linkStyle}>
-						    <LinkItem>Order History</LinkItem>
-						</Link>
+							<Link to="../cart" style={linkStyle}>
+								<LinkItem>Order History</LinkItem>
+							</Link>
 
-						<Link to="../sellontradezilla" style={linkStyle}>
-							<LinkItem>Sell on TradeZilla</LinkItem>
-						</Link>										
-					</LeftDiv>                                
-                </WrapperLeft>
+							<Link to="../sellontradezilla" style={linkStyle}>
+								<LinkItem>Sell on TradeZilla</LinkItem>
+							</Link>										
+						</LeftDiv>                                
+					</WrapperLeft>
 
-				<WrapperRight>
-				   <Title>My Account</Title>
-				<RightDiv>
-				<WrapContainer>
-					<InfoSection>
-						<SectionHeader>
-							<StartSection>Account Information</StartSection>
-							<EndSection>Edit</EndSection>
-						</SectionHeader>
+					<WrapperRight>
+					<Title>My Account</Title>
+					<RightDiv>
+					<WrapContainer>
+						<InfoSection>
+							<SectionHeader>
+								<StartSection>Account Information</StartSection>
+								<EndSection>Edit</EndSection>
+							</SectionHeader>
 
-						<SectionBody>
-                           <BodyWrapper>
-							   <Field>
-									<FieldTitle>Full Name</FieldTitle>
-									<FieldInput>Sagar Raj Thapaliya</FieldInput>
-							   </Field>
-							  
-                               <Field>
-									<FieldTitle>Email Address</FieldTitle>
-									<FieldInput>Sagar001@gmail.com</FieldInput>
-							   </Field>
-							  
-                               <Field>
-									<FieldTitle>Date Of Birth</FieldTitle>
-									<FieldInput>12/02/2020</FieldInput>
-							   </Field>
+							<SectionBody>
+							<BodyWrapper>
+								<Field>
+										<FieldTitle>Full Name</FieldTitle>
+										<FieldInput>Sagar Raj Thapaliya</FieldInput>
+								</Field>
+								
+								<Field>
+										<FieldTitle>Email Address</FieldTitle>
+										<FieldInput>Sagar001@gmail.com</FieldInput>
+								</Field>
+								
+								<Field>
+										<FieldTitle>Date Of Birth</FieldTitle>
+										<FieldInput>12/02/2020</FieldInput>
+								</Field>
 
-							   
-						   </BodyWrapper>
-						</SectionBody>
-                         
-					</InfoSection>
-				   </WrapContainer>
-				</RightDiv>
-					 
-				</WrapperRight>
+								
+							</BodyWrapper>
+							</SectionBody>
+							
+						</InfoSection>
+					</WrapContainer>
+					</RightDiv>
+						
+					</WrapperRight>
                     
                 </Wrapper>
 			<Footer />

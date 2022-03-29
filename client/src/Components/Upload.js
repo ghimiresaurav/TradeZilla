@@ -331,7 +331,7 @@ const Upload = props => {
                         <p>OR</p>
                         
                         <Browse>
-                            <Input type="file" id="file" onChange={fileDrop} accept="image/*"/>
+                            <Input type="file" id="file" name="product-image" onChange={fileDrop} accept="image/*"/>
                             <BrowseText htmlFor="file">
                                 Browse File
                             </BrowseText>

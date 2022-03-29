@@ -88,7 +88,6 @@ const ErrorText = styled.p`
 	font-size: 14px;
 `;
 
-
 const PasswordOption = styled.div`
 	margin-right: 10px;
 	cursor: pointer;
@@ -165,7 +164,8 @@ const Login = () => {
 			localStorage.setItem("name", response.name);
 			localStorage.setItem("isActive", response.isActive);
 			localStorage.setItem("email", response.email);
-			localStorage.isActive? window.location.assign("/"):  window.location.assign("/otp");
+			// localStorage.isActive? window.location.assign("/"):  window.location.assign("/otp");
+			(localStorage.getItem("isActive") === "true") ? window.location.assign("/"):  window.location.assign("/otp");
 		} else {
 			const errorInField = response.message.split(" ")[1] === "email" ? "email" : "password";
 			setErrorText({ [errorInField]: response.message })
@@ -218,7 +218,7 @@ const Login = () => {
 					</Wrapper>
 				</WhiteArea>
 			</ContentArea>
-			<Footer />
+			<Footer />4
 		</Container>
 	);
 };

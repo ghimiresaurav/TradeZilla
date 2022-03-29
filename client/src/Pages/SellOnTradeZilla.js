@@ -125,13 +125,15 @@ const Button = styled.button`
     }
 `;
 
-const SellOnTradeZilla = () => {
+const SellOnTradeZilla = (props) => {
+
+    document.title = 'Sell | TradeZilla';
 
     const [uploadClicked, setUploadClicked] = useState(false);
 
     return (
         <Container>
-            <TopBars/>
+            <TopBars loggedIn={props.loggedIn} />	
             <Title>SELL ON TRADEZILLA</Title>
             <Wrapper>
                 <Form>

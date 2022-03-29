@@ -163,10 +163,12 @@ const RightJSX = (props) => {
 	};
 
 	return props.loggedIn ? (
-		<UserField onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
-			<UserName>{getInitials(localStorage.getItem("name"))}</UserName>
-			{dropdownUser && <DropdownUser />}
-		</UserField>
+		<Link style={linkStyle} to={"/useraccount"}>
+			<UserField onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
+				<UserName>{getInitials(localStorage.getItem("name"))}</UserName>
+				{dropdownUser && <DropdownUser />}
+			</UserField>
+		</Link>
 	) : (
     <Link style={linkStyle} to={"/login"}>
       <SignInContainer>  

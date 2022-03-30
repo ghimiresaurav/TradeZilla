@@ -7,7 +7,7 @@ import auth from "../auth/auth";
 import logout from "../controllers/logout";
 import verifyEmail from "../controllers/verifyEmail";
 import addProduct from "../controllers/addProduct";
-
+import requestOTP from "../controllers/requestOTP";
 const router: Router = express.Router();
 
 router.use(auth);
@@ -19,6 +19,7 @@ router.get("/test", (req: Request, res: Response) => {
 router.get("/add-product", addProduct);
 
 router.post("/verify-email", verifyEmail);
+router.get("/otp", requestOTP);
 
 router.delete("/logout", logout);
 

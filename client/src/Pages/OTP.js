@@ -182,8 +182,20 @@ const OTP = (props) => {
               Didn't Receive a code?&nbsp;
               <Resend
                 setColor="red"
-                onClick={() => {
-                  setMsgToUser("New OTP has been sent");
+                onClick={async () => {
+                  // Send a get request for requesting another OTP
+                  const resp = await fetch("http://localhost:5000/s/otp", {
+                    headers: {
+                      authorization: `Bearer ${localStorage.getItem(
+                        "token"
+                      )} ${localStorage.getItem("userId")}`,
+                      "Content-Type": "application/json",
+                    },
+                  });
+                  const response = await resp.json();
+
+                  if (response.success) setMsgToUser(response.message);
+                  else setMsgToUser("Oops! We encountered a problem...");
                 }}
               >
                 Request Again

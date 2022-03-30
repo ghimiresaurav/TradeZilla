@@ -40,15 +40,14 @@ const DropdownItem = styled.li`
 `;
 
 const SubCategory = styled.div`
-    display: block;
-    width: 100%;
-    height: 100%;
-    text-decoration: none;
-    color: #000000;
-    padding: 10px;
-    font-size: 15px;
+  display: block;
+  width: 100%;
+  height: 100%;
+  text-decoration: none;
+  color: #000000;
+  padding: 10px;
+  font-size: 15px;
 
-    
   &:hover {
     text-decoration: underline;
   }
@@ -63,7 +62,7 @@ const logout = async () => {
   // const resp = await fetch("http://localhost:5000/s/logout", {
   //   method: "DELETE",
   //   headers: {
-  //     authorization: `Bearer ${localStorage.getItem("token")}`,
+  //     authorization: `Bearer ${localStorage.getItem("token")} ${localStorage.getItem("userId")}`,
   //     "Content-Type": "application/json",
   //   },
   //   body: JSON.stringify({ id: localStorage.getItem("userId") }),
@@ -105,9 +104,7 @@ function DropdownUser() {
         </DropdownItem>
         <DropdownItem>
           <Link to="./" style={linkStyle}>
-            <SubCategory onClick = {logout}>
-                Log Out
-            </SubCategory>
+            <SubCategory onClick={logout}>Log Out</SubCategory>
           </Link>
         </DropdownItem>
       </DropdownList>

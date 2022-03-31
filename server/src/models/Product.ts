@@ -8,7 +8,7 @@ interface ProductType {
   rating: Number;
   mfgDate: Date;
   category: string;
-  subcategory: string;
+  subCategory: string;
   description: string;
 }
 
@@ -43,7 +43,7 @@ const ProductSchema = new mongoose.Schema<ProductType>({
     required: true,
     minlength: 4,
   },
-  subcategory: {
+  subCategory: {
     type: String,
     required: true,
     minlength: 4,

@@ -182,7 +182,7 @@ const Login = () => {
 						<Form onSubmit={login} autoComplete="none">
 							<InputContainer>
 								<Input
-									placeholder="Username"
+									placeholder="Email Address"
 									value={values.name}
 									name="email"
 									onChange={handleChange}

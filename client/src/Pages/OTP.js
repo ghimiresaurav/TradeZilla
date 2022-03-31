@@ -6,146 +6,147 @@ import AccountVerified from "../Components/SuccessPopup/AccountVerified_OTP";
 // import { Link } from "react-router-dom";
 
 const Container = styled.div`
-	width: 100%;
-	position: absolute;
-	// top: 100px;
+  width: 100%;
+  position: absolute;
+  // top: 100px;
 `;
 
 const ContentArea = styled.div`
-	width: 100%;
+  width: 100%;
 `;
 
 const OTPArea = styled.div`
-	width: 30%;
-	min-width: 300px;
-	margin: 50px auto;
-	border: 2px solid #000000;
+  width: 30%;
+  min-width: 300px;
+  margin: 50px auto;
+  border: 2px solid #000000;
 `;
 
 const Wrapper = styled.div`
-	display: flex;
-	flex-direction: column;
-	width: 80%;
-	margin: auto;
-	padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+  margin: auto;
+  padding: 20px 0;
 `;
 
 const Title = styled.h1`
-	display: flex;
-	justify-content: center;
-	margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
 `;
 
 const Label = styled.label`
-	// background-color: green;
-	margin-bottom: 15px;
+  // background-color: green;
+  margin-bottom: 15px;
 `;
 
 const InputOuterArea = styled.div`
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	// background-color: green;
-	margin-bottom: 15px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background-color: green;
+  margin-bottom: 15px;
 `;
 
 const InputArea = styled.div`
-	height: 40px;
-	width: 80%;
-	max-width: 500px;
-	// padding: 0 15px;
-	display: flex;
-	justify-content: center;
-	// justify-content: space-between;
-	// background-color: blue;
+  height: 40px;
+  width: 80%;
+  max-width: 500px;
+  // padding: 0 15px;
+  display: flex;
+  justify-content: center;
+  // justify-content: space-between;
+  // background-color: blue;
 `;
 
 const Input = styled.input`
-	// width: 20%;
-	width: 40px;
-	padding-left: 12px;
-	font-size: 20px;
-	border: 2px solid #000000;
-	border-radius: 3px;
-	margin: 0px 3px;
+  // width: 20%;
+  width: 40px;
+  padding-left: 12px;
+  font-size: 20px;
+  border: 2px solid #000000;
+  border-radius: 3px;
+  margin: 0px 3px;
 `;
 
-const ErrorMsg = styled.p`
-	color: red;
-	// margin-top: -4px;
-	margin-bottom: 10px;
-	font-size: 14px;
+const Message = styled.p`
+  // color: red;
+  color: ${(props) => props.setColor};
+  // margin-top: -4px;
+  margin-bottom: 10px;
+  font-size: 14px;
 `;
 
 const Button = styled.button`
-	// height: 40px;
-	cursor: pointer;
-	margin-bottom: 15px;
-	color: #ffffff;
-	background-color: #000000;
-	font-size: 20px;
-	font-weight: 600;
-	border: 2px solid #000000;
-	padding: 10px 0;
-	transition: 0.3s ease-in-out;
+  // height: 40px;
+  cursor: pointer;
+  margin-bottom: 15px;
+  color: #ffffff;
+  background-color: #000000;
+  font-size: 20px;
+  font-weight: 600;
+  border: 2px solid #000000;
+  padding: 10px 0;
+  transition: 0.3s ease-in-out;
 
-	&:hover {
-		background-color: #ffffff;
-		color: #000000;
-	}
+  &:hover {
+    background-color: #ffffff;
+    color: #000000;
+  }
 `;
 
-const Resend = styled.a`
-	text-decoration: underline;
-	cursor: pointer;
+const Resend = styled.p`
+  text-decoration: underline;
+  cursor: pointer;
 
-	&:hover {
-		opacity: 0.8;
-	}
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 const OTP = (props) => {
-	const [otp, setOtp] = useState(new Array(6).fill(""));
+  const [msgToUser, setMsgToUser] = useState("");
 
-	const [accountVerifiedPopup, setAccountVerifiedPopup] = useState(false);
+  const [otp, setOtp] = useState(new Array(6).fill(""));
 
-  const [errorMsg, setErrorMsg] = useState("");
+  const [accountVerifiedPopup, setAccountVerifiedPopup] = useState(false);
 
-	const submitOTP = async () => {
-		const resp = await fetch("http://localhost:5000/s/verify-email", {
-			method: "POST",
-			headers: {
-				authorization: `Bearer ${localStorage.getItem("token")}`,
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				id: localStorage.getItem("userId"),
-				otp: otp.join(""),
-			}),
-		});
-		const response = await resp.json();
-		console.log(response);
-		if (response.success) {
-      setErrorMsg("");
-			setAccountVerifiedPopup(true);
-			localStorage.setItem("isActive", true);
-		}
-    else{
-      setErrorMsg("The OTP you have entered is invalid.");
+  const submitOTP = async () => {
+    const resp = await fetch("http://localhost:5000/s/verify-email", {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(
+          "token"
+        )} ${localStorage.getItem("userId")}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        otp: otp.join(""),
+      }),
+    });
+    const response = await resp.json();
+    console.log(response);
+    if (response.success) {
+      setMsgToUser("");
+      setAccountVerifiedPopup(true);
+      localStorage.setItem("isActive", true);
+    } else {
+      setMsgToUser("The OTP you have entered is invalid.");
     }
-	};
+  };
 
-	const handleChange = (element, index) => {
-		if (isNaN(element.value)) return false;
+  const handleChange = (element, index) => {
+    if (isNaN(element.value)) return false;
 
-		setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
+    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
 
-		//Focus next input
-		if (element.nextSibling) {
-			element.nextSibling.focus();
-		}
-	};
+    //Focus next input
+    if (element.nextSibling) {
+      element.nextSibling.focus();
+    }
+  };
 
 	return (
 		<Container>
@@ -174,12 +175,12 @@ const OTP = (props) => {
 								})}
 							</InputArea>
 						</InputOuterArea>
-						<p>OTP Entered - {otp.join("")}</p>
-            <ErrorMsg>{errorMsg}</ErrorMsg>
+						{/* <p>OTP Entered - {otp.join("")}</p> */}
+            			<Message>{msgToUser}</Message>
 						<Button onClick={submitOTP}>Verify</Button>
 						<Label>
 							Didn't Receive a code?&nbsp;
-							<Resend>Request Again</Resend>
+							 <Resend setColor = "red" onClick={() => {setMsgToUser("New OTP has been sent");}}>Request Again</Resend>
 						</Label>
 					</Wrapper>
 				</OTPArea>

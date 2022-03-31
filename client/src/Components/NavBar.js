@@ -9,6 +9,25 @@ import { Link } from "react-router-dom";
 import { DropdownUser } from "./Dropdown";
 import { useState } from "react";
 
+const colorCodes = [
+	"rgb(171,71,188)",
+	"rgb(51,105,30)",
+	"rgb(81,45,168)",
+	"rgb(1,87,155)",
+	"rgb(191,54,12)",
+	"rgb(0,151,167)",
+	"rgb(171,71,188)",
+	"rgb(104,159,56)",
+	"rgb(207,106,74)",
+	"rgb(236,64,122)",
+	"rgb(226,222,220)",
+	"rgb(244,81,30)",
+];
+
+const getRandomNumber = (max, min) => {
+	return Math.round(Math.random() * (max - min) + min);
+};
+
 const Container = styled.div`
 	width: 100%;
 	height: 60px;
@@ -40,6 +59,7 @@ const Left = styled.div`
 
 const MenuContainer = styled.div`
 	display: none;
+
 	${mobile({ display: "flex", margin: "0 25px", cursor: "pointer" })}
 `;
 
@@ -51,7 +71,7 @@ const SearchContainer = styled.div`
 	align-items: center;
 	padding: 5px 10px;
 
-	${vTab({width: "20%"})}
+	${vTab({ width: "20%" })}
 
 	${mobile({ display: "none" })}
 `;
@@ -69,7 +89,7 @@ const Input = styled.input`
 		letter-spacing: 2px;
 	}
 
-	${tab({display: "none"})}
+	${tab({ display: "none" })}
 `;
 
 const Center = styled.div`
@@ -116,6 +136,7 @@ const UserField = styled.div`
 	border: 2px solid #ffffff;
 	border-radius: 50%;
 	position: relative;
+	background-color: ${colorCodes[getRandomNumber(11, 0)]};
 
 	${vTab({ display: "none" })};
 
@@ -141,10 +162,9 @@ const Cart = styled.div`
 `;
 
 const linkStyle = {
-  textDecoration: "none",
-  color: "#ffffff",
+	textDecoration: "none",
+	color: "#ffffff",
 };
-
 
 const RightJSX = (props) => {
 	const getInitials = (name) => {
@@ -164,23 +184,26 @@ const RightJSX = (props) => {
 
 	return props.loggedIn ? (
 		<Link style={linkStyle} to={"/useraccount"}>
-			<UserField onMouseEnter={showDropdown} onMouseLeave={hideDropdown}>
+			<UserField
+				onMouseEnter={showDropdown}
+				onMouseLeave={hideDropdown}
+				// color={colorCodes[getUserColor(11, 0)]}
+			>
 				<UserName>{getInitials(localStorage.getItem("name"))}</UserName>
 				{dropdownUser && <DropdownUser />}
 			</UserField>
 		</Link>
 	) : (
-    <Link style={linkStyle} to={"/login"}>
-      <SignInContainer>  
-          <PersonIcon />
-          <SignIn>SIGN IN</SignIn>
-      </SignInContainer>
-    </Link>
+		<Link style={linkStyle} to={"/login"}>
+			<SignInContainer>
+				<PersonIcon />
+				<SignIn>SIGN IN</SignIn>
+			</SignInContainer>
+		</Link>
 	);
 };
 
 const NavBar = (props) => {
-
 	return (
 		<Container>
 			<Wrapper>

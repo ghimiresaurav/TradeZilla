@@ -51,7 +51,8 @@ const Home = (props) => {
     // const height = $().
 
     return (
-        <Container setHeight = {checkPopup("height")} setOverflow = {checkPopup("overflow")}>
+        // <Container setHeight = {checkPopup("height")} setOverflow = {checkPopup("overflow")}>
+        <Container>
             <Announcement />
             <TopBars loggedIn = {props.loggedIn}/>
             <Slider />

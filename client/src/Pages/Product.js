@@ -3,19 +3,22 @@ import TopBars from "../Components/TopBars";
 import Footer from "../Components/Footer";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import Comment from "../Components/Comment";
+import CommentSection from "../Components/Comment";
 import { useState } from "react";
+import ProductReview from "../Components/ProductReview";
 
 const Container = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
+  width: 100%;
+
 `;
 
 const ProductDetails = styled.div`
-  padding: 50px;
+  width: 90%;
+  margin: 20px auto;
+  // padding: 50px;
   display: flex;
   // background-color: red;
+  margin-bottom: 10px;
 `;
 
 const ImgContainer = styled.div`
@@ -181,7 +184,8 @@ const Product = (props) => {
           </AddContainer>
         </InfoContainer>
       </ProductDetails>
-      <Comment/>
+      <ProductReview/>
+      <CommentSection/>
       <Footer />
     </Container>
   );

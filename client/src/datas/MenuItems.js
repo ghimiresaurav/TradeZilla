@@ -1,22 +1,22 @@
 const BestSellers = [
   {
-    title: "CocoCola",
-    path: "../pages/Login",
+    title: "Coca-Cola",
+    path: "../best-sellers/coco-cola",
     cName: "dropdown-link",
   },
   {
     title: "FanTech",
-    path: "../pages/Login",
+    path: "../best-sellers/fantech",
     cName: "dropdown-link",
   },
   {
     title: "Unilever",
-    path: "../pages/Login",
+    path: "../best-sellers/unilever",
     cName: "dropdown-link",
   },
   {
-    title: "Lenevo",
-    path: "../pages/Login",
+    title: "Lenovo",
+    path: "../best-sellers/lenovo",
     cName: "dropdown-link",
   },
 ];
@@ -24,22 +24,22 @@ const BestSellers = [
 const TodaysDeal = [
   {
     title: "Smartphones",
-    path: "../pages/Login",
+    path: "../todays-deal/smartphones",
     cName: "dropdown-link",
   },
   {
     title: "Wallet",
-    path: "../pages/Login",
+    path: "../todays-deal/wallet",
     cName: "dropdown-link",
   },
   {
     title: "Gifts",
-    path: "../pages/Login",
+    path: "../todays-deal/gifts",
     cName: "dropdown-link",
   },
   {
     title: "Cameras",
-    path: "../pages/Login",
+    path: "../todays-deal/cameras",
     cName: "dropdown-link",
   },
 ];
@@ -47,22 +47,22 @@ const TodaysDeal = [
 const Fashion = [
   {
     title: "Mens Wear",
-    path: "../pages/Login",
+    path: "../fashion/mens-wear",
     cName: "dropdown-link",
   },
   {
     title: "Womens Wear",
-    path: "../pages/Login",
+    path: "../fashion/wommens-wear",
     cName: "dropdown-link",
   },
   {
     title: "Accesories",
-    path: "../pages/Login",
+    path: "../fashion/accessories",
     cName: "dropdown-link",
   },
   {
     title: "Shoes",
-    path: "../pages/Login",
+    path: "../fashion/shoes",
     cName: "dropdown-link",
   },
 ];
@@ -70,22 +70,22 @@ const Fashion = [
 const Electronics = [
   {
     title: "Smartphones",
-    path: "../pages/Login",
+    path: "../electronics/smartphones",
     cName: "dropdown-link",
   },
   {
     title: "Tablets",
-    path: "../pages/Login",
+    path: "../electronics/tablets",
     cName: "dropdown-link",
   },
   {
     title: "Laptops",
-    path: "../pages/Login",
+    path: "../electronics/laptops",
     cName: "dropdown-link",
   },
   {
     title: "Cameras",
-    path: "../pages/Login",
+    path: "../electronics/cameras",
     cName: "dropdown-link",
   },
 ];
@@ -93,27 +93,27 @@ const Electronics = [
 const HomeandKitchen = [
   {
     title: "Bedding",
-    path: "../pages/Login",
+    path: "../homeandkitchen/bedding",
     cName: "dropdown-link",
   },
   {
     title: "Furniture",
-    path: "../pages/Login",
+    path: "../homeandkitchen/furniture",
     cName: "dropdown-link",
   },
   {
     title: "Dining",
-    path: "../pages/Login",
+    path: "../homeandkitchen/dining",
     cName: "dropdown-link",
   },
   {
     title: "Laundry",
-    path: "../pages/Login",
+    path: "../homeandkitchen/laundry",
     cName: "dropdown-link",
   },
   {
     title: "Decor",
-    path: "../pages/Login",
+    path: "../homeandkitchen/decor",
     cName: "dropdown-link",
   },
 ];
@@ -121,22 +121,22 @@ const HomeandKitchen = [
 const Groceries = [
   {
     title: "Cooking Ingredients",
-    path: "../pages/Login",
+    path: "../groceries/cooking-ingredients",
     cName: "dropdown-link",
   },
   {
     title: "Beverages",
-    path: "../pages/Login",
+    path: "../groceries/beverages",
     cName: "dropdown-link",
   },
   {
     title: "Chocolates",
-    path: "../pages/Login",
+    path: "../groceries/chocolates",
     cName: "dropdown-link",
   },
   {
     title: "Snacks",
-    path: "../pages/Login",
+    path: "../groceries/snacks",
     cName: "dropdown-link",
   },
 ];
@@ -144,22 +144,22 @@ const Groceries = [
 const Books = [
   {
     title: "Fiction",
-    path: "../pages/Login",
+    path: "../books/fiction",
     cName: "dropdown-link",
   },
   {
     title: "Non-Fiction",
-    path: "../pages/Login",
+    path: "../books/non-fiction",
     cName: "dropdown-link",
   },
   {
     title: "TextBook",
-    path: "../pages/Login",
+    path: "../books/textbook",
     cName: "dropdown-link",
   },
   {
     title: "Children's Book",
-    path: "../pages/Login",
+    path: "../books/childrens-book",
     cName: "dropdown-link",
   },
 ];

@@ -38,12 +38,11 @@ const getProductsBySubCat = async (req: Request, res: Response) => {
 
   // Extract category and subcategory
   const category = req.params.cat;
-  const subcategory = req.params.subCat;
+  const subCategory = req.params.subCat;
 
-  // Get all the products of the requesteed category from the database
-  const products = await Product.find({ category, subcategory });
+  // Get all the products of the requested category and subcategory from the database
+  const products = await Product.find({ category, subCategory });
 
-  // Send the product information to the client with a success message
   return res.json({ success: true, products });
 };
 

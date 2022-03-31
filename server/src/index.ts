@@ -28,7 +28,7 @@ app.post("/register", register);
 app.post("/login", login);
 app.get("/search/:searchQuery", searchProducts);
 app.get("/products", getAllProducts);
-// app.get("/products/:cat", getProductsByCat);
+app.get("/products/:cat", getProductsByCat);
 app.get("/products/:cat/:subCat", getProductsBySubCat);
 
 const PORT: number = parseInt(<string>process.env.PORT) || 5000;

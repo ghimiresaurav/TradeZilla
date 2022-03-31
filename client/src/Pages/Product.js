@@ -3,7 +3,7 @@ import TopBars from "../Components/TopBars";
 import Footer from "../Components/Footer";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import CommentSection from "../Components/Comment";
+import QandA from "../Components/QandA";
 import { useState } from "react";
 import ProductReview from "../Components/ProductReview";
 
@@ -185,7 +185,7 @@ const Product = (props) => {
         </InfoContainer>
       </ProductDetails>
       <ProductReview/>
-      <CommentSection/>
+      <QandA/>
       <Footer />
     </Container>
   );

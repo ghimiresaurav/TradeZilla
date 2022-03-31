@@ -208,25 +208,25 @@ const MenuBar = ({ isOpen, toggle }) => {
           </CloseButton>
         </CloseArea>
         <Wrapper>
-          <MenuItem onMouseEnter={showBestSellers} onMouseLeave={hideBestSellers}>
-            Best&nbsp;Sellers
-            {dropdownBestSellers && <DropdownCat cat="BestSellers" />}
-          </MenuItem>
-          <MenuItem onMouseEnter={showTodaysDeal} onMouseLeave={hideTodaysDeal}>
-            Today's&nbsp;Deal
-            {dropdownTodaysDeal && <DropdownCat cat="TodaysDeal" />}
-          </MenuItem>
           <MenuItem onMouseEnter={showFashion} onMouseLeave={hideFashion}>
             Fashion
             {dropdownFashion && <DropdownCat cat="Fashion" />}
+          </MenuItem>
+          <MenuItem onMouseEnter={showTodaysDeal} onMouseLeave={hideTodaysDeal}>
+            Sports
+            {dropdownTodaysDeal && <DropdownCat cat="Sports" />}
           </MenuItem>
           <MenuItem onMouseEnter={showElectronics} onMouseLeave={hideElectronics}>
             Electronics
             {dropdownElectronics && <DropdownCat cat="Electronics" />}
           </MenuItem>
           <MenuItem onMouseEnter={showHomeKitchen} onMouseLeave={hideHomeKitchen}>
-            Home&nbsp;and&nbsp;Kitchen
-            {dropdownHomeKitchen && <DropdownCat cat="HomeandKitchen" />}
+            Households
+            {dropdownHomeKitchen && <DropdownCat cat="Households" />}
+          </MenuItem>
+          <MenuItem onMouseEnter={showBestSellers} onMouseLeave={hideBestSellers}>
+            Music
+            {dropdownBestSellers && <DropdownCat cat="Music" />}
           </MenuItem>
           <MenuItem onMouseEnter={showGroceries} onMouseLeave={hideGroceries}>
             Groceries

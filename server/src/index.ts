@@ -26,7 +26,7 @@ app.use("/s", loggedInRoute);
 app.post("/register", register);
 app.post("/login", login);
 app.get("/products", getAllProducts);
-// app.get("/products/:cat", getProductsByCat);
+app.get("/products/:cat", getProductsByCat);
 app.get("/products/:cat/:subCat", getProductsBySubCat);
 
 const PORT: number = parseInt(<string>process.env.PORT) || 5000;

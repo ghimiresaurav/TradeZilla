@@ -177,7 +177,7 @@ const OTP = (props) => {
 								})}
 							</InputArea>
 						</InputOuterArea>
-						<p>OTP Entered - {otp.join("")}</p>
+						{/* <p>OTP Entered - {otp.join("")}</p> */}
             			<Message>{msgToUser}</Message>
 						<Button onClick={submitOTP}>Verify</Button>
 						<Label>

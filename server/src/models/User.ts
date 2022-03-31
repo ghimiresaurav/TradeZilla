@@ -1,14 +1,16 @@
 import mongoose from "mongoose";
-import { ItemSchema, ItemType } from "./Item";
+import { BoughtItemSchema, BoughtItemType } from "./Item";
 
 interface UserType {
   name: string;
   email: string;
-  password: String;
+  password: string;
   dob: Date;
   joinedOn: Date;
   isActive: boolean;
-  cart: [ItemType];
+  cart: [mongoose.Types.ObjectId];
+  boughtItem: [BoughtItemType];
+  // cart: [ItemType];
 }
 
 const UserSchema = new mongoose.Schema<UserType>({
@@ -47,7 +49,12 @@ const UserSchema = new mongoose.Schema<UserType>({
     type: Boolean,
     default: false,
   },
-  cart: [ItemSchema],
+  cart: {
+    type: [mongoose.Types.ObjectId],
+  },
+  boughtItem: {
+    type: [BoughtItemSchema],
+  },
 });
 
 const model = mongoose.model<UserType>("User", UserSchema);

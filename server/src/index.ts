@@ -12,6 +12,7 @@ import {
   getProductsByCat,
   getProductsBySubCat,
 } from "./controllers/getProducts";
+import { searchProducts } from "./controllers/searchProducts";
 
 // Import Route
 import loggedInRoute from "./routes/loggedIn";
@@ -25,6 +26,7 @@ app.use("/s", loggedInRoute);
 
 app.post("/register", register);
 app.post("/login", login);
+app.get("/search/:searchQuery", searchProducts);
 app.get("/products", getAllProducts);
 // app.get("/products/:cat", getProductsByCat);
 app.get("/products/:cat/:subCat", getProductsBySubCat);

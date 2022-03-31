@@ -39,7 +39,6 @@ function App() {
           <Route path="/otp" element={(isLoggedIn() && !(localStorage.getItem("isActive") === "true") ? <OTP loggedIn = {isLoggedIn()}/> : <Navigate to="/" />)}/>
           <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>
           <Route path="/privacy-policy" element={<PrivacyPolicy loggedIn = {isLoggedIn()}/>} />
-          {/* <Route path="/payment" element={!isLoggedIn() ? <Navigate to="/" /> : <Payment />}/> */}
           <Route path="/payment" element={!isLoggedIn() ? <Navigate to="/" /> : <Payment loggedIn = {isLoggedIn()}/>}/>
 
         </Routes>

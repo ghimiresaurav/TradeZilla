@@ -5,7 +5,6 @@ interface InquiryType {
   date: Date;
   question: string;
   answer: string;
-  reply: string
 }
 
 const InquirySchema = new mongoose.Schema<InquiryType>({
@@ -15,7 +14,7 @@ const InquirySchema = new mongoose.Schema<InquiryType>({
   },
   date: {
     type: Date,
-    default: new Date,
+    default: new Date(),
     immutable: true,
     required: true,
   },
@@ -27,7 +26,6 @@ const InquirySchema = new mongoose.Schema<InquiryType>({
   },
   answer: {
     type: String,
-    minlength: 5,
     trim: true,
   },
 })
@@ -44,7 +42,7 @@ interface ProductType {
   subCategory: string;
   description: string;
   images: string;
-  inquery: [InquiryType];
+  inquiries: [InquiryType];
 }
 
 const ProductSchema = new mongoose.Schema<ProductType>({
@@ -97,8 +95,9 @@ const ProductSchema = new mongoose.Schema<ProductType>({
     type: String,
     required: true,
   },
-  inquery: {
+  inquiries: {
     type: [InquirySchema],
+    // default: [],
   },
 });
 

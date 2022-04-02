@@ -1,49 +1,3 @@
-const BestSellers = [
-  {
-    title: "Coca-Cola",
-    path: "../best-sellers/coco-cola",
-    cName: "dropdown-link",
-  },
-  {
-    title: "FanTech",
-    path: "../best-sellers/fantech",
-    cName: "dropdown-link",
-  },
-  {
-    title: "Unilever",
-    path: "../best-sellers/unilever",
-    cName: "dropdown-link",
-  },
-  {
-    title: "Lenovo",
-    path: "../best-sellers/lenovo",
-    cName: "dropdown-link",
-  },
-];
-
-const TodaysDeal = [
-  {
-    title: "Smartphones",
-    path: "../todays-deal/smartphones",
-    cName: "dropdown-link",
-  },
-  {
-    title: "Wallet",
-    path: "../todays-deal/wallet",
-    cName: "dropdown-link",
-  },
-  {
-    title: "Gifts",
-    path: "../todays-deal/gifts",
-    cName: "dropdown-link",
-  },
-  {
-    title: "Cameras",
-    path: "../todays-deal/cameras",
-    cName: "dropdown-link",
-  },
-];
-
 const Fashion = [
   {
     title: "Mens Wear",
@@ -65,77 +19,138 @@ const Fashion = [
     path: "../fashion/shoes",
     cName: "dropdown-link",
   },
+  {
+    title: "Bags",
+    path: "../fashion/shoes",
+    cName: "dropdown-link",
+  },
+];
+
+const Sports = [
+  {
+    title: "Sports Wear",
+    path: "../best-sellers/coco-cola",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Equipments",
+    path: "../best-sellers/fantech",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Nutrition",
+    path: "../best-sellers/unilever",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Fitness",
+    path: "../best-sellers/lenovo",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Accessories",
+    path: "../best-sellers/lenovo",
+    cName: "dropdown-link",
+  },
 ];
 
 const Electronics = [
   {
-    title: "Smartphones",
+    title: "Tablets and Phones",
     path: "../electronics/smartphones",
     cName: "dropdown-link",
   },
   {
-    title: "Tablets",
+    title: "Computers",
     path: "../electronics/tablets",
     cName: "dropdown-link",
   },
   {
-    title: "Laptops",
+    title: "Cameras & Accessories",
     path: "../electronics/laptops",
     cName: "dropdown-link",
   },
   {
-    title: "Cameras",
+    title: "Household Appliances",
     path: "../electronics/cameras",
     cName: "dropdown-link",
   },
 ];
 
-const HomeandKitchen = [
+const Households = [
   {
-    title: "Bedding",
-    path: "../homeandkitchen/bedding",
-    cName: "dropdown-link",
-  },
-  {
-    title: "Furniture",
+    title: "Furnitures",
     path: "../homeandkitchen/furniture",
     cName: "dropdown-link",
   },
   {
-    title: "Dining",
+    title: "Utensils",
+    path: "../homeandkitchen/Utensils",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Decorations",
+    path: "../homeandkitchen/decorations",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Health Care",
     path: "../homeandkitchen/dining",
     cName: "dropdown-link",
   },
   {
-    title: "Laundry",
-    path: "../homeandkitchen/laundry",
+    title: "Outdoors",
+    path: "../homeandkitchen/outdoors",
+    cName: "dropdown-link",
+  },
+];
+
+const Music = [
+  {
+    title: "CD & Cassettes",
+    path: "../todays-deal/smartphones",
     cName: "dropdown-link",
   },
   {
-    title: "Decor",
-    path: "../homeandkitchen/decor",
+    title: "Instruments",
+    path: "../todays-deal/wallet",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Music Accessories",
+    path: "../todays-deal/gifts",
+    cName: "dropdown-link",
+  },
+  {
+    title: "StudioItems",
+    path: "../todays-deal/cameras",
     cName: "dropdown-link",
   },
 ];
 
 const Groceries = [
   {
-    title: "Cooking Ingredients",
-    path: "../groceries/cooking-ingredients",
-    cName: "dropdown-link",
-  },
-  {
     title: "Beverages",
     path: "../groceries/beverages",
     cName: "dropdown-link",
   },
   {
-    title: "Chocolates",
+    title: "Packaged Foods",
     path: "../groceries/chocolates",
     cName: "dropdown-link",
   },
   {
-    title: "Snacks",
+    title: "Cooking Ingredients",
+    path: "../groceries/cooking-ingredients",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Fresh Goods",
+    path: "../groceries/snacks",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Cleaning",
     path: "../groceries/snacks",
     cName: "dropdown-link",
   },
@@ -153,23 +168,28 @@ const Books = [
     cName: "dropdown-link",
   },
   {
-    title: "TextBook",
+    title: "Literature",
     path: "../books/textbook",
     cName: "dropdown-link",
   },
   {
-    title: "Children's Book",
+    title: "Biography",
+    path: "../books/childrens-book",
+    cName: "dropdown-link",
+  },
+  {
+    title: "Education",
     path: "../books/childrens-book",
     cName: "dropdown-link",
   },
 ];
 
-export default {
-  BestSellers,
-  TodaysDeal,
+export default {  
   Fashion,
+  Sports,
   Electronics,
-  HomeandKitchen,
+  Households,
+  Music,
   Groceries,
   Books,
 };

@@ -3,6 +3,7 @@ import TopBars from '../Components/TopBars';
 import Footer from '../Components/Footer';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import {Link} from 'react-router-dom';
 
 const Container = styled.div`
     width: 100%;
@@ -160,6 +161,7 @@ const Button = styled.button`
     background-color: #000000;
     color: #ffffff;
     font-weight: 600;
+    cursor: pointer;
 `;
 
 
@@ -240,7 +242,10 @@ const Cart = (props) => {
                             <SummaryItemText>Total</SummaryItemText>
                             <SummaryItemPrice>Rs. 2800</SummaryItemPrice>
                         </SummaryItem>
-                        <Button>CHECKOUT NOW</Button>
+                        <Link to = {"/payment"}>                        
+                            <Button>CHECKOUT NOW</Button>
+                        </Link>
+                        
                     </Summary>
                 </Bottom>
             </Wrapper>

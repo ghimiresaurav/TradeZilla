@@ -51,7 +51,7 @@ const PayMethod = styled.img`
 width: 25% 
 `;
 
-const SectionBody = styled.div`
+const SectionBody = styled.form`
    width: 90%;
    /* padding: 10px; */
    margin: auto;
@@ -106,6 +106,7 @@ const Button = styled.button`
     background-color: #000000;
     color: #ffffff;
     font-weight: 600;
+    cursor: pointer;
 `;
 
 const PayForm = styled.div`
@@ -120,6 +121,7 @@ const PayForm = styled.div`
 const First = styled.div`
   display: flex;
   flex-direction: column;
+  padding: 10px 0; 
 `;
 const Second = styled.div`
 `;
@@ -130,9 +132,9 @@ const Fourth = styled.div`
 `;
 
 const Number = styled.input`
- width: 80%;
+ width: 50%;
  border-radius: 3%;
- padding: 8px;
+ padding: 10px;
  border: none;
  overflow: hidden;
  display: flex;
@@ -143,7 +145,18 @@ const Number = styled.input`
  }
 `;
 
+const Info = styled.div`
+  display: flex;
+  flex-direction: row;
+  gap: 2%;
+`;
+
+const Code = styled(Number)`
+width:20%;
+`;
+
 const Name = styled(Number)`
+width: 90%;
 `;
 
 const Date = styled(Number)`
@@ -164,8 +177,19 @@ const SelectOption = styled.select `
  }
 `;
 
-const Payment = (props) => {
-  return (
+const Payment = (props) => {           
+        /* var input = document.getElementById("cardName");
+
+          input.onkeydown = function () {
+              if (input.value.length > 0) {
+
+                  if (input.value.length % 4 === 0) {
+                      input.value += "    ";
+                  }
+              }
+          } */
+
+  return (       
     <Container>
         <TopBars loggedIn = {props.loggedIn}/>	
         <Title>CHECKOUT FORM</Title>
@@ -178,13 +202,16 @@ const Payment = (props) => {
                   <PayMethod src = "https://i.ibb.co/Qfvn4z6/payment.png"/>
               </SectionHeader>
 
-              <SectionBody>
+              <SectionBody >
                  <SectionForm>
                     <PayForm>
                        <First>
-                          Card number         
-                          <Number type="text" id="fname" name="fname" placeholder= "1234 1234 1234 1234" maxLength={16}/> <br /> 
-                       </First>
+                          Card Information    
+                           <Info>
+                              <Number id="cardName" placeholder= "Card Number" type="text" pattern="\d*" maxLength="16" />
+                              <Code id="fname" placeholder= "CSV" type="text" pattern="\d*" maxLength="3" minLength="2"/>
+                           </Info>                                                       
+                        </First>
  
                        <Second>
                        Card Holder Name                       
@@ -228,7 +255,7 @@ const Payment = (props) => {
                                 <SummaryItemText>Total</SummaryItemText>
                                 <SummaryItemPrice>Rs. 1999</SummaryItemPrice>
                             </SummaryItem>
-                            <Button>PAY NOW</Button>
+                            <Button type="submit">PAY NOW</Button>
                         </Summary>
 
                  </SectionOrder>

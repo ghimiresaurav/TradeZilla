@@ -11,7 +11,7 @@ const answerQuery = async (req: Request, res: Response) => {
 
   // Extract product id and query id
   const product_id = req.params.p_id;
-  //   const user_id = new mongoose.Types.ObjectId(res.locals.id);
+  const user_id = new mongoose.Types.ObjectId(res.locals.id);
   const query_id = req.body.query_id;
 
   // Find the product in the database
@@ -22,6 +22,13 @@ const answerQuery = async (req: Request, res: Response) => {
     return res.json({
       success: false,
       message: "Product not found",
+    });
+
+  // Check if the query answer is attempted by the vendor
+  if (product.vendor != res.locals.id)
+    return res.json({
+      success: false,
+      message: "You can not have access to reply.",
     });
 
   // Find the query on the product

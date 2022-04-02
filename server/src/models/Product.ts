@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 interface InquiryType {
   user: mongoose.Types.ObjectId;
@@ -28,7 +28,7 @@ const InquirySchema = new mongoose.Schema<InquiryType>({
     type: String,
     trim: true,
   },
-})
+});
 
 interface ProductType {
   title: string;
@@ -42,7 +42,7 @@ interface ProductType {
   subCategory: string;
   description: string;
   images: string;
-  inquiries: [InquiryType];
+  inquiries: Types.DocumentArray<InquiryType & Document>;
 }
 
 const ProductSchema = new mongoose.Schema<ProductType>({

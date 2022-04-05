@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import TopBars from "../Components/TopBars";
 import Footer from '../Components/Footer';
+import "./RegisterForm.css";
 
 const Container = styled.div`
    
@@ -156,7 +157,7 @@ width:20%;
 `;
 
 const Name = styled(Number)`
-width: 90%;
+width: 72%;
 `;
 
 const Date = styled(Number)`
@@ -176,6 +177,20 @@ const SelectOption = styled.select `
   outline: 2px solid #00ccff;
  }
 `;
+
+/* var inputBox = document.getElementById("cardName");
+
+var invalidChars = [
+  "-",
+  "+",
+  "e",
+];
+
+inputBox.addEventListener("keydown", function(e) {
+  if (invalidChars.includes(e.key)) {
+    e.preventDefault();
+  }
+}); */
 
 const Payment = (props) => {           
         /* var input = document.getElementById("cardName");
@@ -208,9 +223,22 @@ const Payment = (props) => {
                        <First>
                           Card Information    
                            <Info>
-                              <Number id="cardName" placeholder= "Card Number" type="text" pattern="\d*" maxLength="16" />
-                              <Code id="fname" placeholder= "CSV" type="text" pattern="\d*" maxLength="3" minLength="2"/>
-                           </Info>                                                       
+                              <Number 
+                                  id="cardName"
+                                  placeholder= "Card Number"
+                                  type="number"                                   
+                                  ondrop="return false;" 
+                                  onpaste="return false;"                                  
+                                  
+                                  required />
+
+                              <Code id="cardCode"
+                               placeholder= "CSV"
+                               type="number" 
+                               ondrop="return false;" 
+                               onpaste="return false;"                               
+                               required />                               
+                           </Info>                             
                         </First>
  
                        <Second>

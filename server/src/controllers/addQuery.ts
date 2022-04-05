@@ -8,14 +8,14 @@ const addQuery = async (req: Request, res: Response) => {
     .connect(<string>process.env.DB_URI)
     .catch((e) => console.log(`Error: ${e.message}`));
 
-  //Extract product id and user id
+  // Extract product id and user id
   const product_id = req.params.p_id;
   const user_id = new mongoose.Types.ObjectId(res.locals.id);
 
-  //Get the product
+  // Get the product
   const product = await Product.findById(product_id);
 
-  //Send false message if product not found
+  // Send false message if product not found
   if (!product)
     return res.json({
       success: false,
@@ -25,7 +25,7 @@ const addQuery = async (req: Request, res: Response) => {
   try {
     const inquiries = product.inquiries;
 
-    //Add question and other information to product
+    // Add question and other information to product
     inquiries.push({
       user: user_id,
       date: new Date,
@@ -33,7 +33,7 @@ const addQuery = async (req: Request, res: Response) => {
       answer: "",
     });
 
-    //Save added question
+    // Save added question
     product.save();
 
     // Send a success message

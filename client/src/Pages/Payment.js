@@ -49,7 +49,8 @@ const StartSection = styled.div`
 `;
 
 const PayMethod = styled.img`
-width: 25% 
+width: 25% ;
+ pointer-events: none;
 `;
 
 const SectionBody = styled.form`
@@ -122,14 +123,15 @@ const PayForm = styled.div`
 const First = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 10px 0; 
+  padding: 5px 0 4px 0; 
 `;
 const Second = styled.div`
+padding: 5px 0 0 0;
 `;
 const Third = styled.div`
 `;
 const Fourth = styled.div`
-  padding: 10px 0;
+  padding: 20px 0;
 `;
 
 const Number = styled.input`
@@ -160,9 +162,6 @@ const Name = styled(Number)`
 width: 72%;
 `;
 
-const Date = styled(Number)`
-`;
-
 const SelectOption = styled.select `
  width: 80%;
  border-radius: 3%;
@@ -176,6 +175,19 @@ const SelectOption = styled.select `
  &:focus {
   outline: 2px solid #00ccff;
  }
+`;
+
+const DateField = styled.div`
+display: flex;
+flex-direction: row;
+`;
+
+const Month = styled(Number)`
+width: 15%;
+`;
+
+const Year = styled(Number)`
+width: 15%;
 `;
 
 /* var inputBox = document.getElementById("cardName");
@@ -248,7 +260,24 @@ const Payment = (props) => {
 
                        <Third>
                           Valid Until
-                       <Date type="date" id="fname" name="fname" /> <br />                        
+                          <DateField>
+                             <Month id="month"
+                               placeholder= "MM"
+                               type="number" 
+                               ondrop="return false;" 
+                               onpaste="return false;"                               
+                               required></Month>
+
+                               <p id="slash">/</p>
+
+                               <Year id="year"
+                               placeholder= "YY"
+                               type="number" 
+                               ondrop="return false;" 
+                               onpaste="return false;"                               
+                               required></Year>
+                          </DateField>
+                       
 
                        </Third>
 

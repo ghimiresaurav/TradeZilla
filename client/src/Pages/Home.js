@@ -1,7 +1,9 @@
 import Announcement from '../Components/Announcement'
 import TopBars from '../Components/TopBars';
-import Slider from '../Components/Slider'
-import Categories from '../Components/Categories'
+// import Slider from '../Components/Slider'
+// import Categories from '../Components/Categories'
+import BestSellers from '../Components/BestSellers';
+import TopDeals from '../Components/TopDeals'
 import Products from '../Components/Products'
 import Footer from '../Components/Footer'
 import NewsletterPopup from '../Components/NewsletterPopup';
@@ -53,11 +55,13 @@ const Home = (props) => {
     return (
         // <Container setHeight = {checkPopup("height")} setOverflow = {checkPopup("overflow")}>
         <Container>
-            <Announcement />
-            <TopBars loggedIn = {props.loggedIn}/>
-            <Slider />
-            <Categories />
-            <Products />
+            {/* <Announcement /> */}
+            <TopBars loggedIn = {props.loggedIn} homePage = {true}/>
+            {/* <Slider /> */}
+            <BestSellers/>
+            <TopDeals/>
+            {/* <Categories /> */}
+            {/* <Products /> */}
             <Footer />
             {/* <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/> */}
             <ReturnTop/>

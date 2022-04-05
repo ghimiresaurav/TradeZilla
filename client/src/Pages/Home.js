@@ -17,6 +17,11 @@ const Container = styled.div`
     overflow-y: ${(props) => props.setOverflow};
 `;
 
+const Wrapper = styled.div`
+    position: absolute;
+    top: 100px;
+`;
+
 
 const Home = (props) => {
 
@@ -57,14 +62,14 @@ const Home = (props) => {
         <Container>
             {/* <Announcement /> */}
             <TopBars loggedIn = {props.loggedIn} homePage = {true}/>
-            {/* <Slider /> */}
-            <BestSellers/>
-            <TopDeals/>
-            {/* <Categories /> */}
-            {/* <Products /> */}
-            <Footer />
-            {/* <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/> */}
-            <ReturnTop/>
+            <Wrapper>
+                <BestSellers/>
+                <TopDeals/>
+                {/* <Products /> */}
+                <Footer />
+                {/* <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/> */}
+                <ReturnTop/>
+            </Wrapper>
         </Container>
     );
 };

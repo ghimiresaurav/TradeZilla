@@ -2,6 +2,8 @@ import styled from "styled-components";
 import TopBars from "../Components/TopBars";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import AccountInfo from "../Components/UserAccount/AccountInfo";
 
 const Container = styled.div`
 	width: 100%;
@@ -125,6 +127,17 @@ const FieldInput = styled.div`
 const UserAccount = (props) => {
 	document.title = "Profile | TradeZilla";
 
+	const [menuState, setMenuState] = useState("accountInfo");
+	console.log("hi", menuState);
+
+	const showRightContent= () =>{
+		if (menuState === "accountInfo") {
+			return (
+				<AccountInfo />
+			)
+		}
+	)
+
 	return (
 		<Container>
 			<TopBars loggedIn={props.loggedIn} />
@@ -132,54 +145,29 @@ const UserAccount = (props) => {
 				<WrapperLeft>
 					<LeftDiv>
 						<Link to="../useraccount" style={linkStyle}>
-							<LinkItem>Account Info</LinkItem>
+							<LinkItem onClick={()=>setMenuState("accountInfo")}>Account Info</LinkItem>
+						</Link>
+
+						<Link to="" style={linkStyle}>
+							<LinkItem onClick={()=>setMenuState("payment")}>Payment</LinkItem>
 						</Link>
 
 						<Link to="../cart" style={linkStyle}>
-							<LinkItem>Payment</LinkItem>
-						</Link>
-
-						<Link to="../cart" style={linkStyle}>
-							<LinkItem>Order History</LinkItem>
+							<LinkItem onClick={()=>setMenuState("orderHistory")}>Order History</LinkItem>
 						</Link>
 
 						<Link to="../sellontradezilla" style={linkStyle}>
-							<LinkItem>Sell on TradeZilla</LinkItem>
+							<LinkItem onClick={()=>setMenuState("seller")}>Sell on TradeZilla</LinkItem>
+						</Link>
+
+						<Link to="" style={linkStyle}>
+							<LinkItem onClick={()=>setMenuState("sellOverview")}>Sell Overview</LinkItem>
 						</Link>
 					</LeftDiv>
 				</WrapperLeft>
 
 				<WrapperRight>
-					<Title>My Account</Title>
-					<RightDiv>
-						<WrapContainer>
-							<InfoSection>
-								<SectionHeader>
-									<StartSection>Account Information</StartSection>
-									<EndSection>Edit</EndSection>
-								</SectionHeader>
-
-								<SectionBody>
-									<BodyWrapper>
-										<Field>
-											<FieldTitle>Full Name</FieldTitle>
-											<FieldInput>Sagar Raj Thapaliya</FieldInput>
-										</Field>
-
-										<Field>
-											<FieldTitle>Email Address</FieldTitle>
-											<FieldInput>Sagar001@gmail.com</FieldInput>
-										</Field>
-
-										<Field>
-											<FieldTitle>Date Of Birth</FieldTitle>
-											<FieldInput>12/02/2020</FieldInput>
-										</Field>
-									</BodyWrapper>
-								</SectionBody>
-							</InfoSection>
-						</WrapContainer>
-					</RightDiv>
+					{showRightContent()}
 				</WrapperRight>
 			</Wrapper>
 			<Footer />

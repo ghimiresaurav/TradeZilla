@@ -9,7 +9,6 @@ import ProductReview from "../Components/ProductReview";
 
 const Container = styled.div`
   width: 100%;
-
 `;
 
 const ProductDetails = styled.div`

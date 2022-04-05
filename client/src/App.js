@@ -29,7 +29,9 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home loggedIn={isLoggedIn()}/>}/>
-          <Route path="/product-list/:category" element={<ProductList loggedIn={isLoggedIn()}/>}/>
+          {/* <Route path="/product-list/:category" element={<ProductList loggedIn={isLoggedIn()}/>}/> */}
+          <Route path="/product-list/" element={<ProductList loggedIn={isLoggedIn()}/>}/>
+
           <Route path="/product/:id" element={<Product loggedIn={isLoggedIn()}/>}/>
           <Route path="/register" element={isLoggedIn() ? <Navigate to="/" /> : <Register />}/>
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>

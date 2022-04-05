@@ -1,4 +1,3 @@
-import React from 'react';
 import TopBars from '../Components/TopBars';
 import Products from '../Components/Products';
 import Footer from '../Components/Footer';
@@ -50,11 +49,13 @@ const Option = styled.option`
 
   document.title = 'Product List | TradeZilla';
 
+  const title = props.title;
+
    return (
     <Container>
       <TopBars loggedIn = {props.loggedIn}/>
       <Wrapper>
-        <Title>Dresses</Title>
+        <Title>{title}</Title>
         <FilterContainer>
             <Filter>
               <FilterText>Filter Products:</FilterText>

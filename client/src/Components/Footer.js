@@ -15,6 +15,7 @@ const Container = styled.div`
     width: 100%;
     background-color: #000000;
     color: #ffffff;
+    position: relative;
 `;
 
 const Wrapper = styled.div`

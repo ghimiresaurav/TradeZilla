@@ -124,6 +124,7 @@ const FieldInput = styled.div`
 
 const UserAccount = (props) => {
 	document.title = "Profile | TradeZilla";
+	
 
 	return (
 		<Container>

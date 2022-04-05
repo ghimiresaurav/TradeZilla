@@ -2,15 +2,16 @@ import styled from "styled-components";
 import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
 import { useState } from "react";
-import { sliderItems } from "../data";
+import { bestSellerItems } from "../datas/BestSellerItems";
 
 const Container = styled.div`
-    width: 100%;
+    width: 100vw;
     height: 80vh;
     display: flex;
     // background-color: coral;
     position: relative;
-    overflow: hidden;
+    // overflow-x: auto;
+    // z-index: 200000;
 `;
 
 const Arrow = styled.div`
@@ -24,11 +25,11 @@ const Arrow = styled.div`
     position: absolute;
     top: 0;
     bottom: 0;
-    left: ${props=> props.direction === "left" && "10px"};
-    right: ${props=> props.direction === "right" && "10px"};
+    left: ${props=> props.direction === "left" && "40px"};
+    right: ${props=> props.direction === "right" && "40px"};
     margin: auto;
     cursor: pointer;
-    opacity: 0.5;
+    // opacity: 0.5;
     z-index: 2;
 `;
 
@@ -44,22 +45,34 @@ const Slide = styled.div`
     width: 100%;
     height: 100vh;
     display: flex;
-    align-item: center;
+    // align-items: center;
+    // justify-content: space-between;
+    // justify-content: center;
+    padding: 0 20px;
     background-color: #${(props) => props.bg};
 `;
 
 const ImgContainer = styled.div`
-    flex: 1;
+    // flex: 1;
+    width: 50vw;
     height: 100%;
+    display: flex;
+    justify-content: center;
+    // margin-right: 20px;
+    // background-color: red;
+
 `;
 
 const Image = styled.img`
     height: 80%;
+    // background-color: green;
 `;
 
 const InfoContainer = styled.div`
-    flex: 1;
-    padding: 50px;
+    // flex: 1;
+    width: 50vw;
+    padding: 50px 90px 50px 50px;
+    // background-color: green;
 `;
 
 const Title = styled.h1`
@@ -87,7 +100,8 @@ const Button = styled.button`
 `;
 
 
-const Slider = () => {
+const BestSellers = () => {
+
     const [slideIndex, setSlideIndex] = useState(0);
     const handleClick = (direction) =>{
         if (direction === "left"){
@@ -104,7 +118,7 @@ const Slider = () => {
                 <ArrowLeftOutlinedIcon/>
             </Arrow>
             <Wrapper slideIndex = {slideIndex}>
-                {sliderItems.map((item) => (
+                {bestSellerItems.map((item) => (
                     <Slide bg = {item.bg} key = {item.id}> {/*We need to include a unique key while using map; it will work without it but shows warning in the console*/}
                         <ImgContainer>
                             <Image src = {item.img}/>
@@ -124,4 +138,4 @@ const Slider = () => {
     )
 }
 
-export default Slider
+export default BestSellers

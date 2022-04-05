@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
     flex: 1;
-    margin: 3px;
+    margin: 0 10px;
     height: 70vh;
     position: relative;
 `;
@@ -43,7 +43,7 @@ const Button = styled.button`
 
 
 
-const CategoryItem = ({item}) => {
+const TopDealsItem = ({item}) => {
     return (
         <Container>
             <Link to = {`/product-list/${item.category}`}>
@@ -57,4 +57,4 @@ const CategoryItem = ({item}) => {
     )
 }
 
-export default CategoryItem
+export default TopDealsItem

@@ -5,14 +5,15 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
 	width: 100%;
-	position: relative;
+	position: absolute;
+	top: 100px;
 `;
 
 const Wrapper = styled.div`
 	display: flex;
 	width: 100%;
 	margin: auto;
-	position: relative;
+	// position: relative;
 `;
 
 const WrapperLeft = styled.div`

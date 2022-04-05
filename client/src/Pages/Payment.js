@@ -4,7 +4,8 @@ import Footer from '../Components/Footer';
 import "./RegisterForm.css";
 
 const Container = styled.div`
-   
+   position: relative;
+   top: 100px;
 `;
 
 const Wrapper = styled.div`

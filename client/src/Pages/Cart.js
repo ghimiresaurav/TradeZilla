@@ -4,17 +4,19 @@ import Footer from '../Components/Footer';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
 import {Link} from 'react-router-dom';
+import { useState } from 'react';
 
 const Container = styled.div`
     width: 100%;
     position: absolute;
-    /* top: 85px; */
+    top: 100px;
     /* background-color: yellow; */
 `;
 
-const Wrapper = styled.div`
-    padding-top: 80px;
-    margin: 0 50px;
+const CartContent = styled.div`
+    // padding-top: 80px;
+    margin: 30px 50px;
+    // background-color: yellow;
 `;
 
 const Title = styled.h1`
@@ -60,6 +62,11 @@ const Info = styled.div`
 const Product = styled.div`
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    margin: 5px 5px;
 `;
 
 const ProductDetail = styled.div`
@@ -121,6 +128,18 @@ const ProductPrice = styled.div`
     font-weight: 200;
 `;
 
+const DiscardButton = styled.div`
+    width: 80px;
+    height: 40px;
+    padding: 10px;
+    background-color: #000000;
+    color: #ffffff;
+    font-weight: 600;
+    cursor: pointer; 
+    display: flex;
+    justify-content: center;  
+`;
+
 const Hr = styled.hr`
     background-color: #eee;
     border: none;
@@ -169,87 +188,102 @@ const Cart = (props) => {
 
     document.title = 'Cart | Tradezilla';
 
+    const [count, setCount] = useState(1);
+
+    function decrementCount() {
+      if (count > 1) {
+        setCount((prevCount) => prevCount - 1);
+      }
+    }
+  
+    function incrementCount() {
+      if (count < 10) {
+        setCount((prevCount) => prevCount + 1);
+      }
+    }
+
     return (
         <Container>
             <TopBars loggedIn = {props.loggedIn}/>
-            <Wrapper>
-                <Title>YOUR BAG</Title>
-                <Top>
-                    <TopButton>CONTINUE SHOPPING</TopButton>
-                    <TopTexts>
-                        <TopText>Shopping Bag(2)</TopText>
-                        <TopText>Your Wishlist (0)</TopText>
-                    </TopTexts>
-                    <TopButton type = "filled">CHECKOUT NOW</TopButton>
-                </Top>
-                <Bottom>
-                    <Info>
-                        <Product>
-                            <ProductDetail>
-                                <Image src = "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"/>
-                                <Details>
-                                    <ProductName><b>Product:</b> JESSIE THUNDER SHOES</ProductName>
-                                    <ProductId><b>ID:</b> 93813718293</ProductId>
-                                    <ProductColor color = "black"/>
-                                    <ProductSize><b>Size:</b> 37.5</ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <AddIcon/>
-                                    <ProductAmount>2</ProductAmount>
-                                    <RemoveIcon/>
-                                </ProductAmountContainer>
-                                <ProductPrice>Rs. 2000</ProductPrice>
-                            </PriceDetail>
-                        </Product>
-                        <Hr/>
-                        <Product>
-                            <ProductDetail>
-                                <Image src = "https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png"/>
-                                <Details>
-                                    <ProductName><b>Product:</b> HAKURA T-SHIRT</ProductName>
-                                    <ProductId><b>ID:</b> 93813718293</ProductId>
-                                    <ProductColor color = "gray"/>
-                                    <ProductSize><b>Size:</b> M</ProductSize>
-                                </Details>
-                            </ProductDetail>
-                            <PriceDetail>
-                                <ProductAmountContainer>
-                                    <AddIcon/>
-                                    <ProductAmount>1</ProductAmount>
-                                    <RemoveIcon/>
-                                </ProductAmountContainer>
-                                <ProductPrice>Rs. 700</ProductPrice>
-                            </PriceDetail>
-                        </Product>
-                    </Info>
-                    <Summary>
-                        <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-                        <SummaryItem>
-                            <SummaryItemText>SubTotal</SummaryItemText>
-                            <SummaryItemPrice>Rs. 2700</SummaryItemPrice>
-                        </SummaryItem>
-                        <SummaryItem>
-                            <SummaryItemText>Estimated Shipping</SummaryItemText>
-                            <SummaryItemPrice>Rs. 200</SummaryItemPrice>
-                        </SummaryItem>
-                        <SummaryItem>
-                            <SummaryItemText>Shipping Discount</SummaryItemText>
-                            <SummaryItemPrice>Rs. 100</SummaryItemPrice>
-                        </SummaryItem>
-                        <SummaryItem type = "total">
-                            <SummaryItemText>Total</SummaryItemText>
-                            <SummaryItemPrice>Rs. 2800</SummaryItemPrice>
-                        </SummaryItem>
-                        <Link to = {"/payment"}>                        
-                            <Button>CHECKOUT NOW</Button>
-                        </Link>
-                        
-                    </Summary>
-                </Bottom>
-            </Wrapper>
-            <Footer/>
+                <CartContent>
+                    <Title>YOUR BAG</Title>
+                    <Top>
+                        <TopButton>CONTINUE SHOPPING</TopButton>
+                        <TopTexts>
+                            <TopText>Shopping Bag(2)</TopText>
+                            <TopText>Your Wishlist (0)</TopText>
+                        </TopTexts>
+                        <TopButton type = "filled">CHECKOUT NOW</TopButton>
+                    </Top>
+                    <Bottom>
+                        <Info>
+                            <Product>
+                                <ProductDetail>
+                                    <Image src = "https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A"/>
+                                    <Details>
+                                        <ProductName><b>Product:</b> JESSIE THUNDER SHOES</ProductName>
+                                        <ProductId><b>ID:</b> 93813718293</ProductId>
+                                        <ProductColor color = "black"/>
+                                        <ProductSize><b>Size:</b> 37.5</ProductSize>
+                                    </Details>
+                                </ProductDetail>
+                                <PriceDetail>
+                                    <ProductAmountContainer>
+                                        <RemoveIcon onClick={decrementCount} />
+                                        <ProductAmount>{count}</ProductAmount>
+                                        <AddIcon onClick={incrementCount}/>
+                                    </ProductAmountContainer>
+                                    <ProductPrice>Rs. 2000</ProductPrice>
+                                </PriceDetail>
+                                <DiscardButton>Discard</DiscardButton>
+                            </Product>
+                            <Hr/>
+                            <Product>
+                                <ProductDetail>
+                                    <Image src = "https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png"/>
+                                    <Details>
+                                        <ProductName><b>Product:</b> HAKURA T-SHIRT</ProductName>
+                                        <ProductId><b>ID:</b> 93813718293</ProductId>
+                                        <ProductColor color = "gray"/>
+                                        <ProductSize><b>Size:</b> M</ProductSize>
+                                    </Details>
+                                </ProductDetail>
+                                <PriceDetail>
+                                    <ProductAmountContainer>
+                                        <AddIcon/>
+                                        <ProductAmount>1</ProductAmount>
+                                        <RemoveIcon/>
+                                    </ProductAmountContainer>
+                                    <ProductPrice>Rs. 700</ProductPrice>
+                                </PriceDetail>
+                            </Product>
+                        </Info>
+                        <Summary>
+                            <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+                            <SummaryItem>
+                                <SummaryItemText>SubTotal</SummaryItemText>
+                                <SummaryItemPrice>Rs. 2700</SummaryItemPrice>
+                            </SummaryItem>
+                            <SummaryItem>
+                                <SummaryItemText>Estimated Shipping</SummaryItemText>
+                                <SummaryItemPrice>Rs. 200</SummaryItemPrice>
+                            </SummaryItem>
+                            <SummaryItem>
+                                <SummaryItemText>Shipping Discount</SummaryItemText>
+                                <SummaryItemPrice>Rs. 100</SummaryItemPrice>
+                            </SummaryItem>
+                            <SummaryItem type = "total">
+                                <SummaryItemText>Total</SummaryItemText>
+                                <SummaryItemPrice>Rs. 2800</SummaryItemPrice>
+                            </SummaryItem>
+                            <Link to = {"/payment"}>                        
+                                <Button>CHECKOUT NOW</Button>
+                            </Link>
+                            
+                        </Summary>
+                    </Bottom>
+                </CartContent>
+                <Footer/>
         </Container>
     )
 }

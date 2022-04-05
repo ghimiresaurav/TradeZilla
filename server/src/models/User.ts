@@ -9,7 +9,7 @@ interface UserType {
   joinedOn: Date;
   isActive: boolean;
   cart: [mongoose.Types.ObjectId];
-  boughtItem: [BoughtItemType];
+  boughtItems: [BoughtItemType];
   // cart: [ItemType];
 }
 
@@ -52,7 +52,7 @@ const UserSchema = new mongoose.Schema<UserType>({
   cart: {
     type: [mongoose.Types.ObjectId],
   },
-  boughtItem: {
+  boughtItems: {
     type: [BoughtItemSchema],
   },
 });

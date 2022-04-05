@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 // import {DropdownBestSellers, DropdownTodaysDeal, DropdownFashion,  DropdownElectronics, DropdownHomeKitchen, DropdownGroceries, DropdownBooks} from './Dropdown';
 import { DropdownCat } from "./Dropdown";
 import { useState } from "react";
+import {Link} from "react-router-dom";
 
 
 const ContainerMain = styled.div`
@@ -208,10 +209,12 @@ const MenuBar = ({ isOpen, toggle }) => {
           </CloseButton>
         </CloseArea>
         <Wrapper>
-          <MenuItem onMouseEnter={showFashion} onMouseLeave={hideFashion}>
+          {/* <Link to={"/product-list"} style = {{textDecoration: "none"}}> */}
+            <MenuItem onMouseEnter={showFashion} onMouseLeave={hideFashion} >
             Fashion
             {dropdownFashion && <DropdownCat cat="Fashion" />}
           </MenuItem>
+          {/* </Link> */}
           <MenuItem onMouseEnter={showTodaysDeal} onMouseLeave={hideTodaysDeal}>
             Sports
             {dropdownTodaysDeal && <DropdownCat cat="Sports" />}

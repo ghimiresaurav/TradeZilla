@@ -12,7 +12,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-	padding: 50px 0px;
+	padding: 30px 0px 50px 0;
 	width: 90%;
 	margin: auto;
 	// background-color: red;
@@ -22,6 +22,7 @@ const Title = styled.h1`
 	font-size: 50px;
 	font-weight: 500;
 	letter-spacing: 3px;
+	
 `;
 
 const FilterContainer = styled.div`
@@ -47,7 +48,12 @@ const Select = styled.select`
 const Option = styled.option``;
 
 const ProductContainer = styled.div`
-	width: 90%;
+	width: 100%;
+	background-color: green;
+`;
+
+const ProductWrapper = styled.div`
+	// width: 90%;
 	margin: auto;
 	display: flex;
 	flex-wrap: wrap;
@@ -103,11 +109,13 @@ const ProductList = (props) => {
 					</Filter>
 				</FilterContainer>
 				{/* <Products/> */}
-				<ProductContainer>
-					{MensWear.map((item) => (
-						<Product item={item} key={item.id} />
-					))}
-				</ProductContainer>
+				{/* <ProductContainer> */}
+					<ProductWrapper>
+						{MensWear.map((item) => (
+							<Product item={item} key={item.id} />
+						))}
+					</ProductWrapper>
+				{/* </ProductContainer> */}
 			</Wrapper>
 			<Footer />
 		</Container>

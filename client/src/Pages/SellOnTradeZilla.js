@@ -193,9 +193,9 @@ const SellOnTradeZilla = (props) => {
 		return (
 			<>
 			<Select>
-				{Fashion.map((item) => {
+				{/* {Fashion.map((item) => {
 				<Option>{item.title}</Option>
-				})}
+				})} */}
 
 				{/* {bestSellerItems.map((item) =>(
 					<Option>{item.title}</Option>

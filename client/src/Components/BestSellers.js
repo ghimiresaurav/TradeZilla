@@ -3,6 +3,7 @@ import ArrowLeftOutlinedIcon from '@mui/icons-material/ArrowLeftOutlined';
 import ArrowRightOutlinedIcon from '@mui/icons-material/ArrowRightOutlined';
 import { useState } from "react";
 import { bestSellerItems } from "../datas/BestSellerItems";
+import { mobile, tab, vTab } from "../responsive";
 
 const Container = styled.div`
     width: 100vw;
@@ -12,6 +13,11 @@ const Container = styled.div`
     position: relative;
     // overflow-x: auto;
     // z-index: 200000;
+
+
+    // ${vTab({ height: "2000px"})}
+    // ${tab({ height: ""})}
+    // ${mobile({ height: ""})}
 `;
 
 const Arrow = styled.div`
@@ -50,6 +56,10 @@ const Slide = styled.div`
     // justify-content: center;
     padding: 0 20px;
     background-color: #${(props) => props.bg};
+
+    // ${vTab({ flexDirection: "column"})}
+    // ${tab({ flexDirection: "column"})}
+    // ${mobile({ flexDirection: "column"})}
 `;
 
 const ImgContainer = styled.div`

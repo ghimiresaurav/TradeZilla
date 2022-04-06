@@ -7,11 +7,12 @@ const Container = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 30px 0;
 `;
 
 const Wrapper = styled.div`
-    width: 90%;
-    margin: 10px 0px 30px 0;
+    width: 85%;
+    // margin: 10px 0px 30px 0;
     border: 2px solid #000000;
     // background-color: green;
 `;
@@ -94,7 +95,7 @@ const UserComment = styled.h2`
 `;
 
 
-const ProductReview = () => {
+const ProductReview = (props) => {
   return (
     <Container>
         <Wrapper>

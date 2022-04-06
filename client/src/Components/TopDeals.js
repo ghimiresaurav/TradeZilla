@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { topDealsData } from '../datas/TopDealsData';
 import TopDealsItem from "./TopDealsItem";
+import { mobile, tab, vTab } from "../responsive";
 
 const Container = styled.div`
   width: 100%;
@@ -15,17 +16,21 @@ const Wrapper = styled.div`
   margin: auto;
 `;
 
-const Deals = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
 const Title = styled.h1`
   text-align: center;
   font-size: 50px;
   font-weight: 700;
   padding: 30px 0px;
   letter-spacing: 3px;
+`;
+
+const Deals = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  ${vTab({ flexDirection: "column"})}
+  ${tab({ flexDirection: "column"})}
+  ${mobile({ flexDirection: "column"})}
 `;
 
 const TopDeals = () => {

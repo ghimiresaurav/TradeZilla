@@ -19,7 +19,7 @@ const Container = styled.div`
 const ProductArea = styled.div`
 	flex: 1;
 	margin: 10px;
-	min-width: 280px;
+	min-width: 270px;
 	height: 350px;
 	display: flex;
 	align-items: center;

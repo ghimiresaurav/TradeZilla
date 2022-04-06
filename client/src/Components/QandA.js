@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
+import {Link} from "react-router-dom";
 // import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 // import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 // import ThumbDownIcon from '@mui/icons-material/ThumbDown';
@@ -12,7 +13,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
-	width: 90%;
+	width: 85%;
 	margin: 10px 0px 30px 0;
 	border: 2px solid #000000;
 	// background-color: green;
@@ -137,7 +138,24 @@ const CancelButton = styled(AnswerButton)`
 	width: 90px;
 `;
 
-const QandA = () => {
+const Login = styled.div`
+	margin: 20px;
+`;
+
+const LoginButton = styled.button`
+	padding: 10px 20px;
+	background-color: #000000;
+	color: #ffffff;
+	border: none;
+	cursor: pointer;
+	transition: 0.2s ease-in-out;
+
+	&:hover{
+		transform: scale(1.01);
+	}
+`;
+
+const QandA = (props) => {
 	const [questionClicked, setQuestionClicked] = useState(false);
 	const [answerClicked, setAnswerClicked] = useState(false);
 
@@ -148,21 +166,28 @@ const QandA = () => {
 			<Wrapper>
 				<Title>Inquiry</Title>
 				<SubTitle>Ask questions about this project</SubTitle>
-				<PostAQuestion>
-					<QuestionField placeholder="Have a question? Ask here..." onClick={() => setQuestionClicked(true)}></QuestionField>
-					{questionClicked ? (
-						<Buttons>
-							<PostButton>
-								Post
-							</PostButton>
-							<CancelButton onClick={() => setQuestionClicked(false)}>
-								Cancel
-							</CancelButton>
-						</Buttons>
-					) :
-						null
-					}			
-				</PostAQuestion>
+				{props.loggedIn ? (
+					<PostAQuestion>
+						<QuestionField
+							placeholder="Have a question? Ask here..."
+							onClick={() => setQuestionClicked(true)}
+						></QuestionField>
+						{questionClicked ? (
+							<Buttons>
+								<PostButton>Post</PostButton>
+								<CancelButton onClick={() => setQuestionClicked(false)}>
+									Cancel
+								</CancelButton>
+							</Buttons>
+						) : null}
+					</PostAQuestion>
+				) : (
+					<Link to={"/login"}>
+						<Login>
+							<LoginButton>Login to ask question</LoginButton>
+						</Login>
+					</Link>
+				)}
 				<Inquiries>
 					<Inquiry>
 						<QuestionArea>

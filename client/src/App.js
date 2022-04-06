@@ -10,7 +10,7 @@ import Globalstyle from './globalStyles';
 import UserAccount from './Pages/UserAccount';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
 import Payment from './Pages/Payment';
-import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate, useRoutes } from "react-router-dom";
 import Upload from './Components/Upload';
 
 const isLoggedIn = () =>   
@@ -22,6 +22,18 @@ const isLoggedIn = () =>
 // const isActive = localStorage.getItem("isActive");
 // console.log(isActive);
 
+const CategoriesPath = () => useRoutes([
+  { path: "/fashion", element: <ProductList loggedIn={isLoggedIn()} title="Fashion"/>},
+  { path: "/sports", element: <ProductList loggedIn={isLoggedIn()} title="Sports"/> },
+  { path: "/electronics", element: <ProductList loggedIn={isLoggedIn()} title="Electronics"/> },
+  { path: "/households", element: <ProductList loggedIn={isLoggedIn()} title="Households"/> },
+  { path: "/music", element: <ProductList loggedIn={isLoggedIn()} title="Music"/> },
+  { path: "/groceries", element: <ProductList loggedIn={isLoggedIn()} title="Groceries"/> },
+  { path: "/books", element: <ProductList loggedIn={isLoggedIn()} title="Books"/> }
+]);
+
+
+
 function App() {
   return (
     <>
@@ -30,8 +42,7 @@ function App() {
         <Routes>
           <Route exact path="/" element={<Home loggedIn={isLoggedIn()}/>}/>
           {/* <Route path="/product-list/:category" element={<ProductList loggedIn={isLoggedIn()}/>}/> */}
-          <Route path="/product-list/" element={<ProductList loggedIn={isLoggedIn()}/>}/>
-
+          {/* <Route path={["/fashion", "households"]} element={<ProductList loggedIn={isLoggedIn()}/>}/> */}
           <Route path="/product/:id" element={<Product loggedIn={isLoggedIn()}/>}/>
           <Route path="/register" element={isLoggedIn() ? <Navigate to="/" /> : <Register />}/>
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>
@@ -42,8 +53,8 @@ function App() {
           <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>
           <Route path="/privacy-policy" element={<PrivacyPolicy loggedIn = {isLoggedIn()}/>} />
           <Route path="/payment" element={!isLoggedIn() ? <Navigate to="/" /> : <Payment loggedIn = {isLoggedIn()}/>}/>
-
         </Routes>
+        <CategoriesPath/>
       </Router>
     </>
   );

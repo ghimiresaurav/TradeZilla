@@ -45,8 +45,8 @@ function App() {
           <Route path="/product/:id" element={<Product loggedIn={isLoggedIn()}/>}/>
           <Route path="/register" element={isLoggedIn() ? <Navigate to="/" /> : <Register />}/>
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>
-          <Route path="/cart" element={<Cart loggedIn={isLoggedIn()} />}/>
-          <Route path="/useraccount" element={<UserAccount loggedIn = {isLoggedIn()}/>}/>
+          <Route path="/cart" element={!isLoggedIn() ? <Navigate to="/"/> : <Cart loggedIn={isLoggedIn()} />}/>
+          <Route path="/useraccount" element={!isLoggedIn() ? <Navigate to="/"/> : <UserAccount loggedIn = {isLoggedIn()}/>}/>
           <Route path="/sellontradezilla" element={<SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
           <Route path="/otp" element={(isLoggedIn() && !(localStorage.getItem("isActive") === "true") ? <OTP loggedIn = {isLoggedIn()}/> : <Navigate to="/" />)}/>
           <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>

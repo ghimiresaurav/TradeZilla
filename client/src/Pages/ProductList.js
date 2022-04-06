@@ -65,7 +65,7 @@ const ProductWrapper = styled.div`
 
 
 const ProductList = (props) => {
-	document.title = "Product List | TradeZilla";
+	document.title = (props.title + " | TradeZilla");
 
 	const title = props.title;
 

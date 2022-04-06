@@ -12,6 +12,7 @@ import PrivacyPolicy from './Pages/PrivacyPolicy';
 import Payment from './Pages/Payment';
 import { BrowserRouter as Router, Routes, Route, Navigate, useRoutes } from "react-router-dom";
 import Upload from './Components/Upload';
+import SubCategoriesPath from './routes/routeSubCategories';
 
 const isLoggedIn = () =>   
    ( localStorage.getItem("name") &&
@@ -41,8 +42,6 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home loggedIn={isLoggedIn()}/>}/>
-          {/* <Route path="/product-list/:category" element={<ProductList loggedIn={isLoggedIn()}/>}/> */}
-          {/* <Route path={["/fashion", "households"]} element={<ProductList loggedIn={isLoggedIn()}/>}/> */}
           <Route path="/product/:id" element={<Product loggedIn={isLoggedIn()}/>}/>
           <Route path="/register" element={isLoggedIn() ? <Navigate to="/" /> : <Register />}/>
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>
@@ -55,6 +54,7 @@ function App() {
           <Route path="/payment" element={!isLoggedIn() ? <Navigate to="/" /> : <Payment loggedIn = {isLoggedIn()}/>}/>
         </Routes>
         <CategoriesPath/>
+        <SubCategoriesPath loggedIn={isLoggedIn()}/>
       </Router>
     </>
   );

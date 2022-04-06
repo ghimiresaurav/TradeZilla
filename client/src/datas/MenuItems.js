@@ -6,7 +6,7 @@ const Fashion = [
   },
   {
     title: "Womens Wear",
-    path: "../fashion/wommens-wear",
+    path: "../fashion/womens-wear",
     cName: "dropdown-link",
   },
   {
@@ -21,7 +21,7 @@ const Fashion = [
   },
   {
     title: "Bags",
-    path: "../fashion/shoes",
+    path: "../fashion/bags",
     cName: "dropdown-link",
   },
 ];
@@ -29,27 +29,27 @@ const Fashion = [
 const Sports = [
   {
     title: "Sports Wear",
-    path: "../best-sellers/coco-cola",
+    path: "../sports/sports-wear",
     cName: "dropdown-link",
   },
   {
     title: "Equipments",
-    path: "../best-sellers/fantech",
+    path: "../sports/equipments",
     cName: "dropdown-link",
   },
   {
     title: "Nutrition",
-    path: "../best-sellers/unilever",
+    path: "../sports/nutrition",
     cName: "dropdown-link",
   },
   {
     title: "Fitness",
-    path: "../best-sellers/lenovo",
+    path: "../sports/fitness",
     cName: "dropdown-link",
   },
   {
     title: "Accessories",
-    path: "../best-sellers/lenovo",
+    path: "../sports/accessories",
     cName: "dropdown-link",
   },
 ];
@@ -57,22 +57,22 @@ const Sports = [
 const Electronics = [
   {
     title: "Tablets and Phones",
-    path: "../electronics/smartphones",
+    path: "../electronics/tablets-and-phones",
     cName: "dropdown-link",
   },
   {
     title: "Computers",
-    path: "../electronics/tablets",
+    path: "../electronics/computers",
     cName: "dropdown-link",
   },
   {
     title: "Cameras & Accessories",
-    path: "../electronics/laptops",
+    path: "../electronics/cameras-and-accessories",
     cName: "dropdown-link",
   },
   {
     title: "Household Appliances",
-    path: "../electronics/cameras",
+    path: "../electronics/household-appliances",
     cName: "dropdown-link",
   },
 ];
@@ -80,27 +80,27 @@ const Electronics = [
 const Households = [
   {
     title: "Furnitures",
-    path: "../homeandkitchen/furniture",
+    path: "../households/furnitures",
     cName: "dropdown-link",
   },
   {
     title: "Utensils",
-    path: "../homeandkitchen/Utensils",
+    path: "../households/utensils",
     cName: "dropdown-link",
   },
   {
     title: "Decorations",
-    path: "../homeandkitchen/decorations",
+    path: "../households/decorations",
     cName: "dropdown-link",
   },
   {
     title: "Health Care",
-    path: "../homeandkitchen/dining",
+    path: "../households/health-care",
     cName: "dropdown-link",
   },
   {
     title: "Outdoors",
-    path: "../homeandkitchen/outdoors",
+    path: "../households/outdoors",
     cName: "dropdown-link",
   },
 ];
@@ -108,22 +108,22 @@ const Households = [
 const Music = [
   {
     title: "CD & Cassettes",
-    path: "../todays-deal/smartphones",
+    path: "../music/cd-and-cassettes",
     cName: "dropdown-link",
   },
   {
     title: "Instruments",
-    path: "../todays-deal/wallet",
+    path: "../music/instruments",
     cName: "dropdown-link",
   },
   {
     title: "Music Accessories",
-    path: "../todays-deal/gifts",
+    path: "../music/accessories",
     cName: "dropdown-link",
   },
   {
-    title: "StudioItems",
-    path: "../todays-deal/cameras",
+    title: "Studio Items",
+    path: "../music/studio-items",
     cName: "dropdown-link",
   },
 ];
@@ -136,7 +136,7 @@ const Groceries = [
   },
   {
     title: "Packaged Foods",
-    path: "../groceries/chocolates",
+    path: "../groceries/packaged-foods",
     cName: "dropdown-link",
   },
   {
@@ -146,12 +146,12 @@ const Groceries = [
   },
   {
     title: "Fresh Goods",
-    path: "../groceries/snacks",
+    path: "../groceries/fresh-goods",
     cName: "dropdown-link",
   },
   {
     title: "Cleaning",
-    path: "../groceries/snacks",
+    path: "../groceries/cleaning",
     cName: "dropdown-link",
   },
 ];
@@ -169,17 +169,17 @@ const Books = [
   },
   {
     title: "Literature",
-    path: "../books/textbook",
+    path: "../books/literature",
     cName: "dropdown-link",
   },
   {
     title: "Biography",
-    path: "../books/childrens-book",
+    path: "../books/biography",
     cName: "dropdown-link",
   },
   {
     title: "Education",
-    path: "../books/childrens-book",
+    path: "../books/education",
     cName: "dropdown-link",
   },
 ];

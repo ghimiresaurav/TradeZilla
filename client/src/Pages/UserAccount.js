@@ -137,7 +137,7 @@ const UserAccount = (props) => {
 				<AccountInfo />
 			)
 		}
-	)
+	}
 
 	return (
 		<Container>

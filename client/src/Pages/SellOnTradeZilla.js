@@ -4,6 +4,8 @@ import Footer from "../Components/Footer";
 import Upload from "../Components/Upload";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useState } from "react";
+import Fashion from "../datas/MenuItems";
+import { bestSellerItems } from "../datas/BestSellerItems";
 
 const Container = styled.div`
 	width: 100%;
@@ -151,9 +153,11 @@ const Button = styled.button`
 // }
 
 const SellOnTradeZilla = (props) => {
-	document.title = "Sell | TradeZilla";
+	document.title = "Sell On TradeZilla | TradeZilla";
 
 	const [uploadClicked, setUploadClicked] = useState(false);
+
+	const [fileList, setFileList] = useState([]);
 
 	const [values, setValues] = useState({
 		title: "",
@@ -184,6 +188,22 @@ const SellOnTradeZilla = (props) => {
 
 		// console.log(values);
 	};
+
+	const showSubCategories=(props)=> {
+		return (
+			<>
+			<Select>
+				{Fashion.map((item) => {
+				<Option>{item.title}</Option>
+				})}
+
+				{/* {bestSellerItems.map((item) =>(
+					<Option>{item.title}</Option>
+				))} */}
+			</Select>
+			</>
+		);
+	}
 
 	return (
 		<Container>
@@ -219,13 +239,14 @@ const SellOnTradeZilla = (props) => {
 								<Option value="electronics">Electronics</Option>
 								<Option value="households">Households</Option>
 								<Option value="music">Music</Option>
-                                <Option value="groceries">Groceries</Option>
-                                <Option value="books">Books</Option>
+								<Option value="groceries">Groceries</Option>
+								<Option value="books">Books</Option>
 							</Select>
 						</Category>
 						<SubCategory>
 							<Label>Sub Catergory:</Label>
-							<Select>{/* <Option disabled selected>Select</Option> */}</Select>
+							{showSubCategories()}
+							{/* <Select><Option disabled selected>Select</Option></Select> */}
 						</SubCategory>
 					</Type>
 					<UploadButton onClick={() => setUploadClicked(true)}>
@@ -245,7 +266,7 @@ const SellOnTradeZilla = (props) => {
 				</Form>
 			</Wrapper>
 			<Footer />
-			<Upload trigger={uploadClicked} setTrigger={setUploadClicked} />
+			<Upload files = {fileList} setFiles={setFileList} trigger={uploadClicked} setTrigger={setUploadClicked} />
 		</Container>
 	);
 };

@@ -153,6 +153,7 @@ const Container2 = styled.div`
 
 const DropFilePreview = styled.div`
 	margin-top: 30px;
+	background-color: yellow;
 `;
 
 const DropFilePreviewTitle = styled.h1`
@@ -228,39 +229,39 @@ const Buttons = styled.div`
 	background-color: green;
 	display: flex;
 	justify-content: right;
-	// margin-right: 150px;
+	margin: 5px;
 `;
 
 const PostButton = styled.button`
-    padding: 10px 20px;
-    border: 2px solid #000000;
-    cursor: pointer;
-    transition: all 0.2s ease-in;
-    font-weight: 500;
-    width: 90px;
-		// margin-right: 20px;
+	padding: 10px 20px;
+	border: 2px solid #000000;
+	cursor: pointer;
+	transition: all 0.2s ease-in;
+	font-weight: 500;
+	width: 90px;
+	// margin-right: 20px;
 	// background-color: #ffffff;
-    display: ${({ answerClicked }) => (answerClicked ? "none" : "")};
+	display: ${({ answerClicked }) => (answerClicked ? "none" : "")};
 
-    &:hover {
-        background-color: #000000;
-        color: #ffffff;
-    }
+	&:hover {
+		background-color: #000000;
+		color: #ffffff;
+	}
 `;
 
 const CancelButton = styled.button`
-    padding: 10px 20px;
-    border: 2px solid #000000;
-    cursor: pointer;
-    transition: all 0.2s ease-in;
-    font-weight: 500;
-    display: ${({ answerClicked }) => (answerClicked ? "none" : "")};
-    width: 90px;
+	padding: 10px 20px;
+	border: 2px solid #000000;
+	cursor: pointer;
+	transition: all 0.2s ease-in;
+	font-weight: 500;
+	display: ${({ answerClicked }) => (answerClicked ? "none" : "")};
+	width: 90px;
 
-    &:hover {
-        background-color: #000000;
-        color: #ffffff;
-    }
+	&:hover {
+		background-color: #000000;
+		color: #ffffff;
+	}
 `;
 
 const getColor = (props) => {
@@ -290,7 +291,7 @@ const MaxedOut = () => {
 const Upload = (props) => {
 	const [dragged, setDragged] = useState(false);
 
-	const [fileList, setFileList] = useState([]);
+	// const [fileList, setFileList] = useState(props.files);
 
 	const dragOver = (e) => {
 		e.preventDefault();
@@ -314,18 +315,21 @@ const Upload = (props) => {
 		const newFile = e.target.files[0];
 		console.log(newFile);
 		if (newFile) {
-			const updatedList = [...fileList, newFile];
-			setFileList(updatedList);
-			props.onFileChange(updatedList);
+			// const updatedList = props.files;
+			// updatedList.push(newFile);
+			const updatedList = [...props.files, newFile];
+			// props.setFiles(props.files.push(newFile));
+			props.setFiles(updatedList);
+			// props.onFileChange(updatedList);
 		}
-		console.log("All Files", fileList);
+		console.log("All Files", props.files);
 	};
 
 	const fileRemove = (file) => {
-		const updatedList = [...fileList];
-		updatedList.splice(fileList.indexOf(file), 1);
-		setFileList(updatedList);
-		props.onFileChange(updatedList);
+		const updatedList = [...props.files];
+		updatedList.splice(props.files.indexOf(file), 1);
+		props.setFiles(updatedList);
+		// props.onFileChange(updatedList);
 	};
 
 	const changeUI = (arg) => {
@@ -390,41 +394,46 @@ const Upload = (props) => {
 						</Browse>
 					</Wrapper>
 				</DropZone>
-				{fileList.length > 0 ? (
-					fileList.length <= 5 ? (
-                        <Container2>
-                            <DropFilePreview>
-                                <DropFilePreviewTitle>{/* Preview */}</DropFilePreviewTitle>
-                                <DropFileItems>
-                                    {fileList.map((item, index) => (
-                                        <DropFilePreviewItem key={index}>
-                                            <DropFileImg
-                                                src={
-                                                    ImageConfig[item.type.split("/")[1]] ||
-                                                    ImageConfig["default"]
-                                                }
-                                                alt=""
-                                            />
-                                            {/* <DropFileImg src=".../images/cover.png" alt="" /> */}
-                                            {/* <DropFileImg src="https://media.istockphoto.com/vectors/tie-icon-logo-vector-design-vector-id1186237183?k=20&m=1186237183&s=612x612&w=0&h=MiHnwu7gPu0raudz7cOe7xa645KAaUu0K6mq6sF2TFM=" alt="" /> */}
-                                            <DropFilePreviewItemInfo>
-                                                {/* <DropFileName>{item.name}</DropFileName>
+				{props.files.length > 0 ? (
+					props.files.length <= 5 ? (
+						<Container2>
+							<DropFilePreview>
+								<DropFilePreviewTitle>{/* Preview */}</DropFilePreviewTitle>
+								<DropFileItems>
+									{props.files.map((item, index) => (
+										<DropFilePreviewItem key={index}>
+											<DropFileImg
+												src={
+													ImageConfig[item.type.split("/")[1]] ||
+													ImageConfig["default"]
+												}
+												alt=""
+											/>
+											{/* <DropFileImg src=".../images/cover.png" alt="" /> */}
+											{/* <DropFileImg src="https://media.istockphoto.com/vectors/tie-icon-logo-vector-design-vector-id1186237183?k=20&m=1186237183&s=612x612&w=0&h=MiHnwu7gPu0raudz7cOe7xa645KAaUu0K6mq6sF2TFM=" alt="" /> */}
+											<DropFilePreviewItemInfo>
+												{/* <DropFileName>{item.name}</DropFileName>
                                                         <DropFileSize>{item.size}B</DropFileSize> */}
-                                            </DropFilePreviewItemInfo>
-                                            <RemoveDropFile onClick={() => fileRemove(item)}>
-                                                x
-                                            </RemoveDropFile>
-                                        </DropFilePreviewItem>
-                                    ))}
-                                </DropFileItems>
-                            </DropFilePreview>
-                            <Buttons>
-                                <PostButton productimage = {fileList} onClick={() => props.setTrigger(false)}>Post</PostButton>
-                                <CancelButton onClick={() => props.setTrigger(false)}>
-                                    Cancel
-                                </CancelButton>
-                            </Buttons>
-                        </Container2>
+											</DropFilePreviewItemInfo>
+											<RemoveDropFile onClick={() => fileRemove(item)}>
+												x
+											</RemoveDropFile>
+										</DropFilePreviewItem>
+									))}
+								</DropFileItems>
+							</DropFilePreview>
+							<Buttons>
+								<PostButton
+									productimage={props.files}
+									onClick={() => props.setTrigger(false)}
+								>
+									Post
+								</PostButton>
+								<CancelButton onClick={() => props.setTrigger(false)}>
+									Cancel
+								</CancelButton>
+							</Buttons>
+						</Container2>
 					) : (
 						<MaxedOut />
 					)

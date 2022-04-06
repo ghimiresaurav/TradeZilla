@@ -59,15 +59,6 @@ const linkStyle = {
 };
 
 const logout = async () => {
-  // const resp = await fetch("http://localhost:5000/s/logout", {
-  //   method: "DELETE",
-  //   headers: {
-  //     authorization: `Bearer ${localStorage.getItem("token")} ${localStorage.getItem("userId")}`,
-  //     "Content-Type": "application/json",
-  //   },
-  //   body: JSON.stringify({ id: localStorage.getItem("userId") }),
-  // });
-
   localStorage.clear();
   window.location.reload();
   // redirect to home without triggering refresh

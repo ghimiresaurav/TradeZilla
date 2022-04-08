@@ -1,7 +1,9 @@
 import Announcement from '../Components/Announcement'
 import TopBars from '../Components/TopBars';
-import Slider from '../Components/Slider'
-import Categories from '../Components/Categories'
+// import Slider from '../Components/Slider'
+// import Categories from '../Components/Categories'
+import BestSellers from '../Components/BestSellers';
+import TopDeals from '../Components/TopDeals'
 import Products from '../Components/Products'
 import Footer from '../Components/Footer'
 import NewsletterPopup from '../Components/NewsletterPopup';
@@ -13,6 +15,11 @@ import styled from 'styled-components';
 const Container = styled.div`
     height: ${(props) => props.setHeight};
     overflow-y: ${(props) => props.setOverflow};
+`;
+
+const Wrapper = styled.div`
+    position: absolute;
+    top: 100px;
 `;
 
 
@@ -53,14 +60,16 @@ const Home = (props) => {
     return (
         // <Container setHeight = {checkPopup("height")} setOverflow = {checkPopup("overflow")}>
         <Container>
-            <Announcement />
-            <TopBars loggedIn = {props.loggedIn}/>
-            <Slider />
-            <Categories />
-            <Products />
-            <Footer />
-            {/* <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/> */}
-            <ReturnTop/>
+            {/* <Announcement /> */}
+            <TopBars loggedIn = {props.loggedIn} homePage = {true}/>
+            <Wrapper>
+                <BestSellers/>
+                <TopDeals/>
+                {/* <Products /> */}
+                <Footer />
+                {/* <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/> */}
+                <ReturnTop/>
+            </Wrapper>
         </Container>
     );
 };

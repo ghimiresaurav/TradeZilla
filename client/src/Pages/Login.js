@@ -15,6 +15,11 @@ const Container = styled.div`
 	${mobile({ top: "50px" })}
 `;
 
+const Wrapper = styled.div`
+	position: relative;
+	top: 100px;
+`;
+
 const ContentArea = styled.div`
 	width: 100%;
 	padding: 150px 0;
@@ -43,7 +48,7 @@ const WhiteArea = styled.div`
 	justify-content: center;
 `;
 
-const Wrapper = styled.div`
+const Box = styled.div`
 	width: 90%;
 `;
 
@@ -175,9 +180,10 @@ const Login = () => {
 	return (
 		<Container>
 			<TopBars />
+			<Wrapper>
 			<ContentArea>
 				<WhiteArea>
-					<Wrapper>
+					<Box>
 						<Title>SIGN IN</Title>
 						<Form onSubmit={login} autoComplete="none">
 							<InputContainer>
@@ -215,10 +221,11 @@ const Login = () => {
 								<Register>Create New Account</Register>
 							</Link>
 						</Form>
-					</Wrapper>
+					</Box>
 				</WhiteArea>
 			</ContentArea>
-			<Footer />4
+			<Footer />
+			</Wrapper>
 		</Container>
 	);
 };

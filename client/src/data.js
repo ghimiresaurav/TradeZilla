@@ -1,52 +1,52 @@
-import img_cover1 from './images/cover.png';
-import img_cover2 from './images/2.png';
-import img_cover3 from './images/3.png';
+// import img_cover1 from './images/cover.png';
+// import img_cover2 from './images/2.png';
+// import img_cover3 from './images/3.png';
 
-export const sliderItems = [
-    {
-        id: 1,
-        img: img_cover3,
-        title: "LOUNGEWEAR LOVE",
-        desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-        bg: "fbf0f4",
-    },
-    {
-        id: 2,
-        img: img_cover2,
-        title: "AUTUMN COLLECTION",
-        desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-        bg: "fcf1ed",
-    },
-    {
-        id: 3,
-        img: img_cover1,
-        title: "WINTER SALE",
-        desc: "Don't Compromise! Get 30% off straight.",
-        bg: "f5fafd",
-    },
-];
+// export const sliderItems = [
+//     {
+//         id: 1,
+//         img: img_cover3,
+//         title: "LOUNGEWEAR LOVE",
+//         desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
+//         bg: "fbf0f4",
+//     },
+//     {
+//         id: 2,
+//         img: img_cover2,
+//         title: "AUTUMN COLLECTION",
+//         desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
+//         bg: "fcf1ed",
+//     },
+//     {
+//         id: 3,
+//         img: img_cover1,
+//         title: "WINTER SALE",
+//         desc: "Don't Compromise! Get 30% off straight.",
+//         bg: "f5fafd",
+//     },
+// ];
 
 
-export const categories = [
-    {
-      id: 1,
-      img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "SHIRT STYLE!",
-      category: "women"
-    },
-    {
-      id: 2,
-      img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-      title: "LOUNGEWEAR LOVE",
-      category: "coat"
-    },
-    {
-      id: 3,
-      img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
-      title: "LIGHT JACKETS",
-      category: "jeans"
-    },
-  ];
+// export const categories = [
+//     {
+//       id: 1,
+//       img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+//       title: "SHIRT STYLE!",
+//       category: "women"
+//     },
+//     {
+//       id: 2,
+//       img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+//       title: "LOUNGEWEAR LOVE",
+//       category: "coat"
+//     },
+//     {
+//       id: 3,
+//       img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
+//       title: "LIGHT JACKETS",
+//       category: "jeans"
+//     },
+//   ];
 
 
 export const popularProducts = [

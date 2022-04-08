@@ -6,8 +6,9 @@ import {useState, useEffect} from 'react';
 
 const Container = styled.div`
     width: 100%;
-    // position: fixed;
-    position: ${({scrollNav}) => (scrollNav ? 'fixed': 'relative')};
+    position: fixed;
+    // position: ${({scrollNav}) => (scrollNav ? 'fixed': 'relative')};
+    // position: ${props => (props.homePage ? 'relative' : 'fixed')};
     top: 0;
     z-index: 200;
     transition: 0.5s ease;
@@ -16,6 +17,8 @@ const Container = styled.div`
 const TopBars = (props) => {
 
     const [scrollNav, setScrollNav] = useState(false);
+
+    // console.log("HomePage??", props.homePage)
 
     const changeNav = () => {
         if(window.scrollY > 25){
@@ -38,7 +41,7 @@ const TopBars = (props) => {
     };
 
     return (
-        <Container scrollNav = {scrollNav}>
+        <Container scrollNav = {scrollNav} homePage = {props.homePage}>
             <NavBar loggedIn={props.loggedIn} toggle = {toggle} />
             <MenuBar isOpen = {isOpen} toggle = {toggle}/>
         </Container>

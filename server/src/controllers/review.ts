@@ -54,7 +54,10 @@ const addReview = async (req: Request, res: Response) => {
       rating: req.body.rate,
     });
 
-    // Save added question
+    const sumRating = reviews.reduce((acc, elem) => acc + elem.rating, 0);
+    product.rating = sumRating / reviews.length;
+
+    // Save the added review and update the rating
     product.save();
 
     // Send a success message

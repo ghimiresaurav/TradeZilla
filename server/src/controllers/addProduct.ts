@@ -19,6 +19,21 @@ const addProduct = async (req: Request, res: Response) => {
     form.parse(req, async (err, fields, files) => {
       if (err) throw err;
 
+      // Connect to the atlas database
+      mongoose
+        .connect(<string>process.env.DB_URI)
+        .catch((e) => console.log(`error: ${e.message}`));
+
+      const product = await Product.create({
+        title: fields.title,
+        vendor: res.locals.id,
+        quantity: fields.quantity,
+        price: fields.price,
+        category: fields.category,
+        subCategory: fields.subCategory,
+        description: fields.description,
+      });
+
       // Create an empty array to store the links to the images after uploading to cloud
       const imageLinks: string[] = [];
 
@@ -41,7 +56,7 @@ const addProduct = async (req: Request, res: Response) => {
         // Initiate the file upload, and wait for it to complete
         await cloudinary.v2.uploader.upload(
           images.filepath,
-          { public_id: `single/img-xx` },
+          { public_id: `product-${product._id}/img` },
           (err, result) => {
             if (err) throw err;
             // After upload completion, push the link to the uploaded image to the imageLinks array
@@ -54,7 +69,7 @@ const addProduct = async (req: Request, res: Response) => {
           // Upload the files one by one
           await cloudinary.v2.uploader.upload(
             images[index].filepath,
-            { public_id: `multiple/img-${index}` },
+            { public_id: `product-${product._id}/img-${index}` },
             (err, result) => {
               if (err) throw err;
               // After upload completion, push the link to the uploaded image to the imageLinks array
@@ -63,22 +78,7 @@ const addProduct = async (req: Request, res: Response) => {
           );
         }
       }
-      // Connect to the atlas database
-      mongoose
-        .connect(<string>process.env.DB_URI)
-        .catch((e) => console.log(`error: ${e.message}`));
-
-      const product = await Product.create({
-        title: fields.title,
-        vendor: res.locals.id,
-        quantity: fields.quantity,
-        price: fields.price,
-        category: fields.category,
-        subCategory: fields.subCategory,
-        description: fields.description,
-        images: imageLinks.join(", "),
-      });
-
+      product.images = imageLinks.join(", ");
       await product.save();
       return res.json({
         success: true,

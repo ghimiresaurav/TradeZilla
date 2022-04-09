@@ -64,7 +64,6 @@ const ProductSchema = new mongoose.Schema<ProductType>({
   },
   images: {
     type: String,
-    required: true,
   },
   inquiries: {
     type: [InquirySchema],

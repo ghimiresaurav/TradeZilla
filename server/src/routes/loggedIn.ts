@@ -31,7 +31,7 @@ router.post("/dispatch/:o_id", confirmOrder);
 
 router.post("/order/:p_id", order);
 
-router.get("/add-product", addProduct);
+router.post("/add-product", addProduct);
 
 router.post("/verify-email", verifyEmail);
 router.get("/otp", requestOTP);

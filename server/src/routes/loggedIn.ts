@@ -11,7 +11,7 @@ import addProduct from "../controllers/addProduct";
 import requestOTP from "../controllers/requestOTP";
 import answerQuery from "../controllers/answerQuery";
 import buy from "../controllers/buy";
-import addReview from "../controllers/review"
+import addReview from "../controllers/review";
 
 const router: Router = express.Router();
 
@@ -28,7 +28,7 @@ router.post("/add-review/:p_id", addReview);
 
 router.post("/buy/:p_id", buy);
 
-router.get("/add-product", addProduct);
+router.post("/add-product", addProduct);
 
 router.post("/verify-email", verifyEmail);
 router.get("/otp", requestOTP);

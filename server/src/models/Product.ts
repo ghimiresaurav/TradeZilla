@@ -1,13 +1,13 @@
 import mongoose, { Types } from "mongoose";
-import { InquiryType, InquirySchema } from "./Inquiry"
-import { ReviewType, ReviewSchema } from "./Review"
+import { InquiryType, InquirySchema } from "./Inquiry";
+import { ReviewType, ReviewSchema } from "./Review";
 interface ProductType {
   title: string;
   vendor: mongoose.Types.ObjectId;
   quantity: Number;
   price: Number;
   postedOn: Date;
-  mfgDate: Date;
+  mfgDate?: Date;
   rating: Number;
   category: string;
   subCategory: string;
@@ -43,7 +43,6 @@ const ProductSchema = new mongoose.Schema<ProductType>({
   },
   mfgDate: {
     type: Date,
-    required: true,
   },
   rating: {
     type: Number,

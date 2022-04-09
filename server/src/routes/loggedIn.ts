@@ -10,8 +10,9 @@ import addQuery from "../controllers/addQuery";
 import addProduct from "../controllers/addProduct";
 import requestOTP from "../controllers/requestOTP";
 import answerQuery from "../controllers/answerQuery";
-import buy from "../controllers/buy";
+import order from "../controllers/order";
 import addReview from "../controllers/review"
+import confirmOrder from "../controllers/confirmOrder";
 
 const router: Router = express.Router();
 
@@ -26,7 +27,9 @@ router.post("/answer-query/:p_id", answerQuery);
 
 router.post("/add-review/:p_id", addReview);
 
-router.post("/buy/:p_id", buy);
+router.post("/dispatch/:o_id", confirmOrder);
+
+router.post("/order/:p_id", order);
 
 router.get("/add-product", addProduct);
 

@@ -13,8 +13,9 @@ const addReview = async (req: Request, res: Response) => {
   const product_id = new mongoose.Types.ObjectId(req.params.p_id);
   const user_id = new mongoose.Types.ObjectId(res.locals.id);
 
-  // Find the product in database
+  // Find the product and user in database
   const product = await Product.findById(product_id);
+  const user = await User.findById(user_id);
 
   // Send false message if product not found
   if (!product)
@@ -23,9 +24,6 @@ const addReview = async (req: Request, res: Response) => {
       message: "Product not found",
     });
 
-  // Find the user in database
-  const user = await User.findById(user_id);
-
   // Send false message if user not found
   if (!user)
     return res.json({
@@ -33,9 +31,8 @@ const addReview = async (req: Request, res: Response) => {
       message: "User not found",
     });
 
-  // Check if the user has bought the item they are trying to review
-  console.log(user.boughtItems, product_id)
-  const userHasBought = user.boughtItems.some(i => i.item_id.equals(product_id))
+  // Check if the user has bought the product they are trying to review
+  const userHasBought = user.boughtItems.some(i => i.item_id.equals(product_id));
   if (!userHasBought) {
     return res.json({
       success: false,
@@ -44,16 +41,31 @@ const addReview = async (req: Request, res: Response) => {
   }
 
   try {
+    // Get all the reviews from the product
     const reviews = product.reviews;
 
-    // Add question and other information to product
-    reviews.push({
-      user: user_id,
-      date: new Date,
-      body: req.body.review,
-      rating: req.body.rate,
-    });
+    // Check if the user has already reviewed
+    const review = reviews.filter(r => r.user.equals(user_id));
 
+    // If yes then update the previous review
+    if (review.length) {
+      let reviewToUpdate = review[0];
+      reviewToUpdate.date = new Date;
+      reviewToUpdate.rating = req.body.rating;
+      reviewToUpdate.body = req.body.review;
+
+    }
+    else {
+      // Else add review to product
+      reviews.push({
+        user: user_id,
+        date: new Date,
+        body: req.body.review,
+        rating: req.body.rating,
+      });
+    }
+
+    // Calculate the rating of the product
     const sumRating = reviews.reduce((acc, elem) => acc + elem.rating, 0);
     product.rating = sumRating / reviews.length;
 
@@ -63,7 +75,7 @@ const addReview = async (req: Request, res: Response) => {
     // Send a success message
     return res.json({
       success: true,
-      message: "You review has been added."
+      message: "Your review has been added."
     });
   } catch (e: any) {
     // If something goes wrong, send a message

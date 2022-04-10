@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 import { BoughtItemSchema, BoughtItemType } from "./Item";
 
 interface UserType {
@@ -9,7 +9,8 @@ interface UserType {
   joinedOn: Date;
   isActive: boolean;
   cart: [mongoose.Types.ObjectId];
-  boughtItems: [BoughtItemType];
+  // boughtItems: [BoughtItemType];
+  boughtItems: Types.DocumentArray<BoughtItemType & Document>;
   // cart: [ItemType];
 }
 

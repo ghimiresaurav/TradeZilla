@@ -1,48 +1,20 @@
 import mongoose, { Types } from "mongoose";
-
-interface InquiryType {
-  user: mongoose.Types.ObjectId;
-  date: Date;
-  question: string;
-  answer: string;
-}
-
-const InquirySchema = new mongoose.Schema<InquiryType>({
-  user: {
-    type: mongoose.Types.ObjectId,
-    required: true,
-  },
-  date: {
-    type: Date,
-    default: new Date(),
-    immutable: true,
-    required: true,
-  },
-  question: {
-    type: String,
-    minlength: 5,
-    required: true,
-    trim: true,
-  },
-  answer: {
-    type: String,
-    trim: true,
-  },
-});
-
+import { InquiryType, InquirySchema } from "./Inquiry";
+import { ReviewType, ReviewSchema } from "./Review";
 interface ProductType {
   title: string;
   vendor: mongoose.Types.ObjectId;
   quantity: Number;
   price: Number;
   postedOn: Date;
-  mfgDate: Date;
+  mfgDate?: Date;
   rating: Number;
   category: string;
   subCategory: string;
   description: string;
   images: string;
   inquiries: Types.DocumentArray<InquiryType & Document>;
+  reviews: Types.DocumentArray<ReviewType & Document>;
 }
 
 const ProductSchema = new mongoose.Schema<ProductType>({
@@ -71,7 +43,6 @@ const ProductSchema = new mongoose.Schema<ProductType>({
   },
   mfgDate: {
     type: Date,
-    required: true,
   },
   rating: {
     type: Number,
@@ -93,11 +64,13 @@ const ProductSchema = new mongoose.Schema<ProductType>({
   },
   images: {
     type: String,
-    required: true,
   },
   inquiries: {
     type: [InquirySchema],
     // default: [],
+  },
+  reviews: {
+    type: [ReviewSchema],
   },
 });
 

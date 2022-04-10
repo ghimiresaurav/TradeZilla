@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Container = styled.div`
     flex: 1;
-    margin: 0 10px;
+    margin: 0 10px 15px 0;
     height: 70vh;
     position: relative;
 `;

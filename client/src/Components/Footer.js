@@ -191,25 +191,15 @@ const Footer = () => {
                                     </Link>
                                 </ListItem>
                             ))}
-                        </List>
-                        {/* <ListItem>My Account</ListItem>
-                        <ListItem>Order Tracking</ListItem>
-                        <ListItem>Order History</ListItem>
-                        <ListItem>Wishlist</ListItem>
-                        <ListItem>Blog</ListItem>
-                        <ListItem>Careers</ListItem>
-                        <ListItem>About Us</ListItem>
-                        <ListItem>Terms</ListItem>
-                        <ListItem>Privacy Policy</ListItem> */}
-                    
+                        </List>                    
                 </Center>
                 <Right>
                     <Title>Contact</Title>
                     <ContactItem>
-                        <RoomIcon style = {{marginRight: "10px"}}/>Hattiban, Lalitpur
+                        <RoomIcon style = {{marginRight: "10px"}}/>28 Kilo, Dhulikhel, Nepal
                     </ContactItem>
                     <ContactItem>
-                        <PhoneIcon style = {{marginRight: "10px"}}/>+977 01 5251234
+                        <PhoneIcon style = {{marginRight: "10px"}}/>+977 01 52525252
                     </ContactItem>
                     <ContactItem>
                         <MailOutlineIcon style = {{marginRight: "10px"}}/>info@tradezilla.com

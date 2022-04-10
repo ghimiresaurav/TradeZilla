@@ -60,6 +60,7 @@ const WrapperRight = styled.div`
 
 const UserAccount = (props) => {
 	document.title = "Profile | TradeZilla";
+	
 
 	const [menuState, setMenuState] = useState("accountInfo");
 	// console.log("hi", menuState);
@@ -69,18 +70,7 @@ const UserAccount = (props) => {
 		if (menuState === "accountInfo") {
 			return <AccountInfo />;
 		}
-
-		else if (menuState === "sellOverview") {
-			return <SellOverview/>;
-		}
-
-		else if (menuState === "userPayment") {
-			return <UserPayment />;
-		}
-		else if (menuState === "orderHistory") {
-			return <OrderHistory />;
-		}
-	};
+	}
 
 	return (
 		<Container>

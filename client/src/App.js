@@ -10,6 +10,7 @@ import Globalstyle from './globalStyles';
 import UserAccount from './Pages/UserAccount';
 import PrivacyPolicy from './Pages/PrivacyPolicy';
 import Payment from './Pages/Payment';
+import Search from './Pages/Search';
 import { BrowserRouter as Router, Routes, Route, Navigate, useRoutes } from "react-router-dom";
 import Upload from './Components/Upload';
 import SubCategoriesPath from './routes/routeSubCategories';
@@ -52,6 +53,7 @@ function App() {
           <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>
           <Route path="/privacy-policy" element={<PrivacyPolicy loggedIn = {isLoggedIn()}/>} />
           <Route path="/payment" element={!isLoggedIn() ? <Navigate to="/" /> : <Payment loggedIn = {isLoggedIn()}/>}/>
+          <Route path="/search" element={<Search loggedIn = {isLoggedIn()}/>}/>
         </Routes>
         <CategoriesPath/>
         <SubCategoriesPath loggedIn={isLoggedIn()}/>

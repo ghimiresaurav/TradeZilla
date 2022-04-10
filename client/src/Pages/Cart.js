@@ -3,6 +3,7 @@ import TopBars from '../Components/TopBars';
 import Footer from '../Components/Footer';
 import RemoveIcon from '@mui/icons-material/Remove';
 import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
 import {Link} from 'react-router-dom';
 import { useState } from 'react';
 
@@ -60,11 +61,14 @@ const Info = styled.div`
 `;
 
 const Product = styled.div`
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 30px;
     background-color: #f2f2f2;
+    // background-color: red;
+
     border-radius: 5px;
     margin: 5px 5px;
 `;
@@ -128,8 +132,37 @@ const ProductPrice = styled.div`
     font-weight: 200;
 `;
 
+const DiscardArea = styled.div`
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    // background-color: yellow;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`;
+
+const PopupHover = styled.span`
+    position: absolute;
+    // margin-top: 5px;
+    background-color: #000000;
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    // width: 50px;
+    // height: 15px;
+    font-size: 13px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    visibility: hidden;
+    // visibility: visible;
+    bottom: -30px;
+`;
+
 const DiscardButton = styled.div`
-    width: 80px;
+    position: relative;
+    width: 30px;
     height: 40px;
     padding: 10px;
     background-color: #000000;
@@ -138,6 +171,11 @@ const DiscardButton = styled.div`
     cursor: pointer; 
     display: flex;
     justify-content: center;  
+    border-radius: 5px;
+
+    &:hover ~ ${PopupHover}{
+        visibility: visible;
+    }
 `;
 
 const Hr = styled.hr`
@@ -235,7 +273,11 @@ const Cart = (props) => {
                                     </ProductAmountContainer>
                                     <ProductPrice>Rs. 2000</ProductPrice>
                                 </PriceDetail>
-                                <DiscardButton>Discard</DiscardButton>
+                                <DiscardArea>
+                                    <DiscardButton><DeleteIcon/></DiscardButton>
+                                    <PopupHover>Discard</PopupHover>
+                                </DiscardArea>
+                                
                             </Product>
                             <Hr/>
                             <Product>
@@ -278,8 +320,7 @@ const Cart = (props) => {
                             </SummaryItem>
                             <Link to = {"/payment"}>                        
                                 <Button>CHECKOUT NOW</Button>
-                            </Link>
-                            
+                            </Link>    
                         </Summary>
                     </Bottom>
                 </CartContent>

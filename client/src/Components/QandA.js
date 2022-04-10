@@ -194,7 +194,7 @@ const QandA = (props) => {
 							<Left>Question:</Left>
 							<Right>
 								<Question>Is it available in XL?</Question>
-								<User>Sagar Sins | 1 day ago</User>
+								<User>Kabin Bhandari | 1 day ago</User>
 							</Right>
 						</QuestionArea>
 						<AnswerArea>
@@ -211,7 +211,7 @@ const QandA = (props) => {
 							<Left>Question:</Left>
 							<Right>
 								<Question>Is it available in XL?</Question>
-								<User>Sagar Sins | 1 day ago</User>
+								<User>Sagar Thapa | 1 day ago</User>
 							</Right>
 						</QuestionArea>
 						<AnswerArea>

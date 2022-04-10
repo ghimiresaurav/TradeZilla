@@ -2,8 +2,12 @@ import styled from "styled-components";
 import TopBars from "../Components/TopBars";
 import Footer from "../Components/Footer";
 import { Link } from "react-router-dom";
+import "./RegisterForm.css";
 import { useState } from "react";
 import AccountInfo from "../Components/UserAccount/AccountInfo";
+import SellOverview from "../Components/UserAccount/SellOverview";
+import UserPayment from "../Components/UserAccount/UserPayment";
+import OrderHistory from "../Components/UserAccount/OrderHistory";
 
 const Container = styled.div`
 	width: 100%;
@@ -39,6 +43,7 @@ const linkStyle = {
 const LinkItem = styled.div`
 	padding: 20px;
 	color: #000000;
+	cursor: pointer;
 
 	&:hover {
 		background-color: #c2d6d6;
@@ -53,89 +58,29 @@ const WrapperRight = styled.div`
 	/* background-color: green; */
 `;
 
-const Title = styled.h1`
-	font-size: 24px;
-	font-weight: 600;
-	display: flex;
-	flex: 1;
-	align-items: center;
-	justify-content: center;
-`;
-
-const RightDiv = styled.div`
-	display: flex;
-	flex: 9;
-	/* background-color: grey; */
-`;
-
-const WrapContainer = styled.div`
-	width: 100%;
-	/* background-color: red; */
-`;
-
-const InfoSection = styled.div`
-	width: 80%;
-	min-width: 500 vw;
-	height: 70vh;
-	margin: 30px auto;
-	border: 2px solid #000000;
-`;
-
-const SectionHeader = styled.div`
-	width: 90%;
-	margin: 10px auto;
-	display: flex;
-	justify-content: space-between;
-	border-bottom: 1px solid #000000;
-`;
-
-const StartSection = styled.div`
-	font-size: 24px;
-	/* background-color: red; */
-`;
-
-const EndSection = styled.div`
-	font-size: 18px;
-	text-decoration: underline;
-	color: #3385ff;
-`;
-
-const SectionBody = styled.div`
-	width: 90%;
-	padding: 10px;
-	margin: auto;
-	background-color: #c2d6d6;
-`;
-
-const BodyWrapper = styled.div`
-	display: flex;
-	flex-wrap: wrap;
-	gap: 30px 50%;
-`;
-
-const Field = styled.div``;
-
-const FieldTitle = styled.div`
-	font-size: 18px;
-	font-weight: 500;
-`;
-
-const FieldInput = styled.div`
-	font-size: 15px;
-`;
-
 const UserAccount = (props) => {
 	document.title = "Profile | TradeZilla";
 	
 
 	const [menuState, setMenuState] = useState("accountInfo");
-	console.log("hi", menuState);
+	// console.log("hi", menuState);
 
-	const showRightContent= () =>{
+	const showRightContent = () => {
+		
 		if (menuState === "accountInfo") {
-			return (
-				<AccountInfo />
-			)
+			return <AccountInfo />;
+		}
+
+		else if (menuState === "userPayment") {
+			return <UserPayment />;
+		}
+
+		else if (menuState === "orderHistory") {
+			return <OrderHistory />;
+		}
+
+		else if (menuState === "sellOverview") {
+			return <SellOverview />;
 		}
 	}
 
@@ -145,31 +90,29 @@ const UserAccount = (props) => {
 			<Wrapper>
 				<WrapperLeft>
 					<LeftDiv>
-						<Link to="../useraccount" style={linkStyle}>
-							<LinkItem onClick={()=>setMenuState("accountInfo")}>Account Info</LinkItem>
-						</Link>
+						<LinkItem onClick={() => setMenuState("accountInfo")}>
+							Account Info
+						</LinkItem>
 
-						<Link to="" style={linkStyle}>
-							<LinkItem onClick={()=>setMenuState("payment")}>Payment</LinkItem>
-						</Link>
+						<LinkItem onClick={() => setMenuState("userPayment")}>Payment Info</LinkItem>
 
-						<Link to="../cart" style={linkStyle}>
-							<LinkItem onClick={()=>setMenuState("orderHistory")}>Order History</LinkItem>
-						</Link>
+						<LinkItem onClick={() => setMenuState("orderHistory")}>
+							Order History
+						</LinkItem>
 
 						<Link to="../sellontradezilla" style={linkStyle}>
-							<LinkItem onClick={()=>setMenuState("seller")}>Sell on TradeZilla</LinkItem>
+							<LinkItem>
+								Sell on TradeZilla
+							</LinkItem>
 						</Link>
 
-						<Link to="" style={linkStyle}>
-							<LinkItem onClick={()=>setMenuState("sellOverview")}>Sell Overview</LinkItem>
-						</Link>
+						<LinkItem onClick={() => setMenuState("sellOverview")}>
+							Sell Overview
+						</LinkItem>
 					</LeftDiv>
 				</WrapperLeft>
 
-				<WrapperRight>
-					{showRightContent()}
-				</WrapperRight>
+				<WrapperRight>{showRightContent()}</WrapperRight>
 			</Wrapper>
 			<Footer />
 		</Container>

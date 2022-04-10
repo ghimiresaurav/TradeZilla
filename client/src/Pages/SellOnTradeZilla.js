@@ -4,75 +4,86 @@ import Footer from "../Components/Footer";
 import Upload from "../Components/Upload";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useState } from "react";
-import Fashion from "../datas/MenuItems";
-import { bestSellerItems } from "../datas/BestSellerItems";
+import categories from "../datas/MenuItems";
 
 const Container = styled.div`
 	width: 100%;
 	background-color: #f2f2f2;
+	// background: linear-gradient(
+	// 	rgba(255, 255, 255, 0.5),
+	// 	rgba(255, 255, 255, 0.5)
+	// ),
+	// url("https://images.pexels.com/photos/6984650/pexels-photo-6984650.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940")
+	// 	center;
+	position: absolute;
+	top: 100px;
 `;
 
 const Title = styled.h1`
-	display: flex;
-	justify-content: center;
-	margin: 40px 0;
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
 `;
 
 const Wrapper = styled.div`
 	background-color: #000000;
 	width: 60%;
-	margin: 80px auto;
+	margin: 10px auto;
 `;
 
 const Form = styled.form`
-	width: 80%;
-	margin: auto;
-	padding: 40px 0;
+  width: 80%;
+  margin: auto;
+  padding: 40px 0;
 `;
 
 const ProductTitle = styled.div`
-	display: flex;
-	align-items: center;
-	margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
 `;
 
 const Input = styled.input`
-	width: 100%;
-	height: 40px;
-	border-radius: 5px;
-	padding-left: 10px;
+  width: 100%;
+  height: 40px;
+  border-radius: 5px;
+  padding-left: 10px;
 `;
 
 const Price = styled.div`
-	display: flex;
-	align-items: center;
-	margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 25px;
 `;
 
 const Type = styled.div`
-	display: flex;
-	margin-bottom: 25px;
-	// justify-content: space-between;
+  display: flex;
+  margin-bottom: 25px;
+  // justify-content: space-between;
 `;
 
 const Category = styled.div`
-	margin-right: 30px;
+  margin-right: 30px;
 `;
 
 const Label = styled.label`
-	color: #ffffff;
-	margin-right: 10px;
+  color: #ffffff;
+  margin-right: 10px;
 `;
 
 const Select = styled.select`
-	padding: 10px;
+  padding: 10px;
 `;
 
 const Option = styled.option`
-	padding: 10px;
+  padding: 10px;
 `;
 
 const SubCategory = styled.div``;
+
+const UploadArea = styled.div`
+	margin-bottom: 25px;
+`;
 
 const UploadButton = styled.div`
 	//page reloads when changed to button *** needs to be fixed
@@ -83,48 +94,53 @@ const UploadButton = styled.div`
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin-bottom: 10px;
 	color: #ffffff;
-	margin-bottom: 25px;
 	cursor: pointer;
 	transition: 0.3s ease-in-out;
 
-	&:hover {
-		background-color: #ffffff;
-		color: #000000;
-	}
+  &:hover {
+    background-color: #ffffff;
+    color: #000000;
+  }
+`;
+
+const UploadedImage = styled.div`
+	border: 1px solid #ffffff;
+	height: 120px;
 `;
 
 const Description = styled.div`
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 `;
 
 const TextArea = styled.textarea`
-	resize: vertical;
-	width: 100%;
-	border-radius: 5px;
-	padding: 10px;
-	margin: 10px 0;
-	min-height: 150px;
+  resize: vertical;
+  width: 100%;
+  border-radius: 5px;
+  padding: 10px;
+  margin: 10px 0;
+  min-height: 150px;
 `;
 
 const Button = styled.button`
-	margin-top: 40px;
-	width: 100%;
-	height: 60px;
-	padding-left: 10px;
-	background-color: #ffffff;
-	color: #000000;
-	font-size: 30px;
-	cursor: pointer;
-	font-weight: 1000;
-	border: 2px solid #ffffff;
-	transition: 0.3s ease-in-out;
+  margin-top: 40px;
+  width: 100%;
+  height: 60px;
+  padding-left: 10px;
+  background-color: #ffffff;
+  color: #000000;
+  font-size: 30px;
+  cursor: pointer;
+  font-weight: 1000;
+  border: 2px solid #ffffff;
+  transition: 0.3s ease-in-out;
 
-	&:hover {
-		background-color: #000000;
-		color: #ffffff;
-	}
+  &:hover {
+    background-color: #000000;
+    color: #ffffff;
+  }
 `;
 
 // const content = tinymce.get("blog-txt").getContent();
@@ -153,57 +169,65 @@ const Button = styled.button`
 // }
 
 const SellOnTradeZilla = (props) => {
-	document.title = "Sell On TradeZilla | TradeZilla";
+  document.title = "Sell On TradeZilla | TradeZilla";
 
-	const [uploadClicked, setUploadClicked] = useState(false);
+  const [uploadClicked, setUploadClicked] = useState(false);
 
-	const [fileList, setFileList] = useState([]);
+  const [category, setCategory] = useState("Fashion");
 
-	const [values, setValues] = useState({
-		title: "",
-		price: "",
-		category: "fashion",
-		subCategory: "shoes",
-		description: "",
-	});
+  const [fileList, setFileList] = useState([]);
 
-	const handleChange = (e) => {
-		setValues({ ...values, [e.target.name]: e.target.value });
-	};
+  const [values, setValues] = useState({
+    title: "",
+    price: "",
+    category: "fashion",
+    subCategory: "shoes",
+    description: "",
+  });
 
-	const postProduct = async (e) => {
-		e.preventDefault();
+  const handleChange = (e) => {
+    setValues({ ...values, [e.target.name]: e.target.value });
+  };
 
-		// const formData = new FormData(Form);
-		const formData = new FormData();
-		formData.append("title", values.title);
-		formData.append("price", values.price);
-		formData.append("category", values.category);
-		formData.append("subCategory", values.subCategory);
-		formData.append("description", values.description);
+  const postProduct = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+    // formData.append("title", values.title);
+    // formData.append("price", values.price);
+    // formData.append("category", values.category);
+    // formData.append("subCategory", values.subCategory);
+    // formData.append("description", values.description);
+    formData.append("title", "Denim Jeans");
+    formData.append("price", 2000);
+    formData.append("category", "Fashion");
+    formData.append("subCategory", "Mens");
+    formData.append(
+      "description",
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+    );
+    formData.append("quantity", 100);
+    Array.from(fileList).forEach((file) => formData.append(`images`, file));
+    formData.append("filesLength", fileList.length);
 
 		// formData.append("name", "sajag");
-        // console.log(formData.get("title", "price", "category", "description"));
-		console.log(formData.get("category" , "price"));
+		// console.log(formData.get("title", "price", "category", "description"));
+		console.log(formData.get("category", "price"));
 
 		// console.log(values);
 	};
 
-	const showSubCategories=(props)=> {
+	const showSubCategories = () => {
 		return (
 			<>
-			<Select>
-				{/* {Fashion.map((item) => {
-				<Option>{item.title}</Option>
-				})} */}
-
-				{/* {bestSellerItems.map((item) =>(
-					<Option>{item.title}</Option>
-				))} */}
-			</Select>
+				<Select>
+					{categories[category].map((item, index) => (
+						<Option key={index}>{item.title}</Option>
+					))}
+				</Select>
 			</>
 		);
-	}
+	};
 
 	return (
 		<Container>
@@ -232,27 +256,32 @@ const SellOnTradeZilla = (props) => {
 					<Type>
 						<Category>
 							<Label>Category:</Label>
-							<Select>
+							<Select
+								value={category}
+								onChange={(e) => setCategory(e.target.value)}
+							>
 								{/* <Option disabled selected>Select</Option> */}
-								<Option value="fashion">Fashion</Option>
-								<Option value="sports">Sports</Option>
-								<Option value="electronics">Electronics</Option>
-								<Option value="households">Households</Option>
-								<Option value="music">Music</Option>
-								<Option value="groceries">Groceries</Option>
-								<Option value="books">Books</Option>
+								<Option value="Fashion">Fashion</Option>
+								<Option value="Sports">Sports</Option>
+								<Option value="Electronics">Electronics</Option>
+								<Option value="Households">Households</Option>
+								<Option value="Music">Music</Option>
+								<Option value="Groceries">Groceries</Option>
+								<Option value="Books">Books</Option>
 							</Select>
 						</Category>
 						<SubCategory>
 							<Label>Sub Catergory:</Label>
 							{showSubCategories()}
-							{/* <Select><Option disabled selected>Select</Option></Select> */}
 						</SubCategory>
 					</Type>
-					<UploadButton onClick={() => setUploadClicked(true)}>
-						<UploadIcon />
-						&nbsp;Upload Image
-					</UploadButton>
+					<UploadArea>
+						<UploadButton onClick={() => setUploadClicked(true)}>
+							<UploadIcon />
+							&nbsp;Upload Image
+						</UploadButton>
+						<UploadedImage></UploadedImage>
+					</UploadArea>
 					<Description>
 						<Label>Description:</Label>
 						<TextArea
@@ -266,7 +295,12 @@ const SellOnTradeZilla = (props) => {
 				</Form>
 			</Wrapper>
 			<Footer />
-			<Upload files = {fileList} setFiles={setFileList} trigger={uploadClicked} setTrigger={setUploadClicked} />
+			<Upload
+				files={fileList}
+				setFiles={setFileList}
+				trigger={uploadClicked}
+				setTrigger={setUploadClicked}
+			/>
 		</Container>
 	);
 };

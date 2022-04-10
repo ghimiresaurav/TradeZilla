@@ -113,17 +113,17 @@ const ProductReview = (props) => {
             <Reviews>
                 <Review>
                     <User>
-                        <UserName>Sagar Sins</UserName>
+                        <UserName>Sagar Raj</UserName>
                         <PostedDate>1 day ago</PostedDate>
                         <UserRating><GradeIcon/><GradeIcon/><GradeIcon/><GradeIcon/></UserRating>
                     </User>  
-                    <UserComment>I love this product. Very Very Sexy.</UserComment>
+                    <UserComment>I love this product. Quality Material.</UserComment>
                 </Review>
             </Reviews>
             <Reviews>
                 <Review>
                     <User>
-                        <UserName>Saurav Sins</UserName>
+                        <UserName>Saurav Ghimire</UserName>
                         <PostedDate>5 day ago</PostedDate>
                         <Rating><GradeIcon/></Rating>
                     </User>  

@@ -204,6 +204,17 @@ const RightJSX = (props) => {
 };
 
 const NavBar = (props) => {
+
+	
+	const [values, setValues] = useState("");
+
+	const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+		// setValues(e.target.value);
+
+		console.log("dfd", );
+	};
+
 	return (
 		<Container>
 			<Wrapper>
@@ -212,8 +223,15 @@ const NavBar = (props) => {
 						<MenuIcon />
 					</MenuContainer>
 					<SearchContainer>
-						<Input placeholder="Search TradeZilla..." />
-						<SearchIcon />
+						<Input
+							placeholder="Search TradeZilla..."
+							value={values.name}
+							name="search"
+							// onChange={handleChange()}
+						/>
+						<Link to={"/search"} style={linkStyle}>
+							<SearchIcon />
+						</Link>
 					</SearchContainer>
 				</Left>
 				<Center>

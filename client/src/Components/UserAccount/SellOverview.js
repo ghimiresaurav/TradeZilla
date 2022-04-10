@@ -12,6 +12,7 @@ const Title = styled.h1`
 const RightDiv = styled.div`
 	display: flex;
 	flex: 9;
+	/* padding: 10px ; */
 	/* background-color: grey; */
 `;
 
@@ -23,9 +24,10 @@ const WrapContainer = styled.div`
 const InfoSection = styled.div`
 	width: 80%;
 	min-width: 500 vw;
-	height: 70vh;
-	margin: 30px auto;
-	border: 1px solid #000000;
+	margin: auto;
+	padding: 10px 0;
+	/* border: 1px solid #000000; */
+	box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 `;
 const PendingSection = styled.div`
  /* padding: 10px 0 0 0; */
@@ -94,7 +96,7 @@ const SellOverview = () => {
 											<td>e-Sewa</td>
 											<td>RS 3000</td>
 											<td>10 pcs</td>
-											<td>Approval Pending</td>
+											<td>Pending</td>
 										</tr>
 
 										<tr>
@@ -105,7 +107,7 @@ const SellOverview = () => {
 											<td>on delivery</td>
 											<td>RS 6250</td>
 											<td>1 pcs</td>
-											<td>Approval Pending</td>
+											<td>Pending</td>
 										</tr>
 									</table>									
 								</BodyWrapper>

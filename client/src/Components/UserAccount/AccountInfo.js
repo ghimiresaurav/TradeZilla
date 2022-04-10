@@ -23,7 +23,10 @@ const InfoSection = styled.div`
 	min-width: 500 vw;
 	height: 70vh;
 	margin: 30px auto;
-	border: 2px solid #000000;
+	/* border: 2px solid #000000; */
+	padding: 10px 0;
+	box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+
 `;
 
 const SectionHeader = styled.div`

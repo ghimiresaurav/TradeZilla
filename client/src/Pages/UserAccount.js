@@ -70,6 +70,18 @@ const UserAccount = (props) => {
 		if (menuState === "accountInfo") {
 			return <AccountInfo />;
 		}
+
+		else if (menuState === "userPayment") {
+			return <UserPayment />;
+		}
+
+		else if (menuState === "orderHistory") {
+			return <OrderHistory />;
+		}
+
+		else if (menuState === "sellOverview") {
+			return <SellOverview />;
+		}
 	}
 
 	return (
@@ -82,7 +94,7 @@ const UserAccount = (props) => {
 							Account Info
 						</LinkItem>
 
-						<LinkItem onClick={() => setMenuState("userPayment")}>Payment</LinkItem>
+						<LinkItem onClick={() => setMenuState("userPayment")}>Payment Info</LinkItem>
 
 						<LinkItem onClick={() => setMenuState("orderHistory")}>
 							Order History

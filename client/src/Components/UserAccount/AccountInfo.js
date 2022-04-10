@@ -12,12 +12,10 @@ const Title = styled.h1`
 const RightDiv = styled.div`
 	display: flex;
 	flex: 9;
-	/* background-color: grey; */
 `;
 
 const WrapContainer = styled.div`
 	width: 100%;
-	/* background-color: red; */
 `;
 
 const InfoSection = styled.div`

@@ -173,9 +173,10 @@ const SellOnTradeZilla = (props) => {
 
   const [uploadClicked, setUploadClicked] = useState(false);
 
-  const [category, setCategory] = useState("Fashion");
+	const [category, setCategory] = useState("Fashion");
+	// console.log("You selected", category);
 
-  const [fileList, setFileList] = useState([]);
+	const [fileList, setFileList] = useState([]);
 
   const [values, setValues] = useState({
     title: "",

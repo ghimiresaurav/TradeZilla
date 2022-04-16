@@ -14,17 +14,29 @@ const verifyLoggedIn = async (
   // If token does not exist, send an error status
   if (!token) return res.status(401).send("You need to login to continue.");
 
-  // Decode the token
-  const decodedToken: any = jwt.verify(token, <string>process.env.TOKEN_SECRET);
+  // Wrap token parsing in try catch so that jwt expiry does not cause the server to crash
+  try {
+    // Decode the token
+    const decodedToken: any = jwt.verify(
+      token,
+      <string>process.env.TOKEN_SECRET
+    );
 
-  // Check if the id contained in the token is the same as the one sent in authorization
-  if (decodedToken.id !== userId) return res.status(401).send("Unauthorized");
+    // Check if the id contained in the token is the same as the one sent in authorization
+    if (decodedToken.id !== userId) return res.status(401).send("Unauthorized");
 
-  // Set the user id and email in res.locals
-  // These values can be accessed by next functions
-  res.locals.id = decodedToken.id;
-  res.locals.email = decodedToken.email;
-  return next();
+    // Set the user id and email in res.locals
+    // These values can be accessed by next functions
+    res.locals.id = decodedToken.id;
+    res.locals.email = decodedToken.email;
+
+    return next();
+  } catch (e: any) {
+    return res.json({
+      success: false,
+      message: e.message,
+    });
+  }
 };
 
 export default verifyLoggedIn;

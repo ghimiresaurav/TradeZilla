@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import { Product } from "../models/Product";
 import { User } from "../models/User";
 
+// Import function to check if the id from parameter is valid
+import checkValidObjectId from "../utils/checkValidObjectId";
+
 const addReview = async (req: Request, res: Response) => {
   // Connect to the atlas database
   mongoose
@@ -10,8 +13,17 @@ const addReview = async (req: Request, res: Response) => {
     .catch((e) => console.log(`Error: ${e.message}`));
 
   // Extract product id and user id
-  const product_id = new mongoose.Types.ObjectId(req.params.p_id);
+  const product_id = req.params.p_id;
+  // const product_id = new mongoose.Types.ObjectId(req.params.p_id);
   const user_id = new mongoose.Types.ObjectId(res.locals.id);
+
+  // Check if the product_id in parameter is valid
+  // If the id is invalid, return an error message
+  if (!checkValidObjectId(product_id))
+    return res.json({
+      success: false,
+      message: "Invalid product Id",
+    });
 
   // Find the product and user in database
   const product = await Product.findById(product_id);
@@ -32,7 +44,9 @@ const addReview = async (req: Request, res: Response) => {
     });
 
   // Check if the user has bought the product they are trying to review
-  const userHasBought = user.boughtItems.some(i => i.item_id.equals(product_id));
+  const userHasBought = user.boughtItems.some((i) =>
+    i.item_id.equals(product_id)
+  );
   if (!userHasBought) {
     return res.json({
       success: false,
@@ -45,21 +59,19 @@ const addReview = async (req: Request, res: Response) => {
     const reviews = product.reviews;
 
     // Check if the user has already reviewed
-    const review = reviews.filter(r => r.user.equals(user_id));
+    const review = reviews.filter((r) => r.user.equals(user_id));
 
     // If yes then update the previous review
     if (review.length) {
       let reviewToUpdate = review[0];
-      reviewToUpdate.date = new Date;
+      reviewToUpdate.date = new Date();
       reviewToUpdate.rating = req.body.rating;
       reviewToUpdate.body = req.body.review;
-
-    }
-    else {
+    } else {
       // Else add review to product
       reviews.push({
         user: user_id,
-        date: new Date,
+        date: new Date(),
         body: req.body.review,
         rating: req.body.rating,
       });
@@ -75,13 +87,12 @@ const addReview = async (req: Request, res: Response) => {
     // Send a success message
     return res.json({
       success: true,
-      message: "Your review has been added."
+      message: "Your review has been added.",
     });
   } catch (e: any) {
     // If something goes wrong, send a message
     return res.json({ success: false, message: e.message });
   }
-
-}
+};
 
 export default addReview;

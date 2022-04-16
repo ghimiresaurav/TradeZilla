@@ -4,6 +4,9 @@ import { Order } from "../models/Order";
 import { Product } from "../models/Product";
 import { User } from "../models/User";
 
+// Import function to check if the id from parameter is valid
+import checkValidObjectId from "../utils/checkValidObjectId";
+
 const confirmOrder = async (req: Request, res: Response) => {
   // Connect to the atlas database
   mongoose
@@ -11,7 +14,16 @@ const confirmOrder = async (req: Request, res: Response) => {
     .catch((e) => console.log(`Error:${e.message}`));
 
   // Get the order id
-  const order_id = new mongoose.Types.ObjectId(req.params.o_id);
+  const order_id = req.params.o_id;
+  // const order_id = new mongoose.Types.ObjectId(req.params.o_id);
+
+  // Check if the order_id in parameter is valid
+  // If the id is invalid, return an error message
+  if (!checkValidObjectId(order_id))
+    return res.json({
+      success: false,
+      message: "Invalid product or query Id",
+    });
 
   // Find the order in database
   const order = await Order.findById(order_id);
@@ -29,8 +41,8 @@ const confirmOrder = async (req: Request, res: Response) => {
   if (!vendor_id.equals(res.locals.id))
     return res.json({
       success: false,
-      message: "You can not dispatch this product."
-    })
+      message: "You can not dispatch this product.",
+    });
 
   // Get customer and product id from database
   const customer_id = new mongoose.Types.ObjectId(order.customer_id);
@@ -78,17 +90,19 @@ const confirmOrder = async (req: Request, res: Response) => {
     await order.save();
 
     // Decrement the total product quantity by amount bought
-    await Product.findByIdAndUpdate(product_id, { $inc: { quantity: -order.quantity } });
+    await Product.findByIdAndUpdate(product_id, {
+      $inc: { quantity: -order.quantity },
+    });
 
     // Send a success message
     return res.json({
       success: true,
-      message: "The product was dispatched successfully."
+      message: "The product was dispatched successfully.",
     });
   } catch (e: any) {
     // If something goes wrong, send a message
     return res.json({ success: false, message: e.message });
   }
-}
+};
 
 export default confirmOrder;

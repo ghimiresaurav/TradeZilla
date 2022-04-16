@@ -3,6 +3,9 @@ import mongoose from "mongoose";
 import { User } from "../models/User";
 import { Product } from "../models/Product";
 
+// Import function to check if the id from parameter is valid
+import checkValidObjectId from "../utils/checkValidObjectId";
+
 const answerQuery = async (req: Request, res: Response) => {
   // Connect to the atlas database
   mongoose
@@ -13,6 +16,14 @@ const answerQuery = async (req: Request, res: Response) => {
   const product_id = req.params.p_id;
   const user_id = new mongoose.Types.ObjectId(res.locals.id);
   const query_id = req.body.query_id;
+
+  // Check if the product_id, query_id in parameter is valid
+  // If the id is invalid, return an error message
+  if (!checkValidObjectId(product_id) || !checkValidObjectId(query_id))
+    return res.json({
+      success: false,
+      message: "Invalid product or query Id",
+    });
 
   // Find the product in the database
   const product = await Product.findById(product_id);

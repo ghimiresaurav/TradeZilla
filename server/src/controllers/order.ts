@@ -3,8 +3,10 @@ import mongoose from "mongoose";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
 
-const order = async (req: Request, res: Response) => {
+// Import function to check if the id from parameter is valid
+import checkValidObjectId from "../utils/checkValidObjectId";
 
+const order = async (req: Request, res: Response) => {
   // Extract user-inputted information from request object
   const {
     quantity,
@@ -24,8 +26,17 @@ const order = async (req: Request, res: Response) => {
     .catch((e) => console.log(`Error: ${e.message}`));
 
   // Get product and customer id
-  const product_id = new mongoose.Types.ObjectId(req.params.p_id);
+  const product_id = req.params.p_id;
+  // const product_id = new mongoose.Types.ObjectId(req.params.p_id);
   const customer_id = new mongoose.Types.ObjectId(res.locals.id);
+
+  // Check if the product_id in parameter is valid
+  // If the id is invalid, return an error message
+  if (!checkValidObjectId(product_id))
+    return res.json({
+      success: false,
+      message: "Invalid product Id",
+    });
 
   // Find the user in database
   const product = await Product.findById(product_id);
@@ -34,7 +45,7 @@ const order = async (req: Request, res: Response) => {
   if (!product)
     return res.json({
       success: false,
-      message: "Product not found."
+      message: "Product not found.",
     });
 
   // Get the vendor id from database
@@ -44,8 +55,8 @@ const order = async (req: Request, res: Response) => {
   if (vendor_id.equals(customer_id))
     return res.json({
       success: false,
-      message: "You can not order your own product."
-    })
+      message: "You can not order your own product.",
+    });
 
   try {
     // Create an instance of Order
@@ -65,7 +76,7 @@ const order = async (req: Request, res: Response) => {
     // Send a success message
     return res.json({
       success: true,
-      message: "Order has been sent."
+      message: "Order has been sent.",
     });
   } catch (e: any) {
     // If something goes wrong, send a message

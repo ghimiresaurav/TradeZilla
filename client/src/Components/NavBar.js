@@ -206,13 +206,15 @@ const RightJSX = (props) => {
 const NavBar = (props) => {
 
 	
-	const [values, setValues] = useState("");
+	const [search, setSearch] = useState("");
+	const [searchPath, setSearchPath] = useState("/search");
+
+	// console.log("Search: ", search);
+	// console.log("Search Path: ", searchPath);
 
 	const handleChange = (e) => {
-		setValues({ ...values, [e.target.name]: e.target.value });
-		// setValues(e.target.value);
-
-		console.log("dfd", );
+		setSearch(e.target.value);
+		setSearchPath("/search/" + e.target.value);
 	};
 
 	return (
@@ -225,12 +227,12 @@ const NavBar = (props) => {
 					<SearchContainer>
 						<Input
 							placeholder="Search TradeZilla..."
-							value={values.name}
+							value={search.name}
 							name="search"
-							// onChange={handleChange()}
+							onChange={handleChange}
 						/>
-						<Link to={"/search"} style={linkStyle}>
-							<SearchIcon />
+						<Link to={searchPath} style={linkStyle}>
+							<SearchIcon/>
 						</Link>
 					</SearchContainer>
 				</Left>

@@ -31,6 +31,7 @@ const Top = styled.div`
 const Bottom = styled.div`
 	display: flex;
 	justify-content: space-between;
+	margin-top: 15px;
 `;
 
 const Info = styled.div`
@@ -99,11 +100,22 @@ const Hr = styled.hr`
 `;
 
 const Search = (props) => {
+
+	const path =  window.location.pathname;
+	const tempSearchProduct = path.split("/").pop();
+	const searchProduct = decodeURI(tempSearchProduct); //removes %20
+
+	console.log("Path: ", path);
+	console.log("Search Product: ", tempSearchProduct);
+	console.log("Search Product without Percent: ", searchProduct);
+
+	document.title = "Search | " + searchProduct;
+
 	return (
 		<Container>
 			<TopBars loggedIn={props.loggedIn} />
 			<CartContent>
-				<Title>SEARCH RESULTS FOR T-SHIRT</Title>
+				<Title>SEARCH RESULTS FOR <b>{searchProduct}</b></Title>
 				<Bottom>
 					<Info>
 						<Product>

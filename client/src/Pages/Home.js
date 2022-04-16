@@ -1,10 +1,7 @@
 import Announcement from '../Components/Announcement'
 import TopBars from '../Components/TopBars';
-// import Slider from '../Components/Slider'
-// import Categories from '../Components/Categories'
 import BestSellers from '../Components/BestSellers';
 import TopDeals from '../Components/TopDeals'
-import Products from '../Components/Products'
 import Footer from '../Components/Footer'
 import NewsletterPopup from '../Components/NewsletterPopup';
 import ReturnTop from '../Components/ReturnTop';
@@ -65,7 +62,6 @@ const Home = (props) => {
             <Wrapper>
                 <BestSellers/>
                 <TopDeals/>
-                {/* <Products /> */}
                 <Footer />
                 {/* <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/> */}
                 <ReturnTop/>

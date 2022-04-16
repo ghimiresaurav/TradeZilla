@@ -1,6 +1,5 @@
 import Home from './Pages/Home';
-import ProductList from './Pages/ProductList';
-import Product from './Pages/Product';
+import ProductDetail from './Pages/ProductDetail';
 import Register from './Pages/Register';
 import Login from './Pages/Login';
 import Cart from './Pages/Cart';
@@ -14,6 +13,7 @@ import Search from './Pages/Search';
 import { BrowserRouter as Router, Routes, Route, Navigate, useRoutes } from "react-router-dom";
 import Upload from './Components/Upload';
 import SubCategoriesPath from './routes/routeSubCategories';
+import Category from './Pages/Category';
 
 const isLoggedIn = () =>   
    ( localStorage.getItem("name") &&
@@ -24,18 +24,27 @@ const isLoggedIn = () =>
 // const isActive = localStorage.getItem("isActive");
 // console.log(isActive);
 
+// const CategoriesPath = () => useRoutes([
+//   { path: "/fashion", element: <ProductList loggedIn={isLoggedIn()} title="Fashion"/>},
+//   { path: "/sports", element: <ProductList loggedIn={isLoggedIn()} title="Sports"/> },
+//   { path: "/electronics", element: <ProductList loggedIn={isLoggedIn()} title="Electronics"/> },
+//   { path: "/households", element: <ProductList loggedIn={isLoggedIn()} title="Households"/> },
+//   { path: "/music", element: <ProductList loggedIn={isLoggedIn()} title="Music"/> },
+//   { path: "/groceries", element: <ProductList loggedIn={isLoggedIn()} title="Groceries"/> },
+//   { path: "/books", element: <ProductList loggedIn={isLoggedIn()} title="Books"/> }
+// ]);
+
 const CategoriesPath = () => useRoutes([
-  { path: "/fashion", element: <ProductList loggedIn={isLoggedIn()} title="Fashion"/>},
-  { path: "/sports", element: <ProductList loggedIn={isLoggedIn()} title="Sports"/> },
-  { path: "/electronics", element: <ProductList loggedIn={isLoggedIn()} title="Electronics"/> },
-  { path: "/households", element: <ProductList loggedIn={isLoggedIn()} title="Households"/> },
-  { path: "/music", element: <ProductList loggedIn={isLoggedIn()} title="Music"/> },
-  { path: "/groceries", element: <ProductList loggedIn={isLoggedIn()} title="Groceries"/> },
-  { path: "/books", element: <ProductList loggedIn={isLoggedIn()} title="Books"/> }
+  { path: "/fashion", element: <Category loggedIn={isLoggedIn()} title="Fashion"/>},
+  { path: "/sports", element: <Category loggedIn={isLoggedIn()} title="Sports"/> },
+  { path: "/electronics", element: <Category loggedIn={isLoggedIn()} title="Electronics"/> },
+  { path: "/households", element: <Category loggedIn={isLoggedIn()} title="Households"/> },
+  { path: "/music", element: <Category loggedIn={isLoggedIn()} title="Music"/> },
+  { path: "/groceries", element: <Category loggedIn={isLoggedIn()} title="Groceries"/> },
+  { path: "/books", element: <Category loggedIn={isLoggedIn()} title="Books"/> }
 ]);
 
-
-
+const SearchPath = ""
 function App() {
   return (
     <>
@@ -43,7 +52,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={<Home loggedIn={isLoggedIn()}/>}/>
-          <Route path="/product/:id" element={<Product loggedIn={isLoggedIn()}/>}/>
+          <Route path="/product/:id" element={<ProductDetail loggedIn={isLoggedIn()}/>}/>
           <Route path="/register" element={isLoggedIn() ? <Navigate to="/" /> : <Register />}/>
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>
           <Route path="/cart" element={!isLoggedIn() ? <Navigate to="/"/> : <Cart loggedIn={isLoggedIn()} />}/>
@@ -53,7 +62,7 @@ function App() {
           <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>
           <Route path="/privacy-policy" element={<PrivacyPolicy loggedIn = {isLoggedIn()}/>} />
           <Route path="/payment" element={!isLoggedIn() ? <Navigate to="/" /> : <Payment loggedIn = {isLoggedIn()}/>}/>
-          <Route path="/search" element={<Search loggedIn = {isLoggedIn()}/>}/>
+          <Route path="/search/:product" element={<Search loggedIn = {isLoggedIn()} />}/>
         </Routes>
         <CategoriesPath/>
         <SubCategoriesPath loggedIn={isLoggedIn()}/>

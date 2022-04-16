@@ -63,6 +63,12 @@ const OtherImages = styled.div`
 const OtherImage = styled.img`
 	width: 23%;
 	height: 100%;
+	transition: 0.2s;
+	cursor: pointer;
+
+	&:hover{
+		border: 2px solid #000000;
+	}
 `;
 
 const InfoContainer = styled.div`
@@ -157,7 +163,7 @@ const Button = styled.button`
 	}
 `;
 
-const Product = (props) => {
+const ProductDetail = (props) => {
 	document.title = "Product | TradeZilla";
 
 	const [count, setCount] = useState(1);
@@ -174,6 +180,9 @@ const Product = (props) => {
 		}
 	}
 
+	// require("../images/test/jean.jpg")
+	const ImageSrc = "../images/test/jean.jpg";
+
 	return (
 		<Container>
 			<TopBars loggedIn={props.loggedIn} />
@@ -182,7 +191,7 @@ const Product = (props) => {
 					<ImgContainer>
 						<Wrapper>
 							<MainImage>
-								<Image src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+								<Image src={ImageSrc}/>
 							</MainImage>
 							<OtherImages>
 								<OtherImage src="https://i.ibb.co/S6qMxwr/jean.jpg" />
@@ -240,4 +249,4 @@ const Product = (props) => {
 	);
 };
 
-export default Product;
+export default ProductDetail;

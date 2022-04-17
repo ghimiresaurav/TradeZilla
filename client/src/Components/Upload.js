@@ -395,7 +395,7 @@ const Upload = (props) => {
 					</Wrapper>
 				</DropZone>
 				{props.files.length > 0 ? (
-					props.files.length <= 5 ? (
+					props.files.length <= 4 ? (
 						<Container2>
 							<DropFilePreview>
 								<DropFilePreviewTitle>{/* Preview */}</DropFilePreviewTitle>

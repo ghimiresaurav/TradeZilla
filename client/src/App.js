@@ -21,19 +21,6 @@ const isLoggedIn = () =>
     localStorage.getItem("token") &&
     localStorage.getItem("email") )
 
-// const isActive = localStorage.getItem("isActive");
-// console.log(isActive);
-
-// const CategoriesPath = () => useRoutes([
-//   { path: "/fashion", element: <ProductList loggedIn={isLoggedIn()} title="Fashion"/>},
-//   { path: "/sports", element: <ProductList loggedIn={isLoggedIn()} title="Sports"/> },
-//   { path: "/electronics", element: <ProductList loggedIn={isLoggedIn()} title="Electronics"/> },
-//   { path: "/households", element: <ProductList loggedIn={isLoggedIn()} title="Households"/> },
-//   { path: "/music", element: <ProductList loggedIn={isLoggedIn()} title="Music"/> },
-//   { path: "/groceries", element: <ProductList loggedIn={isLoggedIn()} title="Groceries"/> },
-//   { path: "/books", element: <ProductList loggedIn={isLoggedIn()} title="Books"/> }
-// ]);
-
 const CategoriesPath = () => useRoutes([
   { path: "/fashion", element: <Category loggedIn={isLoggedIn()} title="Fashion"/>},
   { path: "/sports", element: <Category loggedIn={isLoggedIn()} title="Sports"/> },
@@ -57,7 +44,7 @@ function App() {
           <Route path="/login" element={isLoggedIn() ? <Navigate to="/" /> : <Login />}/>
           <Route path="/cart" element={!isLoggedIn() ? <Navigate to="/"/> : <Cart loggedIn={isLoggedIn()} />}/>
           <Route path="/useraccount" element={!isLoggedIn() ? <Navigate to="/"/> : <UserAccount loggedIn = {isLoggedIn()}/>}/>
-          <Route path="/sellontradezilla" element={<SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
+          <Route path="/sellontradezilla" element={!isLoggedIn() ? <Navigate to ="/"/> : <SellOnTradeZilla loggedIn = {isLoggedIn()}/>}/>
           <Route path="/otp" element={(isLoggedIn() && !(localStorage.getItem("isActive") === "true") ? <OTP loggedIn = {isLoggedIn()}/> : <Navigate to="/" />)}/>
           <Route exact path="/upload" element={<Upload loggedIn={isLoggedIn()}/>}/>
           <Route path="/privacy-policy" element={<PrivacyPolicy loggedIn = {isLoggedIn()}/>} />

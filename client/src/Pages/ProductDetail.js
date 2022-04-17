@@ -14,16 +14,16 @@ const Container = styled.div`
 `;
 
 const ProductDetails = styled.div`
-  background-color: #f2f2f2;
-  padding: 30px 0;
+	background-color: #f2f2f2;
+	padding: 30px 0;
 `;
 
 const Inner = styled.div`
-  width: 85%;
-  margin: auto;
-  // padding: 50px;
-  display: flex;
-  margin-bottom: 10px;
+	width: 85%;
+	margin: auto;
+	// padding: 50px;
+	display: flex;
+	margin-bottom: 10px;
 `;
 
 const ImgContainer = styled.div`
@@ -66,7 +66,7 @@ const OtherImage = styled.img`
 	transition: 0.2s;
 	cursor: pointer;
 
-	&:hover{
+	&:hover {
 		border: 2px solid #000000;
 	}
 `;
@@ -157,9 +157,8 @@ const Button = styled.button`
 
 	&:hover {
 		// background-color: #f8f4f4;
-    background-color: #000000;
-    color: #ffffff;
-
+		background-color: #000000;
+		color: #ffffff;
 	}
 `;
 
@@ -180,9 +179,14 @@ const ProductDetail = (props) => {
 		}
 	}
 
-	// require("../images/test/jean.jpg")
-	const ImageSrc = "../images/test/jean.jpg";
 
+	const ImageSrc = [
+		"https://res.cloudinary.com/tradezilla/image/upload/v1649506666/product-625179631b5b59ed01c72c49/img-0.jpg",
+		"https://res.cloudinary.com/tradezilla/image/upload/v1649506670/product-625179631b5b59ed01c72c49/img-1.jpg",
+		"https://res.cloudinary.com/tradezilla/image/upload/v1649506676/product-625179631b5b59ed01c72c49/img-2.jpg",
+	];
+
+	const [imageIndex, setImageIndex] = useState(0);
 	return (
 		<Container>
 			<TopBars loggedIn={props.loggedIn} />
@@ -191,13 +195,13 @@ const ProductDetail = (props) => {
 					<ImgContainer>
 						<Wrapper>
 							<MainImage>
-								<Image src={ImageSrc}/>
+								<Image src={ImageSrc[imageIndex]} />
 							</MainImage>
 							<OtherImages>
-								<OtherImage src="https://i.ibb.co/S6qMxwr/jean.jpg" />
-								<OtherImage src="https://i.ibb.co/S6qMxwr/jean.jpg" />
-								<OtherImage src="https://i.ibb.co/S6qMxwr/jean.jpg" />
-								<OtherImage src="https://i.ibb.co/S6qMxwr/jean.jpg" />
+								<OtherImage onClick={()=> setImageIndex(0)} src={ImageSrc[0]} />
+								<OtherImage onClick={()=> setImageIndex(1)} src={ImageSrc[1] }/>
+								<OtherImage onClick={()=> setImageIndex(2)} src={ImageSrc[2] }/>
+								<OtherImage onClick={()=> setImageIndex(3)} src={ImageSrc[3] }/>
 							</OtherImages>
 						</Wrapper>
 					</ImgContainer>
@@ -243,7 +247,7 @@ const ProductDetail = (props) => {
 				</Inner>
 			</ProductDetails>
 			<ProductReview loggedIn={props.loggedIn} />
-			<QandA loggedIn={props.loggedIn}/>
+			<QandA loggedIn={props.loggedIn} />
 			<Footer />
 		</Container>
 	);

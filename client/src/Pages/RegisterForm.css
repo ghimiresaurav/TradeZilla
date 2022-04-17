@@ -81,3 +81,26 @@ th, td {
     padding: 10px;
     font-size: 14px;
 }
+
+#action {
+    padding: 2px;
+    border-radius: 3px;
+    outline: none;
+    border: none;
+    border: 1px solid #99ff99;
+    cursor: pointer;
+
+    background-color: #ffffff;
+    color: gray;
+    font-weight: 500;
+}
+
+#action:hover {
+    background-color: #99ff99;
+}
+
+#action:active {
+    background-color: #99ff99;
+    box-shadow: 0 1px #666;
+    transform: translateY(1px);
+}

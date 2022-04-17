@@ -85,7 +85,7 @@ const SellOverview = () => {
 											<th>Payment Method</th>
 											<th>Price</th>
 											<th>Quantity</th>
-											<th>Status</th>
+											<th>Action</th>
 										</tr>
 
 										<tr>
@@ -93,10 +93,14 @@ const SellOverview = () => {
 											<td>img</td>
 											<td>Coffee Mug</td>
 											<td>2022-03-14</td>
-											<td>e-Sewa</td>
+											<td>E-Sewa</td>
 											<td>RS 3000</td>
 											<td>10 pcs</td>
-											<td>Pending</td>
+											<td>
+												<button id="action">
+													Dispatch
+												</button>
+											</td>
 										</tr>
 
 										<tr>
@@ -107,7 +111,11 @@ const SellOverview = () => {
 											<td>on delivery</td>
 											<td>RS 6250</td>
 											<td>1 pcs</td>
-											<td>Pending</td>
+											<td>
+												<button id="action">
+													Dispatch
+												</button>
+											</td>
 										</tr>
 									</table>									
 								</BodyWrapper>
@@ -129,8 +137,7 @@ const SellOverview = () => {
 											<th>Order Date</th>
 											<th>Payment Method</th>
 											<th>Price</th>
-											<th>Quantity</th>
-											<th>Status</th>
+											<th>Quantity</th>									
 										</tr>
 
 										<tr>
@@ -141,7 +148,6 @@ const SellOverview = () => {
 											<td>e-sewa</td>
 											<td>RS 650</td>
 											<td>2 pcs</td>
-											<td>Delivered</td>
 										</tr>
 
 										<td>39456</td>
@@ -150,8 +156,7 @@ const SellOverview = () => {
 											<td>2022-03-23</td>
 											<td>on delivery</td>
 											<td>RS 2100</td>
-											<td>1 pcs</td>
-											<td>Delivered</td>
+											<td>1 pcs</td>										
 									</table>								
 								</BodyWrapper>
 							</SectionBody>

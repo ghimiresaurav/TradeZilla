@@ -6,6 +6,7 @@ import UploadIcon from "@mui/icons-material/Upload";
 import { useState } from "react";
 import categories from "../datas/MenuItems";
 
+
 const Container = styled.div`
 	width: 100%;
 	background-color: #f2f2f2;
@@ -20,9 +21,9 @@ const Container = styled.div`
 `;
 
 const Title = styled.h1`
-  display: flex;
-  justify-content: center;
-  margin: 40px 0;
+	display: flex;
+	justify-content: center;
+	margin: 40px 0;
 `;
 
 const Wrapper = styled.div`
@@ -32,54 +33,67 @@ const Wrapper = styled.div`
 `;
 
 const Form = styled.form`
-  width: 80%;
-  margin: auto;
-  padding: 40px 0;
+	width: 80%;
+	margin: auto;
+	padding: 40px 0;
 `;
 
 const ProductTitle = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 25px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 25px;
 `;
 
 const Input = styled.input`
-  width: 100%;
-  height: 40px;
-  border-radius: 5px;
-  padding-left: 10px;
+	width: 100%;
+	height: 40px;
+	border-radius: 5px;
+	padding-left: 10px;
 `;
 
 const Price = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 25px;
+	display: flex;
+	align-items: center;
+	margin-bottom: 25px;
 `;
 
 const Type = styled.div`
-  display: flex;
-  margin-bottom: 25px;
-  // justify-content: space-between;
+	display: flex;
+	margin-bottom: 25px;
+	// justify-content: space-between;
 `;
 
 const Category = styled.div`
-  margin-right: 30px;
+	margin-right: 30px;
 `;
 
 const Label = styled.label`
-  color: #ffffff;
-  margin-right: 10px;
+	color: #ffffff;
+	margin-right: 10px;
 `;
 
 const Select = styled.select`
-  padding: 10px;
+	padding: 10px;
 `;
 
 const Option = styled.option`
-  padding: 10px;
+	padding: 10px;
 `;
 
 const SubCategory = styled.div``;
+
+const Quantity = styled.div`
+	display: flex;
+	align-items: center;
+	margin-bottom: 25px;
+`;
+
+const AmountInput = styled.input`
+	height: 40px;
+	border-radius: 5px;
+	padding-left: 10px;
+`;
+
 
 const UploadArea = styled.div`
 	margin-bottom: 25px;
@@ -99,10 +113,10 @@ const UploadButton = styled.div`
 	cursor: pointer;
 	transition: 0.3s ease-in-out;
 
-  &:hover {
-    background-color: #ffffff;
-    color: #000000;
-  }
+	&:hover {
+		background-color: #ffffff;
+		color: #000000;
+	}
 `;
 
 const UploadedImage = styled.div`
@@ -111,119 +125,114 @@ const UploadedImage = styled.div`
 `;
 
 const Description = styled.div`
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 `;
 
 const TextArea = styled.textarea`
-  resize: vertical;
-  width: 100%;
-  border-radius: 5px;
-  padding: 10px;
-  margin: 10px 0;
-  min-height: 150px;
+	resize: vertical;
+	width: 100%;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0;
+	min-height: 150px;
 `;
 
 const Button = styled.button`
-  margin-top: 40px;
-  width: 100%;
-  height: 60px;
-  padding-left: 10px;
-  background-color: #ffffff;
-  color: #000000;
-  font-size: 30px;
-  cursor: pointer;
-  font-weight: 1000;
-  border: 2px solid #ffffff;
-  transition: 0.3s ease-in-out;
+	margin-top: 40px;
+	width: 100%;
+	height: 60px;
+	padding-left: 10px;
+	background-color: #ffffff;
+	color: #000000;
+	font-size: 30px;
+	cursor: pointer;
+	font-weight: 1000;
+	border: 2px solid #ffffff;
+	transition: 0.3s ease-in-out;
 
-  &:hover {
-    background-color: #000000;
-    color: #ffffff;
-  }
+	&:hover {
+		background-color: #000000;
+		color: #ffffff;
+	}
 `;
 
-// const content = tinymce.get("blog-txt").getContent();
-
-// const resp = await fetch("http://localhost:5000/login", {
-//     method: "POST",
-//     headers: {
-//         "Content-Type": "application/json",
-//     },
-//     body: JSON.stringify(values),
-// });
-
-// const response = await resp.json();
-
-// if (response.success) {
-//     localStorage.setItem("token", response.token);
-//     localStorage.setItem("userId", response.id);
-//     localStorage.setItem("name", response.name);
-//     localStorage.setItem("isActive", response.isActive);
-//     localStorage.setItem("email", response.email);
-//     // localStorage.isActive? window.location.assign("/"):  window.location.assign("/otp");
-//     (localStorage.getItem("isActive") === "true") ? window.location.assign("/"):  window.location.assign("/otp");
-// } else {
-//     const errorInField = response.message.split(" ")[1] === "email" ? "email" : "password";
-//     setErrorText({ [errorInField]: response.message })
-// }
-
 const SellOnTradeZilla = (props) => {
-  document.title = "Sell On TradeZilla | TradeZilla";
+	document.title = "Sell On TradeZilla | TradeZilla";
 
-  const [uploadClicked, setUploadClicked] = useState(false);
-
-	const [category, setCategory] = useState("Fashion");
-	// console.log("You selected", category);
+	const [uploadClicked, setUploadClicked] = useState(false);
 
 	const [fileList, setFileList] = useState([]);
 
-  const [values, setValues] = useState({
-    title: "",
-    price: "",
-    category: "fashion",
-    subCategory: "shoes",
-    description: "",
-  });
+	const [values, setValues] = useState({
+		title: "",
+		price: "",
+		quantity: "",
+		description: "",
+	});
 
-  const handleChange = (e) => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
+	const [category, setCategory] = useState("Fashion");
+	const [subCategory, setSubCategory] = useState("Mens Wear");
 
-  const postProduct = async (e) => {
-    e.preventDefault();
+	//UpdateCategory
+	const updateCategory = (e) => {
+		setCategory(e.target.value);
+		setSubCategory(categories[e.target.value][0].title);
+	};
 
-    const formData = new FormData();
-    // formData.append("title", values.title);
-    // formData.append("price", values.price);
-    // formData.append("category", values.category);
-    // formData.append("subCategory", values.subCategory);
-    // formData.append("description", values.description);
-    formData.append("title", "Denim Jeans");
-    formData.append("price", 2000);
-    formData.append("category", "Fashion");
-    formData.append("subCategory", "Mens");
-    formData.append(
-      "description",
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
-    );
-    formData.append("quantity", 100);
-    Array.from(fileList).forEach((file) => formData.append(`images`, file));
-    formData.append("filesLength", fileList.length);
+	const updateSubCategory = (e) => setSubCategory(e.target.value);
+	const handleChange = (e) => {
+		setValues({ ...values, [e.target.name]: e.target.value });
+	};
 
-		// formData.append("name", "sajag");
-		// console.log(formData.get("title", "price", "category", "description"));
-		console.log(formData.get("category", "price"));
+	const postProduct = async (e) => {
+		e.preventDefault();
 
-		// console.log(values);
+		const formData = new FormData();
+		formData.append("title", values.title);
+		formData.append("price", values.price);
+		formData.append("category", category);
+		formData.append("subCategory", subCategory);
+		formData.append("quantity", values.quantity);
+		formData.append("description", values.description);
+
+		Array.from(fileList).forEach((file) => formData.append(`images`, file));
+		formData.append("filesLength", fileList.length);
+
+		console.log(
+			formData.get("title"),
+			formData.get("price"),
+			formData.get("category"),
+			formData.get("subCategory"),
+			formData.get("quantity"),
+			formData.get("description")
+		);
+
+		const resp = await fetch("http://localhost:5000/s/v/add-product", {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(
+          "token"
+        )} ${localStorage.getItem("userId")}`,
+      },
+      body: formData,
+    });
+    const response = await resp.json();
+    console.log(response);
 	};
 
 	const showSubCategories = () => {
 		return (
 			<>
-				<Select>
+				<Select
+					name="subCategory"
+					value={subCategory}
+					onChange={updateSubCategory}
+				>
 					{categories[category].map((item, index) => (
-						<Option key={index}>{item.title}</Option>
+						<Option key={index} value={item.title}>
+							{item.title}
+						</Option>
 					))}
 				</Select>
 			</>
@@ -249,6 +258,7 @@ const SellOnTradeZilla = (props) => {
 						<Label>Price:</Label>
 						<Input
 							name="price"
+							type="number"
 							onChange={handleChange}
 							value={values.name}
 							placeholder="Price"
@@ -258,8 +268,10 @@ const SellOnTradeZilla = (props) => {
 						<Category>
 							<Label>Category:</Label>
 							<Select
+								name="category"
 								value={category}
-								onChange={(e) => setCategory(e.target.value)}
+								onChange={updateCategory}
+								value={values.name}
 							>
 								{/* <Option disabled selected>Select</Option> */}
 								<Option value="Fashion">Fashion</Option>
@@ -276,6 +288,10 @@ const SellOnTradeZilla = (props) => {
 							{showSubCategories()}
 						</SubCategory>
 					</Type>
+					<Quantity>
+						<Label>Qty:</Label>
+						<AmountInput name="quantity" type="number" onChange={handleChange}/>
+					</Quantity>
 					<UploadArea>
 						<UploadButton onClick={() => setUploadClicked(true)}>
 							<UploadIcon />

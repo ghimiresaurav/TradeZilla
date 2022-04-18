@@ -42,6 +42,7 @@ const QuestionField = styled.textarea`
 	outline: none;
 	margin: 10px 0;
 	border-color: #f2f2f2;
+	resize: none;
 
 	&:focus {
 		border-color: #000000;
@@ -161,6 +162,19 @@ const QandA = (props) => {
 
 	console.log(questionClicked);
 
+	const [data, setData] = useState(
+		{
+          qsn: ""
+		}
+	)
+
+	function handle(e) {
+       const newData = {...data}
+	   newData[e.target.id] = e.target.value
+	   setData(newData)
+	   console.log(newData)
+	} 
+
 	return (
 		<Container>
 			<Wrapper>
@@ -169,6 +183,9 @@ const QandA = (props) => {
 				{props.loggedIn ? (
 					<PostAQuestion>
 						<QuestionField
+						    onChange={(e)=>handle(e)}
+							id = "qsn"
+							value = {data.qsn}
 							placeholder="Have a question? Ask here..."
 							onClick={() => setQuestionClicked(true)}
 						></QuestionField>

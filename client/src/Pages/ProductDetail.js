@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import QandA from "../Components/QandA";
 import { useState } from "react";
 import ProductReview from "../Components/ProductReview";
+import React from 'react'
 
 const Container = styled.div`
 	width: 100%;
@@ -143,13 +144,13 @@ const ProductDetail = (props) => {
 
 	// const productID = "625c420c14c2bf5927b31e61";
 	const productID = window.location.pathname.split("product/")[1];
-	console.log(window.location.pathname, productID);
+	// console.log(window.location.pathname, productID);
 
 	(async () => {
 		const resp = await fetch(`http://localhost:5000/product/${productID}`);
 		const response = await resp.json();
 		if (response.success) {
-			setProduct(response.product);
+			setProduct(response.product);	
 			setImages(response.product.images.split(", "));
 
 			console.log(product.title, product.price);
@@ -218,4 +219,4 @@ const ProductDetail = (props) => {
 	);
 };
 
-export default ProductDetail;
+export default React.memo(ProductDetail);

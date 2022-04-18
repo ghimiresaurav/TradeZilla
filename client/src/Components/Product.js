@@ -7,8 +7,10 @@ import { Link } from "react-router-dom";
 const Container = styled.div`
 	// background-color: green;
 	border: 1px solid #000000;
-	margin: 20px;
+	margin: 15px;
 	transition: 0.3s ease-in-out;
+	width: 325px;
+	height: 475px;
 
 	&:hover {
 		transform: scale(1.05);
@@ -19,7 +21,6 @@ const Container = styled.div`
 const ProductArea = styled.div`
 	flex: 1;
 	margin: 10px;
-	min-width: 270px;
 	height: 350px;
 	display: flex;
 	align-items: center;
@@ -39,6 +40,7 @@ const Circle = styled.div`
 const Image = styled.img`
 	height: 75%;
 	z-index: 2;
+	width: 90%;
 `;
 
 const Info = styled.div`
@@ -80,18 +82,25 @@ const Icon = styled.div`
 
 const ProductDetail = styled.div`
 	// background-color: yellow;
-	padding: 10px 0px;
+	// padding: 10px 0px;
 `;
 
 const ProductName = styled.h1`
 	text-align: center;
 	font-size: 20px;
+	height: 60px;
+	// background-color: red;
+	padding: 10px;
+	overflow: hidden;
 `;
 
 const Price = styled.h2`
 	text-align: center;
 	font-size: 17px;
 	font-weight: 400;
+	height: 40px;
+	// background-color: purple;
+	padding: 10px;
 `;
 
 const linkStyle = {

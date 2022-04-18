@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 const ContainerMain = styled.div`
 	width: 100%;
 	background-color: #ffffff;
+	height: 40px;
 	left: ${({ isOpen }) => (isOpen ? "0px" : "-300px")};
 	transition: 0.3s ease-in-out;
 	border-bottom: 2px solid #000000;
@@ -74,21 +75,24 @@ const Wrapper = styled.div`
 `;
 
 const MenuItem = styled.div`
-	height: 40px;
+	position: relative;
+	height: 38px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	font-size: 18px;
 	font-weight: 500;
-	padding: 9px 15px;
 	cursor: pointer;
 
 	&:hover {
 		background-color: lightgray;
-		// border-bottom: 2px solid #000000;
 	}
 
 	${mobile({ borderBottom: "1px solid gray" })}
+`;
+
+const Title = styled.div`
+	margin: 9px 15px;
 `;
 
 const linkStyle = {
@@ -211,60 +215,55 @@ const MenuBar = ({ isOpen, toggle }) => {
 					</CloseButton>
 				</CloseArea>
 				<Wrapper>
-					<Link to={"/fashion"} style={linkStyle}>
-						<MenuItem onMouseEnter={showFashion} onMouseLeave={hideFashion}>
-							Fashion
-							{dropdownFashion && <DropdownCat cat="Fashion" />}
-						</MenuItem>
-					</Link>
-					<Link to={"/sports"} style={linkStyle}>
-						<MenuItem
-							onMouseEnter={showSports}
-							onMouseLeave={hideSports}
-						>
-							Sports
-							{dropdownSports && <DropdownCat cat="Sports" />}
-						</MenuItem>
-					</Link>
-					<Link to={"/electronics"} style={linkStyle}>
-						<MenuItem
-							onMouseEnter={showElectronics}
-							onMouseLeave={hideElectronics}
-						>
-							Electronics
-							{dropdownElectronics && <DropdownCat cat="Electronics" />}
-						</MenuItem>
-					</Link>
-					<Link to={"/households"} style={linkStyle}>
-						<MenuItem
-							onMouseEnter={showHouseholds}
-							onMouseLeave={hideHouseHolds}
-						>
-							Households
-							{dropdownHouseholds && <DropdownCat cat="Households" />}
-						</MenuItem>
-					</Link>
-					<Link to={"/music"} style={linkStyle}>
-						<MenuItem
-							onMouseEnter={showBestSellers}
-							onMouseLeave={hideBestSellers}
-						>
-							Music
-							{dropdownBestSellers && <DropdownCat cat="Music" />}
-						</MenuItem>
-					</Link>
-					<Link to={"/groceries"} style={linkStyle}>
-						<MenuItem onMouseEnter={showGroceries} onMouseLeave={hideGroceries}>
-							Groceries
-							{dropdownGroceries && <DropdownCat cat="Groceries" />}
-						</MenuItem>
-					</Link>
-					<Link to={"/books"} style={linkStyle}>
-						<MenuItem onMouseEnter={showBooks} onMouseLeave={hideBooks}>
-							Books
-							{dropdownBooks && <DropdownCat cat="Books" />}
-						</MenuItem>
-					</Link>
+					<MenuItem onMouseEnter={showFashion} onMouseLeave={hideFashion}>
+						<Link to={"/fashion"} style={linkStyle}>
+							{/* <CategoryRegion/> */}
+							<Title>Fashion</Title>
+						</Link>
+						{dropdownFashion && <DropdownCat cat="Fashion" />}
+					</MenuItem>
+					<MenuItem onMouseEnter={showSports} onMouseLeave={hideSports}>
+						<Link to={"/sports"} style={linkStyle}>
+							<Title>Sports</Title>
+						</Link>
+						{dropdownSports && <DropdownCat cat="Sports" />}
+					</MenuItem>
+					<MenuItem
+						onMouseEnter={showElectronics}
+						onMouseLeave={hideElectronics}
+					>
+						<Link to={"/electronics"} style={linkStyle}>
+							<Title>Electronics</Title>
+						</Link>
+						{dropdownElectronics && <DropdownCat cat="Electronics" />}
+					</MenuItem>
+					<MenuItem onMouseEnter={showHouseholds} onMouseLeave={hideHouseHolds}>
+						<Link to={"/households"} style={linkStyle}>
+							<Title>Households</Title>
+						</Link>
+						{dropdownHouseholds && <DropdownCat cat="Households" />}
+					</MenuItem>
+					<MenuItem
+						onMouseEnter={showBestSellers}
+						onMouseLeave={hideBestSellers}
+					>
+						<Link to={"/music"} style={linkStyle}>
+							<Title>Music</Title>
+						</Link>
+						{dropdownBestSellers && <DropdownCat cat="Music" />}
+					</MenuItem>
+					<MenuItem onMouseEnter={showGroceries} onMouseLeave={hideGroceries}>
+						<Link to={"/groceries"} style={linkStyle}>
+							<Title>Groceries</Title>
+						</Link>
+						{dropdownGroceries && <DropdownCat cat="Groceries" />}
+					</MenuItem>
+					<MenuItem onMouseEnter={showBooks} onMouseLeave={hideBooks}>
+						<Link to={"/books"} style={linkStyle}>
+							<Title>Books</Title>
+						</Link>
+						{dropdownBooks && <DropdownCat cat="Books" />}
+					</MenuItem>
 				</Wrapper>
 			</Container>
 		</ContainerMain>

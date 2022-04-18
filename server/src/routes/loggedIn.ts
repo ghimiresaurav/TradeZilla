@@ -10,6 +10,7 @@ import requestOTP from "../controllers/requestOTP";
 
 // Import Route
 import verifiedRoute from "./emailVerified";
+import userInfo from "../controllers/userInfo";
 
 const router: Router = express.Router();
 
@@ -18,6 +19,8 @@ router.use("/v", verifiedRoute);
 
 router.post("/verify-email", verifyEmail);
 router.get("/otp", requestOTP);
+
+router.get("/user-info", userInfo);
 
 router.delete("/logout", logout);
 

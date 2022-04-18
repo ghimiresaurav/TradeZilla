@@ -207,26 +207,17 @@ const SellOnTradeZilla = (props) => {
     Array.from(fileList).forEach((file) => formData.append(`images`, file));
     formData.append("filesLength", fileList.length);
 
-    console.log(
-      formData.get("title"),
-      formData.get("price"),
-      formData.get("category"),
-      formData.get("subCategory"),
-      formData.get("quantity"),
-      formData.get("description")
-    );
-
-    // const resp = await fetch("http://localhost:5000/s/v/add-product", {
-    //   method: "POST",
-    //   headers: {
-    //     authorization: `Bearer ${localStorage.getItem(
-    //       "token"
-    //     )} ${localStorage.getItem("userId")}`,
-    //   },
-    //   body: formData,
-    // });
-    // const response = await resp.json();
-    // console.log(response);
+    const resp = await fetch("http://localhost:5000/s/v/add-product", {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${localStorage.getItem(
+          "token"
+        )} ${localStorage.getItem("userId")}`,
+      },
+      body: formData,
+    });
+    const response = await resp.json();
+    console.log(response);
   };
 
   const showSubCategories = () => {

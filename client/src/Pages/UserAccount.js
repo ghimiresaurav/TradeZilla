@@ -100,7 +100,7 @@ const UserAccount = (props) => {
 							Order History
 						</LinkItem>
 
-						<Link to="../sellontradezilla" style={linkStyle}>
+						<Link to="/sellontradezilla" style={linkStyle}>
 							<LinkItem>
 								Sell on TradeZilla
 							</LinkItem>

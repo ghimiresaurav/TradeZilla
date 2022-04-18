@@ -11,6 +11,7 @@ import {
   getAllProducts,
   getProductsByCat,
   getProductsBySubCat,
+  getSpecificProductDetails,
 } from "./controllers/getProducts";
 import { searchProducts } from "./controllers/searchProducts";
 
@@ -30,6 +31,7 @@ app.get("/search/:searchQuery", searchProducts);
 app.get("/products", getAllProducts);
 app.get("/products/:cat", getProductsByCat);
 app.get("/products/:cat/:subCat", getProductsBySubCat);
+app.get("/product/:p_id", getSpecificProductDetails);
 
 const PORT: number = parseInt(<string>process.env.PORT) || 5000;
 

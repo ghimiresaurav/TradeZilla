@@ -16,10 +16,6 @@ const router: Router = express.Router();
 router.use(auth);
 router.use("/v", verifiedRoute);
 
-router.get("/test", (req: Request, res: Response) => {
-  return res.json("welcome");
-});
-
 router.post("/verify-email", verifyEmail);
 router.get("/otp", requestOTP);
 

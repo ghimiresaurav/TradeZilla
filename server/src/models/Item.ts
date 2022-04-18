@@ -1,12 +1,12 @@
 import mongoose from "mongoose";
 
-interface BoughtItemType {
+interface ItemType {
   item_id: mongoose.Types.ObjectId;
   quantity: Number;
   addedOn: Date;
 }
 
-const BoughtItemSchema = new mongoose.Schema<BoughtItemType>({
+const ItemSchema = new mongoose.Schema<ItemType>({
   item_id: {
     type: mongoose.Types.ObjectId,
     required: true,
@@ -22,4 +22,4 @@ const BoughtItemSchema = new mongoose.Schema<BoughtItemType>({
   },
 });
 
-export { BoughtItemSchema, BoughtItemType };
+export { ItemSchema, ItemType };

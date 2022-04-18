@@ -8,6 +8,7 @@ router.use(auth);
 
 // Import controllers
 import addProduct from "../controllers/addProduct";
+import addToCart from "../controllers/addToCart";
 import addQuery from "../controllers/addQuery";
 import answerQuery from "../controllers/answerQuery";
 import order from "../controllers/order";
@@ -16,6 +17,8 @@ import getOrders from "../controllers/getOrders";
 import addReview from "../controllers/review";
 
 router.post("/add-product", addProduct);
+
+router.post("/add-to-cart/:p_id", addToCart);
 
 router.post("/add-query/:p_id", addQuery);
 router.post("/answer-query/:p_id", answerQuery);

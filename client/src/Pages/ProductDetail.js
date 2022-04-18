@@ -88,46 +88,15 @@ const Desc = styled.p`
 const Price = styled.span`
 	font-weight: 100;
 	font-size: 40px;
+	// margin: 20px 0px;
 `;
-
-const FilterContainer = styled.div`
-	width: 40%;
-	margin: 30px 0;
-	display: flex;
-	justify-content: space-between;
-`;
-
-const Filter = styled.div`
-	display: flex;
-	align-items: center;
-`;
-
-const FilterTitle = styled.span`
-	font-size: 20px;
-	font-weight: 200;
-`;
-
-const FilterColor = styled.div`
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-	background-color: ${(props) => props.color};
-	margin: 0 5px;
-	cursor: pointer;
-`;
-
-const FilterSize = styled.select`
-	margin-left: 10px;
-	padding: 5px;
-`;
-
-const FilterSizeOption = styled.option``;
 
 const AddContainer = styled.div`
 	width: 40%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
+	margin: 20px 0px;
 `;
 
 const AmountContainer = styled.div`
@@ -164,6 +133,28 @@ const Button = styled.button`
 
 const ProductDetail = (props) => {
 	document.title = "Product | TradeZilla";
+	const [product, setProduct] = useState({});
+	const [images, setImages] = useState([]);
+
+	// const URL = window.location.pathname;
+
+	// const requiredProduct = URL.split("/").pop();
+	// console.log("Product Id:", requiredProduct);
+
+	// const productID = "625c420c14c2bf5927b31e61";
+	const productID = window.location.pathname.split("product/")[1];
+	console.log(window.location.pathname, productID);
+
+	(async () => {
+		const resp = await fetch(`http://localhost:5000/product/${productID}`);
+		const response = await resp.json();
+		if (response.success) {
+			setProduct(response.product);
+			setImages(response.product.images.split(", "));
+
+			console.log(product.title, product.price);
+		} else console.log("failed");
+	})();
 
 	const [count, setCount] = useState(1);
 
@@ -179,12 +170,12 @@ const ProductDetail = (props) => {
 		}
 	}
 
-
-	const ImageSrc = [
-		"https://res.cloudinary.com/tradezilla/image/upload/v1649506666/product-625179631b5b59ed01c72c49/img-0.jpg",
-		"https://res.cloudinary.com/tradezilla/image/upload/v1649506670/product-625179631b5b59ed01c72c49/img-1.jpg",
-		"https://res.cloudinary.com/tradezilla/image/upload/v1649506676/product-625179631b5b59ed01c72c49/img-2.jpg",
-	];
+	// const ImageSrc = product.images.split(", ");
+	// [
+	// 	"https://res.cloudinary.com/tradezilla/image/upload/v1649506666/product-625179631b5b59ed01c72c49/img-0.jpg",
+	// 	"https://res.cloudinary.com/tradezilla/image/upload/v1649506670/product-625179631b5b59ed01c72c49/img-1.jpg",
+	// 	"https://res.cloudinary.com/tradezilla/image/upload/v1649506676/product-625179631b5b59ed01c72c49/img-2.jpg",
+	// ];
 
 	const [imageIndex, setImageIndex] = useState(0);
 	return (
@@ -195,46 +186,20 @@ const ProductDetail = (props) => {
 					<ImgContainer>
 						<Wrapper>
 							<MainImage>
-								<Image src={ImageSrc[imageIndex]} />
+								<Image src={images[imageIndex]} />
 							</MainImage>
 							<OtherImages>
-								<OtherImage onClick={()=> setImageIndex(0)} src={ImageSrc[0]} />
-								<OtherImage onClick={()=> setImageIndex(1)} src={ImageSrc[1] }/>
-								<OtherImage onClick={()=> setImageIndex(2)} src={ImageSrc[2] }/>
-								<OtherImage onClick={()=> setImageIndex(3)} src={ImageSrc[3] }/>
+								<OtherImage onClick={() => setImageIndex(0)} src={images[0]} />
+								<OtherImage onClick={() => setImageIndex(1)} src={images[1]} />
+								<OtherImage onClick={() => setImageIndex(2)} src={images[2]} />
+								<OtherImage onClick={() => setImageIndex(3)} src={images[3]} />
 							</OtherImages>
 						</Wrapper>
 					</ImgContainer>
 					<InfoContainer>
-						<Title>Denim Jumpsuit</Title>
-						<Desc>
-							Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-							eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-							enim ad minim veniam, quis nostrud exercitation ullamco laboris
-							nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-							reprehenderit in voluptate velit esse cillum dolore eu fugiat
-							nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-							sunt in culpa qui officia deserunt mollit anim id est laborum.
-						</Desc>
-						<Price>Rs. 1000</Price>
-						<FilterContainer>
-							<Filter>
-								<FilterTitle>Color</FilterTitle>
-								<FilterColor color="black" />
-								<FilterColor color="darkblue" />
-								<FilterColor color="gray" />
-							</Filter>
-							<Filter>
-								<FilterTitle>Size</FilterTitle>
-								<FilterSize>
-									<FilterSizeOption>S</FilterSizeOption>
-									<FilterSizeOption>M</FilterSizeOption>
-									<FilterSizeOption>L</FilterSizeOption>
-									<FilterSizeOption>XL</FilterSizeOption>
-									<FilterSizeOption>XXL</FilterSizeOption>
-								</FilterSize>
-							</Filter>
-						</FilterContainer>
+						<Title>{product.title}</Title>
+						<Desc> {product.description} </Desc>
+						<Price>Rs.&nbsp;{product.price}</Price>
 						<AddContainer>
 							<AmountContainer>
 								<RemoveIcon onClick={decrementCount} />

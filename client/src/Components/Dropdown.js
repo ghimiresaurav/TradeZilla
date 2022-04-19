@@ -6,7 +6,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 2px;
+  margin-top: -10px;
 `;
 
 const Arrow = styled.div`
@@ -102,31 +102,5 @@ function DropdownUser() {
     </Container>
   );
 }
-
-// function DropdownBooks() {
-
-//     const [click, setClick] = useState(false);
-
-//     const handleClick = () => setClick(!click);
-
-//     return (
-//         <Container>
-//             <Arrow/>
-//             <ul onclick = {handleClick} className = {click ? 'dropdown-menu clicked' : 'dropdown-menu'}>
-//                 {Books.map((item, index) => {
-//                     return (
-//                         <li key = {index}>
-//                             <Link to = {item.path} onClick = {() => setClick(false)} style = {linkStyle}>
-//                                 <SubCategory>
-//                                     {item.title}
-//                                 </SubCategory>
-//                             </Link>
-//                         </li>
-//                     );
-//                 })}
-//             </ul>
-//         </Container>
-//     )
-// }
 
 export { DropdownCat, DropdownUser };

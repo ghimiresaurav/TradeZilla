@@ -9,6 +9,7 @@ import { useState } from "react";
 const Container = styled.div`
 	position: absolute;
 	top: 100px;
+	width: 100%;
 `;
 
 const Wrapper = styled.div`
@@ -79,7 +80,7 @@ const ProductList = (props) => {
 			<TopBars loggedIn={props.loggedIn} />
 			<Wrapper>
 				<Title>{props.title}</Title>
-				<FilterContainer>
+				{/* <FilterContainer>
 					<Filter>
 						<FilterText>Filter Products:</FilterText>
 						<Select>
@@ -112,7 +113,7 @@ const ProductList = (props) => {
 							<Option>Price (Highest First)</Option>
 						</Select>
 					</Filter>
-				</FilterContainer>
+				</FilterContainer> */}
 				{/* <Products/> */}
 				{/* <ProductContainer> */}
 				<ProductWrapper>

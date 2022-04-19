@@ -132,7 +132,7 @@ const Button = styled.button`
 `;
 
 const ProductDetail = (props) => {
-  document.title = "Product | TradeZilla";
+  
   const [product, setProduct] = useState({});
   const [images, setImages] = useState([]);
 
@@ -146,6 +146,8 @@ const ProductDetail = (props) => {
       setImages(response.product.images.split(", "));
     } else console.log("failed");
   }, []);
+
+  document.title = product.title + " | TradeZilla";
 
   const [count, setCount] = useState(1);
 
@@ -195,7 +197,10 @@ const ProductDetail = (props) => {
           </InfoContainer>
         </Inner>
       </ProductDetails>
-      <ProductReview loggedIn={props.loggedIn} />
+      <ProductReview
+        loggedIn={props.loggedIn}
+        reviews={{ rating: product.rating, reviews: product.reviews }}
+      />
       <QandA loggedIn={props.loggedIn} />
       <Footer />
     </Container>

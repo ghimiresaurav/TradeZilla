@@ -2,9 +2,6 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import { Order } from "../models/Order";
 
-// Import function to check if the id from parameter is valid
-import checkValidObjectId from "../utils/checkValidObjectId";
-
 const getOrders = async (req: Request, res: Response) => {
   // Connect to the atlas database
   mongoose

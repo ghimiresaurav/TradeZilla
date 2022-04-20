@@ -1,5 +1,5 @@
 import mongoose, { Types } from "mongoose";
-import { BoughtItemSchema, BoughtItemType } from "./Item";
+import { ItemSchema, ItemType } from "./Item";
 
 interface UserType {
   name: string;
@@ -8,10 +8,8 @@ interface UserType {
   dob: Date;
   joinedOn: Date;
   isActive: boolean;
-  cart: [mongoose.Types.ObjectId];
-  // boughtItems: [BoughtItemType];
-  boughtItems: Types.DocumentArray<BoughtItemType & Document>;
-  // cart: [ItemType];
+  boughtItems: Types.DocumentArray<ItemType & Document>;
+  cart: Types.DocumentArray<ItemType & Document>;
 }
 
 const UserSchema = new mongoose.Schema<UserType>({
@@ -50,11 +48,11 @@ const UserSchema = new mongoose.Schema<UserType>({
     type: Boolean,
     default: false,
   },
-  cart: {
-    type: [mongoose.Types.ObjectId],
-  },
   boughtItems: {
-    type: [BoughtItemSchema],
+    type: [ItemSchema],
+  },
+  cart: {
+    type: [ItemSchema],
   },
 });
 

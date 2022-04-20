@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
 import { Product } from "../models/Product";
+import { User } from "../models/User";
 
 // Import function to check if the id from parameter is valid
 import checkValidObjectId from "../utils/checkValidObjectId";
@@ -36,6 +37,7 @@ const addQuery = async (req: Request, res: Response) => {
 
   try {
     const inquiries = product.inquiries;
+    const user = await User.findById(user_id);
 
     // Add question and other information to product
     inquiries.push({
@@ -43,6 +45,7 @@ const addQuery = async (req: Request, res: Response) => {
       date: new Date(),
       question: req.body.query,
       answer: "",
+      name: user?.name,
     });
 
     // Save added question

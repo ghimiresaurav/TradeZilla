@@ -5,6 +5,7 @@ interface ReviewType {
   date: Date;
   body: string;
   rating: number;
+  name: string;
 }
 
 const ReviewSchema = new mongoose.Schema<ReviewType>({
@@ -25,6 +26,9 @@ const ReviewSchema = new mongoose.Schema<ReviewType>({
   rating: {
     type: Number,
     minlength: 5,
+  },
+  name: {
+    type: String,
   },
 });
 

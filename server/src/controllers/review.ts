@@ -74,6 +74,7 @@ const addReview = async (req: Request, res: Response) => {
         date: new Date(),
         body: req.body.review,
         rating: req.body.rating,
+        name: user.name,
       });
     }
 

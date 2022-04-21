@@ -5,6 +5,7 @@ interface InquiryType {
   date: Date;
   question: string;
   answer: string;
+  name: string;
 }
 
 const InquirySchema = new mongoose.Schema<InquiryType>({
@@ -27,6 +28,9 @@ const InquirySchema = new mongoose.Schema<InquiryType>({
   answer: {
     type: String,
     trim: true,
+  },
+  name: {
+    type: String,
   },
 });
 

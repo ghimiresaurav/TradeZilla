@@ -29,7 +29,7 @@ const SubTitle = styled.h5`
 	font-size: 17px;
 `;
 
-const PostAQuestion = styled.div`
+const PostAQuestion = styled.form`
 	// background-color: red;
 	margin: 20px;
 `;
@@ -42,6 +42,7 @@ const QuestionField = styled.textarea`
 	outline: none;
 	margin: 10px 0;
 	border-color: #f2f2f2;
+	resize: none;
 
 	&:focus {
 		border-color: #000000;
@@ -161,14 +162,48 @@ const QandA = (props) => {
 
 	console.log(questionClicked);
 
+	const [data, setData] = useState(
+		{
+          qsn: ""
+		}
+	)
+
+	function handle(e) {
+       const newData = {...data}
+	   newData[e.target.id] = e.target.value
+	   setData(newData)
+	   console.log(newData)
+	} 
+
+	const handleSubmit = async (e) =>  {
+		const productID = window.location.pathname.split("product/")[1];
+
+		e.preventDefault();
+		const resp = await fetch(`http://localhost:5000/s/v/add-query/${productID}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				qsn: data.qsn								
+			}),
+		});
+
+		const response = await resp.json();
+		console.log(response);
+	}
+
 	return (
 		<Container>
 			<Wrapper>
 				<Title>Inquiry</Title>
 				<SubTitle>Ask questions about this project</SubTitle>
 				{props.loggedIn ? (
-					<PostAQuestion>
+					<PostAQuestion onSubmit={(e)=> handleSubmit(e)}>
 						<QuestionField
+						    onChange={(e)=>handle(e)}
+							id = "qsn"
+							value = {data.qsn}
 							placeholder="Have a question? Ask here..."
 							onClick={() => setQuestionClicked(true)}
 						></QuestionField>

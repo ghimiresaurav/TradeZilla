@@ -7,7 +7,16 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
   margin-top: -10px;
+  z-index: 100;
 `;
+
+// const ContainerDropdownUser = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   z-index: 100;
+//   margin-top: -10px;
+// `;
 
 const Arrow = styled.div`
   width: 20px;

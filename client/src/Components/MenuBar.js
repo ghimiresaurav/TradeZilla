@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 const ContainerMain = styled.div`
 	width: 100%;
 	background-color: #ffffff;
-	height: 40px;
+	// height: 40px;
 	left: ${({ isOpen }) => (isOpen ? "0px" : "-300px")};
 	transition: 0.3s ease-in-out;
 	border-bottom: 2px solid #000000;
@@ -217,7 +217,6 @@ const MenuBar = ({ isOpen, toggle }) => {
 				<Wrapper>
 					<MenuItem onMouseEnter={showFashion} onMouseLeave={hideFashion}>
 						<Link to={"/fashion"} style={linkStyle}>
-							{/* <CategoryRegion/> */}
 							<Title>Fashion</Title>
 						</Link>
 						{dropdownFashion && <DropdownCat cat="Fashion" />}

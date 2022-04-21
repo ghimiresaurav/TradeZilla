@@ -50,6 +50,9 @@ function App() {
           <Route path="/privacy-policy" element={<PrivacyPolicy loggedIn = {isLoggedIn()}/>} />
           <Route path="/payment" element={!isLoggedIn() ? <Navigate to="/" /> : <Payment loggedIn = {isLoggedIn()}/>}/>
           <Route path="/search/:product" element={<Search loggedIn = {isLoggedIn()} />}/>
+          {/* <Route path="/?search=kkk" element={<Search loggedIn = {isLoggedIn()} />}/> */}
+
+          
         </Routes>
         <CategoriesPath/>
         <SubCategoriesPath loggedIn={isLoggedIn()}/>

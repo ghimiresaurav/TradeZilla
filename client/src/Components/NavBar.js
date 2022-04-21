@@ -8,6 +8,7 @@ import { mobile, tab, vTab } from "../responsive";
 import { Link } from "react-router-dom";
 import { DropdownUser } from "./Dropdown";
 import { useState } from "react";
+import Search from "../Pages/Search";
 
 const colorCodes = [
 	"rgb(171,71,188)",
@@ -128,7 +129,7 @@ const UserField = styled.div`
 	cursor: pointer;
 	height: 40px;
 	width: 40px;
-	padding: 9px 0;
+	// padding: 9px 0;
 	border: 2px solid #ffffff;
 	border-radius: 50%;
 	position: relative;
@@ -143,6 +144,7 @@ const UserName = styled.div`
 	// position: absolute;
 	// margin-bottom: 9px;
 	// background-color: green;
+	margin: 9px 0;
 `;
 
 const SignIn = styled.div`
@@ -179,16 +181,16 @@ const RightJSX = (props) => {
 	};
 
 	return props.loggedIn ? (
-		<Link style={linkStyle} to={"/useraccount"}>
-			<UserField
-				onMouseEnter={showDropdown}
-				onMouseLeave={hideDropdown}
-				// color={colorCodes[getUserColor(11, 0)]}
-			>
+		<UserField
+			onMouseEnter={showDropdown}
+			onMouseLeave={hideDropdown}
+			// color={colorCodes[getUserColor(11, 0)]}
+		>
+			<Link style={linkStyle} to={"/useraccount"}>
 				<UserName>{getInitials(localStorage.getItem("name"))}</UserName>
-				{dropdownUser && <DropdownUser />}
-			</UserField>
-		</Link>
+			</Link>
+			{dropdownUser && <DropdownUser />}
+		</UserField>
 	) : (
 		<Link style={linkStyle} to={"/login"}>
 			<SignInContainer>
@@ -200,8 +202,6 @@ const RightJSX = (props) => {
 };
 
 const NavBar = (props) => {
-
-	
 	const [search, setSearch] = useState("");
 	const [searchPath, setSearchPath] = useState("/search");
 
@@ -213,6 +213,16 @@ const NavBar = (props) => {
 		setSearchPath("/search/" + e.target.value);
 	};
 
+	// const searchProduct = () => {
+	// 	console.log("I am here");
+	// 	return(
+
+	// 		<>
+	// 		<Search/>
+	// 		</>
+	// 	);
+	// };
+
 	return (
 		<Container>
 			<Wrapper>
@@ -221,15 +231,18 @@ const NavBar = (props) => {
 						<MenuIcon />
 					</MenuContainer>
 					<SearchContainer>
+						{/* <form onSubmit={searchProduct()}> */}
 						<Input
 							placeholder="Search TradeZilla..."
 							value={search.name}
 							name="search"
 							onChange={handleChange}
+							// type="submit"
 						/>
 						<Link to={searchPath} style={linkStyle}>
-							<SearchIcon/>
+							<SearchIcon />
 						</Link>
+						{/* </form> */}
 					</SearchContainer>
 				</Left>
 				<Center>

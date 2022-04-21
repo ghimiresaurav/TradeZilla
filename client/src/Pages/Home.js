@@ -7,6 +7,7 @@ import NewsletterPopup from '../Components/NewsletterPopup';
 import ReturnTop from '../Components/ReturnTop';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
+import { mobile, tab, vTab } from "../responsive";
 
 
 const Container = styled.div`
@@ -17,6 +18,8 @@ const Container = styled.div`
 const Wrapper = styled.div`
     position: absolute;
     top: 100px;
+
+    ${mobile({ top: "50px" })}
 `;
 
 

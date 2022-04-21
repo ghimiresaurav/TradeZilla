@@ -30,7 +30,7 @@ const isLoggedIn = () =>
 const CategoriesPath = () =>
   useRoutes([
     {
-      path: "/:category",
+      path: "cat/:category",
       element: <Category loggedIn={isLoggedIn()} />,
     },
   ]);

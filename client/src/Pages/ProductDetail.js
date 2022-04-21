@@ -219,11 +219,11 @@ const ProductDetail = (props) => {
           </InfoContainer>
         </Inner>
       </ProductDetails>
-      <ProductReview
+      {/* <ProductReview
         loggedIn={props.loggedIn}
         rating={product.rating}
         reviews={product.reviews}
-      />
+      /> */}
       <QandA loggedIn={props.loggedIn} />
       <Footer />
     </Container>

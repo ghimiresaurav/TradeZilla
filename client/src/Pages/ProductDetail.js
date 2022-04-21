@@ -132,19 +132,22 @@ const Button = styled.button`
 `;
 
 const ProductDetail = (props) => {
-  
   const [product, setProduct] = useState({});
   const [images, setImages] = useState([]);
 
+  // Get the product id from the url
   const productID = window.location.pathname.split("product/")[1];
 
-  useEffect(async () => {
-    const resp = await fetch(`http://localhost:5000/product/${productID}`);
-    const response = await resp.json();
-    if (response.success) {
-      setProduct(response.product);
-      setImages(response.product.images.split(", "));
-    } else console.log("failed");
+  useEffect(() => {
+    (async () => {
+      const resp = await fetch(`http://localhost:5000/product/${productID}`);
+      const response = await resp.json();
+      if (response.success) {
+        setProduct(response.product);
+        setImages(response.product.images.split(", "));
+        console.log(response);
+      } else console.log("failed");
+    })();
   }, []);
 
   document.title = product.title + " | TradeZilla";
@@ -164,6 +167,25 @@ const ProductDetail = (props) => {
   }
 
   const [imageIndex, setImageIndex] = useState(0);
+
+  // Add this product to cart of the viewing user
+  const addToCart = async () => {
+    const resp = await fetch(
+      `http://localhost:5000/s/v/add-to-cart/${productID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem(
+            "token"
+          )} ${localStorage.getItem("userId")}`,
+        },
+        body: JSON.stringify({ quantity: count }),
+      }
+    );
+    const response = await resp.json();
+    console.log(response);
+  };
   return (
     <Container>
       <TopBars loggedIn={props.loggedIn} />
@@ -192,14 +214,15 @@ const ProductDetail = (props) => {
                 <Amount>{count}</Amount>
                 <AddIcon onClick={incrementCount} />
               </AmountContainer>
-              <Button>ADD TO CART</Button>
+              <Button onClick={addToCart}>ADD TO CART</Button>
             </AddContainer>
           </InfoContainer>
         </Inner>
       </ProductDetails>
       <ProductReview
         loggedIn={props.loggedIn}
-        reviews={{ rating: product.rating, reviews: product.reviews }}
+        rating={product.rating}
+        reviews={product.reviews}
       />
       <QandA loggedIn={props.loggedIn} />
       <Footer />

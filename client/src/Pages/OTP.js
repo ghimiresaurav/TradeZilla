@@ -148,47 +148,69 @@ const OTP = (props) => {
     }
   };
 
-	return (
-		<Container>
-			<TopBars loggedIn={props.loggedIn} />
-			<ContentArea>
-				<OTPArea>
-					<Wrapper>
-						<Title>E-mail Verification</Title>
-						<Label>
-							An e-mail with a 6-digit verification code was just sent to{" "}
-							<b>{localStorage.getItem("email")}</b>
-						</Label>
-						<InputOuterArea>
-							<InputArea>
-								{otp.map((data, index) => {
-									return (
-										<Input
-											type="text"
-											maxLength="1"
-											key={index}
-											value={data}
-											onChange={(e) => handleChange(e.target, index)}
-											onFocus={(e) => e.target.select()}
-										/>
-									);
-								})}
-							</InputArea>
-						</InputOuterArea>
-						{/* <p>OTP Entered - {otp.join("")}</p> */}
-            			<Message>{msgToUser}</Message>
-						<Button onClick={submitOTP}>Verify</Button>
-						<Label>
-							Didn't Receive a code?&nbsp;
-							 <Resend setColor = "red" onClick={() => {setMsgToUser("New OTP has been sent");}}>Request Again</Resend>
-						</Label>
-					</Wrapper>
-				</OTPArea>
-			</ContentArea>
-			<Footer />
-			<AccountVerified trigger={accountVerifiedPopup} setTrigger={setAccountVerifiedPopup} />
-		</Container>
-	);
+  return (
+    <Container>
+      <TopBars loggedIn={props.loggedIn} />
+      <ContentArea>
+        <OTPArea>
+          <Wrapper>
+            <Title>E-mail Verification</Title>
+            <Label>
+              An e-mail with a 6-digit verification code was just sent to{" "}
+              <b>{localStorage.getItem("email")}</b>
+            </Label>
+            <InputOuterArea>
+              <InputArea>
+                {otp.map((data, index) => {
+                  return (
+                    <Input
+                      type="text"
+                      maxLength="1"
+                      key={index}
+                      value={data}
+                      onChange={(e) => handleChange(e.target, index)}
+                      onFocus={(e) => e.target.select()}
+                    />
+                  );
+                })}
+              </InputArea>
+            </InputOuterArea>
+            {/* <p>OTP Entered - {otp.join("")}</p> */}
+            <Message>{msgToUser}</Message>
+            <Button onClick={submitOTP}>Verify</Button>
+            <Label>
+              Didn't Receive a code?&nbsp;
+              <Resend
+                setColor="red"
+                onClick={async () => {
+                  // Send a get request for requesting another OTP
+                  const resp = await fetch("http://localhost:5000/s/otp", {
+                    headers: {
+                      authorization: `Bearer ${localStorage.getItem(
+                        "token"
+                      )} ${localStorage.getItem("userId")}`,
+                      "Content-Type": "application/json",
+                    },
+                  });
+                  const response = await resp.json();
+
+                  if (response.success) setMsgToUser(response.message);
+                  else setMsgToUser("Oops! We encountered a problem...");
+                }}
+              >
+                Request Again
+              </Resend>
+            </Label>
+          </Wrapper>
+        </OTPArea>
+      </ContentArea>
+      <Footer />
+      <AccountVerified
+        trigger={accountVerifiedPopup}
+        setTrigger={setAccountVerifiedPopup}
+      />
+    </Container>
+  );
 };
 
 export default OTP;

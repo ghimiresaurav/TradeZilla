@@ -293,7 +293,6 @@ const ProductDetail = (props) => {
 	const [images, setImages] = useState([]);
 	const [reviews, setReviews] = useState([]);
 	const [reviewpostedDate, setReViewPostedDate] = useState([])
-	const [timeDifference, setTimeDifference] =  useState("");
 
 	const productID = window.location.pathname.split("product/")[1];
 
@@ -304,15 +303,6 @@ const ProductDetail = (props) => {
 			setProduct(response.product);
 			setImages(response.product.images.split(", "));
 			setReviews(response.product.reviews);
-			
-		
-			// const presentDate = new Date();
-			// const reviewPostedDate = new Date(response.product.reviewPostedOn);
-
-			// const difference_in_time = presentDate.getTime() - reviewPostedDate.getTime();
-			// console.log("Difference is", difference_in_time);
-
-			// setPostedDate(response.product.postedOn);
 		} else console.log("failed");
 	}, []);
 
@@ -340,13 +330,6 @@ const ProductDetail = (props) => {
 	/* ////////////////////////////////////////////////////////////// */
 	/* ///////////////////////////PRODUCT REVIEW///////////////////// */
 	/* ////////////////////////////////////////////////////////////// */
-
-	// const presentDate = new Date();
-	// // console.log("Current Date is", present_date);
-	// console.log("Posted Date is", postedDate);
-
-	// const difference_in_time = presentDate.getTime() - postedDate.getTime();
-	// console.log("Difference is", difference_in_time);
 
 	const [questionClicked, setQuestionClicked] = useState(false);
 
@@ -388,7 +371,7 @@ const ProductDetail = (props) => {
 
 		const differenceInTime =  presentDate.getTime() - reviewPostedDate.getTime();
 		const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-		console.log("Difference in Days: ", differenceInDays);
+		// console.log("Difference in Days: ", differenceInDays);
 
 		return Math.round(differenceInDays);
 	}
@@ -428,7 +411,8 @@ const ProductDetail = (props) => {
 			</ProductDetails>
 			{/* <ProductReview
         loggedIn={props.loggedIn}
-        reviews={{ rating: product.rating, reviews: product.reviews }}
+        rating={product.rating}
+        reviews={product.reviews}
       /> */}
 
 			{/* ////////////////////////////////////////////////////////////// */}

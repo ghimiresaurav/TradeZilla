@@ -50,19 +50,23 @@ const addToCart = async (req: Request, res: Response) => {
       message: "You can not add your own product to cart.",
     });
   try {
-    const itemsToAdd = user.cart;
+    // Get the items in the cart of the requesting user
+    const itemsInCart = user.cart;
 
-    itemsToAdd.push({
+    // Add the new item to the user's cart
+    itemsInCart.push({
       item_id: product_id,
       quantity: req.body.quantity,
       addedOn: new Date(),
     });
 
+    // Save the changes
+    await user.save();
+
     // Send a success message
     return res.json({
       success: true,
-      message: "Success",
-      user,
+      message: "Product added to cart",
     });
   } catch (e: any) {
     // If something goes wrong, send a message

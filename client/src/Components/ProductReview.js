@@ -131,16 +131,6 @@ const AnswerButton = styled.button`
 	}
 `;
 
-const PostButton = styled(AnswerButton)`
-	width: 90px;
-	margin-right: 20px;
-	// background-color: #ffffff;
-`;
-
-const CancelButton = styled(AnswerButton)`
-	width: 90px;
-`;
-
 const ProductReview = (props) => {
 	//   const productReview = props.reviews.reviews;
 	//   console.log(props.reviews.reviews);

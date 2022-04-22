@@ -4,207 +4,496 @@ import Footer from "../Components/Footer";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import QandA from "../Components/QandA";
+import GradeIcon from "@mui/icons-material/Grade";
 import { useEffect, useState } from "react";
-import ProductReview from "../Components/ProductReview";
+import { mobile, tab, vTab } from "../responsive";
+// import ProductReview from "../Components/ProductReview";
 
 const Container = styled.div`
-  width: 100%;
-  position: absolute;
-  top: 100px;
+	width: 100%;
+	position: absolute;
+	top: 100px;
+
+	${mobile({ top: "50px" })}
 `;
 
 const ProductDetails = styled.div`
-  background-color: #f2f2f2;
-  padding: 30px 0;
+	background-color: #f2f2f2;
+	padding: 30px 0;
 `;
 
 const Inner = styled.div`
-  width: 85%;
-  margin: auto;
-  // padding: 50px;
-  display: flex;
-  margin-bottom: 10px;
+	width: 85%;
+	margin: auto;
+	// padding: 50px;
+	display: flex;
+	margin-bottom: 10px;
+
+	${vTab({ flexDirection: "column" })}
 `;
 
 const ImgContainer = styled.div`
-  flex: 1;
-  display: flex;
-  justify-content: left;
-  // background-color: green;
+	flex: 1;
+	display: flex;
+	justify-content: left;
+	// background-color: green;
 `;
 
 const Wrapper = styled.div`
-  width: 80%;
-  display: flex;
-  flex-direction: column;
-  // background-color: red;
+	width: 80%;
+	display: flex;
+	flex-direction: column;
+	// background-color: red;
+
+	${vTab({ width: "100%" })}
 `;
 
 const MainImage = styled.div`
-  margin-bottom: 8px;
-  // background-color: purple;
+	margin-bottom: 8px;
+	// background-color: purple;
 `;
 
 const Image = styled.img`
-  width: 100%;
-  height: 65vh;
-  object-fit: cover;
+	width: 100%;
+	height: 65vh;
+	object-fit: cover;
 `;
 
 const OtherImages = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  object-fit: cover;
-  // background-color: yellow;
-  height: 110px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	object-fit: cover;
+	// background-color: yellow;
+	height: 110px;
 `;
 
 const OtherImage = styled.img`
-  width: 23%;
-  height: 100%;
-  transition: 0.2s;
-  cursor: pointer;
+	width: 23%;
+	height: 100%;
+	transition: 0.2s;
+	cursor: pointer;
 
-  &:hover {
-    border: 2px solid #000000;
-  }
+	&:hover {
+		border: 2px solid #000000;
+	}
 `;
 
 const InfoContainer = styled.div`
-  flex: 1;
-  padding: 0px 50px;
-  // background-color: pink;
+	flex: 1;
+	padding: 0px 50px;
+	// background-color: pink;
+
+	${vTab({
+		width: "100%",
+		padding: "30px 0px",
+	})}
 `;
 
 const Title = styled.h1`
-  font-weight: 200;
+	font-weight: 200;
 `;
 
 const Desc = styled.p`
-  margin: 20px 0px;
+	margin: 20px 0px;
 `;
 
 const Price = styled.span`
-  font-weight: 100;
-  font-size: 40px;
-  // margin: 20px 0px;
+	font-weight: 100;
+	font-size: 40px;
+	// margin: 20px 0px;
 `;
 
 const AddContainer = styled.div`
-  width: 40%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: 20px 0px;
+	width: 40%;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	margin: 20px 0px;
 `;
 
 const AmountContainer = styled.div`
-  display: flex;
-  align-items: center;
-  font-weight: 700;
+	display: flex;
+	align-items: center;
+	font-weight: 700;
+	margin-right: 30px;
 `;
 
 const Amount = styled.span`
-  width: 30px;
-  height: 30px;
-  border-radius: 10px;
-  border: 1px solid teal;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin: 0 5px;
+	width: 30px;
+	height: 30px;
+	border-radius: 10px;
+	border: 1px solid teal;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin: 0 5px;
 `;
 
 const Button = styled.button`
-  padding: 15px;
-  border: 2px solid teal;
-  background: transparent;
-  cursor: pointer;
-  font-weight: 500;
-  transition: 0.5s ease all;
+	min-width: 100px;
+	padding: 15px;
+	border: 2px solid teal;
+	background: transparent;
+	cursor: pointer;
+	font-weight: 500;
+	transition: 0.5s ease all;
 
-  &:hover {
-    // background-color: #f8f4f4;
-    background-color: #000000;
-    color: #ffffff;
-  }
+	&:hover {
+		// background-color: #f8f4f4;
+		background-color: #000000;
+		color: #ffffff;
+	}
+`;
+
+//////////////////////////////////////////////////////////////
+//////////////////////// PRODUCT REVIEW /////////////////////
+//////////////////////////////////////////////////////////////
+const ReviewContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 30px 0;
+`;
+
+const ReviewWrapper = styled.div`
+	width: 85%;
+	// margin: 10px 0px 30px 0;
+	border: 2px solid #000000;
+	// background-color: green;
+`;
+
+const OverallRating = styled.div`
+	display: flex;
+	margin-left: 25px;
+	flex-direction: column;
+	// background-color: green;
+`;
+
+const Rating = styled.div`
+	display: flex;
+	align-items: flex-end;
+`;
+
+const Rate = styled.div`
+	font-size: 50px;
+	font-weight: 600;
+	// background-color: red;
+	// padding: 0;
+`;
+
+const OutOf = styled.div`
+	// background-color: yellow;
+	font-size: 40px;
+	font-weight: 300;
+`;
+
+const Star = styled.div`
+	// margin-left: 20px;
+`;
+
+const TotalRatings = styled.div`
+	margin-left: 10px;
+`;
+
+const UserReview = styled.div``;
+
+const ReviewTitle = styled.h1`
+	margin: 20px;
+`;
+
+const Reviews = styled.div``;
+
+const Review = styled.div`
+	margin: 20px;
+	background-color: #f2f2f2;
+	padding: 20px;
+	border-radius: 5px;
+`;
+
+const User = styled.div`
+	display: flex;
+	flex-direction: column;
+	// background-color: green;
+`;
+
+const UserName = styled.h1`
+	font-size: 14px;
+`;
+
+const PostedDate = styled.div`
+	font-size: 12px;
+	margin-bottom: 5px;
+`;
+
+const UserRating = styled.div`
+	display: flex;
+	// margin-bottom: 2px;
+`;
+
+const UserComment = styled.h2`
+	font-size: 18px;
+	font-weight: 400;
+	padding: 10px 0;
+`;
+
+const PostAQuestion = styled.form`
+	// background-color: red;
+	margin: 20px;
+`;
+
+const QuestionField = styled.textarea`
+	width: 100%;
+	border: none;
+	border-bottom: 2px solid #000000;
+	padding: 10px 0 0 10px;
+	outline: none;
+	margin: 10px 0;
+	border-color: #f2f2f2;
+	resize: none;
+
+	&:focus {
+		border-color: #000000;
+	}
+`;
+
+const Buttons = styled.div`
+	width: 100%;
+	// background-color: green;
+	display: flex;
+	justify-content: right;
+`;
+
+const AnswerButton = styled.button`
+	padding: 10px 20px;
+	border: 2px solid #000000;
+	cursor: pointer;
+	transition: all 0.2s ease-in;
+	font-weight: 500;
+
+	&:hover {
+		background-color: #000000;
+		color: #ffffff;
+	}
+`;
+
+const PostButton = styled(AnswerButton)`
+	width: 90px;
+	margin-right: 20px;
+	// background-color: #ffffff;
+`;
+
+const CancelButton = styled(AnswerButton)`
+	width: 90px;
 `;
 
 const ProductDetail = (props) => {
-  
-  const [product, setProduct] = useState({});
-  const [images, setImages] = useState([]);
+	const [product, setProduct] = useState({});
+	const [images, setImages] = useState([]);
+	const [reviews, setReviews] = useState([]);
+	const [reviewpostedDate, setReViewPostedDate] = useState([])
+	const [timeDifference, setTimeDifference] =  useState("");
 
-  const productID = window.location.pathname.split("product/")[1];
+	const productID = window.location.pathname.split("product/")[1];
 
-  useEffect(async () => {
-    const resp = await fetch(`http://localhost:5000/product/${productID}`);
-    const response = await resp.json();
-    if (response.success) {
-      setProduct(response.product);
-      setImages(response.product.images.split(", "));
-    } else console.log("failed");
-  }, []);
+	useEffect(async () => {
+		const resp = await fetch(`http://localhost:5000/product/${productID}`);
+		const response = await resp.json();
+		if (response.success) {
+			setProduct(response.product);
+			setImages(response.product.images.split(", "));
+			setReviews(response.product.reviews);
+			
+		
+			// const presentDate = new Date();
+			// const reviewPostedDate = new Date(response.product.reviewPostedOn);
 
-  document.title = product.title + " | TradeZilla";
+			// const difference_in_time = presentDate.getTime() - reviewPostedDate.getTime();
+			// console.log("Difference is", difference_in_time);
 
-  const [count, setCount] = useState(1);
+			// setPostedDate(response.product.postedOn);
+		} else console.log("failed");
+	}, []);
 
-  function decrementCount() {
-    if (count > 1) {
-      setCount((prevCount) => prevCount - 1);
-    }
-  }
+	document.title = product.title + " | TradeZilla";
 
-  function incrementCount() {
-    if (count < 10) {
-      setCount((prevCount) => prevCount + 1);
-    }
-  }
+	const [count, setCount] = useState(1);
 
-  const [imageIndex, setImageIndex] = useState(0);
-  return (
-    <Container>
-      <TopBars loggedIn={props.loggedIn} />
-      <ProductDetails>
-        <Inner>
-          <ImgContainer>
-            <Wrapper>
-              <MainImage>
-                <Image src={images[imageIndex]} />
-              </MainImage>
-              <OtherImages>
-                <OtherImage onClick={() => setImageIndex(0)} src={images[0]} />
-                <OtherImage onClick={() => setImageIndex(1)} src={images[1]} />
-                <OtherImage onClick={() => setImageIndex(2)} src={images[2]} />
-                <OtherImage onClick={() => setImageIndex(3)} src={images[3]} />
-              </OtherImages>
-            </Wrapper>
-          </ImgContainer>
-          <InfoContainer>
-            <Title>{product.title}</Title>
-            <Desc> {product.description} </Desc>
-            <Price>Rs.&nbsp;{product.price}</Price>
-            <AddContainer>
-              <AmountContainer>
-                <RemoveIcon onClick={decrementCount} />
-                <Amount>{count}</Amount>
-                <AddIcon onClick={incrementCount} />
-              </AmountContainer>
-              <Button>ADD TO CART</Button>
-            </AddContainer>
-          </InfoContainer>
-        </Inner>
-      </ProductDetails>
-      {/* <ProductReview
+	function decrementCount() {
+		if (count > 1) {
+			setCount((prevCount) => prevCount - 1);
+		}
+	}
+
+	function incrementCount() {
+		if (count < 10) {
+			setCount((prevCount) => prevCount + 1);
+		}
+	}
+
+	const [imageIndex, setImageIndex] = useState(0);
+
+
+	
+
+	/* ////////////////////////////////////////////////////////////// */
+	/* ///////////////////////////PRODUCT REVIEW///////////////////// */
+	/* ////////////////////////////////////////////////////////////// */
+
+	// const presentDate = new Date();
+	// // console.log("Current Date is", present_date);
+	// console.log("Posted Date is", postedDate);
+
+	// const difference_in_time = presentDate.getTime() - postedDate.getTime();
+	// console.log("Difference is", difference_in_time);
+
+	const [questionClicked, setQuestionClicked] = useState(false);
+
+	const [data, setData] = useState({
+		qsn: "",
+	});
+
+	function handle(e) {
+		const newData = { ...data };
+		newData[e.target.id] = e.target.value;
+		setData(newData);
+		console.log(newData);
+	}
+
+	const handleSubmit = async (e) => {
+		const productID = window.location.pathname.split("product/")[1];
+
+		e.preventDefault();
+		const resp = await fetch(
+			`http://localhost:5000/s/v/add-review/${productID}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({
+					qsn: data.qsn,
+				}),
+			}
+		);
+
+		const response = await resp.json();
+		console.log(response);
+	};
+
+	const calculateDaysPassed = (postedDate) => {
+		const presentDate = new Date();
+		const reviewPostedDate = new Date(postedDate);
+
+		const differenceInTime =  presentDate.getTime() - reviewPostedDate.getTime();
+		const differenceInDays = differenceInTime / (1000 * 3600 * 24);
+		console.log("Difference in Days: ", differenceInDays);
+
+		return Math.round(differenceInDays);
+	}
+
+	return (
+		<Container>
+			<TopBars loggedIn={props.loggedIn} />
+			<ProductDetails>
+				<Inner>
+					<ImgContainer>
+						<Wrapper>
+							<MainImage>
+								<Image src={images[imageIndex]} />
+							</MainImage>
+							<OtherImages>
+								<OtherImage onClick={() => setImageIndex(0)} src={images[0]} />
+								<OtherImage onClick={() => setImageIndex(1)} src={images[1]} />
+								<OtherImage onClick={() => setImageIndex(2)} src={images[2]} />
+								<OtherImage onClick={() => setImageIndex(3)} src={images[3]} />
+							</OtherImages>
+						</Wrapper>
+					</ImgContainer>
+					<InfoContainer>
+						<Title>{product.title}</Title>
+						<Desc> {product.description} </Desc>
+						<Price>Rs.&nbsp;{product.price}</Price>
+						<AddContainer>
+							<AmountContainer>
+								<RemoveIcon onClick={decrementCount} />
+								<Amount>{count}</Amount>
+								<AddIcon onClick={incrementCount} />
+							</AmountContainer>
+							<Button>ADD TO CART</Button>
+						</AddContainer>
+					</InfoContainer>
+				</Inner>
+			</ProductDetails>
+			{/* <ProductReview
         loggedIn={props.loggedIn}
         reviews={{ rating: product.rating, reviews: product.reviews }}
       /> */}
-      <QandA loggedIn={props.loggedIn} />
-      <Footer />
-    </Container>
-  );
+
+			{/* ////////////////////////////////////////////////////////////// */}
+			{/* ///////////////////////////PRODUCT REVIEW///////////////////// */}
+			{/* ////////////////////////////////////////////////////////////// */}
+			<ReviewContainer>
+				<ReviewWrapper>
+					<ReviewTitle>Review</ReviewTitle>
+					<OverallRating>
+						<Rating>
+							<Rate>{product.rating}</Rate>
+							<OutOf>/5</OutOf>
+						</Rating>
+						<Star>
+							<GradeIcon style={{ fontSize: "50px" }} />
+							<GradeIcon style={{ fontSize: "50px" }} />
+							<GradeIcon style={{ fontSize: "50px" }} />
+						</Star>
+					</OverallRating>
+
+					<PostAQuestion onSubmit={(e) => handleSubmit(e)}>
+						<QuestionField
+							onChange={(e) => handle(e)}
+							id="qsn"
+							value={data.qsn}
+							placeholder="How was you experience with this product?"
+							onClick={() => setQuestionClicked(true)}
+						></QuestionField>
+						{questionClicked ? (
+							<Buttons>
+								<PostButton>Post</PostButton>
+								<CancelButton onClick={() => setQuestionClicked(false)}>
+									Cancel
+								</CancelButton>
+							</Buttons>
+						) : null}
+					</PostAQuestion>
+
+					<Reviews>
+						{reviews.map((review) => (
+							<Review key={review._id}>
+								<User>
+									<UserName>{review.name ? review.name : "Name here"}</UserName>
+									<PostedDate>{calculateDaysPassed(review.date)} days ago</PostedDate>
+									<UserRating>
+										<GradeIcon />
+										<GradeIcon />
+										<GradeIcon />
+										<GradeIcon />
+									</UserRating>
+								</User>
+								<UserComment>{review.body}</UserComment>
+							</Review>
+						))}
+					</Reviews>
+				</ReviewWrapper>
+			</ReviewContainer>
+			{/* ////////////////////////////////////////////////////////////// */}
+			{/* ////////////////////////////////////////////////////////////// */}
+			{/* ////////////////////////////////////////////////////////////// */}
+
+			<QandA loggedIn={props.loggedIn} />
+			<Footer />
+		</Container>
+	);
 };
 
 export default ProductDetail;

@@ -195,7 +195,7 @@ const QandA = (props) => {
     console.log(response);
   };
 
-  const answerQuery = async () => {
+  const answerQuery = async (query_id) => {
     const resp = await fetch(
       `http://localhost:5000/s/v/answer-query/${productID}`,
       {
@@ -207,9 +207,7 @@ const QandA = (props) => {
           )} ${localStorage.getItem("userId")}`,
         },
         body: JSON.stringify({
-          // The query id is hardcoded here.
-          // It has to be replaced by the id of the query that the vendor is trying to reply to
-          query_id: "6263b00563fcc03cc913ad56",
+          query_id,
           answer,
         }),
       }
@@ -285,7 +283,13 @@ const QandA = (props) => {
                     value={answer}
                   ></TextField>
                   <Buttons>
-                    <PostButton onClick={answerQuery}>Post</PostButton>
+                    <PostButton
+                      //   The query id is hardcoded here.
+                      //   It has to be replaced by the id of the query that the vendor is trying to reply to
+                      onClick={answerQuery("6263b00563fcc03cc913ad56")}
+                    >
+                      Post
+                    </PostButton>
                     <CancelButton onClick={() => setAnswerClicked(false)}>
                       Cancel
                     </CancelButton>

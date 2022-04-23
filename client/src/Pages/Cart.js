@@ -218,13 +218,8 @@ const Cart = (props) => {
   const [Cart, setCart] = useState([]);
   const [firstImages, setFirstImages] = useState([]);
 
-  const pushImage = (newImage) => {
-    setFirstImages([...firstImages, newImage]);
-  };
-
   useEffect(() => {
     (async () => {
-      console.log("on it");
       const resp = await fetch("http://localhost:5000/s/v/get-cart-items", {
         headers: {
           "Content-Type": "application/json",
@@ -235,12 +230,8 @@ const Cart = (props) => {
       });
 
       const response = await resp.json();
-      if (response.success) {
-        setCart(response.cart);
-        response.cart.forEach((cartItem, index) => {
-          pushImage(`https://hi-${index}`);
-        });
-      } else console.log("failed");
+      if (response.success) setCart(response.cart);
+      else console.log("failed");
       setCart(response.cart);
     })();
   }, []);
@@ -256,6 +247,8 @@ const Cart = (props) => {
       setCount((prevCount) => prevCount + 1);
     }
   }
+  const defaultImage =
+    "https://res.cloudinary.com/tradezilla/image/upload/v1650689549/default-img.png";
 
   return (
     <Container>
@@ -272,21 +265,26 @@ const Cart = (props) => {
         </Top>
         <Bottom>
           <Info>
-            {Cart.map((cartItem, index) => {
+            {Cart.map((cartItem) => {
               return (
                 <Product key={cartItem._id}>
                   <ProductDetail>
-                    <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                    {/* <Image src={getThumbnailFromImage(firstImages[index])} /> */}
+                    <Image
+                      // If the correct image has not already loaded, show default image
+                      // The correct image will appear once the image loads
+                      src={
+                        cartItem.image
+                          ? getThumbnailFromImage(cartItem.image)
+                          : defaultImage
+                      }
+                    />
                     <Details>
                       <ProductName>
-                        <b>Product: </b> Vessi
-                        {/* <b>Product: </b> {cartItem.name} */}
+                        <b>Product: </b> {cartItem.name}
                       </ProductName>
                       <ProductId>
                         <b>ID: </b>
-                        23ioru923jrf9
-                        {/* {cartItem._id} */}
+                        {cartItem._id}
                       </ProductId>
                     </Details>
                   </ProductDetail>
@@ -296,7 +294,7 @@ const Cart = (props) => {
                       <ProductAmount>{count}</ProductAmount>
                       <AddIcon onClick={incrementCount} />
                     </ProductAmountContainer>
-                    <ProductPrice>Rs. 2000</ProductPrice>
+                    <ProductPrice>Rs. {cartItem.price}</ProductPrice>
                   </PriceDetail>
                   <DiscardArea>
                     <DiscardButton>
@@ -307,64 +305,6 @@ const Cart = (props) => {
                 </Product>
               );
             })}
-
-            <Product>
-              <ProductDetail>
-                <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> JESSIE THUNDER SHOES
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-                  <ProductColor color="black" />
-                  <ProductSize>
-                    <b>Size:</b> 37.5
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <RemoveIcon onClick={decrementCount} />
-                  <ProductAmount>{count}</ProductAmount>
-                  <AddIcon onClick={incrementCount} />
-                </ProductAmountContainer>
-                <ProductPrice>Rs. 2000</ProductPrice>
-              </PriceDetail>
-              <DiscardArea>
-                <DiscardButton>
-                  <DeleteIcon />
-                </DiscardButton>
-                <PopupHover>Discard</PopupHover>
-              </DiscardArea>
-            </Product>
-            <Hr />
-            <Product>
-              <ProductDetail>
-                <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> HAKURA T-SHIRT
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> 93813718293
-                  </ProductId>
-                  <ProductColor color="gray" />
-                  <ProductSize>
-                    <b>Size:</b> M
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <AddIcon />
-                  <ProductAmount>1</ProductAmount>
-                  <RemoveIcon />
-                </ProductAmountContainer>
-                <ProductPrice>Rs. 700</ProductPrice>
-              </PriceDetail>
-            </Product>
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>

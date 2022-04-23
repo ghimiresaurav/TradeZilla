@@ -12,10 +12,12 @@ const getOrders = async (req: Request, res: Response) => {
   const user_id = new mongoose.Types.ObjectId(res.locals.id);
 
   try {
-    const undispatchedOrders = await Order.find({
+    // Find pending and dispatched orders separately
+    const pendingOrders = await Order.find({
       vendor_id: user_id,
       dispatched: false,
     });
+
     const dispatchedOrders = await Order.find({
       vendor_id: user_id,
       dispatched: true,
@@ -25,7 +27,7 @@ const getOrders = async (req: Request, res: Response) => {
     return res.json({
       success: true,
       dispatchedOrders,
-      undispatchedOrders,
+      pendingOrders,
     });
   } catch (e: any) {
     // If something goes wrong, send a message

@@ -3,7 +3,6 @@ import mongoose from "mongoose";
 import { User } from "../models/User";
 
 const userInfo = async (req: Request, res: Response) => {
-  console.log("Working!");
   // Connect to the atlas database
   mongoose
     .connect(<string>process.env.DB_URI)

@@ -26,7 +26,7 @@ router.post("/answer-query/:p_id", answerQuery);
 
 router.post("/order/:p_id", order);
 router.post("/dispatch/:o_id", confirmOrder);
-router.get("/getOrder", getOrders);
+router.get("/getOrders", getOrders);
 router.get("/get-cart-items", getCartItems);
 router.post("/add-review/:p_id", addReview);
 

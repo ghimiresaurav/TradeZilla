@@ -7,6 +7,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../utils/getThumbnail";
+import defaultImage from "../utils/defaultImage";
 
 const Container = styled.div`
   width: 100%;
@@ -263,8 +264,6 @@ const Cart = (props) => {
       setCount((prevCount) => prevCount + 1);
     }
   }
-  const defaultImage =
-    "https://res.cloudinary.com/tradezilla/image/upload/v1650689549/default-img.png";
 
   return (
     <Container>

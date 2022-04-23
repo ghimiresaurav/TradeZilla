@@ -3,6 +3,8 @@ import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
 import { useEffect, useState } from "react";
+import getThumbnailFromImage from "../../utils/getThumbnail";
+import defaultImage from "../../utils/defaultImage";
 
 const Product = styled.div`
   width: 80vw;
@@ -158,10 +160,11 @@ const BodyWrapper = styled.div`
 `;
 
 const SellOverview = () => {
-  const [vendorPendingOrders, setvendorPendingOrders] = useState([]);
+  const [pendingOrders, setPendingOrders] = useState([]);
+  const [deliveredOrders, setDeliveredOrders] = useState([]);
 
   useEffect(async () => {
-    const resp = await fetch(`http://localhost:5000/s/v/getOrder`, {
+    const resp = await fetch(`http://localhost:5000/s/v/getOrders`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem(
           "token"
@@ -171,24 +174,8 @@ const SellOverview = () => {
     const response = await resp.json();
     console.log(response);
     if (response.success) {
-      setvendorPendingOrders(response.undispatchedOrders);
-    } else console.log("failed");
-  }, []);
-
-  const [vendorDeliveredOrders, setvendorDeliveredOrders] = useState([]);
-
-  useEffect(async () => {
-    const resp = await fetch(`http://localhost:5000/s/v/getOrder`, {
-      headers: {
-        authorization: `Bearer ${localStorage.getItem(
-          "token"
-        )} ${localStorage.getItem("userId")}`,
-      },
-    });
-    const response = await resp.json();
-    console.log(response);
-    if (response.success) {
-      setvendorDeliveredOrders(response.dispatchedOrders);
+      setDeliveredOrders(response.dispatchedOrders);
+      setPendingOrders(response.pendingOrders);
     } else console.log("failed");
   }, []);
 
@@ -205,11 +192,17 @@ const SellOverview = () => {
 
               <SectionBody>
                 <BodyWrapper>
-                  {vendorPendingOrders.map((item) => {
+                  {pendingOrders.map((item) => {
                     return (
-                      <Product>
+                      <Product key={item._id}>
                         <ProductDetail>
-                          <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
+                          <Image
+                            src={
+                              item.image
+                                ? getThumbnailFromImage(item.image)
+                                : defaultImage
+                            }
+                          />
                           <Details>
                             <ProductName>
                               <b>Product:</b> {item.title}
@@ -256,11 +249,17 @@ const SellOverview = () => {
 
               <SectionBody>
                 <BodyWrapper>
-                  {vendorDeliveredOrders.map((item) => {
+                  {deliveredOrders.map((item) => {
                     return (
-                      <Product>
+                      <Product key={item._id}>
                         <ProductDetail>
-                          <Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
+                          <Image
+                            src={
+                              item.image
+                                ? getThumbnailFromImage(item.image)
+                                : defaultImage
+                            }
+                          />
                           <Details>
                             <ProductName>
                               <b>Product:</b> {item.title}
@@ -282,7 +281,6 @@ const SellOverview = () => {
                       </Product>
                     );
                   })}
-                  ;
                 </BodyWrapper>
               </SectionBody>
             </DeliveredSection>

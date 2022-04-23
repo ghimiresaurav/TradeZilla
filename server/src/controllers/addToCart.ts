@@ -50,6 +50,16 @@ const addToCart = async (req: Request, res: Response) => {
       message: "You can not add your own product to cart.",
     });
 
+  // Check if the item is already is in cart of the user
+  const itemWithSameId = user.cart.filter((cartItem) =>
+    cartItem.item_id.equals(product_id)
+  );
+  // itemWithSameId would have the the items in the cart that have the same id as the product that user is trying to add to cart
+  // So if the item is already in the user's cart, itemWithSameId.length should return non-zero(truthy) value
+  if (itemWithSameId.length)
+    // If the product is already on cart, send an error message
+    return res.json({ success: false, message: "This item already on cart" });
+
   const image = product.images.split(", ")[0];
 
   try {

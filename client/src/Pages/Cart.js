@@ -216,7 +216,7 @@ const Cart = (props) => {
 
   const [count, setCount] = useState(1);
   const [Cart, setCart] = useState([]);
-  const [firstImages, setFirstImages] = useState([]);
+  // const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -232,9 +232,25 @@ const Cart = (props) => {
       const response = await resp.json();
       if (response.success) setCart(response.cart);
       else console.log("failed");
-      setCart(response.cart);
     })();
   }, []);
+
+  const removeItemFromCart = async (id) => {
+    const resp = await fetch(
+      `http://localhost:5000/s/v/remove-from-cart/${id}`,
+      {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem(
+            "token"
+          )} ${localStorage.getItem("userId")}`,
+        },
+      }
+    );
+    const response = await resp.json();
+    console.log(response);
+  };
 
   function decrementCount() {
     if (count > 1) {
@@ -297,7 +313,9 @@ const Cart = (props) => {
                     <ProductPrice>Rs. {cartItem.price}</ProductPrice>
                   </PriceDetail>
                   <DiscardArea>
-                    <DiscardButton>
+                    <DiscardButton
+                      onClick={() => removeItemFromCart(cartItem._id)}
+                    >
                       <DeleteIcon />
                     </DiscardButton>
                     <PopupHover>Discard</PopupHover>

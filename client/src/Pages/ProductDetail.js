@@ -349,18 +349,26 @@ const ProductDetail = (props) => {
 
   const [questionClicked, setQuestionClicked] = useState(false);
 
-  const [data, setData] = useState({
-    qsn: "",
+  //   const [data, setData] = useState({
+  //     qsn: "",
+  //   });
+
+  const [query, setQuery] = useState("");
+  const [review, setReview] = useState({
+    rating: 0,
+    body: "",
   });
 
-  function handle(e) {
-    const newData = { ...data };
-    newData[e.target.id] = e.target.value;
-    setData(newData);
-    console.log(newData);
+  function handleQueryUpdate(e) {
+    setQuery(e.traget.value);
+    console.log(query);
   }
 
-  const handleSubmit = async (e) => {
+  const handleReviewUpdate = (e) => {
+    setReview({ ...review, [e.target.name]: e.target.value });
+  };
+
+  const postReview = async (e) => {
     const productID = window.location.pathname.split("product/")[1];
 
     e.preventDefault();
@@ -370,10 +378,11 @@ const ProductDetail = (props) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem(
+            "token"
+          )} ${localStorage.getItem("userId")}`,
         },
-        body: JSON.stringify({
-          qsn: data.qsn,
-        }),
+        body: JSON.stringify({ rating: review.rating, review: review.body }),
       }
     );
 
@@ -439,7 +448,7 @@ const ProductDetail = (props) => {
           <ReviewTitle>Review</ReviewTitle>
           <OverallRating>
             <Rating>
-              <Rate>{product.rating}</Rate>
+              <Rate>{product.rating ? product.rating : "_"}</Rate>
               <OutOf>/5</OutOf>
             </Rating>
             <Star>
@@ -449,11 +458,20 @@ const ProductDetail = (props) => {
             </Star>
           </OverallRating>
 
-          <PostAQuestion onSubmit={(e) => handleSubmit(e)}>
+          {/* The following fields is for REVIEW NOT FOR QUESTION */}
+          <PostAQuestion onSubmit={(e) => postReview(e)}>
+            {/* ADD A FIELD FOR NUMBER INPUT HERE */}
+            <input
+              type="number"
+              min="1"
+              max="5"
+              name="rating"
+              onChange={handleReviewUpdate}
+            ></input>
             <QuestionField
-              onChange={(e) => handle(e)}
-              id="qsn"
-              value={data.qsn}
+              onChange={(e) => handleReviewUpdate(e)}
+              name="body"
+              value={review.body}
               placeholder="How was you experience with this product?"
               onClick={() => setQuestionClicked(true)}
             ></QuestionField>

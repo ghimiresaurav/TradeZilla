@@ -6,7 +6,7 @@ import PinterestIcon from '@mui/icons-material/Pinterest';
 import RoomIcon from '@mui/icons-material/Room';
 import PhoneIcon from '@mui/icons-material/Phone';
 import MailOutlineIcon from '@mui/icons-material/MailOutline';
-import {mobile} from '../responsive';
+import { mobile, tab, vTab } from "../responsive";
 import { Link } from "react-router-dom";
 import FooterItems from "../datas/FooterItems";
 
@@ -23,8 +23,9 @@ const Wrapper = styled.div`
     width: 90%;
     margin: auto;
     padding: 50px 0;
+    justify-content: space-between;
 
-    ${mobile({display: "block", width: "80%"})}
+    ${tab({display: "block", width: "80%"})}
 `;
 
 
@@ -32,8 +33,10 @@ const Left = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
-    
-    ${mobile({marginBottom: "40px"})}
+    // background-color: green;
+    padding: 0 10px;
+
+    ${tab({padding: "10px 0", marginBottom: "40px"})}
 `;
 
 const Logo = styled.h1`
@@ -93,8 +96,10 @@ const Center = styled.div`
     display: flex;
     flex-direction: column;
     // align-items: center;
+    // background-color: red;
+    padding: 0 10px;
 
-    ${mobile({marginBottom: "40px"})}
+    ${tab({padding: "10px 0", marginBottom: "40px"})}
 `;
 
 const Title = styled.h3`
@@ -121,6 +126,10 @@ const ListItem = styled.li`
 
 const Right = styled.div`
     flex: 1;
+    // background-color: gray;
+    padding: 0 10px;
+
+    ${tab({padding: "10px 0", marginBottom: "40px"})}
 `;
 
 const ContactItem = styled.div`

@@ -1,4 +1,103 @@
 import styled from "styled-components";
+import DeleteIcon from "@mui/icons-material/Delete";
+import LocalShippingIcon from "@mui/icons-material/LocalShipping";
+
+const Product = styled.div`
+	width: 80vw;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	/* padding: 30px; */
+	background-color: #f2f2f2;
+	/* background-color: red; */
+
+	border-radius: 5px;
+	/* margin: 5px 5px; */
+`;
+
+const ProductDetail = styled.div`
+	flex: 2;
+	display: flex;
+`;
+
+const Image = styled.img`
+	width: 200px;
+`;
+
+const Details = styled.div`
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	justify-content: space-around;
+`;
+
+const ProductName = styled.span``;
+
+const ProductId = styled.span``;
+
+const Date = styled.span``;
+
+const ProductQuantity = styled.span``;
+
+const ProductPrice = styled.div`
+	font-size: 20px;
+	font-weight: 200;
+`;
+
+const DiscardArea = styled.div`
+	position: absolute;
+	top: 15px;
+	right: 15px;
+	// background-color: yellow;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const DispatchArea = styled.div`
+	position: absolute;
+	top: 15px;
+	right: 55px;
+	// background-color: yellow;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+`;
+
+const PopupHover = styled.span`
+	position: absolute;
+	background-color: #000000;
+	color: #ffffff;
+	border: 1px solid #ffffff;
+	font-size: 13px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding: 5px;
+	visibility: hidden;
+	bottom: -30px;
+`;
+
+const DiscardButton = styled.div`
+	position: relative;
+	width: 30px;
+	height: 40px;
+	padding: 10px;
+	background-color: #000000;
+	color: #ffffff;
+	font-weight: 600;
+	cursor: pointer;
+	display: flex;
+	justify-content: center;
+	border-radius: 5px;
+
+	&:hover ~ ${PopupHover} {
+		visibility: visible;
+	}
+`;
+
+const DispatchButton = styled(DiscardButton)``;
 
 const Title = styled.h1`
 	font-size: 24px;
@@ -12,7 +111,6 @@ const Title = styled.h1`
 const RightDiv = styled.div`
 	display: flex;
 	flex: 9;
-	/* padding: 10px ; */
 	/* background-color: grey; */
 `;
 
@@ -26,14 +124,11 @@ const InfoSection = styled.div`
 	min-width: 500 vw;
 	margin: auto;
 	padding: 10px 0;
-	/* border: 1px solid #000000; */
 	box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
 `;
 const PendingSection = styled.div`
- /* padding: 10px 0 0 0; */
 `;
 const DeliveredSection = styled.div`
- /* padding: 10px 0 0 0; */
 `;
 
 const SectionHeader = styled.div`
@@ -53,7 +148,7 @@ const SectionBody = styled.div`
 	width: 90%;
 	padding: 10px;
 	margin: auto;
-	background-color: #c2d6d6;
+	/* background-color: #c2d6d6; */
 `;
 
 const BodyWrapper = styled.div`
@@ -73,51 +168,43 @@ const SellOverview = () => {
 							<SectionHeader>
 								<StartSection>Pending Orders</StartSection>
 							</SectionHeader>
-							
+
 							<SectionBody>
 								<BodyWrapper>
-									<table>
-										<tr>
-											<th>Product ID</th>
-											<th>Product Image</th>
-											<th>Order Name</th>
-											<th>Order Date</th>
-											<th>Payment Method</th>
-											<th>Price</th>
-											<th>Quantity</th>
-											<th>Action</th>
-										</tr>
+									<Product>
+										<ProductDetail>
+											<Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
+											<Details>
+												<ProductName>
+													<b>Product:</b> JESSIE THUNDER SHOES
+												</ProductName>
+												<ProductId>
+													<b>ID:</b> 93813718293
+												</ProductId>
+												<Date>
+													<b>Ordered Date:</b> 2022-04-01
+												</Date>
+												<ProductQuantity>
+													<b>Quantity:</b> 2
+												</ProductQuantity>
+												<ProductPrice>Rs. 2000</ProductPrice>
+											</Details>
+										</ProductDetail>
 
-										<tr>
-											<td>39456</td>
-											<td>img</td>
-											<td>Coffee Mug</td>
-											<td>2022-03-14</td>
-											<td>E-Sewa</td>
-											<td>RS 3000</td>
-											<td>10 pcs</td>
-											<td>
-												<button id="action">
-													Dispatch
-												</button>
-											</td>
-										</tr>
+										<DiscardArea>
+											<DiscardButton>
+												<DeleteIcon />
+											</DiscardButton>
+											<PopupHover>Remove</PopupHover>
+										</DiscardArea>
 
-										<tr>
-										    <td>34576</td>
-											<td>img</td>
-											<td>Nike Jordan</td>
-											<td>2022-04-16</td>
-											<td>on delivery</td>
-											<td>RS 6250</td>
-											<td>1 pcs</td>
-											<td>
-												<button id="action">
-													Dispatch
-												</button>
-											</td>
-										</tr>
-									</table>									
+										<DispatchArea>
+											<DispatchButton>
+												<LocalShippingIcon />
+											</DispatchButton>
+											<PopupHover>Dispatch</PopupHover>
+										</DispatchArea>
+									</Product>
 								</BodyWrapper>
 							</SectionBody>
 						</PendingSection>
@@ -129,35 +216,26 @@ const SellOverview = () => {
 
 							<SectionBody>
 								<BodyWrapper>
-								<table>
-										<tr>
-											<th>Product ID</th>
-											<th>Product Image</th>
-											<th>Order Name</th>
-											<th>Order Date</th>
-											<th>Payment Method</th>
-											<th>Price</th>
-											<th>Quantity</th>									
-										</tr>
-
-										<tr>
-											<td>39478</td>
-											<td>img</td>
-											<td>leather belt</td>
-											<td>2022-03-18</td>
-											<td>e-sewa</td>
-											<td>RS 650</td>
-											<td>2 pcs</td>
-										</tr>
-
-										<td>39456</td>
-											<td>img</td>
-											<td>Cotton Shirt</td>
-											<td>2022-03-23</td>
-											<td>on delivery</td>
-											<td>RS 2100</td>
-											<td>1 pcs</td>										
-									</table>								
+									<Product>
+										<ProductDetail>
+											<Image src="https://i.pinimg.com/originals/2d/af/f8/2daff8e0823e51dd752704a47d5b795c.png" />
+											<Details>
+												<ProductName>
+													<b>Product:</b> HAKURA T-SHIRT
+												</ProductName>
+												<ProductId>
+													<b>ID:</b> 93813718293
+												</ProductId>
+												<Date>
+													<b>Ordered Date:</b> 2022-04-01
+												</Date>
+												<ProductQuantity>
+													<b>Quantity:</b> 5
+												</ProductQuantity>
+												<ProductPrice>Rs. 2000</ProductPrice>
+											</Details>
+										</ProductDetail>
+									</Product>
 								</BodyWrapper>
 							</SectionBody>
 						</DeliveredSection>

@@ -160,8 +160,6 @@ const QandA = (props) => {
 	const [questionClicked, setQuestionClicked] = useState(false);
 	const [answerClicked, setAnswerClicked] = useState(false);
 
-	console.log(questionClicked);
-
 	const [data, setData] = useState(
 		{
           qsn: ""

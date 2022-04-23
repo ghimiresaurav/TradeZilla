@@ -7,7 +7,6 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const ContainerMain = styled.div`
-<<<<<<< HEAD
 	width: 100%;
 	background-color: #ffffff;
 	// height: 40px;
@@ -15,15 +14,6 @@ const ContainerMain = styled.div`
 	transition: 0.3s ease-in-out;
 	border-bottom: 2px solid #000000;
 	z-index: 100;
-=======
-  width: 100%;
-  background-color: #ffffff;
-  height: 40px;
-  left: ${({ isOpen }) => (isOpen ? "0px" : "-300px")};
-  transition: 0.3s ease-in-out;
-  border-bottom: 2px solid #000000;
-  z-index: 100;
->>>>>>> f07d58d7670e00ca72c9d266551c0524773e5845
 
   ${tab({
     overflow: "hidden",

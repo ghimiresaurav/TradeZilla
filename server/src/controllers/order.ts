@@ -61,6 +61,9 @@ const order = async (req: Request, res: Response) => {
   try {
     // Create an instance of Order
     const createOrder = await Order.create({
+      title: product.title,
+      price: product.price,
+      image: product.images,
       vendor_id,
       product_id,
       customer_id,

@@ -4,6 +4,8 @@ interface OrderType {
   vendor_id: mongoose.Types.ObjectId;
   product_id: mongoose.Types.ObjectId;
   customer_id: mongoose.Types.ObjectId;
+  title: string;
+  price: number;
   quantity: number;
   location: string;
   message: string;
@@ -11,6 +13,7 @@ interface OrderType {
   paid: boolean;
   dispatched: boolean;
   dispatchedOn?: Date;
+  image: string;
 }
 
 const OrderSchema = new mongoose.Schema<OrderType>({
@@ -25,6 +28,15 @@ const OrderSchema = new mongoose.Schema<OrderType>({
   customer_id: {
     type: mongoose.Types.ObjectId,
     required: true,
+  },
+  title: {
+    type: String,
+    minlength: 5,
+    // required: true,
+  },
+  price: {
+    type: Number,
+    // required: true,
   },
   quantity: {
     type: Number,
@@ -57,8 +69,10 @@ const OrderSchema = new mongoose.Schema<OrderType>({
   },
   dispatchedOn: {
     type: Date,
-  }
-
+  },
+  image: {
+    type: String,
+  },
 });
 
 const OrderModel = mongoose.model<OrderType>("Order", OrderSchema);

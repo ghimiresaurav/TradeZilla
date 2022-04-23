@@ -16,10 +16,12 @@ import confirmOrder from "../controllers/confirmOrder";
 import getOrders from "../controllers/getOrders";
 import addReview from "../controllers/review";
 import getCartItems from "../controllers/getCartItems";
+import removeFromCart from "../controllers/removeFromCart";
 
 router.post("/add-product", addProduct);
 
 router.post("/add-to-cart/:p_id", addToCart);
+router.delete("/remove-from-cart/:c_id", removeFromCart);
 
 router.post("/add-query/:p_id", addQuery);
 router.post("/answer-query/:p_id", answerQuery);

@@ -1,17 +1,9 @@
 import nodemailer, { Transporter } from "nodemailer";
-import { OTP, OTPType } from "../models/OTP";
-import bcrypt from "bcrypt";
-import mongoose from "mongoose";
 
 const user: string = <string>process.env.EMAIL;
 const pass: string = <string>process.env.EMAIL_PWORD;
 
-const min: number = 100000;
-const max: number = 999999;
-
-const getOTP = () => Math.round(Math.random() * (max - min) + min);
-
-const main = async (recipient: string, user_id: string) => {
+const main = async (recipient: string, mailOptions: any) => {
   // Create a transporter for sending email
   const transporter: Transporter = nodemailer.createTransport({
     service: "gmail",
@@ -21,43 +13,13 @@ const main = async (recipient: string, user_id: string) => {
     },
   });
 
-  // Genereate a random 6 digit number
-  const verificationCode: number = getOTP();
-
-  // Create mail options for sending the email
-  // This object specifies the sender, receiver, subject and email body
-  const mailOptions: any = {
-    from: user,
-    to: recipient,
-    subject: "EMAIL VERIFICAITON",
-
-    text: `DO NOT REPLY TO THIS EMAIL.\nYOUR EMAIL VERIFICATION CODE IS ${verificationCode}.\nDO NOT SHARE THIS CODE WITH ANYONE.`,
-
-    html: `<h1>DO NOT REPLY TO THIS EMAIL</h1>
-    <h2>YOUR VERIFICATION CODE IS ${verificationCode}</h2>
-    <h2>DO NOT SHARE THIS CODE WITH ANYONE</h2>
-    <strong>-TradeZilla</strong>`,
-  };
-
-  // Connect to atlas databse
-  mongoose
-    .connect(<string>process.env.DB_URI)
-    .catch((e) => console.log(`Error: ${e.message}`));
+  mailOptions.from = user;
+  mailOptions.to = recipient;
 
   try {
-    // Create an instance of OTP
-    const otp = await OTP.create({
-      code: await bcrypt.hash(verificationCode.toString(), 10),
-      user: user_id,
-    });
-
-    // Save the OTP to database
-    await otp.save();
-
-    // Send email to the user
     transporter.sendMail(mailOptions);
-  } catch (e) {
-    console.error(`ERROR: ${e}`);
+  } catch (e: any) {
+    console.log("ERROR: ", e.message);
   }
 };
 

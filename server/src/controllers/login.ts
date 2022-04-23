@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 import { User, UserType } from "../models/User";
 
 // Import Controllers
-import sendOTP from "./email";
+import sendOTP from "./sendOTP";
 
 const login = async (req: Request, res: Response) => {
   // Extract user inputs

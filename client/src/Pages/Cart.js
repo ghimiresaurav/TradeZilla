@@ -6,6 +6,7 @@ import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import getThumbnailFromImage from "../utils/getThumbnail";
 
 const Container = styled.div`
   width: 100%;
@@ -214,10 +215,16 @@ const Cart = (props) => {
   document.title = "Cart | Tradezilla";
 
   const [count, setCount] = useState(1);
-  const [cart, setCart] = useState([]);
+  const [Cart, setCart] = useState([]);
+  const [firstImages, setFirstImages] = useState([]);
+
+  const pushImage = (newImage) => {
+    setFirstImages([...firstImages, newImage]);
+  };
 
   useEffect(() => {
     (async () => {
+      console.log("on it");
       const resp = await fetch("http://localhost:5000/s/v/get-cart-items", {
         headers: {
           "Content-Type": "application/json",
@@ -228,8 +235,13 @@ const Cart = (props) => {
       });
 
       const response = await resp.json();
-      if (response.success) setCart(response.cart);
-      else console.log("failed");
+      if (response.success) {
+        setCart(response.cart);
+        response.cart.forEach((cartItem, index) => {
+          pushImage(`https://hi-${index}`);
+        });
+      } else console.log("failed");
+      setCart(response.cart);
     })();
   }, []);
 
@@ -260,6 +272,42 @@ const Cart = (props) => {
         </Top>
         <Bottom>
           <Info>
+            {Cart.map((cartItem, index) => {
+              return (
+                <Product key={cartItem._id}>
+                  <ProductDetail>
+                    <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
+                    {/* <Image src={getThumbnailFromImage(firstImages[index])} /> */}
+                    <Details>
+                      <ProductName>
+                        <b>Product: </b> Vessi
+                        {/* <b>Product: </b> {cartItem.name} */}
+                      </ProductName>
+                      <ProductId>
+                        <b>ID: </b>
+                        23ioru923jrf9
+                        {/* {cartItem._id} */}
+                      </ProductId>
+                    </Details>
+                  </ProductDetail>
+                  <PriceDetail>
+                    <ProductAmountContainer>
+                      <RemoveIcon onClick={decrementCount}></RemoveIcon>
+                      <ProductAmount>{count}</ProductAmount>
+                      <AddIcon onClick={incrementCount} />
+                    </ProductAmountContainer>
+                    <ProductPrice>Rs. 2000</ProductPrice>
+                  </PriceDetail>
+                  <DiscardArea>
+                    <DiscardButton>
+                      <DeleteIcon />
+                    </DiscardButton>
+                    <PopupHover>Discard</PopupHover>
+                  </DiscardArea>
+                </Product>
+              );
+            })}
+
             <Product>
               <ProductDetail>
                 <Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />

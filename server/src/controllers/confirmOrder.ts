@@ -72,6 +72,8 @@ const confirmOrder = async (req: Request, res: Response) => {
       message: "This order is already dispatched",
     });
 
+  const image = product.images.split(", ")[0];
+
   try {
     const itemsBoughtByCustomer = customer.boughtItems;
 
@@ -80,6 +82,9 @@ const confirmOrder = async (req: Request, res: Response) => {
       item_id: product_id,
       quantity: order.quantity,
       addedOn: new Date(),
+      price: product.price,
+      name: product.title,
+      image,
     });
 
     order.dispatched = true;

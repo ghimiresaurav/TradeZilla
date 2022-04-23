@@ -49,6 +49,9 @@ const addToCart = async (req: Request, res: Response) => {
       success: false,
       message: "You can not add your own product to cart.",
     });
+
+  const image = product.images.split(", ")[0];
+
   try {
     // Get the items in the cart of the requesting user
     const itemsInCart = user.cart;
@@ -58,6 +61,9 @@ const addToCart = async (req: Request, res: Response) => {
       item_id: product_id,
       quantity: req.body.quantity,
       addedOn: new Date(),
+      price: product.price,
+      name: product.title,
+      image,
     });
 
     // Save the changes

@@ -172,12 +172,39 @@ const SellOverview = () => {
       },
     });
     const response = await resp.json();
-    console.log(response);
     if (response.success) {
       setDeliveredOrders(response.dispatchedOrders);
       setPendingOrders(response.pendingOrders);
     } else console.log("failed");
   }, []);
+
+  const dispatchOrder = async (id) => {
+    const resp = await fetch(`http://localhost:5000/s/v/dispatch/${id}`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem(
+          "token"
+        )} ${localStorage.getItem("userId")}`,
+      },
+    });
+    const response = await resp.json();
+    console.log(response);
+  };
+
+  const rejectOrder = async (id) => {
+    const resp = await fetch(`http://localhost:5000/s/v/reject-order/${id}`, {
+      method: "DELELTE",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem(
+          "token"
+        )} ${localStorage.getItem("userId")}`,
+      },
+    });
+    const response = await resp.json();
+    console.log(response);
+  };
 
   return (
     <>
@@ -223,14 +250,16 @@ const SellOverview = () => {
                         </ProductDetail>
 
                         <DiscardArea>
-                          <DiscardButton>
+                          <DiscardButton onClick={() => rejectOrder(item._id)}>
                             <DeleteIcon />
                           </DiscardButton>
                           <PopupHover>Remove</PopupHover>
                         </DiscardArea>
 
                         <DispatchArea>
-                          <DispatchButton>
+                          <DispatchButton
+                            onClick={() => dispatchOrder(item._id)}
+                          >
                             <LocalShippingIcon />
                           </DispatchButton>
                           <PopupHover>Dispatch</PopupHover>

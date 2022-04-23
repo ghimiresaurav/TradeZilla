@@ -87,7 +87,7 @@ const AccountInfo = () => {
     if (response.success) {
       setUserInfo(response.user);
     } else console.log("failed");
-  }, {});
+  }, []);
 
   return (
     <>

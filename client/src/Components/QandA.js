@@ -161,15 +161,19 @@ const QandA = (props) => {
   const [answerClicked, setAnswerClicked] = useState(false);
 
   const [query, setQuery] = useState("");
+  const [answer, setAnswer] = useState("");
 
   function handleQueryUpdate(e) {
     setQuery(e.target.value);
-    console.log(query);
   }
 
-  const postQuery = async (e) => {
-    const productID = window.location.pathname.split("product/")[1];
+  const handleAnswerUpdate = (e) => {
+    setAnswer(e.target.value);
+  };
 
+  // Extract the product id from the url
+  const productID = window.location.pathname.split("product/")[1];
+  const postQuery = async (e) => {
     e.preventDefault();
     const resp = await fetch(
       `http://localhost:5000/s/v/add-query/${productID}`,
@@ -187,6 +191,29 @@ const QandA = (props) => {
       }
     );
 
+    const response = await resp.json();
+    console.log(response);
+  };
+
+  const answerQuery = async () => {
+    const resp = await fetch(
+      `http://localhost:5000/s/v/answer-query/${productID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem(
+            "token"
+          )} ${localStorage.getItem("userId")}`,
+        },
+        body: JSON.stringify({
+          // The query id is hardcoded here.
+          // It has to be replaced by the id of the query that the vendor is trying to reply to
+          query_id: "6263b00563fcc03cc913ad56",
+          answer,
+        }),
+      }
+    );
     const response = await resp.json();
     console.log(response);
   };
@@ -251,9 +278,14 @@ const QandA = (props) => {
             <AnswerArea>
               {answerClicked ? (
                 <PostAnswer>
-                  <TextField placeholder="Answer here..."></TextField>
+                  <TextField
+                    placeholder="Answer here..."
+                    name="answer"
+                    onChange={handleAnswerUpdate}
+                    value={answer}
+                  ></TextField>
                   <Buttons>
-                    <PostButton>Post</PostButton>
+                    <PostButton onClick={answerQuery}>Post</PostButton>
                     <CancelButton onClick={() => setAnswerClicked(false)}>
                       Cancel
                     </CancelButton>

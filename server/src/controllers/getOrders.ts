@@ -15,12 +15,12 @@ const getOrders = async (req: Request, res: Response) => {
     // Find pending and dispatched orders separately
     const pendingOrders = await Order.find({
       vendor_id: user_id,
-      dispatched: false,
+      status: "pending",
     });
 
     const dispatchedOrders = await Order.find({
       vendor_id: user_id,
-      dispatched: true,
+      status: "dispatched",
     });
 
     // Send a success message

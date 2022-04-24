@@ -11,7 +11,8 @@ interface OrderType {
   message: string;
   date: Date;
   paid: boolean;
-  dispatched: boolean;
+  // dispatched: boolean;
+  status: string;
   dispatchedOn?: Date;
   image: string;
 }
@@ -63,9 +64,13 @@ const OrderSchema = new mongoose.Schema<OrderType>({
     type: Boolean,
     required: true,
   },
-  dispatched: {
-    type: Boolean,
-    default: false,
+  // dispatched: {
+  //   type: Boolean,
+  //   default: false,
+  // },
+  status: {
+    type: String,
+    required: true,
   },
   dispatchedOn: {
     type: Date,

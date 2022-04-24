@@ -38,7 +38,7 @@ const order = async (req: Request, res: Response) => {
       message: "Invalid product Id",
     });
 
-  // Find the user in database
+  // Find the product in database
   const product = await Product.findById(product_id);
 
   // Send an error message if product not found
@@ -64,6 +64,7 @@ const order = async (req: Request, res: Response) => {
       title: product.title,
       price: product.price,
       image: product.images,
+      status: "pending",
       vendor_id,
       product_id,
       customer_id,

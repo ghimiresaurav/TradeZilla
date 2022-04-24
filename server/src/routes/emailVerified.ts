@@ -20,6 +20,7 @@ import removeFromCart from "../controllers/removeFromCart";
 import rejectOrder from "../controllers/rejectOrder";
 import getOrderHistories from "../controllers/getOrderHistory";
 import getOwnProducts from "../controllers/getOwnProducts";
+import handleOrders from "../controllers/handleOrders";
 
 router.post("/add-product", addProduct);
 
@@ -31,6 +32,7 @@ router.post("/add-query/:p_id", addQuery);
 router.post("/answer-query/:p_id", answerQuery);
 
 router.post("/order/:p_id", order);
+router.post("/order", handleOrders);
 router.post("/dispatch/:o_id", confirmOrder);
 router.delete("/reject-order/:o_id", rejectOrder);
 

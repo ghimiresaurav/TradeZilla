@@ -8,7 +8,7 @@ interface OrderType {
   price: number;
   quantity: number;
   location: string;
-  message: string;
+  message?: string;
   date: Date;
   paid: boolean;
   // dispatched: boolean;

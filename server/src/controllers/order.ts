@@ -58,13 +58,15 @@ const order = async (req: Request, res: Response) => {
       message: "You can not order your own product.",
     });
 
+  const image = product.images.split(", ")[0];
+
   try {
     // Create an instance of Order
     const createOrder = await Order.create({
       title: product.title,
       price: product.price,
-      image: product.images,
       status: "pending",
+      image,
       vendor_id,
       product_id,
       customer_id,

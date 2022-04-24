@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import { User } from "../models/User";
 
-import sendOTP from "./email";
+import sendOTP from "./sendOTP";
 
 const requestOTP = async (req: Request, res: Response) => {
   // Connect to atlas database

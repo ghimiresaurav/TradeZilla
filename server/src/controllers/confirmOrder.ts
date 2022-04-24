@@ -120,11 +120,11 @@ const confirmOrder = async (req: Request, res: Response) => {
 
       html: `<h1>DO NOT REPLY TO THIS EMAIL</h1><br/>
       <img style="height: 200px; width: 300px; object-fit:cover" src=${image}><br/>
-    <h2>Your order <b>${order.quantity}</b> of <b>${
+    <p>Your order <b>${order.quantity}</b> of <b>${
         product.title
       }</b> has been dispatched on <b>${dispatchedDate.getFullYear()}/${
         dispatchedDate.getMonth() + 1
-      }/${dispatchedDate.getDate()} - ${dispatchedDate.getHours()}:${dispatchedDate.getMinutes()}</b></h2>
+      }/${dispatchedDate.getDate()} - ${dispatchedDate.getHours()}:${dispatchedDate.getMinutes()}</b></p>
     <strong>-TradeZilla</strong>`,
     };
 

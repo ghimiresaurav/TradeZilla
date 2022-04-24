@@ -117,13 +117,11 @@ const BodyWrapper = styled.div`
   gap: 30px 50%;
 `;
 
-const SellOverview = () => {
-  const [pendingOrderHistories, setPendingOrderHistories] = useState([]);
-  const [deliveredOrderHistories, setDeliveredOrderHistories] = useState([]);
-  const [rejectedOrderHistories, setRejectedOrderHistories] = useState([]);
+const MyProducts = () => {
+  const [OwnProducts, setOwnProducts] = useState([]);
 
   useEffect(async () => {
-    const resp = await fetch(`http://localhost:5000/s/v/get-order-history`, {
+    const resp = await fetch(`http://localhost:5000/s/v/get-own-products`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem(
           "token"
@@ -132,26 +130,21 @@ const SellOverview = () => {
     });
     const response = await resp.json();
     if (response.success) {
-      setDeliveredOrderHistories(response.dispatchedOrderHistories);
-      setPendingOrderHistories(response.pendingOrderHistories);
-      setRejectedOrderHistories(response.rejectedOrderHistories);
+      setOwnProducts(response.products);
+      console.log(OwnProducts);
     } else console.log("failed");
   }, []);
 
   return (
     <>
-      <Title>Order Histories</Title>
+      <Title>My Products</Title>
       <RightDiv>
         <WrapContainer>
           <InfoSection>
             <PendingSection>
-              <SectionHeader>
-                <StartSection>Pending Orders</StartSection>
-              </SectionHeader>
-
               <SectionBody>
                 <BodyWrapper>
-                  {pendingOrderHistories.map((item) => {
+                  {OwnProducts.map((item) => {
                     return (
                       <Product key={item._id}>
                         <ProductDetail>
@@ -186,92 +179,6 @@ const SellOverview = () => {
                 </BodyWrapper>
               </SectionBody>
             </PendingSection>
-
-            <DeliveredSection>
-              <SectionHeader>
-                <StartSection>Delivered Orders</StartSection>
-              </SectionHeader>
-
-              <SectionBody>
-                <BodyWrapper>
-                  {deliveredOrderHistories.map((item) => {
-                    return (
-                      <Product key={item._id}>
-                        <ProductDetail>
-                          <Image
-                            src={
-                              item.image
-                                ? getThumbnailFromImage(item.image)
-                                : defaultImage
-                            }
-                          />
-                          <Details>
-                            <ProductName>
-                              <b>Product:</b> {item.title}
-                            </ProductName>
-                            <ProductId>
-                              <b>ID:</b> {item._id}
-                            </ProductId>
-                            <Date>
-                              <b>Ordered Date:</b> {item.date}
-                            </Date>
-                            <ProductQuantity>
-                              <b>Quantity:</b> {item.quantity}
-                            </ProductQuantity>
-                            <Date>
-                              <b>Dispatched On</b> {item.dispatchedOn}
-                            </Date>
-                          </Details>
-                        </ProductDetail>
-                      </Product>
-                    );
-                  })}
-                </BodyWrapper>
-              </SectionBody>
-            </DeliveredSection>
-
-            <DeliveredSection>
-              <SectionHeader>
-                <StartSection>Rejected Orders</StartSection>
-              </SectionHeader>
-
-              <SectionBody>
-                <BodyWrapper>
-                  {rejectedOrderHistories.map((item) => {
-                    return (
-                      <Product key={item._id}>
-                        <ProductDetail>
-                          <Image
-                            src={
-                              item.image
-                                ? getThumbnailFromImage(item.image)
-                                : defaultImage
-                            }
-                          />
-                          <Details>
-                            <ProductName>
-                              <b>Product:</b> {item.title}
-                            </ProductName>
-                            <ProductId>
-                              <b>ID:</b> {item._id}
-                            </ProductId>
-                            <Date>
-                              <b>Ordered Date:</b> {item.date}
-                            </Date>
-                            <ProductQuantity>
-                              <b>Quantity:</b> {item.quantity}
-                            </ProductQuantity>
-                            <Date>
-                              <b>Dispatched On</b> {item.dispatchedOn}
-                            </Date>
-                          </Details>
-                        </ProductDetail>
-                      </Product>
-                    );
-                  })}
-                </BodyWrapper>
-              </SectionBody>
-            </DeliveredSection>
           </InfoSection>
         </WrapContainer>
       </RightDiv>
@@ -279,4 +186,4 @@ const SellOverview = () => {
   );
 };
 
-export default SellOverview;
+export default MyProducts;

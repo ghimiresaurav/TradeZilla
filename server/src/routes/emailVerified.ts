@@ -19,6 +19,7 @@ import getCartItems from "../controllers/getCartItems";
 import removeFromCart from "../controllers/removeFromCart";
 import rejectOrder from "../controllers/rejectOrder";
 import getOrderHistories from "../controllers/getOrderHistory";
+import getOwnProducts from "../controllers/getOwnProducts";
 
 router.post("/add-product", addProduct);
 
@@ -36,5 +37,7 @@ router.delete("/reject-order/:o_id", rejectOrder);
 router.get("/get-order-history", getOrderHistories);
 router.get("/getOrders", getOrders);
 router.get("/get-cart-items", getCartItems);
+
+router.get("/get-own-products", getOwnProducts);
 
 export default router;

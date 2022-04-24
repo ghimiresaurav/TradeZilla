@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { User } from "../models/User";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
+import sendEmail from "./email";
 
 // Import function to check if the id from parameter is valid
 import checkValidObjectId from "../utils/checkValidObjectId";
@@ -78,6 +79,34 @@ const rejectOrder = async (req: Request, res: Response) => {
 
     // Set order status to 'rejected'
     order.status = "rejected";
+
+    const currentDate = new Date();
+    // Send an email to the buyer so that they know their product has been dispatched
+    // Create mail options for sending the email
+    // This object specifies the sender, receiver, subject and email body
+    const mailOptions = {
+      subject: "PRODUCT REJECTED",
+
+      text: `DO NOT REPLY TO THIS EMAIL.\nYour order ${order.quantity} of ${
+        product.title
+      } has been rejected on ${currentDate.getFullYear()}/${
+        currentDate.getMonth() + 1
+      }/${currentDate.getDate()} - ${currentDate.getHours()}:${currentDate.getMinutes()}.\n.`,
+
+      html: `<h1>DO NOT REPLY TO THIS EMAIL</h1><br/>
+      <img style="height: 200px; width: 300px; object-fit:cover" src=${
+        product.images.split(", ")[0]
+      }><br/>
+    <p>Your order <b>${order.quantity}</b> of <b>${
+        product.title
+      }</b> has been rejected on <b>${currentDate.getFullYear()}/${
+        currentDate.getMonth() + 1
+      }/${currentDate.getDate()} - ${currentDate.getHours()}:${currentDate.getMinutes()}</b></p>
+    <strong>-TradeZilla</strong>`,
+    };
+
+    // Send the email
+    sendEmail(customer.email, mailOptions);
 
     // Send a success message
     return res.json({

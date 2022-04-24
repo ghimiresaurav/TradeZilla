@@ -210,7 +210,6 @@ const Cart = (props) => {
 
   const [count, setCount] = useState(1);
   const [Cart, setCart] = useState([]);
-  // const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -260,6 +259,49 @@ const Cart = (props) => {
   
   const [btnPopup, setBtnPopup] = useState(false);
 
+  const [SubTotalToDisplay, setSubTotalToDisplay] = useState(0);
+  const [total, setTotal] = useState(100);
+  const [location, setLocation] = useState("---------");
+
+  const updateBill = () => {
+    const selectedItems = Cart.filter((item) => item.selection);
+    let subTotal = 0;
+    selectedItems.forEach((item) => {
+      subTotal += item.quantity * item.price;
+    });
+    setSubTotalToDisplay(subTotal);
+    setTotal(subTotal + 100);
+  };
+
+  const checkOut = async () => {
+    const selectedItems = Cart.filter((item) => item.selection);
+
+    // Get the location of the user
+    // The function takes two callbacks,
+    // One to call in case of success and the other in case of error
+    navigator.geolocation.getCurrentPosition(
+      // This function runs if the user agrees to give access to their location
+      (position) => {
+        const coordinates = position.coords;
+        setLocation(`${coordinates.latitude} ${coordinates.longitude}`);
+      },
+      // This function runs in case of error
+      (err) => console.error(`ERROR - ${err.code}: ${err.message}`)
+    );
+    const resp = await fetch("http://localhost:5000/s/v/order", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        authorization: `Bearer ${localStorage.getItem(
+          "token"
+        )} ${localStorage.getItem("userId")}`,
+      },
+      body: JSON.stringify({ items: selectedItems, paid: true, location }),
+    });
+    const response = await resp.json();
+    console.log(response);
+  };
+
   return (
     <Container>
       <TopBars loggedIn={props.loggedIn} />
@@ -308,16 +350,25 @@ const Cart = (props) => {
                   </PriceDetail>
 
                   <DiscardArea>
-                          <DiscardButton>
-                            <DeleteIcon />
-                          </DiscardButton>
-                          <PopupHover>Remove</PopupHover>
-                        </DiscardArea>
-
-                  <DiscardArea>                    
-                    <input type="checkbox" id="select"  class="checkbox" />                    
+                    <DiscardButton
+                      onClick={() => removeItemFromCart(cartItem._id)}
+                    >
+                      <DeleteIcon />
+                    </DiscardButton>
+                    <PopupHover>Remove</PopupHover>
                   </DiscardArea>
 
+                  <DiscardArea>
+                    <input
+                      type="checkbox"
+                      id="select"
+                      className="checkbox"
+                      onChange={() => {
+                        cartItem.selection = !cartItem.selection;
+                        updateBill();
+                      }}
+                    />
+                  </DiscardArea>
                 </Product>
               );
             })}
@@ -326,7 +377,7 @@ const Cart = (props) => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>SubTotal</SummaryItemText>
-              <SummaryItemPrice>Rs. 2700</SummaryItemPrice>
+              <SummaryItemPrice>Rs. {SubTotalToDisplay}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -338,10 +389,10 @@ const Cart = (props) => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>Rs. 2800</SummaryItemPrice>
+              <SummaryItemPrice>Rs. {total}</SummaryItemPrice>
             </SummaryItem>
             {/* <Link to={"/payment"}> */}
-              <Button onClick={()=> setBtnPopup(true)}>CHECKOUT NOW</Button>
+            <Button onClick={checkOut} onClick={()=> setBtnPopup(true)}>CHECKOUT NOW</Button>
             {/* </Link> */}
           </Summary>
         </Bottom>

@@ -20,7 +20,7 @@ const OTPSchema = new mongoose.Schema<OTPType>({
     type: Date,
     default: () => {
       const date = new Date();
-      date.setHours(date.getHours() + 1);
+      date.setMinutes(date.getMinutes() + 2);
       return date;
     },
   },

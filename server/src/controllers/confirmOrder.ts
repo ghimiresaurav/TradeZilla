@@ -35,6 +35,7 @@ const confirmOrder = async (req: Request, res: Response) => {
       success: false,
       message: "Order not found",
     });
+
   // Get vendor id from database
   const vendor_id = new mongoose.Types.ObjectId(order.vendor_id);
 
@@ -67,7 +68,7 @@ const confirmOrder = async (req: Request, res: Response) => {
       message: "Product not found",
     });
 
-  if (order.dispatched)
+  if (order.status === "dispatched")
     return res.json({
       success: false,
       message: "This order is already dispatched",
@@ -91,7 +92,9 @@ const confirmOrder = async (req: Request, res: Response) => {
       image,
     });
 
-    order.dispatched = true;
+    // Set order status to 'dispatched'
+    order.status = "dispatched";
+    // order.dispatched = true;
     order.dispatchedOn = new Date();
 
     // Update user and order info in database

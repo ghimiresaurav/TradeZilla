@@ -1,7 +1,9 @@
 import styled from "styled-components";
 import TopBars from "../Components/TopBars";
 import Footer from "../Components/Footer";
-
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import getThumbnailFromImage from "../utils/getThumbnail";
 
 const Container = styled.div`
 	width: 100%;
@@ -43,17 +45,25 @@ const Product = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	padding: 30px;
+	padding: 20px 30px;
 	background-color: #f2f2f2;
 	// background-color: red;
+	height: 260px;
 
 	border-radius: 5px;
-	margin: 5px 5px;
+	margin: 10px 5px;
+	transition: ease-in-out 0.5s;
+
+	&:hover {
+		transform: scale(1.01);
+		box-shadow: 1px 1px 5px #888888;
+	}
 `;
 
 const ProductDetail = styled.div`
 	flex: 2;
 	display: flex;
+	// background-color: red;
 `;
 
 const Image = styled.img`
@@ -67,7 +77,9 @@ const Details = styled.div`
 	justify-content: space-around;
 `;
 
-const ProductName = styled.span``;
+const ProductName = styled.span`
+	font-size: 30px;
+`;
 
 const ProductId = styled.span``;
 
@@ -94,51 +106,80 @@ const ProductPrice = styled.div`
 `;
 
 const Hr = styled.hr`
-	background-color: #eee;
+	background-color: #000;
 	border: none;
 	height: 1px;
 `;
 
+const linkStyle = {
+	textDecoration: "none",
+	color: "#000000",
+};
+
 const Search = (props) => {
-
-	const path =  window.location.pathname;
+	const path = window.location.pathname;
 	const tempSearchProduct = path.split("/").pop();
-	const searchProduct = decodeURI(tempSearchProduct); //removes %20
+	const searchQuery = decodeURI(tempSearchProduct); //removes %20
 
-	console.log("Path: ", path);
-	console.log("Search Product: ", tempSearchProduct);
-	console.log("Search Product without Percent: ", searchProduct);
+	// console.log("Path: ", path);
+	// console.log("Search Product: ", tempSearchProduct);
+	console.log("Search Product without Percent: ", searchQuery);
 
-	document.title = "Search | " + searchProduct;
+	document.title = "Search | " + searchQuery;
+
+	const [searchItem, setSearchItem] = useState([]);
+
+	// const searchProduct = () =>{
+	useEffect(() => {
+		(async () => {
+			const resp = await fetch(`http://localhost:5000/search/${searchQuery}`);
+			const response = await resp.json();
+			if (response.success) setSearchItem(response.products);
+			// console.log(searchItem);
+			// console.log(response.products);
+			setSearchItem(response.products);
+		})();
+	}, []);
+	// }
+
+	console.log(searchItem);
 
 	return (
 		<Container>
 			<TopBars loggedIn={props.loggedIn} />
 			<CartContent>
-				<Title>SEARCH RESULTS FOR <b>{searchProduct}</b></Title>
+				<Title>
+					SEARCH RESULTS FOR <b>{searchQuery}</b>
+				</Title>
 				<Bottom>
 					<Info>
-						<Product>
-							<ProductDetail>
-								<Image src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1614188818-TD1MTHU_SHOE_ANGLE_GLOBAL_MENS_TREE_DASHERS_THUNDER_b01b1013-cd8d-48e7-bed9-52db26515dc4.png?crop=1xw:1.00xh;center,top&resize=480%3A%2A" />
-								<Details>
-									<ProductName>
-										<b>Product:</b> JESSIE THUNDER SHOES
-									</ProductName>
-									<ProductId>
-										<b>ID:</b> 93813718293
-									</ProductId>
-									<ProductColor color="black" />
-									<ProductSize>
-										<b>Size:</b> 37.5
-									</ProductSize>
-								</Details>
-							</ProductDetail>
-							<PriceDetail>
-								<ProductPrice>Rs. 2000</ProductPrice>
-							</PriceDetail>
-						</Product>
-						<Hr />
+						{searchItem.map((item) => (
+							<Link to={`/product/${item._id}`} style={linkStyle}>
+								<Product>
+									<ProductDetail>
+										<Image
+											src={getThumbnailFromImage(item.images.split(", ")[0])}
+										/>
+										<Details>
+											<ProductName>
+												<b>{item.title} </b>
+											</ProductName>
+											<ProductId>
+												<b>ID:</b> 93813718293
+											</ProductId>
+											<ProductColor color="black" />
+											<ProductSize>
+												<b>Size:</b> 37.5
+											</ProductSize>
+										</Details>
+									</ProductDetail>
+									<PriceDetail>
+										<ProductPrice>Rs. {item.price}</ProductPrice>
+									</PriceDetail>
+								</Product>
+								{/* <Hr/> */}
+							</Link>
+						))}
 					</Info>
 				</Bottom>
 			</CartContent>

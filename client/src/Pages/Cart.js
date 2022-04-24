@@ -4,11 +4,12 @@ import Footer from "../Components/Footer";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../utils/getThumbnail";
 import defaultImage from "../utils/defaultImage";
 import "./RegisterForm.css";
+import Payment from "./Payment";
 
 const Container = styled.div`
   width: 100%;
@@ -256,6 +257,8 @@ const Cart = (props) => {
       setCount((prevCount) => prevCount + 1);
     }
   }
+  
+  const [btnPopup, setBtnPopup] = useState(false);
 
   return (
     <Container>
@@ -337,13 +340,16 @@ const Cart = (props) => {
               <SummaryItemText>Total</SummaryItemText>
               <SummaryItemPrice>Rs. 2800</SummaryItemPrice>
             </SummaryItem>
-            <Link to={"/payment"}>
-              <Button>CHECKOUT NOW</Button>
-            </Link>
+            {/* <Link to={"/payment"}> */}
+              <Button onClick={()=> setBtnPopup(true)}>CHECKOUT NOW</Button>
+            {/* </Link> */}
           </Summary>
         </Bottom>
       </CartContent>
       <Footer />
+      <Payment trigger = {btnPopup}
+      setTrigger = {setBtnPopup}
+      />
     </Container>
   );
 };

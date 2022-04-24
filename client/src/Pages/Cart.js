@@ -218,7 +218,6 @@ const Cart = (props) => {
 
   const [count, setCount] = useState(1);
   const [Cart, setCart] = useState([]);
-  // const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -265,6 +264,19 @@ const Cart = (props) => {
       setCount((prevCount) => prevCount + 1);
     }
   }
+
+  const [SubTotalToDisplay, setSubTotalToDisplay] = useState(0);
+  const [total, setTotal] = useState(100);
+
+  const updateBill = () => {
+    const selectedItems = Cart.filter((item) => item.selection);
+    let subTotal = 0;
+    selectedItems.forEach((item) => {
+      subTotal += item.quantity * item.price;
+    });
+    setSubTotalToDisplay(subTotal);
+    setTotal(subTotal + 100);
+  };
 
   return (
     <Container>
@@ -314,16 +326,23 @@ const Cart = (props) => {
                   </PriceDetail>
 
                   <DiscardArea>
-                          <DiscardButton>
-                            <DeleteIcon />
-                          </DiscardButton>
-                          <PopupHover>Remove</PopupHover>
-                        </DiscardArea>
-
-                  <DiscardArea>                    
-                    <input type="checkbox" id="select"  class="checkbox" />                    
+                    <DiscardButton onClick={removeItemFromCart}>
+                      <DeleteIcon />
+                    </DiscardButton>
+                    <PopupHover>Remove</PopupHover>
                   </DiscardArea>
 
+                  <DiscardArea>
+                    <input
+                      type="checkbox"
+                      id="select"
+                      className="checkbox"
+                      onChange={() => {
+                        cartItem.selection = !cartItem.selection;
+                        updateBill();
+                      }}
+                    />
+                  </DiscardArea>
                 </Product>
               );
             })}
@@ -332,7 +351,7 @@ const Cart = (props) => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>SubTotal</SummaryItemText>
-              <SummaryItemPrice>Rs. 2700</SummaryItemPrice>
+              <SummaryItemPrice>Rs. {SubTotalToDisplay}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -344,7 +363,7 @@ const Cart = (props) => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>Rs. 2800</SummaryItemPrice>
+              <SummaryItemPrice>Rs. {total}</SummaryItemPrice>
             </SummaryItem>
             <Link to={"/payment"}>
               <Button>CHECKOUT NOW</Button>

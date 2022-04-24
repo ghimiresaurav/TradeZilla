@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../utils/getThumbnail";
 import defaultImage from "../utils/defaultImage";
+import "./RegisterForm.css";
 
 const Container = styled.div`
   width: 100%;
@@ -311,14 +312,18 @@ const Cart = (props) => {
                     </ProductAmountContainer>
                     <ProductPrice>Rs. {cartItem.price}</ProductPrice>
                   </PriceDetail>
+
                   <DiscardArea>
-                    <DiscardButton
-                      onClick={() => removeItemFromCart(cartItem._id)}
-                    >
-                      <DeleteIcon />
-                    </DiscardButton>
-                    <PopupHover>Discard</PopupHover>
+                          <DiscardButton>
+                            <DeleteIcon />
+                          </DiscardButton>
+                          <PopupHover>Remove</PopupHover>
+                        </DiscardArea>
+
+                  <DiscardArea>                    
+                    <input type="checkbox" id="select"  class="checkbox" />                    
                   </DiscardArea>
+
                 </Product>
               );
             })}

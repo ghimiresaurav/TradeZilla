@@ -2,9 +2,6 @@ import { Request, Response } from "express";
 import { Product } from "../models/Product";
 import mongoose from "mongoose";
 
-// Import function to check if the id from parameter is valid
-import checkValidObjectId from "../utils/checkValidObjectId";
-
 const getOwnProducts = async (req: Request, res: Response) => {
   // Connect to the atlas database
   mongoose
@@ -21,7 +18,19 @@ const getOwnProducts = async (req: Request, res: Response) => {
       message: "Product not found",
     });
 
-  return res.json({ success: true, products });
+  // const image = products[0].images.split(", ")[0];
+  // products.images = image;
+
+  const productX = products.map((product) => {
+    return {
+      ...product,
+      image: product.images.split(", ")[0],
+    };
+  });
+
+  console.log(productX);
+
+  return res.json({ success: true, products: productX });
 };
 
 export default getOwnProducts;

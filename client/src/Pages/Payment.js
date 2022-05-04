@@ -28,7 +28,7 @@ const Wrapper = styled.div`
 const WrapperDiv = styled.div`
   display: flex;
   width: 100%;
-  /* background-color: green; */
+  //   background-color: green;
   /* display: flex;
 	align-items: center;
 	flex-direction: column; */
@@ -40,7 +40,9 @@ const InfoSection = styled.div`
   min-width: 500 vw;
   height: 70vh;
   margin: 30px auto;
-  border: 2px solid #000000;
+  border: 1px solid rgb(180, 221, 255);
+  background-color: aliceblue;
+  border-radius: 20px;
 `;
 const SectionHeader = styled.div`
   width: 82%;
@@ -84,6 +86,7 @@ const Summary = styled.div`
   padding: 10px;
   /* height: 50vh; */
   /* background-color: yellow; */
+  box-shadow: 5px 10px 15px gray;
 `;
 
 const SummaryTitle = styled.h1`
@@ -112,7 +115,6 @@ const Button = styled.button`
 `;
 
 const PayForm = styled.div`
-  background-color: sandybrown;
   display: flex;
   justify-content: flex-start;
   flex-direction: column;
@@ -123,21 +125,26 @@ const PayForm = styled.div`
 const First = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 5px 0 4px 0;
+  padding: 0 0 20px 0;
+  //   padding: 100px;
 `;
 const Second = styled.div`
-  padding: 5px 0 0 0;
+  //   padding: 5px 0 0 0;
+  padding: 0 0 20px 0;
 `;
-const Third = styled.div``;
+const Third = styled.div`
+  padding: 0 0 10px 0;
+`;
 const Fourth = styled.div`
   padding: 20px 0;
 `;
 
 const Number = styled.input`
-  width: 50%;
+  font-size: 18px;
+  width: 60%;
   border-radius: 3%;
   padding: 10px;
-  border: none;
+  border: 1px solid lightgray;
   overflow: hidden;
   display: flex;
   justify-content: flex-start;
@@ -162,6 +169,7 @@ const Name = styled(Number)`
 `;
 
 const SelectOption = styled.select`
+  font-size: 17px;
   width: 80%;
   border-radius: 3%;
   padding: 7px;
@@ -182,11 +190,11 @@ const DateField = styled.div`
 `;
 
 const Month = styled(Number)`
-  width: 15%;
+  width: 17%;
 `;
 
 const Year = styled(Number)`
-  width: 15%;
+  width: 20%;
 `;
 
 const CloseArea = styled.div`
@@ -380,7 +388,6 @@ const Payment = (props) => {
                       onChange={updateCardInfo}
                       autoComplete="off"
                     />{" "}
-                    <br />
                   </Second>
 
                   <Third>
@@ -398,7 +405,7 @@ const Payment = (props) => {
                         required
                       ></Month>
 
-                      <p id="slash">/</p>
+                      <p id="slash">&nbsp;/&nbsp;</p>
 
                       <Year
                         id="year"
@@ -416,7 +423,6 @@ const Payment = (props) => {
 
                   <Fourth>
                     <SelectOption id="address">
-                      <option value="current">Billing Address</option>
                       <option value="current">My Current Location</option>
                     </SelectOption>
                   </Fourth>

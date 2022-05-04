@@ -214,6 +214,9 @@ const Cart = (props) => {
 
   const goToPayment = () => {
     setBtnPopup(true);
+    // Get the location of the user
+    // The function takes two callbacks,
+    // One to call in case of success and the other in case of error
     navigator.geolocation.getCurrentPosition(
       // This function runs if the user agrees to give access to their location
       (position) => {
@@ -387,6 +390,7 @@ const Cart = (props) => {
         setTrigger={setBtnPopup}
         selectedItems={Cart.filter((item) => item.selection)}
         location={location}
+        subTotal={SubTotalToDisplay}
       />
     </Container>
   );

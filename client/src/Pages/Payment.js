@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import "./RegisterForm.css";
 import CloseIcon from "@mui/icons-material/Close";
-// import { useState } from "react";
+import { useState } from "react";
 
 const Container = styled.div`
   position: fixed;
@@ -251,16 +251,6 @@ const Payment = (props) => {
           } */
 
   const checkOut = async () => {
-    // Get the location of the user
-    // The function takes two callbacks,
-    // One to call in case of success and the other in case of error
-
-    // const stuff = {
-    //   items: props.selectedItems,
-    //   paid: true,
-    //   location: props.location,
-    // };
-    // console.log(stuff);
     const resp = await fetch("http://localhost:5000/s/v/order", {
       method: "POST",
       headers: {
@@ -277,6 +267,58 @@ const Payment = (props) => {
     });
     const response = await resp.json();
     console.log(response);
+  };
+
+  const [cardInfo, setCardInfo] = useState({
+    number: "",
+    csv: "",
+    name: "",
+    expiryYear: "",
+    expiryMonth: "",
+  });
+
+  const updateCardInfo = (event) => {
+    setCardInfo({ ...cardInfo, [event.target.name]: event.target.value });
+  };
+
+  const verifyCardInformation = async (e) => {
+    e.preventDefault();
+
+    // Extract card information for verification
+    const { number, csv, name, expiryYear, expiryMonth } = cardInfo;
+
+    // Check whether the card number is valid
+    // A valid card number is 16 digit long
+    if (!number.length === 16) return;
+
+    // Check whether the csv is valid
+    // A valid csv is 3 digit long on VISA®, MasterCard® and Discover® branded credit and debit cards
+    // 4 digit long on American Express® branded credit or debit card
+    if (csv.length < 3 || csv.length > 4) return;
+
+    // Check if the name seems correct
+    const nameValidatorRegex =
+      /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/;
+    if (!nameValidatorRegex.test(name)) return;
+
+    // Check if the card has already expired or not
+    const now = new Date();
+    const [expMonth, expYear] = [parseInt(expiryMonth), parseInt(expiryYear)];
+
+    // Check if the year has already passed or not
+    // Also check if the year is more than 4 years away
+    // Because the validity time period for most cards is 4 years
+    if (expYear < now.getFullYear() || expYear > now.getFullYear() + 4) return;
+
+    if (expMonth < 1 || expMonth > 12) return;
+    // If the expiry year is the same as the current year
+    if (expYear == now.getFullYear()) {
+      // Check if the expiry month has already passed or not
+      const currentMonth = now.getMonth() + 1;
+      if (expMonth < currentMonth) return;
+    }
+    // If everything is okay, proceed to checkout
+    checkOut();
   };
 
   return props.trigger ? (
@@ -308,8 +350,9 @@ const Payment = (props) => {
                         id="cardName"
                         placeholder="Card Number"
                         type="number"
-                        ondrop="return false;"
-                        onpaste="return false;"
+                        name="number"
+                        value={cardInfo.number}
+                        onChange={updateCardInfo}
                         required
                       />
 
@@ -317,6 +360,9 @@ const Payment = (props) => {
                         id="cardCode"
                         placeholder="CSV"
                         type="number"
+                        name="csv"
+                        value={cardInfo.csv}
+                        onChange={updateCardInfo}
                         ondrop="return false;"
                         onpaste="return false;"
                         required
@@ -329,7 +375,9 @@ const Payment = (props) => {
                     <Name
                       type="text"
                       id="fname"
-                      name="fname"
+                      name="name"
+                      value={cardInfo.name}
+                      onChange={updateCardInfo}
                       autoComplete="off"
                     />{" "}
                     <br />
@@ -342,6 +390,9 @@ const Payment = (props) => {
                         id="month"
                         placeholder="MM"
                         type="number"
+                        name="expiryMonth"
+                        value={cardInfo.expiryMonth}
+                        onChange={updateCardInfo}
                         ondrop="return false;"
                         onpaste="return false;"
                         required
@@ -352,6 +403,9 @@ const Payment = (props) => {
                       <Year
                         id="year"
                         placeholder="YY"
+                        name="expiryYear"
+                        value={cardInfo.expiryYear}
+                        onChange={updateCardInfo}
                         type="number"
                         ondrop="return false;"
                         onpaste="return false;"
@@ -374,21 +428,23 @@ const Payment = (props) => {
                   <SummaryTitle>ORDER SUMMARY</SummaryTitle>
                   <SummaryItem>
                     <SummaryItemText>SubTotal</SummaryItemText>
-                    <SummaryItemPrice>Rs. 999</SummaryItemPrice>
+                    <SummaryItemPrice>Rs. {props.subTotal}</SummaryItemPrice>
                   </SummaryItem>
                   <SummaryItem>
                     <SummaryItemText>Estimated Shipping</SummaryItemText>
-                    <SummaryItemPrice>Rs. 99</SummaryItemPrice>
+                    <SummaryItemPrice>Rs. 200</SummaryItemPrice>
                   </SummaryItem>
                   <SummaryItem>
                     <SummaryItemText>Shipping Discount</SummaryItemText>
-                    <SummaryItemPrice>Rs. 9</SummaryItemPrice>
+                    <SummaryItemPrice>Rs. 100</SummaryItemPrice>
                   </SummaryItem>
                   <SummaryItem type="total">
                     <SummaryItemText>Total</SummaryItemText>
-                    <SummaryItemPrice>Rs. 1999</SummaryItemPrice>
+                    <SummaryItemPrice>
+                      Rs. {props.subTotal + 100}
+                    </SummaryItemPrice>
                   </SummaryItem>
-                  <Button type="submit" onClick={checkOut}>
+                  <Button onClick={(e) => verifyCardInformation(e)}>
                     PAY NOW
                   </Button>
                 </Summary>

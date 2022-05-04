@@ -210,6 +210,20 @@ const Cart = (props) => {
 
   const [count, setCount] = useState(1);
   const [Cart, setCart] = useState([]);
+  const [location, setLocation] = useState("---------");
+
+  const goToPayment = () => {
+    setBtnPopup(true);
+    navigator.geolocation.getCurrentPosition(
+      // This function runs if the user agrees to give access to their location
+      (position) => {
+        const coordinates = position.coords;
+        setLocation(`${coordinates.latitude} ${coordinates.longitude}`);
+      },
+      // This function runs in case of error
+      (err) => console.error(`ERROR - ${err.code}: ${err.message}`)
+    );
+  };
 
   useEffect(() => {
     (async () => {
@@ -256,12 +270,11 @@ const Cart = (props) => {
       setCount((prevCount) => prevCount + 1);
     }
   }
-  
+
   const [btnPopup, setBtnPopup] = useState(false);
 
   const [SubTotalToDisplay, setSubTotalToDisplay] = useState(0);
   const [total, setTotal] = useState(100);
-  const [location, setLocation] = useState("---------");
 
   const updateBill = () => {
     const selectedItems = Cart.filter((item) => item.selection);
@@ -271,35 +284,6 @@ const Cart = (props) => {
     });
     setSubTotalToDisplay(subTotal);
     setTotal(subTotal + 100);
-  };
-
-  const checkOut = async () => {
-    const selectedItems = Cart.filter((item) => item.selection);
-
-    // Get the location of the user
-    // The function takes two callbacks,
-    // One to call in case of success and the other in case of error
-    navigator.geolocation.getCurrentPosition(
-      // This function runs if the user agrees to give access to their location
-      (position) => {
-        const coordinates = position.coords;
-        setLocation(`${coordinates.latitude} ${coordinates.longitude}`);
-      },
-      // This function runs in case of error
-      (err) => console.error(`ERROR - ${err.code}: ${err.message}`)
-    );
-    const resp = await fetch("http://localhost:5000/s/v/order", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        authorization: `Bearer ${localStorage.getItem(
-          "token"
-        )} ${localStorage.getItem("userId")}`,
-      },
-      body: JSON.stringify({ items: selectedItems, paid: true, location }),
-    });
-    const response = await resp.json();
-    console.log(response);
   };
 
   return (
@@ -392,14 +376,17 @@ const Cart = (props) => {
               <SummaryItemPrice>Rs. {total}</SummaryItemPrice>
             </SummaryItem>
             {/* <Link to={"/payment"}> */}
-            <Button onClick={checkOut} onClick={()=> setBtnPopup(true)}>CHECKOUT NOW</Button>
+            <Button onClick={goToPayment}>CHECKOUT NOW</Button>
             {/* </Link> */}
           </Summary>
         </Bottom>
       </CartContent>
       <Footer />
-      <Payment trigger = {btnPopup}
-      setTrigger = {setBtnPopup}
+      <Payment
+        trigger={btnPopup}
+        setTrigger={setBtnPopup}
+        selectedItems={Cart.filter((item) => item.selection)}
+        location={location}
       />
     </Container>
   );

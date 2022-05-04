@@ -170,7 +170,6 @@ const SellOverview = () => {
   const [vesion, setVersion] = useState(0);
 
   useEffect(async () => {
-    console.log("asdf");
     const resp = await fetch(`http://localhost:5000/s/v/getOrders`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem(
@@ -196,7 +195,6 @@ const SellOverview = () => {
       },
     });
     const response = await resp.json();
-    console.log(response);
     setVersion(version + 1);
   };
 
@@ -211,7 +209,6 @@ const SellOverview = () => {
       },
     });
     const response = await resp.json();
-    console.log(response);
     setVersion(version + 1);
   };
 

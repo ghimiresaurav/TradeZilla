@@ -213,6 +213,10 @@ const Cart = (props) => {
   const [location, setLocation] = useState("---------");
 
   const goToPayment = () => {
+    // Check if the user has selected at least one item from cart
+    // Only allow user to proceed to payment menu if they have selected at least one item
+    if (!Cart.filter((item) => item.selection).length) return;
+
     setBtnPopup(true);
     // Get the location of the user
     // The function takes two callbacks,

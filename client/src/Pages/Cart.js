@@ -209,7 +209,7 @@ const Button = styled.button`
 const Cart = (props) => {
   document.title = "Cart | Tradezilla";
 
-  const [count, setCount] = useState(1);
+  const [quantities, setQuantities] = useState({});
   const [Cart, setCart] = useState([]);
   const [location, setLocation] = useState("---------");
 
@@ -246,8 +246,16 @@ const Cart = (props) => {
 
       const response = await resp.json();
       handleJWTExpiry(response);
-      if (response.success) setCart(response.cart);
-      else console.log("failed");
+      if (response.success) {
+        setCart(response.cart);
+        // Create an item to store quantities
+        let quan = {};
+        // Add quantities of each item, with the id as key and quantity as value
+        response.cart.map((cartItem) => {
+          quan = { ...quan, [cartItem._id]: cartItem.quantity };
+        });
+        setQuantities(quan);
+      } else console.log("failed");
     })();
   }, []);
 
@@ -277,15 +285,19 @@ const Cart = (props) => {
     console.log(response);
   };
 
-  function decrementCount() {
-    if (count > 1) {
-      setCount((prevCount) => prevCount - 1);
+  function decrementCount(id) {
+    // Decrement the quantity from the quantities object
+    if (quantities[id] > 1) {
+      setQuantities({ ...quantities, [id]: --quantities[id] });
+      updateBill();
     }
   }
 
-  function incrementCount() {
-    if (count < 10) {
-      setCount((prevCount) => prevCount + 1);
+  function incrementCount(id) {
+    // Increment the quantity from the quantities object
+    if (quantities[id] < 10) {
+      setQuantities({ ...quantities, [id]: ++quantities[id] });
+      updateBill();
     }
   }
 
@@ -298,7 +310,7 @@ const Cart = (props) => {
     const selectedItems = Cart.filter((item) => item.selection);
     let subTotal = 0;
     selectedItems.forEach((item) => {
-      subTotal += item.quantity * item.price;
+      subTotal += quantities[item._id] * item.price;
     });
     setSubTotalToDisplay(subTotal);
     setTotal(subTotal + 100);
@@ -344,9 +356,11 @@ const Cart = (props) => {
                   </ProductDetail>
                   <PriceDetail>
                     <ProductAmountContainer>
-                      <RemoveIcon onClick={decrementCount}></RemoveIcon>
-                      <ProductAmount>{count}</ProductAmount>
-                      <AddIcon onClick={incrementCount} />
+                      <RemoveIcon
+                        onClick={() => decrementCount(cartItem._id)}
+                      ></RemoveIcon>
+                      <ProductAmount>{quantities[cartItem._id]}</ProductAmount>
+                      <AddIcon onClick={() => incrementCount(cartItem._id)} />
                     </ProductAmountContainer>
                     <ProductPrice>Rs. {cartItem.price}</ProductPrice>
                   </PriceDetail>

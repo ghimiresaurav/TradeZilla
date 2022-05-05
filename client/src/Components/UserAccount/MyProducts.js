@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../../utils/getThumbnail";
 import defaultImage from "../../utils/defaultImage";
+import handleJWTExpiry from "../../utils/handleJWTExpiry";
 
 const Product = styled.div`
   width: 80vw;
@@ -129,6 +130,7 @@ const MyProducts = () => {
       },
     });
     const response = await resp.json();
+    handleJWTExpiry(response);
     if (response.success) {
       setOwnProducts(response.products);
       console.log(OwnProducts);

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import "./RegisterForm.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import handleJWTExpiry from "../utils/handleJWTExpiry";
 
 const Container = styled.div`
   position: fixed;
@@ -274,6 +275,7 @@ const Payment = (props) => {
       }),
     });
     const response = await resp.json();
+    handleJWTExpiry(response);
     console.log(response);
   };
 

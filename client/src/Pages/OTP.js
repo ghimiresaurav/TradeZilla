@@ -3,6 +3,7 @@ import TopBars from "../Components/TopBars";
 import Footer from "../Components/Footer";
 import { useState } from "react";
 import AccountVerified from "../Components/SuccessPopup/AccountVerified_OTP";
+import handleJWTExpiry from "../utils/handleJWTExpiry";
 // import { Link } from "react-router-dom";
 
 const Container = styled.div`
@@ -127,6 +128,7 @@ const OTP = (props) => {
       }),
     });
     const response = await resp.json();
+    handleJWTExpiry(response);
     console.log(response);
     if (response.success) {
       setMsgToUser("");
@@ -193,7 +195,7 @@ const OTP = (props) => {
                     },
                   });
                   const response = await resp.json();
-
+                  handleJWTExpiry(response);
                   if (response.success) setMsgToUser(response.message);
                   else setMsgToUser("Oops! We encountered a problem...");
                 }}

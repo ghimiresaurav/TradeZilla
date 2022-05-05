@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import handleJWTExpiry from "../../utils/handleJWTExpiry";
 
 const Title = styled.h1`
   font-size: 24px;
@@ -84,6 +85,7 @@ const AccountInfo = () => {
       },
     });
     const response = await resp.json();
+    handleJWTExpiry(response);
     if (response.success) {
       setUserInfo(response.user);
     } else console.log("failed");

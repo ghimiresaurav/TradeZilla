@@ -10,6 +10,7 @@ import getThumbnailFromImage from "../utils/getThumbnail";
 import defaultImage from "../utils/defaultImage";
 import "./RegisterForm.css";
 import Payment from "./Payment";
+import handleJWTExpiry from "../utils/handleJWTExpiry";
 
 const Container = styled.div`
   width: 100%;
@@ -244,6 +245,7 @@ const Cart = (props) => {
       });
 
       const response = await resp.json();
+      handleJWTExpiry(response);
       if (response.success) setCart(response.cart);
       else console.log("failed");
     })();
@@ -263,6 +265,7 @@ const Cart = (props) => {
       }
     );
     const response = await resp.json();
+    handleJWTExpiry(response);
     console.log(response);
   };
 

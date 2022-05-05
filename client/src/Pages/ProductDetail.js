@@ -340,25 +340,33 @@ const ProductDetail = (props) => {
 
 	const [imageIndex, setImageIndex] = useState(0);
 
-	// Add this product to cart of the viewing user
-	const addToCart = async () => {
-		const resp = await fetch(
-			`http://localhost:5000/s/v/add-to-cart/${productID}`,
-			{
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-					authorization: `Bearer ${localStorage.getItem(
-						"token"
-					)} ${localStorage.getItem("userId")}`,
-				},
-				body: JSON.stringify({ quantity: count }),
-			}
-		);
-		const response = await resp.json();
-		handleJWTExpiry(response);
-		console.log(response);
-	};
+  // Add this product to cart of the viewing user
+  const addToCart = async () => {
+    const resp = await fetch(
+      `http://localhost:5000/s/v/add-to-cart/${productID}`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          authorization: `Bearer ${localStorage.getItem(
+            "token"
+          )} ${localStorage.getItem("userId")}`,
+        },
+        body: JSON.stringify({ quantity: count }),
+      }
+    );
+    const response = await resp.json();
+    handleJWTExpiry(response);
+    // If add to cart is successful
+    // Update the number of items on cart stored in local storage
+    if (response.success)
+      localStorage.setItem(
+        "numberOfItemsOnCart",
+        parseInt(localStorage.getItem("numberOfItemsOnCart")) + 1
+      );
+
+    console.log(response);
+  };
 
 	/* ////////////////////////////////////////////////////////////// */
 	/* ///////////////////////////PRODUCT REVIEW///////////////////// */
@@ -379,7 +387,7 @@ const ProductDetail = (props) => {
 	// });
 
 	function handleQueryUpdate(e) {
-		setQuery(e.traget.value);
+		setQuery(e.target.value);
 		console.log(query);
 	}
 

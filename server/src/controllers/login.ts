@@ -60,6 +60,7 @@ const login = async (req: Request, res: Response) => {
     name: user.name,
     isActive: user.isActive,
     email,
+    numberOfItemsOnCart: user.cart.length,
   });
 };
 

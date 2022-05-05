@@ -254,7 +254,7 @@ const NavBar = (props) => {
 					<RightJSX loggedIn={props.loggedIn} />
 					<Cart>
 						<Link style={linkStyle} to={"/cart"}>
-							<Badge badgeContent={2} color="primary">
+							<Badge badgeContent={localStorage.getItem("numOfItemsOnCart")} color="primary">
 								<ShoppingCartOutlinedIcon />
 							</Badge>
 						</Link>

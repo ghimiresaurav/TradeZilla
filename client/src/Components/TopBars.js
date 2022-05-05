@@ -42,7 +42,7 @@ const TopBars = (props) => {
 
     return (
         <Container scrollNav = {scrollNav} homePage = {props.homePage}>
-            <NavBar loggedIn={props.loggedIn} toggle = {toggle} />
+            <NavBar loggedIn={props.loggedIn} toggle = {toggle} badgeContent = {props.items}/>
             <MenuBar isOpen = {isOpen} toggle = {toggle}/>
         </Container>
     )

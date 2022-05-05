@@ -116,7 +116,7 @@ const Product = ({ item }) => {
         <ProductArea>
           <Circle />
           <Image src={getThumbnailFromImage(item.images.split(", ")[0])} />
-          <Info>
+          {/* <Info>
             <Icon>
               <ShoppingCartOutlinedIcon />
             </Icon>
@@ -126,7 +126,7 @@ const Product = ({ item }) => {
             <Icon>
               <FavoriteBorderIcon />
             </Icon>
-          </Info>
+          </Info> */}
         </ProductArea>
         <ProductDetail>
           <ProductName>{item.title}</ProductName>

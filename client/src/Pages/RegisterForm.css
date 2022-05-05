@@ -121,3 +121,13 @@ th, td {
 #UserReview {
    margin: -5px;
 }
+
+.star {
+    font-size: 25px;
+    cursor: pointer;
+    transition: color 20ms;
+}
+
+#radioRating {
+    display: none;
+}

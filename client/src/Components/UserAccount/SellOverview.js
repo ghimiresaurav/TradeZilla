@@ -2,9 +2,10 @@
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import { useEffect, useState } from "react";
+import { useEffect, useState, version } from "react";
 import getThumbnailFromImage from "../../utils/getThumbnail";
 import defaultImage from "../../utils/defaultImage";
+import handleJWTExpiry from "../../utils/handleJWTExpiry";
 
 const Product = styled.div`
   width: 80vw;
@@ -36,7 +37,12 @@ const Details = styled.div`
   justify-content: space-around;
 `;
 
-const ProductName = styled.span``;
+const ProductName = styled.span`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 450px;
+`;
 
 const ProductId = styled.span``;
 
@@ -162,6 +168,7 @@ const BodyWrapper = styled.div`
 const SellOverview = () => {
   const [pendingOrders, setPendingOrders] = useState([]);
   const [deliveredOrders, setDeliveredOrders] = useState([]);
+  const [vesion, setVersion] = useState(0);
 
   useEffect(async () => {
     const resp = await fetch(`http://localhost:5000/s/v/getOrders`, {
@@ -172,11 +179,12 @@ const SellOverview = () => {
       },
     });
     const response = await resp.json();
+    handleJWTExpiry(response);
     if (response.success) {
       setDeliveredOrders(response.dispatchedOrders);
       setPendingOrders(response.pendingOrders);
     } else console.log("failed");
-  }, []);
+  }, [version]);
 
   const dispatchOrder = async (id) => {
     const resp = await fetch(`http://localhost:5000/s/v/dispatch/${id}`, {
@@ -189,7 +197,7 @@ const SellOverview = () => {
       },
     });
     const response = await resp.json();
-    console.log(response);
+    setVersion(version + 1);
   };
 
   const rejectOrder = async (id) => {
@@ -203,7 +211,7 @@ const SellOverview = () => {
       },
     });
     const response = await resp.json();
-    console.log(response);
+    setVersion(version + 1);
   };
 
   return (

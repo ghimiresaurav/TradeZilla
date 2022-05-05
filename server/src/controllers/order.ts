@@ -38,7 +38,7 @@ const order = async (req: Request, res: Response) => {
       message: "Invalid product Id",
     });
 
-  // Find the user in database
+  // Find the product in database
   const product = await Product.findById(product_id);
 
   // Send an error message if product not found
@@ -65,6 +65,7 @@ const order = async (req: Request, res: Response) => {
     const createOrder = await Order.create({
       title: product.title,
       price: product.price,
+      status: "pending",
       image,
       vendor_id,
       product_id,

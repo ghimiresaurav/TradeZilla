@@ -8,21 +8,21 @@ import GradeIcon from "@mui/icons-material/Grade";
 import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 
 const Container = styled.div`
-	width: 100%;
-	position: absolute;
-	top: 100px;
-	/* background-color: yellow; */
+  width: 100%;
+  position: absolute;
+  top: 100px;
+  /* background-color: yellow; */
 `;
 
 const CartContent = styled.div`
-	// padding-top: 80px;
-	margin: 30px 50px;
-	// background-color: yellow;
+  // padding-top: 80px;
+  margin: 30px 50px;
+  // background-color: yellow;
 `;
 
 const Title = styled.h1`
-	font-weight: 300;
-	text-align: center;
+  font-weight: 300;
+  text-align: center;
 `;
 
 // const Top = styled.div`
@@ -31,52 +31,58 @@ const Title = styled.h1`
 // 	justify-content: space-between;
 // 	padding: 20px;
 // `;
+const Top = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+`;
 
 const Bottom = styled.div`
-	display: flex;
-	justify-content: space-between;
-	margin-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
 `;
 
 const Info = styled.div`
-	flex: 3;
+  flex: 3;
 `;
 
 const Product = styled.div`
-	position: relative;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	padding: 20px 30px;
-	background-color: #f2f2f2;
-	// background-color: red;
-	height: 260px;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px;
+  background-color: #f2f2f2;
+  // background-color: red;
+  height: 260px;
 
-	border-radius: 5px;
-	margin: 10px 5px;
-	transition: ease-in-out 0.5s;
+  border-radius: 5px;
+  margin: 10px 5px;
+  transition: ease-in-out 0.5s;
 
-	&:hover {
-		transform: scale(1.01);
-		box-shadow: 1px 1px 5px #888888;
-	}
+  &:hover {
+    transform: scale(1.01);
+    box-shadow: 1px 1px 5px #888888;
+  }
 `;
 
 const ProductDetail = styled.div`
-	flex: 2;
-	display: flex;
-	// background-color: red;
+  flex: 2;
+  display: flex;
+  // background-color: red;
 `;
 
 const Image = styled.img`
-	width: 200px;
+  width: 200px;
 `;
 
 const Details = styled.div`
-	display: flex;
-	flex-direction: column;
-	padding: 20px;
-	justify-content: space-around;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  justify-content: space-around;
 `;
 
 const ProductName = styled.span`
@@ -102,54 +108,52 @@ const ProductRating = styled.span`
 `;
 
 const PriceDetail = styled.div`
-	flex: 1;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 const ProductPrice = styled.div`
-	font-size: 30px;
-	font-weight: 200;
+  font-size: 30px;
+  font-weight: 200;
 `;
 
 const Hr = styled.hr`
-	background-color: #000;
-	border: none;
-	height: 1px;
+  background-color: #000;
+  border: none;
+  height: 1px;
 `;
 
 const linkStyle = {
-	textDecoration: "none",
-	color: "#000000",
+  textDecoration: "none",
+  color: "#000000",
 };
 
 const Search = (props) => {
-	const path = window.location.pathname;
-	const tempSearchProduct = path.split("/").pop();
-	const searchQuery = decodeURI(tempSearchProduct); //removes %20
+  const path = window.location.pathname;
+  const tempSearchProduct = path.split("/").pop();
+  const searchQuery = decodeURI(tempSearchProduct); //removes %20
 
-	// console.log("Path: ", path);
-	// console.log("Search Product: ", tempSearchProduct);
-	console.log("Search Product without Percent: ", searchQuery);
+  // console.log("Path: ", path);
+  // console.log("Search Product: ", tempSearchProduct);
+  console.log("Search Product without Percent: ", searchQuery);
 
-	document.title = "Search | " + searchQuery;
+  document.title = "Search | " + searchQuery;
 
-	const [searchItem, setSearchItem] = useState([]);
+  const [searchItem, setSearchItem] = useState([]);
 
-	// const searchProduct = () =>{
-	useEffect(() => {
-		(async () => {
-			const resp = await fetch(`http://localhost:5000/search/${searchQuery}`);
-			const response = await resp.json();
-			if (response.success) setSearchItem(response.products);
-			// console.log(searchItem);
-			// console.log(response.products);
-			setSearchItem(response.products);
-		})();
-	}, []);
-	// }
+  // const searchProduct = () =>{
+  useEffect(() => {
+    (async () => {
+      const resp = await fetch(`http://localhost:5000/search/${searchQuery}`);
+      const response = await resp.json();
+      if (response.success) setSearchItem(response.products);
+      setSearchItem(response.products);
+    })();
+  }, []);
+  // }
 
 	const showRating = (rating) =>{
 		const i = 0;

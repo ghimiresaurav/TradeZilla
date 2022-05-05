@@ -4,11 +4,13 @@ import Footer from "../Components/Footer";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../utils/getThumbnail";
 import defaultImage from "../utils/defaultImage";
 import "./RegisterForm.css";
+import Payment from "./Payment";
+import handleJWTExpiry from "../utils/handleJWTExpiry";
 
 const Container = styled.div`
   width: 100%;
@@ -94,15 +96,6 @@ const Details = styled.div`
 const ProductName = styled.span``;
 
 const ProductId = styled.span``;
-
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
-`;
-
-const ProductSize = styled.span``;
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -218,7 +211,27 @@ const Cart = (props) => {
 
   const [count, setCount] = useState(1);
   const [Cart, setCart] = useState([]);
-  // const [selectedItems, setSelectedItems] = useState([]);
+  const [location, setLocation] = useState("---------");
+
+  const goToPayment = () => {
+    // Check if the user has selected at least one item from cart
+    // Only allow user to proceed to payment menu if they have selected at least one item
+    if (!Cart.filter((item) => item.selection).length) return;
+
+    setBtnPopup(true);
+    // Get the location of the user
+    // The function takes two callbacks,
+    // One to call in case of success and the other in case of error
+    navigator.geolocation.getCurrentPosition(
+      // This function runs if the user agrees to give access to their location
+      (position) => {
+        const coordinates = position.coords;
+        setLocation(`${coordinates.latitude} ${coordinates.longitude}`);
+      },
+      // This function runs in case of error
+      (err) => console.error(`ERROR - ${err.code}: ${err.message}`)
+    );
+  };
 
   useEffect(() => {
     (async () => {
@@ -232,6 +245,7 @@ const Cart = (props) => {
       });
 
       const response = await resp.json();
+      handleJWTExpiry(response);
       if (response.success) setCart(response.cart);
       else console.log("failed");
     })();
@@ -251,6 +265,15 @@ const Cart = (props) => {
       }
     );
     const response = await resp.json();
+    handleJWTExpiry(response);
+    // If remove from cart is successful
+    // Update the number of items on cart stored in local storage
+    if (response.success)
+      localStorage.setItem(
+        "numberOfItemsOnCart",
+        parseInt(localStorage.getItem("numberOfItemsOnCart")) - 1
+      );
+
     console.log(response);
   };
 
@@ -265,6 +288,21 @@ const Cart = (props) => {
       setCount((prevCount) => prevCount + 1);
     }
   }
+
+  const [btnPopup, setBtnPopup] = useState(false);
+
+  const [SubTotalToDisplay, setSubTotalToDisplay] = useState(0);
+  const [total, setTotal] = useState(100);
+
+  const updateBill = () => {
+    const selectedItems = Cart.filter((item) => item.selection);
+    let subTotal = 0;
+    selectedItems.forEach((item) => {
+      subTotal += item.quantity * item.price;
+    });
+    setSubTotalToDisplay(subTotal);
+    setTotal(subTotal + 100);
+  };
 
   return (
     <Container>
@@ -314,16 +352,25 @@ const Cart = (props) => {
                   </PriceDetail>
 
                   <DiscardArea>
-                          <DiscardButton>
-                            <DeleteIcon />
-                          </DiscardButton>
-                          <PopupHover>Remove</PopupHover>
-                        </DiscardArea>
-
-                  <DiscardArea>                    
-                    <input type="checkbox" id="select"  class="checkbox" />                    
+                    <DiscardButton
+                      onClick={() => removeItemFromCart(cartItem._id)}
+                    >
+                      <DeleteIcon />
+                    </DiscardButton>
+                    <PopupHover>Remove</PopupHover>
                   </DiscardArea>
 
+                  <DiscardArea>
+                    <input
+                      type="checkbox"
+                      id="select"
+                      className="checkbox"
+                      onChange={() => {
+                        cartItem.selection = !cartItem.selection;
+                        updateBill();
+                      }}
+                    />
+                  </DiscardArea>
                 </Product>
               );
             })}
@@ -332,7 +379,7 @@ const Cart = (props) => {
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
             <SummaryItem>
               <SummaryItemText>SubTotal</SummaryItemText>
-              <SummaryItemPrice>Rs. 2700</SummaryItemPrice>
+              <SummaryItemPrice>Rs. {SubTotalToDisplay}</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
               <SummaryItemText>Estimated Shipping</SummaryItemText>
@@ -344,15 +391,22 @@ const Cart = (props) => {
             </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>Rs. 2800</SummaryItemPrice>
+              <SummaryItemPrice>Rs. {total}</SummaryItemPrice>
             </SummaryItem>
-            <Link to={"/payment"}>
-              <Button>CHECKOUT NOW</Button>
-            </Link>
+            {/* <Link to={"/payment"}> */}
+            <Button onClick={goToPayment}>CHECKOUT NOW</Button>
+            {/* </Link> */}
           </Summary>
         </Bottom>
       </CartContent>
       <Footer />
+      <Payment
+        trigger={btnPopup}
+        setTrigger={setBtnPopup}
+        selectedItems={Cart.filter((item) => item.selection)}
+        location={location}
+        subTotal={SubTotalToDisplay}
+      />
     </Container>
   );
 };

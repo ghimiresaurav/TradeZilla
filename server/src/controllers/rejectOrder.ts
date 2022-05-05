@@ -1,14 +1,14 @@
 import { Request, Response } from "express";
 import mongoose from "mongoose";
+import { User } from "../models/User";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
-import { User } from "../models/User";
 import sendEmail from "./email";
 
 // Import function to check if the id from parameter is valid
 import checkValidObjectId from "../utils/checkValidObjectId";
 
-const confirmOrder = async (req: Request, res: Response) => {
+const rejectOrder = async (req: Request, res: Response) => {
   // Connect to the atlas database
   mongoose
     .connect(<string>process.env.DB_URI)
@@ -16,14 +16,13 @@ const confirmOrder = async (req: Request, res: Response) => {
 
   // Get the order id
   const order_id = req.params.o_id;
-  // const order_id = new mongoose.Types.ObjectId(req.params.o_id);
 
   // Check if the order_id in parameter is valid
   // If the id is invalid, return an error message
   if (!checkValidObjectId(order_id))
     return res.json({
       success: false,
-      message: "Invalid product or query Id",
+      message: "Invalid order Id",
     });
 
   // Find the order in database
@@ -34,6 +33,12 @@ const confirmOrder = async (req: Request, res: Response) => {
     return res.json({
       success: false,
       message: "Order not found",
+    });
+
+  if (order.status === "dispatched")
+    return res.json({
+      success: false,
+      message: "This order is already dispatched",
     });
 
   // Get vendor id from database
@@ -68,63 +73,35 @@ const confirmOrder = async (req: Request, res: Response) => {
       message: "Product not found",
     });
 
-  if (order.status === "dispatched")
-    return res.json({
-      success: false,
-      message: "This order is already dispatched",
-    });
-
-  const image = product.images.split(", ")[0];
-
   try {
-    const itemsBoughtByCustomer = customer.boughtItems;
+    // Remove the item from cart
+    await Order.findByIdAndDelete(order_id);
 
-    // Get the current time so that the time shown/recorded is consistent
-    const dispatchedDate = new Date();
+    // Set order status to 'rejected'
+    order.status = "rejected";
 
-    // Add item/product data to items bought by customer
-    itemsBoughtByCustomer.push({
-      item_id: product_id,
-      quantity: order.quantity,
-      addedOn: dispatchedDate,
-      price: product.price,
-      name: product.title,
-      image,
-    });
-
-    // Set order status to 'dispatched'
-    order.status = "dispatched";
-    // order.dispatched = true;
-    order.dispatchedOn = new Date();
-
-    // Update user and order info in database
-    await customer.save();
-    await order.save();
-
-    // Decrement the total product quantity by amount bought
-    await Product.findByIdAndUpdate(product_id, {
-      $inc: { quantity: -order.quantity },
-    });
-
+    const currentDate = new Date();
     // Send an email to the buyer so that they know their product has been dispatched
     // Create mail options for sending the email
     // This object specifies the sender, receiver, subject and email body
     const mailOptions = {
-      subject: "PRODUCT DISPATCHED",
+      subject: "PRODUCT REJECTED",
 
       text: `DO NOT REPLY TO THIS EMAIL.\nYour order ${order.quantity} of ${
         product.title
-      } has been dispatched on ${dispatchedDate.getFullYear()}/${
-        dispatchedDate.getMonth() + 1
-      }/${dispatchedDate.getDate()} - ${dispatchedDate.getHours()}:${dispatchedDate.getMinutes()}.\n.`,
+      } has been rejected on ${currentDate.getFullYear()}/${
+        currentDate.getMonth() + 1
+      }/${currentDate.getDate()} - ${currentDate.getHours()}:${currentDate.getMinutes()}.\n.`,
 
       html: `<h1>DO NOT REPLY TO THIS EMAIL</h1><br/>
-      <img style="height: 200px; width: 300px; object-fit:cover" src=${image}><br/>
+      <img style="height: 200px; width: 300px; object-fit:cover" src=${
+        product.images.split(", ")[0]
+      }><br/>
     <p>Your order <b>${order.quantity}</b> of <b>${
         product.title
-      }</b> has been dispatched on <b>${dispatchedDate.getFullYear()}/${
-        dispatchedDate.getMonth() + 1
-      }/${dispatchedDate.getDate()} - ${dispatchedDate.getHours()}:${dispatchedDate.getMinutes()}</b></p>
+      }</b> has been rejected on <b>${currentDate.getFullYear()}/${
+        currentDate.getMonth() + 1
+      }/${currentDate.getDate()} - ${currentDate.getHours()}:${currentDate.getMinutes()}</b></p>
     <strong>-TradeZilla</strong>`,
     };
 
@@ -134,7 +111,7 @@ const confirmOrder = async (req: Request, res: Response) => {
     // Send a success message
     return res.json({
       success: true,
-      message: "The product was dispatched successfully.",
+      message: "The order was rejected.",
     });
   } catch (e: any) {
     // If something goes wrong, send a message
@@ -142,4 +119,4 @@ const confirmOrder = async (req: Request, res: Response) => {
   }
 };
 
-export default confirmOrder;
+export default rejectOrder;

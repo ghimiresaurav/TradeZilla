@@ -5,6 +5,7 @@ import Upload from "../Components/Upload";
 import UploadIcon from "@mui/icons-material/Upload";
 import { useState } from "react";
 import categories from "../datas/MenuItems";
+import handleJWTExpiry from "../utils/handleJWTExpiry";
 
 const Container = styled.div`
   width: 100%;
@@ -217,6 +218,7 @@ const SellOnTradeZilla = (props) => {
       body: formData,
     });
     const response = await resp.json();
+    handleJWTExpiry(response);
     console.log(response);
   };
 

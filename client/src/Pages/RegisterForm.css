@@ -117,3 +117,7 @@ th, td {
     align-items: center;
     cursor: pointer;
 }
+
+#UserReview {
+   margin: -5px;
+}

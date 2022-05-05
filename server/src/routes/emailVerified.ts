@@ -17,19 +17,29 @@ import getOrders from "../controllers/getOrders";
 import addReview from "../controllers/review";
 import getCartItems from "../controllers/getCartItems";
 import removeFromCart from "../controllers/removeFromCart";
+import rejectOrder from "../controllers/rejectOrder";
+import getOrderHistories from "../controllers/getOrderHistory";
+import getOwnProducts from "../controllers/getOwnProducts";
+import handleOrders from "../controllers/handleOrders";
 
 router.post("/add-product", addProduct);
 
 router.post("/add-to-cart/:p_id", addToCart);
 router.delete("/remove-from-cart/:c_id", removeFromCart);
 
+router.post("/add-review/:p_id", addReview);
 router.post("/add-query/:p_id", addQuery);
 router.post("/answer-query/:p_id", answerQuery);
 
 router.post("/order/:p_id", order);
+router.post("/order", handleOrders);
 router.post("/dispatch/:o_id", confirmOrder);
+router.delete("/reject-order/:o_id", rejectOrder);
+
+router.get("/get-order-history", getOrderHistories);
 router.get("/getOrders", getOrders);
 router.get("/get-cart-items", getCartItems);
-router.post("/add-review/:p_id", addReview);
+
+router.get("/get-own-products", getOwnProducts);
 
 export default router;

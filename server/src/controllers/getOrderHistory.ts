@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import { Order } from "../models/Order";
 
-const getOrders = async (req: Request, res: Response) => {
+const getOrderHistories = async (req: Request, res: Response) => {
   // Connect to the atlas database
   mongoose
     .connect(<string>process.env.DB_URI)
@@ -13,21 +13,27 @@ const getOrders = async (req: Request, res: Response) => {
 
   try {
     // Find pending and dispatched orders separately
-    const pendingOrders = await Order.find({
-      vendor_id: user_id,
+    const pendingOrderHistories = await Order.find({
+      customer_id: user_id,
       status: "pending",
     });
 
-    const dispatchedOrders = await Order.find({
-      vendor_id: user_id,
+    const dispatchedOrderHistories = await Order.find({
+      customer_id: user_id,
       status: "dispatched",
+    });
+
+    const rejectedOrderHistories = await Order.find({
+      customer_id: user_id,
+      status: "rejected",
     });
 
     // Send a success message
     return res.json({
       success: true,
-      dispatchedOrders,
-      pendingOrders,
+      rejectedOrderHistories,
+      dispatchedOrderHistories,
+      pendingOrderHistories,
     });
   } catch (e: any) {
     // If something goes wrong, send a message
@@ -35,4 +41,4 @@ const getOrders = async (req: Request, res: Response) => {
   }
 };
 
-export default getOrders;
+export default getOrderHistories;

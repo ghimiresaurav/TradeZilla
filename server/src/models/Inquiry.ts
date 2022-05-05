@@ -6,6 +6,7 @@ interface InquiryType {
   question: string;
   answer: string;
   name: string;
+  answeredOn: Date;
 }
 
 const InquirySchema = new mongoose.Schema<InquiryType>({
@@ -31,6 +32,10 @@ const InquirySchema = new mongoose.Schema<InquiryType>({
   },
   name: {
     type: String,
+  },
+  answeredOn: {
+    type: Date,
+    immutable: true,
   },
 });
 

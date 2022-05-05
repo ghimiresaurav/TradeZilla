@@ -50,6 +50,7 @@ const answerQuery = async (req: Request, res: Response) => {
 
   // Update the query by adding an answer
   query.answer = req.body.answer;
+  query.answeredOn = new Date();
 
   // Save the changes made
   await product.save();

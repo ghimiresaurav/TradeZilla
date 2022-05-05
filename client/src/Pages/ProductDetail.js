@@ -761,14 +761,12 @@ const ProductDetail = (props) => {
 									<Left>Question:</Left>
 									<Right>
 										<Question>{inquiry.question}</Question>
-										<User
-											style={{ flexDirection: "row", alignItems: "center" }}
-										>
+										<User style={{ flexDirection: "row" }}>
 											<UserName>
 												{inquiry.name ? inquiry.name : "Name Here"}
 											</UserName>
 											&nbsp;|&nbsp;
-											<PostedDate>
+											<PostedDate style={{ display: "flex", margin: "auto" }}>
 												{calculateDaysPassed(inquiry.date)} days ago
 											</PostedDate>
 										</User>
@@ -779,7 +777,15 @@ const ProductDetail = (props) => {
 										<Left>Answer:</Left>
 										<Right>
 											<Answer>{inquiry.answer}</Answer>
-											<User>{inquiry.name} | Seller | 1 day ago</User>
+											<User style={{ flexDirection: "row" }}>
+												<UserName>
+													{inquiry.name ? inquiry.name : "Name Here"} | Seller
+												</UserName>
+												&nbsp;|&nbsp;
+												<PostedDate style={{ display: "flex", margin: "auto" }}>
+													{calculateDaysPassed(inquiry.date)} days ago
+												</PostedDate>
+											</User>
 										</Right>
 									</AnswerArea>
 								) : (

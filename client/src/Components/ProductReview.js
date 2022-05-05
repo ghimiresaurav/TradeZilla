@@ -1,6 +1,7 @@
 import styled from "styled-components";
-import GradeIcon from "@mui/icons-material/Grade";
+// import GradeIcon from "@mui/icons-material/Grade";
 import { useState } from "react";
+import {FaStar} from "react-icons/fa";
 
 const Container = styled.div`
 	width: 100%;
@@ -71,25 +72,25 @@ const User = styled.div`
 	// background-color: green;
 `;
 
-const UserName = styled.h1`
-	font-size: 14px;
-`;
+// const UserName = styled.h1`
+// 	font-size: 14px;
+// `;
 
-const PostedDate = styled.div`
-	font-size: 12px;
-	margin-bottom: 5px;
-`;
+// const PostedDate = styled.div`
+// 	font-size: 12px;
+// 	margin-bottom: 5px;
+// `;
 
-const UserRating = styled.div`
-	display: flex;
-	// margin-bottom: 2px;
-`;
+// const UserRating = styled.div`
+// 	display: flex;
+// 	// margin-bottom: 2px;
+// `;
 
-const UserComment = styled.h2`
-	font-size: 18px;
-	font-weight: 400;
-	padding: 10px 0;
-`;
+// const UserComment = styled.h2`
+// 	font-size: 18px;
+// 	font-weight: 400;
+// 	padding: 10px 0;
+// `;
 
 const PostAQuestion = styled.form`
 	// background-color: red;
@@ -130,6 +131,17 @@ const AnswerButton = styled.button`
 		color: #ffffff;
 	}
 `;
+
+const PostButton = styled(AnswerButton)`
+  width: 90px;
+  margin-right: 20px;
+  /* background-color: red; */
+`;
+
+const CancelButton = styled(AnswerButton)`
+  width: 90px;
+`;
+
 
 const ProductReview = (props) => {
 	//   const productReview = props.reviews.reviews;
@@ -180,9 +192,11 @@ const ProductReview = (props) => {
 						<OutOf>/5</OutOf>
 					</Rating>
 					<Star>
-						<GradeIcon style={{ fontSize: "50px" }} />
-						<GradeIcon style={{ fontSize: "50px" }} />
-						<GradeIcon style={{ fontSize: "50px" }} />
+						<FaStar style={{ fontSize: "50px" }} />
+						<FaStar style={{ fontSize: "50px" }} />
+						<FaStar style={{ fontSize: "50px" }} />
+						<FaStar style={{ fontSize: "50px" }} />
+						<FaStar style={{ fontSize: "50px" }} />
 					</Star>
 					{/* <TotalRatings>{props.reviews.reviews.length} ratings</TotalRatings> */}
 				</OverallRating>
@@ -194,10 +208,11 @@ const ProductReview = (props) => {
 									<UserName>{item._id}</UserName>
 									<PostedDate>{item.date}</PostedDate>
 									<UserRating>
-										<GradeIcon />
-										<GradeIcon />
-										<GradeIcon />
-										<GradeIcon />
+										<FaStar />
+										<FaStar />
+										<FaStar />
+										<FaStar />
+										<FaStar />
 									</UserRating>
 								</User>
 								<UserComment>{item.body}</UserComment>
@@ -224,7 +239,13 @@ const ProductReview = (props) => {
 					</PostAQuestion>
 				</Reviews>
 
-				<UserReview></UserReview>
+				<UserReview>
+				<FaStar style={{ fontSize: "50px" }} />
+				<FaStar style={{ fontSize: "50px" }} />
+				<FaStar style={{ fontSize: "50px" }} />
+				<FaStar style={{ fontSize: "50px" }} />
+				<FaStar style={{ fontSize: "50px" }} />
+				</UserReview>
 			</Wrapper>
 		</Container>
 	);

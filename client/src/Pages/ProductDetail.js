@@ -7,10 +7,13 @@ import QandA from "../Components/QandA";
 import GradeIcon from "@mui/icons-material/Grade";
 import { useEffect, useState } from "react";
 import { mobile, tab, vTab } from "../responsive";
+import "./RegisterForm.css";
+import { FaStar } from "react-icons/fa";
+
 import { Link } from "react-router-dom";
 // import { color } from "@mui/system";
 import "./RegisterForm.css";
-import GradeOutlinedIcon from "@material-ui/icons/GradeOutlined";
+// import GradeOutlinedIcon from "@material-ui/icons/GradeOutlined";
 import handleJWTExpiry from "../utils/handleJWTExpiry";
 // import ProductReview from "../Components/ProductReview";
 
@@ -540,7 +543,7 @@ const ProductDetail = (props) => {
 	/* ////////////////////////////////////////////////////////////// */
 	const [questionClicked, setQuestionClicked] = useState(false);
 	const [answerClicked, setAnswerClicked] = useState(false);
-
+  
 	const [inquiryQuery, setInquiryQuery] = useState("");
 	const [answer, setAnswer] = useState("");
 
@@ -596,6 +599,8 @@ const ProductDetail = (props) => {
 		const response = await resp.json();
 		console.log(response);
 	};
+  
+  const [rating, setRating] = useState(null);
 
 	return (
 		<Container>
@@ -648,11 +653,11 @@ const ProductDetail = (props) => {
 							<OutOf>/5</OutOf>
 						</Rating>
 						<Star>
-							<GradeIcon style={{ fontSize: "35px" }} />
-							<GradeIcon style={{ fontSize: "35px" }} />
-							<GradeIcon style={{ fontSize: "35px" }} />
-							<GradeIcon style={{ fontSize: "35px" }} />
-							<GradeIcon style={{ fontSize: "35px" }} />
+							<FaStar style={{ fontSize: "35px" }} />
+							<FaStar style={{ fontSize: "35px" }} />
+							<FaStar style={{ fontSize: "35px" }} />
+							<FaStar style={{ fontSize: "35px" }} />
+							<FaStar style={{ fontSize: "35px" }} />
 						</Star>
 					</OverallRating>
 
@@ -663,32 +668,39 @@ const ProductDetail = (props) => {
 						<YourReview>
 							<p style={{ fontWeight: "500" }}>Your Review:</p> &emsp;
 							<Star id="UserReview">
-								<GradeOutlinedIcon style={starStyle} />
-								<GradeOutlinedIcon style={{ fontSize: "25px" }} />
-								<GradeOutlinedIcon style={{ fontSize: "25px" }} />
-								<GradeOutlinedIcon style={{ fontSize: "25px" }} />
-								<GradeOutlinedIcon style={{ fontSize: "25px" }} />
+								{[...Array(5)].map((star, i) => {
+									const ratingValue = i + 1;
+									return (
+										<label key={i}>
+											<input
+												type="radio"
+												id="radioRating"
+												name="rating"
+												value={ratingValue}
+												onClick={() => setRating(ratingValue)}
+											/>
+
+											<FaStar
+												className="star"
+												color={ratingValue <= rating ? "#ffc107" : "#e4e5e9"}			
+											/>
+										</label>
+									);
+								})}
 							</Star>
 						</YourReview>
 
-						{/* <input
-              type="number"
-              min="1"
-              max="5"
-              name="rating"
-              onChange={handleReviewUpdate}
-            ></input> */}
 						<QuestionField
 							onChange={(e) => handleReviewUpdate(e)}
 							name="body"
-							value={review.body}
+							value={review.Body}
 							placeholder="How was you experience with this product?"
-							onClick={() => setReviewClicked(true)}
+							onClick={() => setQuestionClicked(true)}
 						></QuestionField>
-						{reviewClicked ? (
+						{questionClicked ? (
 							<Buttons>
 								<PostButton>Post</PostButton>
-								<CancelButton onClick={() => setReviewClicked(false)}>
+								<CancelButton onClick={() => setQuestionClicked(false)}>
 									Cancel
 								</CancelButton>
 							</Buttons>
@@ -719,8 +731,8 @@ const ProductDetail = (props) => {
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
-
-			{/* ////////////////////////////////////////////////////////////// */}
+      
+      {/* ////////////////////////////////////////////////////////////// */}
 			{/* ///////////////////////////PRODUCT INQUIRY///////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* <QandA loggedIn={props.loggedIn} /> */}
@@ -827,7 +839,6 @@ const ProductDetail = (props) => {
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
-
 			<Footer />
 		</Container>
 	);

@@ -354,6 +354,14 @@ const ProductDetail = (props) => {
     );
     const response = await resp.json();
     handleJWTExpiry(response);
+    // If add to cart is successful
+    // Update the number of items on cart stored in local storage
+    if (response.success)
+      localStorage.setItem(
+        "numberOfItemsOnCart",
+        parseInt(localStorage.getItem("numberOfItemsOnCart")) + 1
+      );
+
     console.log(response);
   };
 

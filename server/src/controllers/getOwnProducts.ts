@@ -18,17 +18,14 @@ const getOwnProducts = async (req: Request, res: Response) => {
       message: "Product not found",
     });
 
-  // const image = products[0].images.split(", ")[0];
-  // products.images = image;
-
+  // The products do have images
+  // Out of those images, send only the first one
   const productX = products.map((product) => {
     return {
       ...product,
       image: product.images.split(", ")[0],
     };
   });
-
-  console.log(productX);
 
   return res.json({ success: true, products: productX });
 };

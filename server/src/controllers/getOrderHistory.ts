@@ -27,7 +27,6 @@ const getOrderHistories = async (req: Request, res: Response) => {
       customer_id: user_id,
       status: "rejected",
     });
-    // console.log(rejectedOrderHistories, pendingOrderHistories);
 
     // Send a success message
     return res.json({

@@ -289,6 +289,7 @@ const Cart = (props) => {
     // Decrement the quantity from the quantities object
     if (quantities[id] > 1) {
       setQuantities({ ...quantities, [id]: --quantities[id] });
+      updateBill();
     }
   }
 
@@ -296,6 +297,7 @@ const Cart = (props) => {
     // Increment the quantity from the quantities object
     if (quantities[id] < 10) {
       setQuantities({ ...quantities, [id]: ++quantities[id] });
+      updateBill();
     }
   }
 
@@ -308,7 +310,7 @@ const Cart = (props) => {
     const selectedItems = Cart.filter((item) => item.selection);
     let subTotal = 0;
     selectedItems.forEach((item) => {
-      subTotal += item.quantity * item.price;
+      subTotal += quantities[item._id] * item.price;
     });
     setSubTotalToDisplay(subTotal);
     setTotal(subTotal + 100);

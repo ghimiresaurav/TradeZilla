@@ -10,6 +10,7 @@ import { mobile, tab, vTab } from "../responsive";
 import "./RegisterForm.css";
 import { FaStar } from "react-icons/fa";
 
+import { Link } from "react-router-dom";
 // import { color } from "@mui/system";
 import "./RegisterForm.css";
 // import GradeOutlinedIcon from "@material-ui/icons/GradeOutlined";
@@ -295,6 +296,114 @@ const CancelButton = styled(AnswerButton)`
 	width: 90px;
 `;
 
+//////////////////////////////////////////////////////////////
+//////////////////////// PRODUCT INQUIRY /////////////////////
+//////////////////////////////////////////////////////////////
+const InquiryContainer = styled.div`
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+`;
+
+const InquiryWrapper = styled.div`
+	width: 85%;
+	margin: 10px 0px 30px 0;
+	border: 2px solid #000000;
+	// background-color: green;
+`;
+
+const InquiryTitle = styled.h1`
+	margin: 20px 0 0 20px;
+`;
+
+const InquirySubTitle = styled.h5`
+	margin: 10px 0 5px 20px;
+	font-weight: 400;
+	font-size: 17px;
+`;
+
+// const PostAQuestion = styled.form`
+//   // background-color: red;
+//   margin: 20px;
+// `;
+
+const Inquiries = styled.div``;
+
+const Inquiry = styled.div`
+	margin: 20px;
+	background-color: #f2f2f2;
+	padding: 20px;
+	border-radius: 5px;
+`;
+
+const QuestionArea = styled.div`
+	display: flex;
+	margin-bottom: 12px;
+	// align-items: center;
+`;
+
+const Left = styled.label`
+	margin-right: 20px;
+	font-weight: 600;
+	width: 60px;
+`;
+
+const Right = styled.div`
+	// margin-right: 20px;
+`;
+
+const Question = styled.p`
+	font-size: 18px;
+	font-weight: 400;
+`;
+
+// const User = styled.h3`
+//   margin-top: 4px;
+//   font-size: 12px;
+//   font-weight: 400;
+// `;
+
+const AnswerArea = styled.div`
+	display: flex;
+	// align-items: center;
+`;
+
+const Answer = styled.div``;
+
+const PostAnswer = styled.div`
+	width: 100%;
+	background-color: #f2f2f2;
+	// display: "";
+	// display: ${({ answerClicked }) => (answerClicked ? "" : "none")};
+`;
+
+const TextField = styled.textarea`
+	resize: vertical;
+	width: 100%;
+	border-radius: 5px;
+	padding: 10px;
+	margin: 10px 0;
+	min-height: 150px;
+`;
+
+const Login = styled.div`
+	margin: 20px;
+`;
+
+const LoginButton = styled.button`
+	padding: 10px 20px;
+	background-color: #000000;
+	color: #ffffff;
+	border: none;
+	cursor: pointer;
+	transition: 0.2s ease-in-out;
+
+	&:hover {
+		transform: scale(1.01);
+	}
+`;
+
 const YourReview = styled.div`
 	display: flex;
 	flex-direction: row;
@@ -308,6 +417,7 @@ const ProductDetail = (props) => {
 	const [product, setProduct] = useState({});
 	const [images, setImages] = useState([]);
 	const [reviews, setReviews] = useState([]);
+	const [inquiries, setInquiries] = useState([]);
 	const [reviewpostedDate, setReViewPostedDate] = useState([]);
 
 	const productID = window.location.pathname.split("product/")[1];
@@ -319,6 +429,7 @@ const ProductDetail = (props) => {
 			setProduct(response.product);
 			setImages(response.product.images.split(", "));
 			setReviews(response.product.reviews);
+			setInquiries(response.product.inquiries);
 		} else console.log("failed");
 	}, []);
 
@@ -340,59 +451,57 @@ const ProductDetail = (props) => {
 
 	const [imageIndex, setImageIndex] = useState(0);
 
-  // Add this product to cart of the viewing user
-  const addToCart = async () => {
-    const resp = await fetch(
-      `http://localhost:5000/s/v/add-to-cart/${productID}`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          authorization: `Bearer ${localStorage.getItem(
-            "token"
-          )} ${localStorage.getItem("userId")}`,
-        },
-        body: JSON.stringify({ quantity: count }),
-      }
-    );
-    const response = await resp.json();
-    handleJWTExpiry(response);
-    // If add to cart is successful
-    // Update the number of items on cart stored in local storage
-    if (response.success)
-      localStorage.setItem(
-        "numberOfItemsOnCart",
-        parseInt(localStorage.getItem("numberOfItemsOnCart")) + 1
-      );
+	// Add this product to cart of the viewing user
+	const addToCart = async () => {
+		const resp = await fetch(
+			`http://localhost:5000/s/v/add-to-cart/${productID}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${localStorage.getItem(
+						"token"
+					)} ${localStorage.getItem("userId")}`,
+				},
+				body: JSON.stringify({ quantity: count }),
+			}
+		);
+		const response = await resp.json();
+		handleJWTExpiry(response);
+		// If add to cart is successful
+		// Update the number of items on cart stored in local storage
+		if (response.success)
+			localStorage.setItem(
+				"numberOfItemsOnCart",
+				parseInt(localStorage.getItem("numberOfItemsOnCart")) + 1
+			);
 
-    console.log(response);
-  };
+		console.log(response);
+	};
 
 	/* ////////////////////////////////////////////////////////////// */
 	/* ///////////////////////////PRODUCT REVIEW///////////////////// */
 	/* ////////////////////////////////////////////////////////////// */
 
-	const [questionClicked, setQuestionClicked] = useState(false);
+	const [reviewClicked, setReviewClicked] = useState(false);
 
 	//   const [data, setData] = useState({
 	//     qsn: "",
 	//   });
 
-	const [query, setQuery] = useState("");
-	const [reviewBody, setReviewBody] = useState("");
-
-	// const [review, setReview] = useState({
-	//   // rating: 0,
-	//   body: ""
-	// });
+	const [reviewQuery, setReviewQuery] = useState("");
+	const [review, setReview] = useState({
+		rating: 0,
+		body: "",
+	});
 
 	function handleQueryUpdate(e) {
-		setQuery(e.target.value);
-		console.log(query);
+		setReviewQuery(e.traget.value);
+		console.log(reviewQuery);
 	}
 
 	const handleReviewUpdate = (e) => {
-		setReviewBody(e.target.value);
+		setReview({ ...review, [e.target.name]: e.target.value });
 	};
 
 	const postReview = async (e) => {
@@ -409,7 +518,7 @@ const ProductDetail = (props) => {
 						"token"
 					)} ${localStorage.getItem("userId")}`,
 				},
-				body: JSON.stringify({ rating, review: reviewBody }),
+				body: JSON.stringify({ rating: review.rating, review: review.body }),
 			}
 		);
 
@@ -429,12 +538,73 @@ const ProductDetail = (props) => {
 		return Math.round(differenceInDays);
 	};
 
-	const [rating, setRating] = useState(null);
-	// const [hover, setHover] = useState(null);
+	/* ////////////////////////////////////////////////////////////// */
+	/* ///////////////////////////PRODUCT INQUIRY///////////////////// */
+	/* ////////////////////////////////////////////////////////////// */
+	const [questionClicked, setQuestionClicked] = useState(false);
+	const [answerClicked, setAnswerClicked] = useState(false);
+  
+	const [inquiryQuery, setInquiryQuery] = useState("");
+	const [answer, setAnswer] = useState("");
+
+	function handleQueryUpdate(e) {
+		setInquiryQuery(e.target.value);
+	}
+
+	const handleAnswerUpdate = (e) => {
+		setAnswer(e.target.value);
+	};
+
+	// Extract the product id from the url
+	// const productID = window.location.pathname.split("product/")[1];
+	const postQuery = async (e) => {
+		e.preventDefault();
+		const resp = await fetch(
+			`http://localhost:5000/s/v/add-query/${productID}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${localStorage.getItem(
+						"token"
+					)} ${localStorage.getItem("userId")}`,
+				},
+				body: JSON.stringify({
+					inquiryQuery,
+				}),
+			}
+		);
+
+		const response = await resp.json();
+		console.log(response);
+	};
+
+	const answerQuery = async (query_id) => {
+		const resp = await fetch(
+			`http://localhost:5000/s/v/answer-query/${productID}`,
+			{
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					authorization: `Bearer ${localStorage.getItem(
+						"token"
+					)} ${localStorage.getItem("userId")}`,
+				},
+				body: JSON.stringify({
+					query_id,
+					answer,
+				}),
+			}
+		);
+		const response = await resp.json();
+		console.log(response);
+	};
+  
+  const [rating, setRating] = useState(null);
 
 	return (
 		<Container>
-			<TopBars loggedIn={props.loggedIn} />
+			<TopBars loggedIn={props.loggedIn} items={3} />
 			<ProductDetails>
 				<Inner>
 					<ImgContainer>
@@ -523,7 +693,7 @@ const ProductDetail = (props) => {
 						<QuestionField
 							onChange={(e) => handleReviewUpdate(e)}
 							name="body"
-							value={reviewBody}
+							value={review.Body}
 							placeholder="How was you experience with this product?"
 							onClick={() => setQuestionClicked(true)}
 						></QuestionField>
@@ -561,8 +731,114 @@ const ProductDetail = (props) => {
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
+      
+      {/* ////////////////////////////////////////////////////////////// */}
+			{/* ///////////////////////////PRODUCT INQUIRY///////////////////// */}
+			{/* ////////////////////////////////////////////////////////////// */}
+			{/* <QandA loggedIn={props.loggedIn} /> */}
+			<InquiryContainer>
+				<InquiryWrapper>
+					<InquiryTitle>Inquiry</InquiryTitle>
+					<InquirySubTitle>Ask questions about this project</InquirySubTitle>
+					{props.loggedIn ? (
+						<PostAQuestion onSubmit={(e) => postQuery(e)}>
+							<QuestionField
+								onChange={(e) => handleQueryUpdate(e)}
+								id="qsn"
+								name="query"
+								value={inquiryQuery}
+								placeholder="Have a question? Ask here..."
+								onClick={() => setQuestionClicked(true)}
+							></QuestionField>
+							{questionClicked ? (
+								<Buttons>
+									<PostButton>Post</PostButton>
+									<CancelButton onClick={() => setQuestionClicked(false)}>
+										Cancel
+									</CancelButton>
+								</Buttons>
+							) : null}
+						</PostAQuestion>
+					) : (
+						<Link to={"/login"}>
+							<Login>
+								<LoginButton>Login to ask question</LoginButton>
+							</Login>
+						</Link>
+					)}
+					<Inquiries>
+						{inquiries.map((inquiry) => (
+							<Inquiry key={inquiry._id}>
+								<QuestionArea>
+									<Left>Question:</Left>
+									<Right>
+										<Question>{inquiry.question}</Question>
+										<User style={{ flexDirection: "row" }}>
+											<UserName>
+												{inquiry.name ? inquiry.name : "Name Here"}
+											</UserName>
+											&nbsp;|&nbsp;
+											<PostedDate style={{ display: "flex", margin: "auto" }}>
+												{calculateDaysPassed(inquiry.date)} days ago
+											</PostedDate>
+										</User>
+									</Right>
+								</QuestionArea>
+								{inquiry.answer ? (
+									<AnswerArea>
+										<Left>Answer:</Left>
+										<Right>
+											<Answer>{inquiry.answer}</Answer>
+											<User style={{ flexDirection: "row" }}>
+												<UserName>
+													{inquiry.name ? inquiry.name : "Name Here"} | Seller
+												</UserName>
+												&nbsp;|&nbsp;
+												<PostedDate style={{ display: "flex", margin: "auto" }}>
+													{calculateDaysPassed(inquiry.date)} days ago
+												</PostedDate>
+											</User>
+										</Right>
+									</AnswerArea>
+								) : (
+									<AnswerArea>
+										{answerClicked ? (
+											<PostAnswer>
+												<TextField
+													placeholder="Answer here..."
+													name="answer"
+													onChange={handleAnswerUpdate}
+													value={answer}
+												></TextField>
+												<Buttons>
+													<PostButton
+														//   The query id is hardcoded here.
+														//   It has to be replaced by the id of the query that the vendor is trying to reply to
+														onClick={answerQuery("6263b00563fcc03cc913ad56")}
+													>
+														Post
+													</PostButton>
+													<CancelButton onClick={() => setAnswerClicked(false)}>
+														Cancel
+													</CancelButton>
+												</Buttons>
+											</PostAnswer>
+										) : (
+											<AnswerButton onClick={() => setAnswerClicked(true)}>
+												Answer
+											</AnswerButton>
+										)}
+									</AnswerArea>
+								)}
+							</Inquiry>
+						))}
+					</Inquiries>
+				</InquiryWrapper>
+			</InquiryContainer>
 
-			<QandA loggedIn={props.loggedIn} />
+			{/* ////////////////////////////////////////////////////////////// */}
+			{/* ////////////////////////////////////////////////////////////// */}
+			{/* ////////////////////////////////////////////////////////////// */}
 			<Footer />
 		</Container>
 	);

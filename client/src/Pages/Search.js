@@ -4,6 +4,8 @@ import Footer from "../Components/Footer";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import getThumbnailFromImage from "../utils/getThumbnail";
+import GradeIcon from "@mui/icons-material/Grade";
+import GradeOutlinedIcon from '@mui/icons-material/GradeOutlined';
 
 const Container = styled.div`
   width: 100%;
@@ -23,6 +25,12 @@ const Title = styled.h1`
   text-align: center;
 `;
 
+// const Top = styled.div`
+// 	display: flex;
+// 	align-items: center;
+// 	justify-content: space-between;
+// 	padding: 20px;
+// `;
 const Top = styled.div`
   display: flex;
   align-items: center;
@@ -78,19 +86,26 @@ const Details = styled.div`
 `;
 
 const ProductName = styled.span`
-  font-size: 30px;
+	font-size: 30px;
+	margin-bottom: 10px;
 `;
 
-const ProductId = styled.span``;
-
-const ProductColor = styled.div`
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  background-color: ${(props) => props.color};
+const ProductDescription = styled.span`
+	height: 100px;
+	overflow: hidden;
+	// background-color: yellow;
 `;
 
-const ProductSize = styled.span``;
+// const ProductColor = styled.div`
+// 	width: 20px;
+// 	height: 20px;
+// 	border-radius: 50%;
+// 	background-color: ${(props) => props.color};
+// `;
+
+const ProductRating = styled.span`
+
+`;
 
 const PriceDetail = styled.div`
   flex: 1;
@@ -140,50 +155,63 @@ const Search = (props) => {
   }, []);
   // }
 
-  console.log(searchItem);
+	const showRating = (rating) =>{
+		const i = 0;
+		console.log(rating);
+			{ 
+				while(i < rating){
+					return (
+						<GradeIcon style={{ fontSize: "25px" }} />
+					)
+					i++;
+				}
+			}
+	}
 
-  return (
-    <Container>
-      <TopBars loggedIn={props.loggedIn} />
-      <CartContent>
-        <Title>
-          SEARCH RESULTS FOR <b>{searchQuery}</b>
-        </Title>
-        <Bottom>
-          <Info>
-            {searchItem.map((item) => (
-              <Link to={`/product/${item._id}`} style={linkStyle}>
-                <Product>
-                  <ProductDetail>
-                    <Image
-                      src={getThumbnailFromImage(item.images.split(", ")[0])}
-                    />
-                    <Details>
-                      <ProductName>
-                        <b>{item.title} </b>
-                      </ProductName>
-                      <ProductId>
-                        <b>ID:</b> 93813718293
-                      </ProductId>
-                      <ProductColor color="black" />
-                      <ProductSize>
-                        <b>Size:</b> 37.5
-                      </ProductSize>
-                    </Details>
-                  </ProductDetail>
-                  <PriceDetail>
-                    <ProductPrice>Rs. {item.price}</ProductPrice>
-                  </PriceDetail>
-                </Product>
-                {/* <Hr/> */}
-              </Link>
-            ))}
-          </Info>
-        </Bottom>
-      </CartContent>
-      <Footer />
-    </Container>
-  );
+	console.log(searchItem);
+
+	return (
+		<Container>
+			<TopBars loggedIn={props.loggedIn} />
+			<CartContent>
+				<Title>
+					SEARCH RESULTS FOR <b>{searchQuery}</b>
+				</Title>
+				<Bottom>
+					<Info>
+						{searchItem.map((item) => (
+							<Link to={`/product/${item._id}`} style={linkStyle}>
+								<Product>
+									<ProductDetail>
+										<Image
+											src={getThumbnailFromImage(item.images.split(", ")[0])}
+										/>
+										<Details>
+											<ProductName>
+												<b>{item.title} </b>
+											</ProductName>
+											<ProductDescription>
+												{item.description}
+											</ProductDescription>
+											<ProductRating>
+											<GradeOutlinedIcon style={{ fontSize: "25px", color: "#FFD700", }} />
+												{/* {showRating(item.rating)} */}
+											</ProductRating>
+										</Details>
+									</ProductDetail>
+									<PriceDetail>
+										<ProductPrice>Rs. {item.price}</ProductPrice>
+									</PriceDetail>
+								</Product>
+								{/* <Hr/> */}
+							</Link>
+						))}
+					</Info>
+				</Bottom>
+			</CartContent>
+			<Footer />
+		</Container>
+	);
 };
 
 export default Search;

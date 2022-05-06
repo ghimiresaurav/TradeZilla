@@ -22,7 +22,10 @@ const getOwnProducts = async (req: Request, res: Response) => {
   // Out of those images, send only the first one
   const productX = products.map((product) => {
     return {
-      ...product,
+      title: product.title,
+      _id: product._id,
+      quantity: product.quantity,
+      price: product.price,
       image: product.images.split(", ")[0],
     };
   });

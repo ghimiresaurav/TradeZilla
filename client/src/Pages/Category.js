@@ -116,9 +116,9 @@ const Category = (props) => {
       <TopBars loggedIn={props.loggedIn} />
       <ContentArea>
         <Title>{capitalizedCategory}</Title>
-        {categories[capitalizedCategory].map((item, index) => {
+        {categories[capitalizedCategory].map((item) => {
           return (
-            <Box>
+            <Box key = {item.id}>
               <Link to={item.path} style={linkStyle}>
                 <SubCategoryTitle>{item.title}</SubCategoryTitle>
               </Link>

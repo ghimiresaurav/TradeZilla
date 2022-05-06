@@ -4,7 +4,7 @@ import Footer from "../Components/Footer";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
 import DeleteIcon from "@mui/icons-material/Delete";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../utils/getThumbnail";
 import defaultImage from "../utils/defaultImage";
@@ -58,10 +58,12 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
+  
 `;
 
 const Info = styled.div`
   flex: 3;
+  // background-color: red;
 `;
 
 const Product = styled.div`
@@ -72,14 +74,15 @@ const Product = styled.div`
   padding: 30px;
   background-color: #f2f2f2;
   // background-color: red;
-
+  height: 260px;
   border-radius: 5px;
-  margin: 5px 5px;
+  margin: 5px 25px 5px 5px;
 `;
 
 const ProductDetail = styled.div`
   flex: 2;
   display: flex;
+  height: 100%;
 `;
 
 const Image = styled.img`
@@ -93,7 +96,9 @@ const Details = styled.div`
   justify-content: space-around;
 `;
 
-const ProductName = styled.span``;
+const ProductName = styled.span`
+    font-size: 30px;
+`;
 
 const ProductId = styled.span``;
 
@@ -322,10 +327,12 @@ const Cart = (props) => {
       <CartContent>
         <Title>YOUR BAG</Title>
         <Top>
-          <TopButton>CONTINUE SHOPPING</TopButton>
+          <Link to= {"/"}>
+            <TopButton>CONTINUE SHOPPING</TopButton>
+          </Link>
           <TopTexts>
             <TopText>Shopping Bag(2)</TopText>
-            <TopText>Your Wishlist (0)</TopText>
+            {/* <TopText>Your Wishlist (0)</TopText> */}
           </TopTexts>
           <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
@@ -346,12 +353,12 @@ const Cart = (props) => {
                     />
                     <Details>
                       <ProductName>
-                        <b>Product: </b> {cartItem.name}
+                        <b>Product: </b><br/> {cartItem.name}
                       </ProductName>
-                      <ProductId>
+                      {/* <ProductId>
                         <b>ID: </b>
                         {cartItem._id}
-                      </ProductId>
+                      </ProductId> */}
                     </Details>
                   </ProductDetail>
                   <PriceDetail>

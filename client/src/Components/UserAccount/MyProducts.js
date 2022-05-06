@@ -164,9 +164,6 @@ const MyProducts = () => {
                             <ProductId>
                               <b>ID:</b> {item._id}
                             </ProductId>
-                            <Date>
-                              <b>Ordered Date:</b> {item.date}
-                            </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}
                             </ProductQuantity>

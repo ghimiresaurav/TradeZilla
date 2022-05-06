@@ -171,7 +171,8 @@ const Login = () => {
       localStorage.setItem("isActive", response.isActive);
       localStorage.setItem("email", response.email);
       localStorage.setItem("numberOfItemsOnCart", response.numberOfItemsOnCart);
-      // localStorage.isActive? window.location.assign("/"):  window.location.assign("/otp");
+      localStorage.setItem("myProducts", response.myProductsID);
+
       localStorage.getItem("isActive") === "true"
         ? window.location.assign("/")
         : window.location.assign("/otp");

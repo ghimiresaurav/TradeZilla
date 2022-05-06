@@ -8,6 +8,7 @@ import { User, UserType } from "../models/User";
 
 // Import Controllers
 import sendOTP from "./sendOTP";
+import { Product } from "../models/Product";
 
 const login = async (req: Request, res: Response) => {
   // Extract user inputs
@@ -51,6 +52,12 @@ const login = async (req: Request, res: Response) => {
   // If email of the user is not verified, send an OTP to the user for email verification
   if (!user.isActive) sendOTP(user.email, user._id.toString());
 
+  // Find the logging in user's products to find which products were posted by them on frontend
+  // This will be used to find whether a user should be allowed to reply to a query
+  const myProducts = await Product.find({ vendor: user._id });
+  // Since that will only require the _ids of the products, extract only those
+  const myProductsID = myProducts.map((product) => product._id.toString());
+
   // Return a success message with the token and other useful information
   return res.json({
     success: true,
@@ -61,6 +68,7 @@ const login = async (req: Request, res: Response) => {
     isActive: user.isActive,
     email,
     numberOfItemsOnCart: user.cart.length,
+    myProductsID,
   });
 };
 

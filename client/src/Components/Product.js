@@ -42,6 +42,7 @@ const Image = styled.img`
   height: 75%;
   z-index: 2;
   width: 90%;
+  object-fit: cover;
 `;
 
 const Info = styled.div`

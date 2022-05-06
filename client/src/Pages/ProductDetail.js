@@ -485,29 +485,24 @@ const ProductDetail = (props) => {
 
 	const [reviewClicked, setReviewClicked] = useState(false);
 
-	//   const [data, setData] = useState({
-	//     qsn: "",
-	//   });
-
 	const [reviewQuery, setReviewQuery] = useState("");
 	const [review, setReview] = useState({
 		rating: 0,
 		body: "",
 	});
 
-	function handleQueryUpdate(e) {
-		setReviewQuery(e.traget.value);
-		console.log(reviewQuery);
-	}
-
 	const handleReviewUpdate = (e) => {
 		setReview({ ...review, [e.target.name]: e.target.value });
+		// setReviewQuery(e.target.value);
+		// console.log("Review:", e.target.value);
 	};
 
 	const postReview = async (e) => {
 		const productID = window.location.pathname.split("product/")[1];
 
 		e.preventDefault();
+		// setReview({...review, body: reviewQuery });
+		console.log("Review: ", review);
 		const resp = await fetch(
 			`http://localhost:5000/s/v/add-review/${productID}`,
 			{
@@ -538,17 +533,20 @@ const ProductDetail = (props) => {
 		return Math.round(differenceInDays);
 	};
 
+	const icon = {};
+
 	/* ////////////////////////////////////////////////////////////// */
 	/* ///////////////////////////PRODUCT INQUIRY///////////////////// */
 	/* ////////////////////////////////////////////////////////////// */
 	const [questionClicked, setQuestionClicked] = useState(false);
 	const [answerClicked, setAnswerClicked] = useState(false);
-  
+
 	const [inquiryQuery, setInquiryQuery] = useState("");
 	const [answer, setAnswer] = useState("");
 
-	function handleQueryUpdate(e) {
+	function handleInquiryUpdate(e) {
 		setInquiryQuery(e.target.value);
+		// console.log("Inquiry: ", e.target.value);
 	}
 
 	const handleAnswerUpdate = (e) => {
@@ -557,8 +555,10 @@ const ProductDetail = (props) => {
 
 	// Extract the product id from the url
 	// const productID = window.location.pathname.split("product/")[1];
-	const postQuery = async (e) => {
+	const postInquiry = async (e) => {
+		const productID = window.location.pathname.split("product/")[1];
 		e.preventDefault();
+		console.log("Inquiry: ", inquiryQuery);
 		const resp = await fetch(
 			`http://localhost:5000/s/v/add-query/${productID}`,
 			{
@@ -570,16 +570,19 @@ const ProductDetail = (props) => {
 					)} ${localStorage.getItem("userId")}`,
 				},
 				body: JSON.stringify({
-					inquiryQuery,
+					query: inquiryQuery,
 				}),
 			}
 		);
 
 		const response = await resp.json();
+		handleJWTExpiry(response);
 		console.log(response);
 	};
 
-	const answerQuery = async (query_id) => {
+	const answerInquiry = async (query_id) => {
+		console.log(query_id);
+		// if(loca)
 		const resp = await fetch(
 			`http://localhost:5000/s/v/answer-query/${productID}`,
 			{
@@ -599,8 +602,8 @@ const ProductDetail = (props) => {
 		const response = await resp.json();
 		console.log(response);
 	};
-  
-  const [rating, setRating] = useState(null);
+
+	const [rating, setRating] = useState(null);
 
 	return (
 		<Container>
@@ -653,11 +656,18 @@ const ProductDetail = (props) => {
 							<OutOf>/5</OutOf>
 						</Rating>
 						<Star>
+							{/* <FaStar style={{ fontSize: "35px" }} />
 							<FaStar style={{ fontSize: "35px" }} />
 							<FaStar style={{ fontSize: "35px" }} />
 							<FaStar style={{ fontSize: "35px" }} />
-							<FaStar style={{ fontSize: "35px" }} />
-							<FaStar style={{ fontSize: "35px" }} />
+							<FaStar style={{ fontSize: "35px" }} /> */}
+							{/* {reviews.map((review) => ( */}
+							<UserRating>
+								{[...Array(product.rating)].map((index) => (
+									<GradeIcon key={index} style={{ fontSize: "40px" }} />
+								))}
+							</UserRating>
+							{/* ))} */}
 						</Star>
 					</OverallRating>
 
@@ -677,12 +687,15 @@ const ProductDetail = (props) => {
 												id="radioRating"
 												name="rating"
 												value={ratingValue}
-												onClick={() => setRating(ratingValue)}
+												onClick={(e) => {
+													setRating(ratingValue);
+													handleReviewUpdate(e);
+												}}
 											/>
 
 											<FaStar
 												className="star"
-												color={ratingValue <= rating ? "#ffc107" : "#e4e5e9"}			
+												color={ratingValue <= rating ? "#ffc107" : "#e4e5e9"}
 											/>
 										</label>
 									);
@@ -693,14 +706,14 @@ const ProductDetail = (props) => {
 						<QuestionField
 							onChange={(e) => handleReviewUpdate(e)}
 							name="body"
-							value={review.Body}
+							value={review.body}
 							placeholder="How was you experience with this product?"
-							onClick={() => setQuestionClicked(true)}
+							onClick={() => setReviewClicked(true)}
 						></QuestionField>
-						{questionClicked ? (
+						{reviewClicked ? (
 							<Buttons>
 								<PostButton>Post</PostButton>
-								<CancelButton onClick={() => setQuestionClicked(false)}>
+								<CancelButton onClick={() => setReviewClicked(false)}>
 									Cancel
 								</CancelButton>
 							</Buttons>
@@ -716,10 +729,9 @@ const ProductDetail = (props) => {
 										{calculateDaysPassed(review.date)} days ago
 									</PostedDate>
 									<UserRating>
-										<GradeIcon />
-										<GradeIcon />
-										<GradeIcon />
-										<GradeIcon />
+										{[...Array(review.rating)].map((index) => (
+											<GradeIcon key={index} />
+										))}
 									</UserRating>
 								</User>
 								<UserComment>{review.body}</UserComment>
@@ -731,8 +743,8 @@ const ProductDetail = (props) => {
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
-      
-      {/* ////////////////////////////////////////////////////////////// */}
+
+			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ///////////////////////////PRODUCT INQUIRY///////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* <QandA loggedIn={props.loggedIn} /> */}
@@ -741,11 +753,11 @@ const ProductDetail = (props) => {
 					<InquiryTitle>Inquiry</InquiryTitle>
 					<InquirySubTitle>Ask questions about this project</InquirySubTitle>
 					{props.loggedIn ? (
-						<PostAQuestion onSubmit={(e) => postQuery(e)}>
+						<PostAQuestion onSubmit={(e) => postInquiry(e)}>
 							<QuestionField
-								onChange={(e) => handleQueryUpdate(e)}
+								onChange={(e) => handleInquiryUpdate(e)}
 								id="qsn"
-								name="query"
+								name="inquiry"
 								value={inquiryQuery}
 								placeholder="Have a question? Ask here..."
 								onClick={() => setQuestionClicked(true)}
@@ -814,7 +826,7 @@ const ProductDetail = (props) => {
 													<PostButton
 														//   The query id is hardcoded here.
 														//   It has to be replaced by the id of the query that the vendor is trying to reply to
-														onClick={answerQuery("6263b00563fcc03cc913ad56")}
+														onClick={() => answerInquiry(inquiry._id)}
 													>
 														Post
 													</PostButton>

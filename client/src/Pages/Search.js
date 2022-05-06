@@ -69,9 +69,10 @@ const Product = styled.div`
 `;
 
 const ProductDetail = styled.div`
-  flex: 2;
+  flex: 4;
   display: flex;
   // background-color: red;
+  height: 100%;
 `;
 
 const Image = styled.img`
@@ -83,16 +84,23 @@ const Details = styled.div`
   flex-direction: column;
   padding: 20px;
   justify-content: space-around;
+  // height: 100%;
 `;
 
 const ProductName = styled.span`
 	font-size: 30px;
 	margin-bottom: 10px;
+  height: 100px;
+  // background-color: yellow;
+  overflow: hidden;
 `;
 
 const ProductDescription = styled.span`
 	height: 100px;
-	overflow: hidden;
+  // width: 400px;
+	// text-overflow: ellipsis;
+  overflow: hidden;
+  // white-space: nowrap;
 	// background-color: yellow;
 `;
 

@@ -6,7 +6,6 @@ import "./RegisterForm.css";
 import { useState } from "react";
 import AccountInfo from "../Components/UserAccount/AccountInfo";
 import SellOverview from "../Components/UserAccount/SellOverview";
-import UserPayment from "../Components/UserAccount/UserPayment";
 import OrderHistory from "../Components/UserAccount/OrderHistory";
 import MyProducts from "../Components/UserAccount/MyProducts";
 
@@ -68,8 +67,6 @@ const UserAccount = (props) => {
   const showRightContent = () => {
     if (menuState === "accountInfo") {
       return <AccountInfo />;
-    } else if (menuState === "userPayment") {
-      return <UserPayment />;
     } else if (menuState === "orderHistory") {
       return <OrderHistory />;
     } else if (menuState === "sellOverview") {
@@ -87,10 +84,6 @@ const UserAccount = (props) => {
           <LeftDiv>
             <LinkItem onClick={() => setMenuState("accountInfo")}>
               Account Info
-            </LinkItem>
-
-            <LinkItem onClick={() => setMenuState("userPayment")}>
-              Payment Info
             </LinkItem>
 
             <LinkItem onClick={() => setMenuState("orderHistory")}>

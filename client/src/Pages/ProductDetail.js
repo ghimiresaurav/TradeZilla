@@ -3,18 +3,19 @@ import TopBars from "../Components/TopBars";
 import Footer from "../Components/Footer";
 import RemoveIcon from "@mui/icons-material/Remove";
 import AddIcon from "@mui/icons-material/Add";
-import QandA from "../Components/QandA";
 import GradeIcon from "@mui/icons-material/Grade";
 import { useEffect, useState } from "react";
 import { mobile, tab, vTab } from "../responsive";
 import "./RegisterForm.css";
 import { FaStar } from "react-icons/fa";
+import Pill from "../Components/Pill";
 
 import { Link } from "react-router-dom";
 // import { color } from "@mui/system";
 import "./RegisterForm.css";
 // import GradeOutlinedIcon from "@material-ui/icons/GradeOutlined";
 import handleJWTExpiry from "../utils/handleJWTExpiry";
+import MyProducts from "../Components/UserAccount/MyProducts";
 // import ProductReview from "../Components/ProductReview";
 
 const Container = styled.div`
@@ -139,7 +140,7 @@ const Amount = styled.span`
 `;
 
 const Button = styled.button`
-	min-width: 100px;
+	width: 500px;
 	padding: 15px;
 	border: 2px solid teal;
 	background: transparent;
@@ -414,13 +415,19 @@ const starStyle = {
 };
 
 const ProductDetail = (props) => {
+	const productID = window.location.pathname.split("product/")[1];
+	const myProducts = localStorage.getItem("myProducts").split(",");
+
+	let isSeller = false;
+	//Check Vendor or not
+	if (myProducts.includes(productID)) {
+		isSeller = true;
+	}
+
 	const [product, setProduct] = useState({});
 	const [images, setImages] = useState([]);
 	const [reviews, setReviews] = useState([]);
 	const [inquiries, setInquiries] = useState([]);
-	const [reviewpostedDate, setReViewPostedDate] = useState([]);
-
-	const productID = window.location.pathname.split("product/")[1];
 
 	useEffect(async () => {
 		const resp = await fetch(`http://localhost:5000/product/${productID}`);
@@ -477,6 +484,8 @@ const ProductDetail = (props) => {
 			);
 
 		console.log(response);
+
+		setShowPill(true);
 	};
 
 	/* ////////////////////////////////////////////////////////////// */
@@ -533,8 +542,6 @@ const ProductDetail = (props) => {
 		return Math.round(differenceInDays);
 	};
 
-	const icon = {};
-
 	/* ////////////////////////////////////////////////////////////// */
 	/* ///////////////////////////PRODUCT INQUIRY///////////////////// */
 	/* ////////////////////////////////////////////////////////////// */
@@ -578,6 +585,8 @@ const ProductDetail = (props) => {
 		const response = await resp.json();
 		handleJWTExpiry(response);
 		console.log(response);
+		setInquiryQuery("");
+		console.log("fdfd", inquiryQuery);
 	};
 
 	const answerInquiry = async (query_id) => {
@@ -604,6 +613,16 @@ const ProductDetail = (props) => {
 	};
 
 	const [rating, setRating] = useState(null);
+
+
+	////////////////////// PILL ///////////////////////////
+	const [showPill, setShowPill] = useState(false);
+
+	// useEffect(() => {
+	setTimeout(() => {
+		setShowPill(false);
+	}, 3000);
+	// }, [])
 
 	return (
 		<Container>
@@ -633,7 +652,7 @@ const ProductDetail = (props) => {
 								<Amount>{count}</Amount>
 								<AddIcon onClick={incrementCount} />
 							</AmountContainer>
-							<Button onClick={addToCart}>ADD TO CART</Button>
+							<Button onClick={() => addToCart()}>ADD TO CART</Button>
 						</AddContainer>
 					</InfoContainer>
 				</Inner>
@@ -656,18 +675,11 @@ const ProductDetail = (props) => {
 							<OutOf>/5</OutOf>
 						</Rating>
 						<Star>
-							{/* <FaStar style={{ fontSize: "35px" }} />
-							<FaStar style={{ fontSize: "35px" }} />
-							<FaStar style={{ fontSize: "35px" }} />
-							<FaStar style={{ fontSize: "35px" }} />
-							<FaStar style={{ fontSize: "35px" }} /> */}
-							{/* {reviews.map((review) => ( */}
 							<UserRating>
 								{[...Array(product.rating)].map((index) => (
 									<GradeIcon key={index} style={{ fontSize: "40px" }} />
 								))}
 							</UserRating>
-							{/* ))} */}
 						</Star>
 					</OverallRating>
 
@@ -753,24 +765,26 @@ const ProductDetail = (props) => {
 					<InquiryTitle>Inquiry</InquiryTitle>
 					<InquirySubTitle>Ask questions about this project</InquirySubTitle>
 					{props.loggedIn ? (
-						<PostAQuestion onSubmit={(e) => postInquiry(e)}>
-							<QuestionField
-								onChange={(e) => handleInquiryUpdate(e)}
-								id="qsn"
-								name="inquiry"
-								value={inquiryQuery}
-								placeholder="Have a question? Ask here..."
-								onClick={() => setQuestionClicked(true)}
-							></QuestionField>
-							{questionClicked ? (
-								<Buttons>
-									<PostButton>Post</PostButton>
-									<CancelButton onClick={() => setQuestionClicked(false)}>
-										Cancel
-									</CancelButton>
-								</Buttons>
-							) : null}
-						</PostAQuestion>
+						isSeller ? null : (
+							<PostAQuestion onSubmit={(e) => postInquiry(e)}>
+								<QuestionField
+									onChange={(e) => handleInquiryUpdate(e)}
+									id="qsn"
+									name="inquiry"
+									value={inquiryQuery}
+									placeholder="Have a question? Ask here..."
+									onClick={() => setQuestionClicked(true)}
+								></QuestionField>
+								{questionClicked ? (
+									<Buttons>
+										<PostButton>Post</PostButton>
+										<CancelButton onClick={() => setQuestionClicked(false)}>
+											Cancel
+										</CancelButton>
+									</Buttons>
+								) : null}
+							</PostAQuestion>
+						)
 					) : (
 						<Link to={"/login"}>
 							<Login>
@@ -814,32 +828,36 @@ const ProductDetail = (props) => {
 									</AnswerArea>
 								) : (
 									<AnswerArea>
-										{answerClicked ? (
-											<PostAnswer>
-												<TextField
-													placeholder="Answer here..."
-													name="answer"
-													onChange={handleAnswerUpdate}
-													value={answer}
-												></TextField>
-												<Buttons>
-													<PostButton
-														//   The query id is hardcoded here.
-														//   It has to be replaced by the id of the query that the vendor is trying to reply to
-														onClick={() => answerInquiry(inquiry._id)}
-													>
-														Post
-													</PostButton>
-													<CancelButton onClick={() => setAnswerClicked(false)}>
-														Cancel
-													</CancelButton>
-												</Buttons>
-											</PostAnswer>
-										) : (
-											<AnswerButton onClick={() => setAnswerClicked(true)}>
-												Answer
-											</AnswerButton>
-										)}
+										{isSeller ? (
+											answerClicked ? (
+												<PostAnswer>
+													<TextField
+														placeholder="Answer here..."
+														name="answer"
+														onChange={handleAnswerUpdate}
+														value={answer}
+													></TextField>
+													<Buttons>
+														<PostButton
+															//   The query id is hardcoded here.
+															//   It has to be replaced by the id of the query that the vendor is trying to reply to
+															onClick={() => answerInquiry(inquiry._id)}
+														>
+															Post
+														</PostButton>
+														<CancelButton
+															onClick={() => setAnswerClicked(false)}
+														>
+															Cancel
+														</CancelButton>
+													</Buttons>
+												</PostAnswer>
+											) : (
+												<AnswerButton onClick={() => setAnswerClicked(true)}>
+													Answer
+												</AnswerButton>
+											)
+										) : null}
 									</AnswerArea>
 								)}
 							</Inquiry>
@@ -852,6 +870,7 @@ const ProductDetail = (props) => {
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
 			<Footer />
+			<Pill display={showPill} />
 		</Container>
 	);
 };

@@ -119,9 +119,9 @@ const BodyWrapper = styled.div`
 `;
 
 const SellOverview = () => {
-  const [pendingOrderHistories, setPendingOrderHistories] = useState([]);
-  const [deliveredOrderHistories, setDeliveredOrderHistories] = useState([]);
-  const [rejectedOrderHistories, setRejectedOrderHistories] = useState([]);
+  const [pendingOrderHistory, setPendingOrderHistory] = useState([]);
+  const [deliveredOrderHistory, setDeliveredOrderHistory] = useState([]);
+  const [rejectedOrderHistory, setRejectedOrderHistory] = useState([]);
 
   useEffect(async () => {
     const resp = await fetch(`http://localhost:5000/s/v/get-order-history`, {
@@ -134,15 +134,15 @@ const SellOverview = () => {
     const response = await resp.json();
     handleJWTExpiry(response);
     if (response.success) {
-      setDeliveredOrderHistories(response.dispatchedOrderHistories);
-      setPendingOrderHistories(response.pendingOrderHistories);
-      setRejectedOrderHistories(response.rejectedOrderHistories);
+      setDeliveredOrderHistory(response.dispatchedOrderHistory);
+      setPendingOrderHistory(response.pendingOrderHistory);
+      setRejectedOrderHistory(response.rejectedOrderHistory);
     } else console.log("failed");
   }, []);
 
   return (
     <>
-      <Title>Order Histories</Title>
+      <Title>Order History</Title>
       <RightDiv>
         <WrapContainer>
           <InfoSection>
@@ -153,7 +153,7 @@ const SellOverview = () => {
 
               <SectionBody>
                 <BodyWrapper>
-                  {pendingOrderHistories.map((item) => {
+                  {pendingOrderHistory.map((item) => {
                     return (
                       <Product key={item._id}>
                         <ProductDetail>
@@ -196,7 +196,7 @@ const SellOverview = () => {
 
               <SectionBody>
                 <BodyWrapper>
-                  {deliveredOrderHistories.map((item) => {
+                  {deliveredOrderHistory.map((item) => {
                     return (
                       <Product key={item._id}>
                         <ProductDetail>
@@ -239,7 +239,7 @@ const SellOverview = () => {
 
               <SectionBody>
                 <BodyWrapper>
-                  {rejectedOrderHistories.map((item) => {
+                  {rejectedOrderHistory.map((item) => {
                     return (
                       <Product key={item._id}>
                         <ProductDetail>

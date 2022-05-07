@@ -53,20 +53,38 @@ const answerQuery = async (req: Request, res: Response) => {
   query.answeredOn = new Date();
 
   // Extract vendor id
-  const user_id = product.vendor;
+  const vendor_id = product.vendor;
 
   // Check if the vendor id is valid or not
+  if (!checkValidObjectId(vendor_id.toString()))
+    return res.json({
+      success: false,
+      message: "Invalid vendor Id",
+    });
+
+  // Extract vendor and user id
+  const vendor = await User.findById(vendor_id);
+  const user_id = new mongoose.Types.ObjectId(query.user);
+
+  // Check if the user id is valid or not
   if (!checkValidObjectId(user_id.toString()))
     return res.json({
       success: false,
       message: "Invalid vendor Id",
     });
 
-  // Extract vendor
+  // Extract user
   const user = await User.findById(user_id);
 
-  // Send false message if vendor not found
+  // Send false message if user not found
   if (!user)
+    return res.json({
+      success: false,
+      message: "Vendor not found",
+    });
+
+  // Send false message if vendor not found
+  if (!vendor)
     return res.json({
       success: false,
       message: "Vendor not found",
@@ -86,8 +104,9 @@ const answerQuery = async (req: Request, res: Response) => {
     <p>Click <a href="http://localhost:3000/product/${product.id}/#inquiries" target="_blank">here</a> to view!<p>`,
   };
 
-  // Send the email
-  sendEmail(user.email, mailOptions);
+  if (!product.vendor.equals(query.user)) {
+    sendEmail(user.email, mailOptions);
+  }
 
   return res.json({ success: true, message: "Query replied." });
 };

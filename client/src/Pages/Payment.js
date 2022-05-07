@@ -9,6 +9,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   background-color: rgba(255, 255, 255, 1);
+  // opacity: 0.5;
   z-index: 1000;
   width: 100%;
   height: 100%;
@@ -47,16 +48,18 @@ const InfoSection = styled.div`
 `;
 const SectionHeader = styled.div`
   width: 82%;
-  margin: 10px auto;
+  margin: 40px auto;
   display: flex;
   column-gap: 5%;
+  align-items: center;
 `;
 const StartSection = styled.div`
-  font-size: 24px;
+  font-size: 35px;
 `;
 
 const PayMethod = styled.img`
-  width: 25%;
+  width: 200px;
+  height: 25px;
   pointer-events: none;
 `;
 
@@ -83,10 +86,11 @@ const SectionOrder = styled.div`
 
 const Summary = styled.div`
   border: 0.5px solid lightgray;
+  width: 350px;
   border-radius: 10px;
-  padding: 10px;
+  padding: 20px 30px;
   /* height: 50vh; */
-  /* background-color: yellow; */
+  // background-color: yellow;
   box-shadow: 5px 10px 15px gray;
 `;
 

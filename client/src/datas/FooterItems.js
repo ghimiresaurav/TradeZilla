@@ -11,22 +11,22 @@ const FooterItems = [
 		title: "Order History",
 		path: "./",
 	},
+	// {
+	// 	title: "Wishlist",
+	// 	path: "./",
+	// },
 	{
-		title: "Wishlist",
-		path: "./",
+		title: "Sell On TradeZilla",
+		path: "/sellontradezilla",
 	},
-	{
-		title: "Blog",
-		path: "./",
-	},
-	{
-		title: "Careers",
-		path: "./",
-	},
-    {
-		title: "Terms",
-		path: "./",
-	},
+	// {
+	// 	title: "Careers",
+	// 	path: "./",
+	// },
+  //   {
+	// 	title: "Terms",
+	// 	path: "./",
+	// },
     {
 		title: "Privacy Policy",
 		path: "/privacy-policy",

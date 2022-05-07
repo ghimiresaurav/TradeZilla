@@ -91,8 +91,8 @@ const ImageContainer = styled.div`
 `;
 
 const Image = styled.img`
-  width: 80%;
   height: 100%;
+  width: minmax(0, 100%);
   object-fit: cover;
 `;
 
@@ -190,7 +190,7 @@ const Summary = styled.div`
   border: 0.5px solid lightgray;
   border-radius: 10px;
   padding: 10px;
-  height: 50vh;
+  height: 28vh;
 `;
 
 const SummaryTitle = styled.h1`
@@ -327,7 +327,6 @@ const Cart = (props) => {
   const [btnPopup, setBtnPopup] = useState(false);
 
   const [SubTotalToDisplay, setSubTotalToDisplay] = useState(0);
-  const [total, setTotal] = useState(100);
 
   const updateBill = () => {
     const selectedItems = Cart.filter((item) => item.selection);
@@ -336,23 +335,16 @@ const Cart = (props) => {
       subTotal += quantities[item._id] * item.price;
     });
     setSubTotalToDisplay(subTotal);
-    setTotal(subTotal + 100);
   };
 
   return (
     <Container>
       <TopBars loggedIn={props.loggedIn} />
       <CartContent>
-        <Title>YOUR BAG</Title>
         <Top>
           <Link to={"/"}>
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
-          <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            {/* <TopText>Your Wishlist (0)</TopText> */}
-          </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
@@ -360,17 +352,19 @@ const Cart = (props) => {
               return (
                 <Product key={cartItem._id}>
                   <ProductDetail>
-                    <ImageContainer>
-                      <Image
-                        // If the correct image has not already loaded, show default image
-                        // The correct image will appear once the image loads
-                        src={
-                          cartItem.image
-                            ? getThumbnailFromImage(cartItem.image)
-                            : defaultImage
-                        }
-                      />
-                    </ImageContainer>
+                    <Link to={`/product/${cartItem.item_id}`}>
+                      <ImageContainer>
+                        <Image
+                          // If the correct image has not already loaded, show default image
+                          // The correct image will appear once the image loads
+                          src={
+                            cartItem.image
+                              ? getThumbnailFromImage(cartItem.image)
+                              : defaultImage
+                          }
+                        />
+                      </ImageContainer>
+                    </Link>
                     <Details>
                       <ProductName>
                         <b>Product: </b>
@@ -419,25 +413,11 @@ const Cart = (props) => {
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
-            <SummaryItem>
-              <SummaryItemText>SubTotal</SummaryItemText>
-              <SummaryItemPrice>Rs. {SubTotalToDisplay}</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Estimated Shipping</SummaryItemText>
-              <SummaryItemPrice>Rs. 200</SummaryItemPrice>
-            </SummaryItem>
-            <SummaryItem>
-              <SummaryItemText>Shipping Discount</SummaryItemText>
-              <SummaryItemPrice>Rs. 100</SummaryItemPrice>
-            </SummaryItem>
             <SummaryItem type="total">
               <SummaryItemText>Total</SummaryItemText>
-              <SummaryItemPrice>Rs. {total}</SummaryItemPrice>
+              <SummaryItemPrice>Rs. {SubTotalToDisplay}</SummaryItemPrice>
             </SummaryItem>
-            {/* <Link to={"/payment"}> */}
             <Button onClick={goToPayment}>CHECKOUT NOW</Button>
-            {/* </Link> */}
           </Summary>
         </Bottom>
       </CartContent>

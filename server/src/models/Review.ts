@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 interface ReviewType {
   user: mongoose.Types.ObjectId;
   date: Date;
-  body: string;
+  body?: string;
   rating: number;
   name: string;
 }

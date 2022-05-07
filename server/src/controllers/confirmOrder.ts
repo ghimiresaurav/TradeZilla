@@ -74,6 +74,12 @@ const confirmOrder = async (req: Request, res: Response) => {
       message: "This order is already dispatched",
     });
 
+  if (order.quantity > product.quantity)
+    return res.json({
+      success: false,
+      message: "Not enough quantity to dispatch",
+    });
+
   const image = product.images.split(", ")[0];
 
   try {

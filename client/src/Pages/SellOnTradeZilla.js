@@ -316,6 +316,9 @@ const SellOnTradeZilla = (props) => {
     if (!values.title)
       return displayPill(false, "Product Title can not be empty.");
 
+    if (values.title.length < 10)
+      return displayPill(false, "Title must be at least 10 character long.");
+
     if (!values.price) return displayPill(false, "Price can not be empty.");
 
     if (!values.quantity)
@@ -323,6 +326,12 @@ const SellOnTradeZilla = (props) => {
 
     if (!values.description)
       return displayPill(false, "Description can not be empty.");
+
+    if (values.description.length < 10)
+      return displayPill(
+        false,
+        "Description must be at least 10 character long."
+      );
 
     const formData = new FormData();
     formData.append("title", values.title);

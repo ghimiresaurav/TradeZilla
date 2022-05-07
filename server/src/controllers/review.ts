@@ -43,6 +43,14 @@ const addReview = async (req: Request, res: Response) => {
       message: "User not found",
     });
 
+  // Check if the vendor is trying to review own product
+  if (product.vendor.equals(user_id)) {
+    return res.json({
+      success: false,
+      message: "Review cannot be done by the vendor",
+    });
+  }
+
   // Check if the user has bought the product they are trying to review
   const userHasBought = user.boughtItems.some((i) =>
     i.item_id.equals(product_id)

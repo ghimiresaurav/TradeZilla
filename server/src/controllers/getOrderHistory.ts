@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import mongoose from "mongoose";
 import { Order } from "../models/Order";
 
-const getOrderHistories = async (req: Request, res: Response) => {
+const getOrderHistory = async (req: Request, res: Response) => {
   // Connect to the atlas database
   mongoose
     .connect(<string>process.env.DB_URI)
@@ -13,17 +13,17 @@ const getOrderHistories = async (req: Request, res: Response) => {
 
   try {
     // Find pending and dispatched orders separately
-    const pendingOrderHistories = await Order.find({
+    const pendingOrderHistory = await Order.find({
       customer_id: user_id,
       status: "pending",
     });
 
-    const dispatchedOrderHistories = await Order.find({
+    const dispatchedOrderHistory = await Order.find({
       customer_id: user_id,
       status: "dispatched",
     });
 
-    const rejectedOrderHistories = await Order.find({
+    const rejectedOrderHistory = await Order.find({
       customer_id: user_id,
       status: "rejected",
     });
@@ -31,9 +31,9 @@ const getOrderHistories = async (req: Request, res: Response) => {
     // Send a success message
     return res.json({
       success: true,
-      rejectedOrderHistories,
-      dispatchedOrderHistories,
-      pendingOrderHistories,
+      rejectedOrderHistory,
+      dispatchedOrderHistory,
+      pendingOrderHistory,
     });
   } catch (e: any) {
     // If something goes wrong, send a message
@@ -41,4 +41,4 @@ const getOrderHistories = async (req: Request, res: Response) => {
   }
 };
 
-export default getOrderHistories;
+export default getOrderHistory;

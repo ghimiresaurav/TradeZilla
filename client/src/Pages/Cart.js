@@ -87,10 +87,9 @@ const ProductDetail = styled.div`
 const ImageContainer = styled.div`
   width: 200px;
   height: 200px;
-  background-color: yellow;
-	display: flex;
-	justify-content: center;
-	flex: 1;
+  display: flex;
+  justify-content: center;
+  background-color: #fff;
 `;
 
 const Image = styled.img`

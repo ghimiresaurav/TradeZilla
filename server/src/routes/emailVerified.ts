@@ -18,7 +18,7 @@ import addReview from "../controllers/review";
 import getCartItems from "../controllers/getCartItems";
 import removeFromCart from "../controllers/removeFromCart";
 import rejectOrder from "../controllers/rejectOrder";
-import getOrderHistories from "../controllers/getOrderHistory";
+import getOrderHistory from "../controllers/getOrderHistory";
 import getOwnProducts from "../controllers/getOwnProducts";
 import handleOrders from "../controllers/handleOrders";
 
@@ -34,9 +34,9 @@ router.post("/answer-query/:p_id", answerQuery);
 router.post("/order/:p_id", order);
 router.post("/order", handleOrders);
 router.post("/dispatch/:o_id", confirmOrder);
-router.delete("/reject-order/:o_id", rejectOrder);
+router.post("/reject-order/:o_id", rejectOrder);
 
-router.get("/get-order-history", getOrderHistories);
+router.get("/get-order-history", getOrderHistory);
 router.get("/getOrders", getOrders);
 router.get("/get-cart-items", getCartItems);
 

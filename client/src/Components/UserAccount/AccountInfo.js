@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import handleJWTExpiry from "../../utils/handleJWTExpiry";
+import getFormattedDateTime from "../../utils/getFormattedDate";
 
 const Title = styled.h1`
 	font-size: 40px;
@@ -50,10 +51,17 @@ const EndSection = styled.div`
 `;
 
 const SectionBody = styled.div`
+<<<<<<< HEAD
 	width: 90%;
 	padding: 10px;
 	margin: 20px auto;
 	background-color: #f2f2f2;
+=======
+  width: 90%;
+  padding: 10px;
+  margin: auto;
+  background-color: #f2f2f2;
+>>>>>>> f289b005fd1c9e75088a44cfa18dca1dad679143
 `;
 
 const BodyWrapper = styled.div`
@@ -94,17 +102,6 @@ const CustomerStatus = styled.div`
 const AccountInfo = () => {
 	const [userInfo, setUserInfo] = useState({});
 
-	const getFormattedDateTime = (dateTime, extra) => {
-		const dt = new Date(dateTime);
-		const date = `${dt.getFullYear()}/${dt.getMonth() + 1}/${dt.getDate()}`;
-
-		// const time = `${dt.getHours()}:${dt.getMinutes()}`;
-		// if(extra !=== "dob")
-		// return `${date} - ${time}`;
-
-		return date;
-	};
-
 	useEffect(async () => {
 		const resp = await fetch(`http://localhost:5000/s/user-info`, {
 			headers: {
@@ -128,7 +125,7 @@ const AccountInfo = () => {
 					<InfoSection>
 						<SectionHeader>
 							<StartSection>Account Information</StartSection>
-							{/* <EndSection>Edit</EndSection> */}
+							<EndSection>Edit</EndSection>
 						</SectionHeader>
 
 						<SectionBody>
@@ -137,17 +134,104 @@ const AccountInfo = () => {
 									<FieldTitle>Full Name</FieldTitle>
 									<FieldInput>{userInfo.name}</FieldInput>
 								</Field>
-
 								<Field>
 									<FieldTitle>Email Address</FieldTitle>
 									<FieldInput>{userInfo.email}</FieldInput>
 								</Field>
+								return (
+								<>
+									<Title>My Account</Title>
+									<RightDiv>
+										<WrapContainer>
+											<InfoSection>
+												<SectionHeader>
+													<StartSection>Account Information</StartSection>
+													{/* <EndSection>Edit</EndSection> */}
+												</SectionHeader>
 
+												<SectionBody>
+													<BodyWrapper>
+														<Field>
+															<FieldTitle>Full Name</FieldTitle>
+															<FieldInput>{userInfo.name}</FieldInput>
+														</Field>
+
+														<Field>
+															<FieldTitle>Email Address</FieldTitle>
+															<FieldInput>{userInfo.email}</FieldInput>
+														</Field>
+
+														<Field>
+															<FieldTitle>Date Of Birth</FieldTitle>
+															<FieldInput>
+																{getFormattedDateTime(userInfo.dob)}
+															</FieldInput>
+														</Field>
+
+														<Field>
+															<FieldTitle>Date Joined</FieldTitle>
+															<FieldInput>
+																{getFormattedDateTime(userInfo.joinedOn)}
+															</FieldInput>
+														</Field>
+													</BodyWrapper>
+												</SectionBody>
+												<VendorStatus>
+													<SectionHeader>
+														<StartSection>Vendor Status</StartSection>
+													</SectionHeader>
+													{/* <hr /> */}
+													<SectionBody>
+														<BodyWrapper>
+															<Field>
+																<FieldTitle>Product Count:</FieldTitle>
+																{/* <FieldInput>{vendor.product}</FieldInput> */}
+															</Field>
+
+															<Field>
+																<FieldTitle>
+																	Successfully Dispatched Orders:
+																</FieldTitle>
+																{/* <FieldInput>{vendor.dispatchedOrders}</FieldInput> */}
+															</Field>
+
+															<Field>
+																<FieldTitle>Pending Orders:</FieldTitle>
+																{/* <FieldInput>{vendor.pendingOrders}</FieldInput> */}
+															</Field>
+														</BodyWrapper>
+													</SectionBody>
+												</VendorStatus>
+												<CustomerStatus>
+													<SectionHeader>
+														<StartSection>Customer Status</StartSection>
+													</SectionHeader>
+													{/* <hr /> */}
+													<SectionBody>
+														<BodyWrapper>
+															<Field>
+																<FieldTitle>
+																	Successfully Bought Products:
+																</FieldTitle>
+																{/* <FieldInput>{vendor.product}</FieldInput> */}
+															</Field>
+
+															<Field>
+																<FieldTitle>Pending Orders:</FieldTitle>
+																{/* <FieldInput>{vendor.dispatchedOrders}</FieldInput> */}
+															</Field>
+														</BodyWrapper>
+													</SectionBody>
+												</CustomerStatus>
+											</InfoSection>
+										</WrapContainer>
+									</RightDiv>
+								</>
+								);
 								<Field>
 									<FieldTitle>Date Of Birth</FieldTitle>
 									<FieldInput>{getFormattedDateTime(userInfo.dob)}</FieldInput>
 								</Field>
-
 								<Field>
 									<FieldTitle>Date Joined</FieldTitle>
 									<FieldInput>
@@ -156,49 +240,6 @@ const AccountInfo = () => {
 								</Field>
 							</BodyWrapper>
 						</SectionBody>
-						<VendorStatus>
-							<SectionHeader>
-								<StartSection>Vendor Status</StartSection>
-							</SectionHeader>
-							{/* <hr /> */}
-							<SectionBody>
-								<BodyWrapper>
-									<Field>
-										<FieldTitle>Product Count:</FieldTitle>
-										{/* <FieldInput>{vendor.product}</FieldInput> */}
-									</Field>
-
-									<Field>
-										<FieldTitle>Successfully Dispatched Orders:</FieldTitle>
-										{/* <FieldInput>{vendor.dispatchedOrders}</FieldInput> */}
-									</Field>
-
-									<Field>
-										<FieldTitle>Pending Orders:</FieldTitle>
-										{/* <FieldInput>{vendor.pendingOrders}</FieldInput> */}
-									</Field>
-								</BodyWrapper>
-							</SectionBody>
-						</VendorStatus>
-						<CustomerStatus>
-							<SectionHeader>
-								<StartSection>Customer Status</StartSection>
-							</SectionHeader>
-							{/* <hr /> */}
-							<SectionBody>
-								<BodyWrapper>
-									<Field>
-										<FieldTitle>Successfully Bought Products:</FieldTitle>
-										{/* <FieldInput>{vendor.product}</FieldInput> */}
-									</Field>
-
-									<Field>
-										<FieldTitle>Pending Orders:</FieldTitle>
-										{/* <FieldInput>{vendor.dispatchedOrders}</FieldInput> */}
-									</Field>
-								</BodyWrapper>
-							</SectionBody>
-						</CustomerStatus>
 					</InfoSection>
 				</WrapContainer>
 			</RightDiv>

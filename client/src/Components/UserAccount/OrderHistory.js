@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../../utils/getThumbnail";
 import defaultImage from "../../utils/defaultImage";
 import handleJWTExpiry from "../../utils/handleJWTExpiry";
+import getFormattedDateTime from "../../utils/getFormattedDate";
 
 const Product = styled.div`
   width: 80vw;
@@ -119,9 +120,9 @@ const BodyWrapper = styled.div`
 `;
 
 const SellOverview = () => {
-  const [pendingOrderHistories, setPendingOrderHistories] = useState([]);
-  const [deliveredOrderHistories, setDeliveredOrderHistories] = useState([]);
-  const [rejectedOrderHistories, setRejectedOrderHistories] = useState([]);
+  const [pendingOrderHistory, setPendingOrderHistory] = useState([]);
+  const [deliveredOrderHistory, setDeliveredOrderHistory] = useState([]);
+  const [rejectedOrderHistory, setRejectedOrderHistory] = useState([]);
 
   useEffect(async () => {
     const resp = await fetch(`http://localhost:5000/s/v/get-order-history`, {
@@ -134,15 +135,15 @@ const SellOverview = () => {
     const response = await resp.json();
     handleJWTExpiry(response);
     if (response.success) {
-      setDeliveredOrderHistories(response.dispatchedOrderHistories);
-      setPendingOrderHistories(response.pendingOrderHistories);
-      setRejectedOrderHistories(response.rejectedOrderHistories);
+      setDeliveredOrderHistory(response.dispatchedOrderHistory);
+      setPendingOrderHistory(response.pendingOrderHistory);
+      setRejectedOrderHistory(response.rejectedOrderHistory);
     } else console.log("failed");
   }, []);
 
   return (
     <>
-      <Title>Order Histories</Title>
+      <Title>Order History</Title>
       <RightDiv>
         <WrapContainer>
           <InfoSection>
@@ -153,7 +154,7 @@ const SellOverview = () => {
 
               <SectionBody>
                 <BodyWrapper>
-                  {pendingOrderHistories.map((item) => {
+                  {pendingOrderHistory.map((item) => {
                     return (
                       <Product key={item._id}>
                         <ProductDetail>
@@ -169,10 +170,11 @@ const SellOverview = () => {
                               <b>Product:</b> {item.title}
                             </ProductName>
                             <ProductId>
-                              <b>ID:</b> {item._id}
+                              <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b> {item.date}
+                              <b>Ordered Date:</b>
+                              {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}
@@ -196,7 +198,7 @@ const SellOverview = () => {
 
               <SectionBody>
                 <BodyWrapper>
-                  {deliveredOrderHistories.map((item) => {
+                  {deliveredOrderHistory.map((item) => {
                     return (
                       <Product key={item._id}>
                         <ProductDetail>
@@ -212,16 +214,18 @@ const SellOverview = () => {
                               <b>Product:</b> {item.title}
                             </ProductName>
                             <ProductId>
-                              <b>ID:</b> {item._id}
+                              <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b> {item.date}
+                              <b>Ordered Date:</b>
+                              {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}
                             </ProductQuantity>
                             <Date>
-                              <b>Dispatched On</b> {item.dispatchedOn}
+                              <b>Dispatched On</b>
+                              {getFormattedDateTime(item.dispatchedOn, "time")}
                             </Date>
                           </Details>
                         </ProductDetail>
@@ -239,7 +243,7 @@ const SellOverview = () => {
 
               <SectionBody>
                 <BodyWrapper>
-                  {rejectedOrderHistories.map((item) => {
+                  {rejectedOrderHistory.map((item) => {
                     return (
                       <Product key={item._id}>
                         <ProductDetail>
@@ -255,10 +259,11 @@ const SellOverview = () => {
                               <b>Product:</b> {item.title}
                             </ProductName>
                             <ProductId>
-                              <b>ID:</b> {item._id}
+                              <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b> {item.date}
+                              <b>Ordered Date:</b>
+                              {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}

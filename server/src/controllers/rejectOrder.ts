@@ -74,9 +74,6 @@ const rejectOrder = async (req: Request, res: Response) => {
     });
 
   try {
-    // Remove the item from cart
-    await Order.findByIdAndDelete(order_id);
-
     // Set order status to 'rejected'
     order.status = "rejected";
 

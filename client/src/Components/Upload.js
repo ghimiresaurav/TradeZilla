@@ -3,6 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useState } from "react";
 import { mobile } from "../responsive";
+// import imgSrc from '../images/cover.png';
 
 import { ImageConfig } from "./ImageConfig";
 import PropTypes from "prop-types";
@@ -226,10 +227,12 @@ const DropFilePreviewItem = styled.div`
 
 const Buttons = styled.div`
 	width: 100%;
-	background-color: green;
+	// background-color: green;
 	display: flex;
 	justify-content: right;
-	margin: 5px;
+	padding-right: 15px;
+	padding-bottom: 5px;
+	// margin: 5px;
 `;
 
 const PostButton = styled.button`
@@ -239,7 +242,7 @@ const PostButton = styled.button`
 	transition: all 0.2s ease-in;
 	font-weight: 500;
 	width: 90px;
-	// margin-right: 20px;
+	margin-right: 10px;
 	// background-color: #ffffff;
 	display: ${({ answerClicked }) => (answerClicked ? "none" : "")};
 
@@ -352,6 +355,8 @@ const Upload = (props) => {
 	//     console.log("Width is ", Browse.width);
 	// }
 
+	const imgSrc = require("../images/cover.png");
+
 	return props.trigger ? (
 		// return (
 		<Container>
@@ -400,26 +405,30 @@ const Upload = (props) => {
 							<DropFilePreview>
 								<DropFilePreviewTitle>{/* Preview */}</DropFilePreviewTitle>
 								<DropFileItems>
-									{props.files.map((item, index) => (
-										<DropFilePreviewItem key={index}>
-											<DropFileImg
-												src={
-													ImageConfig[item.type.split("/")[1]] ||
-													ImageConfig["default"]
-												}
-												alt=""
-											/>
-											{/* <DropFileImg src=".../images/cover.png" alt="" /> */}
-											{/* <DropFileImg src="https://media.istockphoto.com/vectors/tie-icon-logo-vector-design-vector-id1186237183?k=20&m=1186237183&s=612x612&w=0&h=MiHnwu7gPu0raudz7cOe7xa645KAaUu0K6mq6sF2TFM=" alt="" /> */}
-											<DropFilePreviewItemInfo>
-												{/* <DropFileName>{item.name}</DropFileName>
+									{props.files.map((file, index) => {
+										console.log(file);
+										return (
+											<DropFilePreviewItem key={index}>
+												<DropFileImg
+													// src={
+													// 	ImageConfig[item.type.split("/")[1]] ||
+													// 	ImageConfig["png"]
+													// }
+													src={URL.createObjectURL(file)}
+													alt=""
+												/>
+												{/* <DropFileImg src=".../images/cover.png" alt="" /> */}
+												{/* <DropFileImg src="https://media.istockphoto.com/vectors/tie-icon-logo-vector-design-vector-id1186237183?k=20&m=1186237183&s=612x612&w=0&h=MiHnwu7gPu0raudz7cOe7xa645KAaUu0K6mq6sF2TFM=" alt="" /> */}
+												<DropFilePreviewItemInfo>
+													{/* <DropFileName>{item.name}</DropFileName>
                                                         <DropFileSize>{item.size}B</DropFileSize> */}
-											</DropFilePreviewItemInfo>
-											<RemoveDropFile onClick={() => fileRemove(item)}>
-												x
-											</RemoveDropFile>
-										</DropFilePreviewItem>
-									))}
+												</DropFilePreviewItemInfo>
+												<RemoveDropFile onClick={() => fileRemove(file)}>
+													x
+												</RemoveDropFile>
+											</DropFilePreviewItem>
+										);
+									})}
 								</DropFileItems>
 							</DropFilePreview>
 							<Buttons>

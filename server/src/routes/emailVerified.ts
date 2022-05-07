@@ -34,7 +34,7 @@ router.post("/answer-query/:p_id", answerQuery);
 router.post("/order/:p_id", order);
 router.post("/order", handleOrders);
 router.post("/dispatch/:o_id", confirmOrder);
-router.delete("/reject-order/:o_id", rejectOrder);
+router.post("/reject-order/:o_id", rejectOrder);
 
 router.get("/get-order-history", getOrderHistories);
 router.get("/getOrders", getOrders);

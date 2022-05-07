@@ -51,26 +51,31 @@ const EndSection = styled.div`
 `;
 
 const SectionBody = styled.div`
-<<<<<<< HEAD
 	width: 90%;
 	padding: 10px;
 	margin: 20px auto;
 	background-color: #f2f2f2;
-=======
-  width: 90%;
-  padding: 10px;
-  margin: auto;
-  background-color: #f2f2f2;
->>>>>>> f289b005fd1c9e75088a44cfa18dca1dad679143
 `;
-
 const BodyWrapper = styled.div`
 	display: flex;
 	flex-wrap: wrap;
-	gap: 30px 50%;
 `;
 
-const Field = styled.div``;
+const BodyWrapper2 = styled.div`
+	display: flex;
+	flex-direction: column;
+`;
+
+const Field = styled.div`
+	margin-bottom: 10px;
+	width: 50%;
+`;
+
+const Field2 = styled.div`
+	display: flex;
+	margin-bottom: 10px;
+	align-items: center
+`;
 
 const FieldTitle = styled.div`
 	font-size: 18px;
@@ -81,16 +86,27 @@ const FieldInput = styled.div`
 	font-size: 15px;
 `;
 
+const Status = styled.div`
+	display: flex;
+	// align-items: flex-start;
+	// background-color: yellow;
+	width: 95%;
+	margin: auto;
+	// justify-content: left;
+`;
+
 const VendorStatus = styled.div`
 	// background-color: red;
-	// width: 90%;
-	margin: auto;
+
+	
+	flex: 1;
 `;
 
 const CustomerStatus = styled.div`
 	// background-color: red;
 	// width: 90%;
-	margin: auto;
+
+	flex: 1;
 `;
 
 // const ProductCount = styled.div``;
@@ -101,6 +117,7 @@ const CustomerStatus = styled.div`
 
 const AccountInfo = () => {
 	const [userInfo, setUserInfo] = useState({});
+	const [extraInfo, setExtraInfo] = useState({});
 
 	useEffect(async () => {
 		const resp = await fetch(`http://localhost:5000/s/user-info`, {
@@ -114,6 +131,7 @@ const AccountInfo = () => {
 		handleJWTExpiry(response);
 		if (response.success) {
 			setUserInfo(response.user);
+			setExtraInfo(response.extras);
 		} else console.log("failed");
 	}, []);
 
@@ -127,7 +145,6 @@ const AccountInfo = () => {
 							<StartSection>Account Information</StartSection>
 							<EndSection>Edit</EndSection>
 						</SectionHeader>
-
 						<SectionBody>
 							<BodyWrapper>
 								<Field>
@@ -138,100 +155,12 @@ const AccountInfo = () => {
 									<FieldTitle>Email Address</FieldTitle>
 									<FieldInput>{userInfo.email}</FieldInput>
 								</Field>
-								return (
-								<>
-									<Title>My Account</Title>
-									<RightDiv>
-										<WrapContainer>
-											<InfoSection>
-												<SectionHeader>
-													<StartSection>Account Information</StartSection>
-													{/* <EndSection>Edit</EndSection> */}
-												</SectionHeader>
 
-												<SectionBody>
-													<BodyWrapper>
-														<Field>
-															<FieldTitle>Full Name</FieldTitle>
-															<FieldInput>{userInfo.name}</FieldInput>
-														</Field>
-
-														<Field>
-															<FieldTitle>Email Address</FieldTitle>
-															<FieldInput>{userInfo.email}</FieldInput>
-														</Field>
-
-														<Field>
-															<FieldTitle>Date Of Birth</FieldTitle>
-															<FieldInput>
-																{getFormattedDateTime(userInfo.dob)}
-															</FieldInput>
-														</Field>
-
-														<Field>
-															<FieldTitle>Date Joined</FieldTitle>
-															<FieldInput>
-																{getFormattedDateTime(userInfo.joinedOn)}
-															</FieldInput>
-														</Field>
-													</BodyWrapper>
-												</SectionBody>
-												<VendorStatus>
-													<SectionHeader>
-														<StartSection>Vendor Status</StartSection>
-													</SectionHeader>
-													{/* <hr /> */}
-													<SectionBody>
-														<BodyWrapper>
-															<Field>
-																<FieldTitle>Product Count:</FieldTitle>
-																{/* <FieldInput>{vendor.product}</FieldInput> */}
-															</Field>
-
-															<Field>
-																<FieldTitle>
-																	Successfully Dispatched Orders:
-																</FieldTitle>
-																{/* <FieldInput>{vendor.dispatchedOrders}</FieldInput> */}
-															</Field>
-
-															<Field>
-																<FieldTitle>Pending Orders:</FieldTitle>
-																{/* <FieldInput>{vendor.pendingOrders}</FieldInput> */}
-															</Field>
-														</BodyWrapper>
-													</SectionBody>
-												</VendorStatus>
-												<CustomerStatus>
-													<SectionHeader>
-														<StartSection>Customer Status</StartSection>
-													</SectionHeader>
-													{/* <hr /> */}
-													<SectionBody>
-														<BodyWrapper>
-															<Field>
-																<FieldTitle>
-																	Successfully Bought Products:
-																</FieldTitle>
-																{/* <FieldInput>{vendor.product}</FieldInput> */}
-															</Field>
-
-															<Field>
-																<FieldTitle>Pending Orders:</FieldTitle>
-																{/* <FieldInput>{vendor.dispatchedOrders}</FieldInput> */}
-															</Field>
-														</BodyWrapper>
-													</SectionBody>
-												</CustomerStatus>
-											</InfoSection>
-										</WrapContainer>
-									</RightDiv>
-								</>
-								);
 								<Field>
 									<FieldTitle>Date Of Birth</FieldTitle>
 									<FieldInput>{getFormattedDateTime(userInfo.dob)}</FieldInput>
 								</Field>
+
 								<Field>
 									<FieldTitle>Date Joined</FieldTitle>
 									<FieldInput>
@@ -240,6 +169,52 @@ const AccountInfo = () => {
 								</Field>
 							</BodyWrapper>
 						</SectionBody>
+						<Status>
+							{" "}
+							<VendorStatus>
+								<SectionHeader>
+									<StartSection>Vendor Status</StartSection>
+								</SectionHeader>
+								{/* <hr /> */}
+								<SectionBody>
+									<BodyWrapper2>
+										<Field2>
+											<FieldTitle>Product Count:&nbsp;</FieldTitle>
+											<FieldInput>{extraInfo.vendorProductsCount}</FieldInput>
+										</Field2>
+
+										<Field2>
+											<FieldTitle>Successfully Dispatched Orders:&nbsp;</FieldTitle>
+											<FieldInput>{extraInfo.vendorDispatchedOrdersCount}</FieldInput>
+										</Field2>
+
+										<Field2>
+											<FieldTitle>Pending Orders:&nbsp;</FieldTitle>
+											<FieldInput>{extraInfo.vendorPendingOrdersCount}</FieldInput>
+										</Field2>
+									</BodyWrapper2>
+								</SectionBody>
+							</VendorStatus>
+							<CustomerStatus>
+								<SectionHeader>
+									<StartSection>Customer Status</StartSection>
+								</SectionHeader>
+								{/* <hr /> */}
+								<SectionBody>
+									<BodyWrapper2>
+										<Field2>
+											<FieldTitle>Successfully Bought Products:&nbsp;</FieldTitle>
+											<FieldInput>{extraInfo.customerDispatchedOrdersCount}</FieldInput>
+										</Field2>
+
+										<Field2>
+											<FieldTitle>Pending Orders:&nbsp;</FieldTitle>
+											<FieldInput>{extraInfo.customerPendingOrdersCount}</FieldInput>
+										</Field2>
+									</BodyWrapper2>
+								</SectionBody>
+							</CustomerStatus>
+						</Status>
 					</InfoSection>
 				</WrapContainer>
 			</RightDiv>

@@ -63,15 +63,29 @@ const MenuContainer = styled.div`
 
 const SearchContainer = styled.div`
   width: 60%;
+  // border: 0.5px solid white;
+  // display: flex;
+  // justify-content: center;
+  // align-items: center;
+  // padding: 5px 10px;
+  // background-color: green;
+
+  ${vTab({ width: "20%" })}
+
+  ${mobile({ display: "none" })}
+`;
+
+const Form = styled.form`
+  width: 100%;
   border: 0.5px solid white;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 5px 10px;
 
-  ${vTab({ width: "20%" })}
+  // ${vTab({ width: "20%" })}
 
-  ${mobile({ display: "none" })}
+  // ${mobile({ display: "none" })}
 `;
 
 const Input = styled.input`
@@ -93,6 +107,7 @@ const Input = styled.input`
 const Center = styled.div`
   flex: 1;
   text-align: center;
+
 `;
 
 const Company = styled.div`
@@ -104,9 +119,12 @@ const Company = styled.div`
 
 const Logo = styled.img`
   width: 50px;
+  ${mobile({ width: "40px" })}
 `;
 
-const CompanyName = styled.h1``;
+const CompanyName = styled.h1`
+${mobile({ fontSize: "24px" })}
+`;
 
 // const Logo = styled.h1`
 //   font-weight: bold;
@@ -235,7 +253,7 @@ const NavBar = (props) => {
             <MenuIcon />
           </MenuContainer>
           <SearchContainer>
-            <form onSubmit={(e) => searchProduct(e)}>
+            <Form onSubmit={(e) => searchProduct(e)}>
               <Input
                 placeholder="Search TradeZilla..."
                 value={search.name}
@@ -243,7 +261,7 @@ const NavBar = (props) => {
                 onChange={handleChange}
               />
               <SearchIcon />
-            </form>
+            </Form>
           </SearchContainer>
         </Left>
         <Center>

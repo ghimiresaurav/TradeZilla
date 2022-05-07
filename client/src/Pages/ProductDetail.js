@@ -423,6 +423,8 @@ const starStyle = {
 };
 
 const ProductDetail = (props) => {
+  // Keep track of page version with each update
+  const [version, setVersion] = useState(0);
   const productID = window.location.pathname.split("product/")[1];
   const myProducts = localStorage.getItem("myProducts").split(",");
 
@@ -458,7 +460,7 @@ const ProductDetail = (props) => {
       setReviews(response.product.reviews);
       setInquiries(response.product.inquiries);
     } else console.log("failed");
-  }, []);
+  }, [version]);
 
   document.title = product.title + " | TradeZilla";
 
@@ -511,8 +513,6 @@ const ProductDetail = (props) => {
   /* ////////////////////////////////////////////////////////////// */
 
   const [reviewClicked, setReviewClicked] = useState(false);
-
-  const [reviewQuery, setReviewQuery] = useState("");
   const [review, setReview] = useState({
     rating: 0,
     body: "",
@@ -542,6 +542,14 @@ const ProductDetail = (props) => {
 
     const response = await resp.json();
     handleJWTExpiry(response);
+    if (response.success) {
+      setReviewClicked(false);
+      setReview({
+        rating: 0,
+        body: "",
+      });
+      setVersion(version + 1);
+    }
     return displayPill(response.success, response.message);
   };
 
@@ -599,6 +607,7 @@ const ProductDetail = (props) => {
     if (response.success) {
       setInquiryQuery("");
       setQuestionClicked(false);
+      setVersion(version + 1);
     }
     return displayPill(response.success, response.message);
   };
@@ -623,6 +632,7 @@ const ProductDetail = (props) => {
     const response = await resp.json();
     if (response.success) {
       setAnswerClicked(false);
+      setVersion(version + 1);
     }
     return displayPill(response.success, response.message);
   };
@@ -681,7 +691,7 @@ const ProductDetail = (props) => {
       {/* ////////////////////////////////////////////////////////////// */}
       {/* ///////////////////////////PRODUCT REVIEW///////////////////// */}
       {/* ////////////////////////////////////////////////////////////// */}
-      <ReviewContainer>
+      <ReviewContainer id = "reviews">
         <ReviewWrapper>
           <ReviewTitle>Review</ReviewTitle>
           <OverallRating>
@@ -772,7 +782,7 @@ const ProductDetail = (props) => {
       {/* ///////////////////////////PRODUCT INQUIRY///////////////////// */}
       {/* ////////////////////////////////////////////////////////////// */}
       {/* <QandA loggedIn={props.loggedIn} /> */}
-      <InquiryContainer>
+      <InquiryContainer id = "inquiries">
         <InquiryWrapper>
           <InquiryTitle>Inquiry</InquiryTitle>
           <InquirySubTitle>Ask questions about this project</InquirySubTitle>

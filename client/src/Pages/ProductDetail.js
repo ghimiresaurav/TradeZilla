@@ -493,7 +493,7 @@ const ProductDetail = (props) => {
 
 		// console.log(response);
 		setSuccess(response.success);
-		if (response.succes) {
+		if (response.success) {
 			setPillText("Added To Cart");
 			setShowPill(true);
 

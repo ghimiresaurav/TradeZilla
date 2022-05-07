@@ -82,25 +82,32 @@ const ProductDetail = styled.div`
 	flex: 2;
 	display: flex;
 	height: 100%;
+	background-color: pink;
+
 `;
 
 const ImageContainer = styled.div`
 	width: 200px;
   height: 200px;
-  // background-color: green;
+  background-color: yellow;
+	display: flex;
+	justify-content: center;
+	flex: 1;
 `;
 
 const Image = styled.img`
-	width: 80%;
+	width: 100%;
   height: 100%;
 	object-fit: cover;
 `;
 
 const Details = styled.div`
-	display: flex;
+	// display: flex;
 	flex-direction: column;
 	padding: 20px;
 	justify-content: space-around;
+	background-color: green;
+	flex: 2;
 `;
 
 const ProductName = styled.span`
@@ -115,6 +122,7 @@ const PriceDetail = styled.div`
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
+	background-color: red;
 `;
 
 const ProductAmountContainer = styled.div`
@@ -362,8 +370,9 @@ const Cart = (props) => {
 										</ImageContainer>
 										<Details>
 											<ProductName>
+												{/* dvdfddccdsscscdscdscds cdscsdcsddscwedefefwed fdfffdgfdgd  regdfgfdgfdgdfgdf gfdgfdgdf */}
 												<b>Product: </b>
-												<br /> {cartItem.name}
+												 {cartItem.name}
 											</ProductName>
 											{/* <ProductId>
                         <b>ID: </b>

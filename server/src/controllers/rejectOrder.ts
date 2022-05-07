@@ -76,6 +76,7 @@ const rejectOrder = async (req: Request, res: Response) => {
   try {
     // Set order status to 'rejected'
     order.status = "rejected";
+    order.save;
 
     const currentDate = new Date();
     // Send an email to the buyer so that they know their product has been dispatched

@@ -53,6 +53,7 @@ const Wrapper = styled.div`
 	display: flex;
 	flex-direction: column;
 	// background-color: red;
+	min-width: 300px;
 
 	${vTab({ width: "100%" })}
 `;
@@ -72,7 +73,7 @@ const OtherImages = styled.div`
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	object-fit: cover;
+
 	// background-color: yellow;
 	height: 110px;
 `;
@@ -81,6 +82,7 @@ const OtherImage = styled.img`
 	width: 23%;
 	height: 100%;
 	transition: 0.2s;
+	object-fit: cover;
 	cursor: pointer;
 
 	&:hover {
@@ -90,13 +92,18 @@ const OtherImage = styled.img`
 
 const InfoContainer = styled.div`
 	flex: 1;
-	padding: 0px 50px;
+	// padding: 0px 50px;
 	// background-color: pink;
 
 	${vTab({
 		width: "100%",
 		padding: "30px 0px",
 	})}
+`;
+
+const InfoWrapper = styled.div`
+	width: 100%;
+	// background-color: white;
 `;
 
 const Title = styled.h1`
@@ -428,6 +435,7 @@ const ProductDetail = (props) => {
 	const [images, setImages] = useState([]);
 	const [reviews, setReviews] = useState([]);
 	const [inquiries, setInquiries] = useState([]);
+	const [success, setSuccess] = useState(false);
 
 	useEffect(async () => {
 		const resp = await fetch(`http://localhost:5000/product/${productID}`);
@@ -483,9 +491,23 @@ const ProductDetail = (props) => {
 				parseInt(localStorage.getItem("numberOfItemsOnCart")) + 1
 			);
 
-		console.log(response);
+		// console.log(response);
+		setSuccess(response.success);
+		if (response.succes) {
+			setPillText("Added To Cart");
+			setShowPill(true);
 
-		setShowPill(true);
+			setTimeout(() => {
+				setShowPill(false);
+			}, 3000);
+		} else {
+			setPillText("Already in Cart");
+			setShowPill(true);
+
+			setTimeout(() => {
+				setShowPill(false);
+			}, 3000);
+		}
 	};
 
 	/* ////////////////////////////////////////////////////////////// */
@@ -586,7 +608,8 @@ const ProductDetail = (props) => {
 		handleJWTExpiry(response);
 		console.log(response);
 		setInquiryQuery("");
-		console.log("fdfd", inquiryQuery);
+		// console.log("fdfd", inquiryQuery);
+		setQuestionClicked(false);
 	};
 
 	const answerInquiry = async (query_id) => {
@@ -614,15 +637,9 @@ const ProductDetail = (props) => {
 
 	const [rating, setRating] = useState(null);
 
-
 	////////////////////// PILL ///////////////////////////
 	const [showPill, setShowPill] = useState(false);
-
-	// useEffect(() => {
-	setTimeout(() => {
-		setShowPill(false);
-	}, 3000);
-	// }, [])
+	const [pillText, setPillText] = useState("");
 
 	return (
 		<Container>
@@ -643,17 +660,19 @@ const ProductDetail = (props) => {
 						</Wrapper>
 					</ImgContainer>
 					<InfoContainer>
-						<Title>{product.title}</Title>
-						<Desc> {product.description} </Desc>
-						<Price>Rs.&nbsp;{product.price}</Price>
-						<AddContainer>
-							<AmountContainer>
-								<RemoveIcon onClick={decrementCount} />
-								<Amount>{count}</Amount>
-								<AddIcon onClick={incrementCount} />
-							</AmountContainer>
-							<Button onClick={() => addToCart()}>ADD TO CART</Button>
-						</AddContainer>
+						<InfoWrapper>
+							<Title>{product.title}</Title>
+							<Desc> {product.description} </Desc>
+							<Price>Rs.&nbsp;{product.price}</Price>
+							<AddContainer>
+								<AmountContainer>
+									<RemoveIcon onClick={decrementCount} />
+									<Amount>{count}</Amount>
+									<AddIcon onClick={incrementCount} />
+								</AmountContainer>
+								<Button onClick={() => addToCart()}>ADD TO CART</Button>
+							</AddContainer>
+						</InfoWrapper>
 					</InfoContainer>
 				</Inner>
 			</ProductDetails>
@@ -870,7 +889,7 @@ const ProductDetail = (props) => {
 			{/* ////////////////////////////////////////////////////////////// */}
 			{/* ////////////////////////////////////////////////////////////// */}
 			<Footer />
-			<Pill display={showPill} />
+			<Pill display={showPill} text={pillText} success={success} />
 		</Container>
 	);
 };

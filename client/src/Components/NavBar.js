@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import { DropdownUser } from "./Dropdown";
 import { useState } from "react";
 import Search from "../Pages/Search";
+import logo from "../images/logo.png";
 
 const colorCodes = [
   "rgb(171,71,188)",
@@ -94,11 +95,24 @@ const Center = styled.div`
   text-align: center;
 `;
 
-const Logo = styled.h1`
-  font-weight: bold;
-
-  ${mobile({ fontSize: "24px" })}
+const Company = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    // background-color: green;
 `;
+
+const Logo = styled.img`
+    width: 50px;
+`;
+
+const CompanyName = styled.h1``;
+
+// const Logo = styled.h1`
+//   font-weight: bold;
+
+//   ${mobile({ fontSize: "24px" })}
+// `;
 
 const Right = styled.div`
   flex: 1;
@@ -247,7 +261,10 @@ const NavBar = (props) => {
         </Left>
         <Center>
           <Link style={linkStyle} to={"/"}>
-            <Logo>TradeZilla</Logo>
+          <Company>
+							<Logo src={logo}></Logo>
+							<CompanyName>TradeZilla</CompanyName>
+						</Company>
           </Link>
         </Center>
         <Right>

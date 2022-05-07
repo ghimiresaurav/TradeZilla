@@ -84,8 +84,16 @@ const ProductDetail = styled.div`
   height: 100%;
 `;
 
-const Image = styled.img`
+const ImageContainer = styled.div`
   width: 200px;
+  height: 200px;
+  // background-color: green;
+`;
+
+const Image = styled.img`
+  width: 80%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const Details = styled.div`
@@ -96,7 +104,7 @@ const Details = styled.div`
 `;
 
 const ProductName = styled.span`
-  font-size: 30px;
+  font-size: 20px;
 `;
 
 const ProductId = styled.span``;
@@ -292,7 +300,6 @@ const Cart = (props) => {
   const updateCountOnCart = (id) => {
     const itemToUpdate = Cart.find((item) => item._id == id);
     itemToUpdate.quantity = quantities[id];
-    console.log(Cart);
   };
 
   function decrementCount(id) {
@@ -336,10 +343,16 @@ const Cart = (props) => {
     <Container>
       <TopBars loggedIn={props.loggedIn} />
       <CartContent>
+        <Title>YOUR BAG</Title>
         <Top>
           <Link to={"/"}>
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
+          <TopTexts>
+            <TopText>Shopping Bag(2)</TopText>
+            {/* <TopText>Your Wishlist (0)</TopText> */}
+          </TopTexts>
+          <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
@@ -347,15 +360,17 @@ const Cart = (props) => {
               return (
                 <Product key={cartItem._id}>
                   <ProductDetail>
-                    <Image
-                      // If the correct image has not already loaded, show default image
-                      // The correct image will appear once the image loads
-                      src={
-                        cartItem.image
-                          ? getThumbnailFromImage(cartItem.image)
-                          : defaultImage
-                      }
-                    />
+                    <ImageContainer>
+                      <Image
+                        // If the correct image has not already loaded, show default image
+                        // The correct image will appear once the image loads
+                        src={
+                          cartItem.image
+                            ? getThumbnailFromImage(cartItem.image)
+                            : defaultImage
+                        }
+                      />
+                    </ImageContainer>
                     <Details>
                       <ProductName>
                         <b>Product: </b>

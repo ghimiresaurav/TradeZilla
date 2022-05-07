@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 import { Request, Response } from "express";
 import { Order } from "../models/Order";
 import { Product } from "../models/Product";
+import sendEmail from "./email";
+import { User } from "../models/User";
 
 // Import function to check if the id from parameter is valid
 import checkValidObjectId from "../utils/checkValidObjectId";
@@ -44,6 +46,13 @@ const handleOrders = async (req: Request, res: Response) => {
 
     // Get the vendor id from database
     const vendor_id = new mongoose.Types.ObjectId(product.vendor);
+    const vendor = await User.findById(vendor_id);
+
+    if (!vendor)
+      return res.json({
+        success: false,
+        message: "Vendor not found.",
+      });
 
     // Check if the vendor and customer have same id
     if (vendor_id.equals(customer_id))
@@ -71,6 +80,25 @@ const handleOrders = async (req: Request, res: Response) => {
 
       // Save the order to the database
       await createOrder.save();
+
+      const mailOptions = {
+        subject: "New Order",
+
+        text: `DO NOT REPLY TO THIS EMAIL.\n
+        Your Product ${product.title} has recieved a new order. Details are as follows:
+        \n${image}\n
+        Quantity:${createOrder.quantity}\n
+        Location:${createOrder.location}`,
+
+        html: `<h1>DO NOT REPLY TO THIS EMAIL.</h1><br/>
+        Your Product <b>${product.title}</b> has recieved a new order. Details are as follows:<br/>
+        <img style="height: 200px; width: 300px; object-fit:cover" src=${image}><br/>
+        Quantity:${createOrder.quantity}<br/>
+        Location:${createOrder.location}`,
+      };
+
+      // Send the email
+      sendEmail(vendor.email, mailOptions);
     } catch (e: any) {
       // If something goes wrong, send a message
       console.log(e.message);

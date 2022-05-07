@@ -54,8 +54,7 @@ const addQuery = async (req: Request, res: Response) => {
     // Send a success message
     return res.json({
       success: true,
-      message: "Success",
-      product,
+      message: "You query has been added",
     });
   } catch (e: any) {
     // If something goes wrong, send a message

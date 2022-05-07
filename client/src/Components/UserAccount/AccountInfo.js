@@ -52,7 +52,7 @@ const EndSection = styled.div`
 const SectionBody = styled.div`
 	width: 90%;
 	padding: 10px;
-	margin: auto;
+	margin: 20px auto;
 	background-color: #f2f2f2;
 `;
 
@@ -72,6 +72,24 @@ const FieldTitle = styled.div`
 const FieldInput = styled.div`
 	font-size: 15px;
 `;
+
+const VendorStatus = styled.div`
+	// background-color: red;
+	// width: 90%;
+	margin: auto;
+`;
+
+const CustomerStatus = styled.div`
+	// background-color: red;
+	// width: 90%;
+	margin: auto;
+`;
+
+// const ProductCount = styled.div``;
+
+// const DispatchedOrders = styled.div``;
+
+// const PendingOrders = styled.div``;
 
 const AccountInfo = () => {
 	const [userInfo, setUserInfo] = useState({});
@@ -110,7 +128,7 @@ const AccountInfo = () => {
 					<InfoSection>
 						<SectionHeader>
 							<StartSection>Account Information</StartSection>
-							<EndSection>Edit</EndSection>
+							{/* <EndSection>Edit</EndSection> */}
 						</SectionHeader>
 
 						<SectionBody>
@@ -138,6 +156,49 @@ const AccountInfo = () => {
 								</Field>
 							</BodyWrapper>
 						</SectionBody>
+						<VendorStatus>
+							<SectionHeader>
+								<StartSection>Vendor Status</StartSection>
+							</SectionHeader>
+							{/* <hr /> */}
+							<SectionBody>
+								<BodyWrapper>
+									<Field>
+										<FieldTitle>Product Count:</FieldTitle>
+										{/* <FieldInput>{vendor.product}</FieldInput> */}
+									</Field>
+
+									<Field>
+										<FieldTitle>Successfully Dispatched Orders:</FieldTitle>
+										{/* <FieldInput>{vendor.dispatchedOrders}</FieldInput> */}
+									</Field>
+
+									<Field>
+										<FieldTitle>Pending Orders:</FieldTitle>
+										{/* <FieldInput>{vendor.pendingOrders}</FieldInput> */}
+									</Field>
+								</BodyWrapper>
+							</SectionBody>
+						</VendorStatus>
+						<CustomerStatus>
+							<SectionHeader>
+								<StartSection>Customer Status</StartSection>
+							</SectionHeader>
+							{/* <hr /> */}
+							<SectionBody>
+								<BodyWrapper>
+									<Field>
+										<FieldTitle>Successfully Bought Products:</FieldTitle>
+										{/* <FieldInput>{vendor.product}</FieldInput> */}
+									</Field>
+
+									<Field>
+										<FieldTitle>Pending Orders:</FieldTitle>
+										{/* <FieldInput>{vendor.dispatchedOrders}</FieldInput> */}
+									</Field>
+								</BodyWrapper>
+							</SectionBody>
+						</CustomerStatus>
 					</InfoSection>
 				</WrapContainer>
 			</RightDiv>

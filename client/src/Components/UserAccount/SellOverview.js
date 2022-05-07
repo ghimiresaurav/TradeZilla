@@ -2,11 +2,12 @@
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import { useEffect, useState, version } from "react";
+import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../../utils/getThumbnail";
 import defaultImage from "../../utils/defaultImage";
 import handleJWTExpiry from "../../utils/handleJWTExpiry";
 import getFormattedDateTime from "../../utils/getFormattedDate";
+import Pill from "../../Components/Pill";
 
 const Product = styled.div`
   width: 80vw;
@@ -170,6 +171,20 @@ const SellOverview = () => {
   const [pendingOrders, setPendingOrders] = useState([]);
   const [deliveredOrders, setDeliveredOrders] = useState([]);
   const [version, setVersion] = useState(0);
+  const [success, setSuccess] = useState(false);
+  const [pillText, setPillText] = useState("");
+  const [showPill, setShowPill] = useState(false);
+
+  const displayPill = (success, message) => {
+    setSuccess(success);
+    setPillText(message);
+    setShowPill(true);
+
+    setTimeout(() => {
+      setShowPill(false);
+    }, 3000);
+    return;
+  };
 
   useEffect(async () => {
     const resp = await fetch(`http://localhost:5000/s/v/getOrders`, {
@@ -197,8 +212,10 @@ const SellOverview = () => {
         )} ${localStorage.getItem("userId")}`,
       },
     });
+
     const response = await resp.json();
-    setVersion(version + 1);
+    if (response.success) setVersion(version + 1);
+    return displayPill(response.success, response.message);
   };
 
   const rejectOrder = async (id) => {
@@ -211,8 +228,10 @@ const SellOverview = () => {
         )} ${localStorage.getItem("userId")}`,
       },
     });
+
     const response = await resp.json();
-    setVersion(version + 1);
+    if (response.success) setVersion(version + 1);
+    return displayPill(response.success, response.message);
   };
 
   return (
@@ -328,6 +347,7 @@ const SellOverview = () => {
           </InfoSection>
         </WrapContainer>
       </RightDiv>
+      <Pill display={showPill} text={pillText} success={success} />
     </>
   );
 };

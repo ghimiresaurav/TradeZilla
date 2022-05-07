@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../../utils/getThumbnail";
 import defaultImage from "../../utils/defaultImage";
 import handleJWTExpiry from "../../utils/handleJWTExpiry";
+import getFormattedDateTime from "../../utils/getFormattedDate";
 
 const Product = styled.div`
   width: 80vw;
@@ -169,10 +170,11 @@ const SellOverview = () => {
                               <b>Product:</b> {item.title}
                             </ProductName>
                             <ProductId>
-                              <b>ID:</b> {item._id}
+                              <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b> {item.date}
+                              <b>Ordered Date:</b>
+                              {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}
@@ -212,16 +214,18 @@ const SellOverview = () => {
                               <b>Product:</b> {item.title}
                             </ProductName>
                             <ProductId>
-                              <b>ID:</b> {item._id}
+                              <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b> {item.date}
+                              <b>Ordered Date:</b>
+                              {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}
                             </ProductQuantity>
                             <Date>
-                              <b>Dispatched On</b> {item.dispatchedOn}
+                              <b>Dispatched On</b>
+                              {getFormattedDateTime(item.dispatchedOn, "time")}
                             </Date>
                           </Details>
                         </ProductDetail>
@@ -255,10 +259,11 @@ const SellOverview = () => {
                               <b>Product:</b> {item.title}
                             </ProductName>
                             <ProductId>
-                              <b>ID:</b> {item._id}
+                              <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b> {item.date}
+                              <b>Ordered Date:</b>
+                              {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}

@@ -438,6 +438,17 @@ const ProductDetail = (props) => {
   const [inquiries, setInquiries] = useState([]);
   const [success, setSuccess] = useState(false);
 
+  const displayPill = (success, message) => {
+    setSuccess(success);
+    setPillText(message);
+    setShowPill(true);
+
+    setTimeout(() => {
+      setShowPill(false);
+    }, 3000);
+    return;
+  };
+
   useEffect(async () => {
     const resp = await fetch(`http://localhost:5000/product/${productID}`);
     const response = await resp.json();
@@ -492,23 +503,7 @@ const ProductDetail = (props) => {
         parseInt(localStorage.getItem("numberOfItemsOnCart")) + 1
       );
 
-    // console.log(response);
-    setSuccess(response.success);
-    if (response.succes) {
-      setPillText("Added To Cart");
-      setShowPill(true);
-
-      setTimeout(() => {
-        setShowPill(false);
-      }, 3000);
-    } else {
-      setPillText("Already in Cart");
-      setShowPill(true);
-
-      setTimeout(() => {
-        setShowPill(false);
-      }, 3000);
-    }
+    return displayPill(response.success, response.message);
   };
 
   /* ////////////////////////////////////////////////////////////// */
@@ -525,16 +520,12 @@ const ProductDetail = (props) => {
 
   const handleReviewUpdate = (e) => {
     setReview({ ...review, [e.target.name]: e.target.value });
-    // setReviewQuery(e.target.value);
-    // console.log("Review:", e.target.value);
   };
 
   const postReview = async (e) => {
     const productID = window.location.pathname.split("product/")[1];
 
     e.preventDefault();
-    // setReview({...review, body: reviewQuery });
-    console.log("Review: ", review);
     const resp = await fetch(
       `http://localhost:5000/s/v/add-review/${productID}`,
       {
@@ -551,7 +542,7 @@ const ProductDetail = (props) => {
 
     const response = await resp.json();
     handleJWTExpiry(response);
-    console.log(response);
+    return displayPill(response.success, response.message);
   };
 
   const calculateDaysPassed = (postedDate) => {
@@ -560,7 +551,6 @@ const ProductDetail = (props) => {
 
     const differenceInTime = presentDate.getTime() - reviewPostedDate.getTime();
     const differenceInDays = differenceInTime / (1000 * 3600 * 24);
-    // console.log("Difference in Days: ", differenceInDays);
 
     return Math.round(differenceInDays);
   };
@@ -576,7 +566,6 @@ const ProductDetail = (props) => {
 
   function handleInquiryUpdate(e) {
     setInquiryQuery(e.target.value);
-    // console.log("Inquiry: ", e.target.value);
   }
 
   const handleAnswerUpdate = (e) => {
@@ -588,7 +577,6 @@ const ProductDetail = (props) => {
   const postInquiry = async (e) => {
     const productID = window.location.pathname.split("product/")[1];
     e.preventDefault();
-    console.log("Inquiry: ", inquiryQuery);
     const resp = await fetch(
       `http://localhost:5000/s/v/add-query/${productID}`,
       {
@@ -607,15 +595,15 @@ const ProductDetail = (props) => {
 
     const response = await resp.json();
     handleJWTExpiry(response);
-    console.log(response);
-    setInquiryQuery("");
-    // console.log("fdfd", inquiryQuery);
-    setQuestionClicked(false);
+
+    if (response.success) {
+      setInquiryQuery("");
+      setQuestionClicked(false);
+    }
+    return displayPill(response.success, response.message);
   };
 
   const answerInquiry = async (query_id) => {
-    console.log(query_id);
-    // if(loca)
     const resp = await fetch(
       `http://localhost:5000/s/v/answer-query/${productID}`,
       {
@@ -633,7 +621,10 @@ const ProductDetail = (props) => {
       }
     );
     const response = await resp.json();
-    console.log(response);
+    if (response.success) {
+      setAnswerClicked(false);
+    }
+    return displayPill(response.success, response.message);
   };
 
   const [rating, setRating] = useState(null);
@@ -776,9 +767,6 @@ const ProductDetail = (props) => {
           </Reviews>
         </ReviewWrapper>
       </ReviewContainer>
-      {/* ////////////////////////////////////////////////////////////// */}
-      {/* ////////////////////////////////////////////////////////////// */}
-      {/* ////////////////////////////////////////////////////////////// */}
 
       {/* ////////////////////////////////////////////////////////////// */}
       {/* ///////////////////////////PRODUCT INQUIRY///////////////////// */}
@@ -827,7 +815,7 @@ const ProductDetail = (props) => {
                       <UserName>
                         {inquiry.name ? inquiry.name : "Name Here"}
                       </UserName>
-                      &nbsp;|&nbsp;
+                      |&nbsp;
                       <PostedDate style={{ display: "flex", margin: "auto" }}>
                         {calculateDaysPassed(inquiry.date)} days ago
                       </PostedDate>
@@ -840,9 +828,7 @@ const ProductDetail = (props) => {
                     <Right>
                       <Answer>{inquiry.answer}</Answer>
                       <User style={{ flexDirection: "row" }}>
-                        <UserName>
-                          {inquiry.name ? inquiry.name : "Name Here"} | Seller
-                        </UserName>
+                        <UserName>Seller</UserName>
                         &nbsp;|&nbsp;
                         <PostedDate style={{ display: "flex", margin: "auto" }}>
                           {calculateDaysPassed(inquiry.date)} days ago

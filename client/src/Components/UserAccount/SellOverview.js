@@ -2,10 +2,12 @@
 import styled from "styled-components";
 import DeleteIcon from "@mui/icons-material/Delete";
 import LocalShippingIcon from "@mui/icons-material/LocalShipping";
-import { useEffect, useState, version } from "react";
+import { useEffect, useState } from "react";
 import getThumbnailFromImage from "../../utils/getThumbnail";
 import defaultImage from "../../utils/defaultImage";
 import handleJWTExpiry from "../../utils/handleJWTExpiry";
+import getFormattedDateTime from "../../utils/getFormattedDate";
+import Pill from "../../Components/Pill";
 
 const Product = styled.div`
   width: 80vw;
@@ -168,7 +170,21 @@ const BodyWrapper = styled.div`
 const SellOverview = () => {
   const [pendingOrders, setPendingOrders] = useState([]);
   const [deliveredOrders, setDeliveredOrders] = useState([]);
-  const [vesion, setVersion] = useState(0);
+  const [version, setVersion] = useState(0);
+  const [success, setSuccess] = useState(false);
+  const [pillText, setPillText] = useState("");
+  const [showPill, setShowPill] = useState(false);
+
+  const displayPill = (success, message) => {
+    setSuccess(success);
+    setPillText(message);
+    setShowPill(true);
+
+    setTimeout(() => {
+      setShowPill(false);
+    }, 3000);
+    return;
+  };
 
   useEffect(async () => {
     const resp = await fetch(`http://localhost:5000/s/v/getOrders`, {
@@ -196,13 +212,15 @@ const SellOverview = () => {
         )} ${localStorage.getItem("userId")}`,
       },
     });
+
     const response = await resp.json();
-    setVersion(version + 1);
+    if (response.success) setVersion(version + 1);
+    return displayPill(response.success, response.message);
   };
 
   const rejectOrder = async (id) => {
     const resp = await fetch(`http://localhost:5000/s/v/reject-order/${id}`, {
-      method: "DELELTE",
+      method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${localStorage.getItem(
@@ -210,8 +228,10 @@ const SellOverview = () => {
         )} ${localStorage.getItem("userId")}`,
       },
     });
+
     const response = await resp.json();
-    setVersion(version + 1);
+    if (response.success) setVersion(version + 1);
+    return displayPill(response.success, response.message);
   };
 
   return (
@@ -243,10 +263,11 @@ const SellOverview = () => {
                               <b>Product:</b> {item.title}
                             </ProductName>
                             <ProductId>
-                              <b>ID:</b> {item._id}
+                              <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b> {item.date}
+                              <b>Ordered Date:</b>
+                              {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}
@@ -302,16 +323,18 @@ const SellOverview = () => {
                               <b>Product:</b> {item.title}
                             </ProductName>
                             <ProductId>
-                              <b>ID:</b> {item._id}
+                              <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b> {item.date}
+                              <b>Ordered Date:</b>
+                              {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}
                             </ProductQuantity>
                             <Date>
-                              <b>Dispatched On</b> {item.dispatchedOn}
+                              <b>Dispatched On</b>
+                              {getFormattedDateTime(item.dispatchedOn, "time")}
                             </Date>
                           </Details>
                         </ProductDetail>
@@ -324,6 +347,7 @@ const SellOverview = () => {
           </InfoSection>
         </WrapContainer>
       </RightDiv>
+      <Pill display={showPill} text={pillText} success={success} />
     </>
   );
 };

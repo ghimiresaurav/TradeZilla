@@ -96,14 +96,14 @@ const Center = styled.div`
 `;
 
 const Company = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // background-color: green;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  // background-color: green;
 `;
 
 const Logo = styled.img`
-    width: 50px;
+  width: 50px;
 `;
 
 const CompanyName = styled.h1``;
@@ -217,25 +217,15 @@ const RightJSX = (props) => {
 
 const NavBar = (props) => {
   const [search, setSearch] = useState("");
-  const [searchPath, setSearchPath] = useState("/search");
-
-  // console.log("Search: ", search);
-  // console.log("Search Path: ", searchPath);
 
   const handleChange = (e) => {
     setSearch(e.target.value);
-    setSearchPath("/search/" + e.target.value);
   };
 
-  // const searchProduct = () => {
-  // 	console.log("I am here");
-  // 	return(
-
-  // 		<>
-  // 		<Search/>
-  // 		</>
-  // 	);
-  // };
+  const searchProduct = (e) => {
+    e.preventDefault();
+    window.location.assign(`/search/${search}`);
+  };
 
   return (
     <Container>
@@ -245,26 +235,23 @@ const NavBar = (props) => {
             <MenuIcon />
           </MenuContainer>
           <SearchContainer>
-            {/* <form onSubmit={searchProduct()}> */}
-            <Input
-              placeholder="Search TradeZilla..."
-              value={search.name}
-              name="search"
-              onChange={handleChange}
-              // type="submit"
-            />
-            <Link to={searchPath} style={linkStyle}>
+            <form onSubmit={(e) => searchProduct(e)}>
+              <Input
+                placeholder="Search TradeZilla..."
+                value={search.name}
+                name="search"
+                onChange={handleChange}
+              />
               <SearchIcon />
-            </Link>
-            {/* </form> */}
+            </form>
           </SearchContainer>
         </Left>
         <Center>
           <Link style={linkStyle} to={"/"}>
-          <Company>
-							<Logo src={logo}></Logo>
-							<CompanyName>TradeZilla</CompanyName>
-						</Company>
+            <Company>
+              <Logo src={logo}></Logo>
+              <CompanyName>TradeZilla</CompanyName>
+            </Company>
           </Link>
         </Center>
         <Right>

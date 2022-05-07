@@ -58,7 +58,6 @@ const TopText = styled.span`
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
-  
 `;
 
 const Info = styled.div`
@@ -97,7 +96,7 @@ const Details = styled.div`
 `;
 
 const ProductName = styled.span`
-    font-size: 30px;
+  font-size: 30px;
 `;
 
 const ProductId = styled.span``;
@@ -290,10 +289,19 @@ const Cart = (props) => {
     console.log(response);
   };
 
+  const updateCountOnCart = (id) => {
+    const itemToUpdate = Cart.find((item) => item._id == id);
+    itemToUpdate.quantity = quantities[id];
+    console.log(Cart);
+  };
+
   function decrementCount(id) {
     // Decrement the quantity from the quantities object
     if (quantities[id] > 1) {
       setQuantities({ ...quantities, [id]: --quantities[id] });
+      // Update the quantities of items on cart
+      updateCountOnCart(id);
+      // Update Bill
       updateBill();
     }
   }
@@ -302,6 +310,9 @@ const Cart = (props) => {
     // Increment the quantity from the quantities object
     if (quantities[id] < 10) {
       setQuantities({ ...quantities, [id]: ++quantities[id] });
+      // Update the quantities of items on cart
+      updateCountOnCart(id);
+      // Update Bill
       updateBill();
     }
   }
@@ -325,16 +336,10 @@ const Cart = (props) => {
     <Container>
       <TopBars loggedIn={props.loggedIn} />
       <CartContent>
-        <Title>YOUR BAG</Title>
         <Top>
-          <Link to= {"/"}>
+          <Link to={"/"}>
             <TopButton>CONTINUE SHOPPING</TopButton>
           </Link>
-          <TopTexts>
-            <TopText>Shopping Bag(2)</TopText>
-            {/* <TopText>Your Wishlist (0)</TopText> */}
-          </TopTexts>
-          <TopButton type="filled">CHECKOUT NOW</TopButton>
         </Top>
         <Bottom>
           <Info>
@@ -353,7 +358,8 @@ const Cart = (props) => {
                     />
                     <Details>
                       <ProductName>
-                        <b>Product: </b><br/> {cartItem.name}
+                        <b>Product: </b>
+                        <br /> {cartItem.name}
                       </ProductName>
                       {/* <ProductId>
                         <b>ID: </b>

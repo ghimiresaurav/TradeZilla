@@ -681,7 +681,7 @@ const ProductDetail = (props) => {
       {/* ////////////////////////////////////////////////////////////// */}
       {/* ///////////////////////////PRODUCT REVIEW///////////////////// */}
       {/* ////////////////////////////////////////////////////////////// */}
-      <ReviewContainer>
+      <ReviewContainer id = "reviews">
         <ReviewWrapper>
           <ReviewTitle>Review</ReviewTitle>
           <OverallRating>
@@ -772,7 +772,7 @@ const ProductDetail = (props) => {
       {/* ///////////////////////////PRODUCT INQUIRY///////////////////// */}
       {/* ////////////////////////////////////////////////////////////// */}
       {/* <QandA loggedIn={props.loggedIn} /> */}
-      <InquiryContainer>
+      <InquiryContainer id = "inquiries">
         <InquiryWrapper>
           <InquiryTitle>Inquiry</InquiryTitle>
           <InquirySubTitle>Ask questions about this project</InquirySubTitle>

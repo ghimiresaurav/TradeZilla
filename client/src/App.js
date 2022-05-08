@@ -20,12 +20,7 @@ import {
 import Upload from "./Components/Upload";
 import SubCategoriesPath from "./routes/routeSubCategories";
 import Category from "./Pages/Category";
-
-const isLoggedIn = () =>
-  localStorage.getItem("name") &&
-  localStorage.getItem("userId") &&
-  localStorage.getItem("token") &&
-  localStorage.getItem("email");
+import isLoggedIn from "./utils/checkLoggedIn";
 
 const CategoriesPath = () =>
   useRoutes([

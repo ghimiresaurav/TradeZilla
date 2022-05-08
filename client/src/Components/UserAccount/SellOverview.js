@@ -170,6 +170,8 @@ const BodyWrapper = styled.div`
 const SellOverview = () => {
   const [pendingOrders, setPendingOrders] = useState([]);
   const [deliveredOrders, setDeliveredOrders] = useState([]);
+  const [rejectedOrders, setRejectedOrders] = useState([]);
+
   const [version, setVersion] = useState(0);
   const [success, setSuccess] = useState(false);
   const [pillText, setPillText] = useState("");
@@ -199,6 +201,7 @@ const SellOverview = () => {
     if (response.success) {
       setDeliveredOrders(response.dispatchedOrders);
       setPendingOrders(response.pendingOrders);
+      setRejectedOrders(response.rejectedOrders);
     } else console.log("failed");
   }, [version]);
 
@@ -266,7 +269,7 @@ const SellOverview = () => {
                               <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b>
+                              <b>Ordered Date: </b>
                               {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
@@ -326,14 +329,59 @@ const SellOverview = () => {
                               <b>ID:</b> {item.product_id}
                             </ProductId>
                             <Date>
-                              <b>Ordered Date:</b>
+                              <b>Ordered Date: </b>
                               {getFormattedDateTime(item.date)}
                             </Date>
                             <ProductQuantity>
                               <b>Quantity:</b> {item.quantity}
                             </ProductQuantity>
                             <Date>
-                              <b>Dispatched On</b>
+                              <b>Dispatched On: </b>
+                              {getFormattedDateTime(item.dispatchedOn, "time")}
+                            </Date>
+                          </Details>
+                        </ProductDetail>
+                      </Product>
+                    );
+                  })}
+                </BodyWrapper>
+              </SectionBody>
+            </DeliveredSection>
+
+            <DeliveredSection>
+              <SectionHeader>
+                <StartSection>Rejected Orders</StartSection>
+              </SectionHeader>
+
+              <SectionBody>
+                <BodyWrapper>
+                  {rejectedOrders.map((item) => {
+                    return (
+                      <Product key={item._id}>
+                        <ProductDetail>
+                          <Image
+                            src={
+                              item.image
+                                ? getThumbnailFromImage(item.image)
+                                : defaultImage
+                            }
+                          />
+                          <Details>
+                            <ProductName>
+                              <b>Product:</b> {item.title}
+                            </ProductName>
+                            <ProductId>
+                              <b>ID:</b> {item.product_id}
+                            </ProductId>
+                            <Date>
+                              <b>Ordered Date: </b>
+                              {getFormattedDateTime(item.date)}
+                            </Date>
+                            <ProductQuantity>
+                              <b>Quantity:</b> {item.quantity}
+                            </ProductQuantity>
+                            <Date>
+                              <b>Rejected On: </b>
                               {getFormattedDateTime(item.dispatchedOn, "time")}
                             </Date>
                           </Details>

@@ -3,20 +3,20 @@ import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 const Container = styled.div`
-	width: 100%;
-	height: 100vh;
-	// background-color: black;
-	z-index: 100;
-	position: fixed;
-	top: 0;
-	display: ${({ display }) => (display ? "" : "none")};
-	transition: 0.9s ease-in-out;
+  width: 100%;
+  height: 100vh;
+  // background-color: black;
+  z-index: 10000;
+  position: fixed;
+  top: 0;
+  display: ${({ display }) => (display || display === "true" ? "" : "none")};
+  transition: 0.9s ease-in-out;
 `;
 
 const Wrapper = styled.div`
-	position: relative;
-	width: 100%;
-	height: 100vh;
+  position: relative;
+  width: 100%;
+  height: 100vh;
 `;
 
 const Box = styled.div`

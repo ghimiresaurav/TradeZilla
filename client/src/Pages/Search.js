@@ -71,7 +71,7 @@ const Product = styled.div`
 `;
 
 const ProductDetail = styled.div`
-	// width: 80%;
+	// width: 20px;
 	display: flex;
 	align-items: center;
 	// background-color: red;
@@ -83,7 +83,7 @@ const ImageContainer = styled.div`
 	// position: absolute;
 	width: 400px;
 	height: 200px;
-	background-color: green;
+	// background-color: green;
 	display: flex;
 `;
 
@@ -121,13 +121,14 @@ const ProductDescription = styled.span`
 const ProductRating = styled.span``;
 
 const PriceDetail = styled.div`
-	// width: 20%;
+	// width: 200px;
 	height: 100%;
 	display: flex;
 	// flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: pink;
+	// background-color: pink;
+	padding: 0 40px;
 `;
 
 const ProductPrice = styled.p`
@@ -208,12 +209,12 @@ const Search = (props) => {
 											<ProductDescription>
 												{item.description}
 											</ProductDescription>
-											<ProductRating>
+											{/* <ProductRating>
 												<GradeOutlinedIcon
 													style={{ fontSize: "25px", color: "#FFD700" }}
 												/>
-												{/* {showRating(item.rating)} */}
-											</ProductRating>
+												{showRating(item.rating)}
+											</ProductRating> */}
 										</Details>
 									</ProductDetail>
 									<PriceDetail>

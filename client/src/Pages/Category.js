@@ -10,114 +10,137 @@ import Product from "../Components/Product";
 import { Link, useParams } from "react-router-dom";
 
 const Container = styled.div`
-  position: absolute;
-  top: 100px;
-  width: 100%;
+	position: absolute;
+	top: 100px;
+	width: 100%;
 `;
 
 const ContentArea = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+  // padding: 30px 0px 50px 0;
+  width: 90%;
+  margin: auto;
+  // background-color: green;
 `;
 
 const Title = styled.h1`
-  margin-top: 15px;
-  text-align: center;
-  font-size: 50px;
-  letter-spacing: 3px;
-  font-weight: 300;
+	margin-top: 15px;
+	text-align: center;
+	font-size: 50px;
+	letter-spacing: 3px;
+	font-weight: 300;
 `;
 
 const Box = styled.div`
-  position: relative;
-  height: 450px;
-  background-color: #f2f2f2;
-  width: 90%;
-  margin: 30px auto;
-  border-radius: 25px;
+	position: relative;
+	height: 450px;
+	background-color: #f2f2f2;
+	width: 90%;
+	margin: 30px auto;
+	border-radius: 25px;
 `;
 
 const SubCategoryTitle = styled.h2`
-  font-size: 30px;
-  font-weight: 400;
-  margin: 20px 0 0 20px;
+	font-size: 30px;
+	font-weight: 400;
+	margin: 20px 0 0 20px;
 `;
 
+// const Items = styled.div`
+// 	position: relative;
+// 	height: 80%;
+// 	width: 95%;
+// 	margin: auto;
+// 	// background-color: red;
+// 	overflow: hidden;
+// `;
+
 const Items = styled.div`
-  position: relative;
-  height: 80%;
-  width: 95%;
-  margin: auto;
-  // background-color: red;
-  overflow: hidden;
+	position: relative;
+	height: 80%;
+	width: 90%;
+	// margin: 20px auto;
+	// background-color: red;
+	// overflow: hidden;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 30px;
+
 `;
 
 const Arrow = styled.div`
-  width: 50px;
-  height: 50px;
-  background-color: #fff7f7;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: ${(props) => props.direction === "left" && "5px"};
-  right: ${(props) => props.direction === "right" && "5px"};
-  margin: auto;
-  cursor: pointer;
-  // opacity: 0.5;
-  z-index: 2;
+	width: 50px;
+	height: 50px;
+	background-color: #fff7f7;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: ${(props) => props.direction === "left" && "5px"};
+	right: ${(props) => props.direction === "right" && "5px"};
+	margin: auto;
+	cursor: pointer;
+	// opacity: 0.5;
+	z-index: 2;
 `;
 
 const Products = styled.div`
-  display: flex;
-  transform: translateX(${(props) => props.slideIndex * -25}vw);
-  transition: all 1.5s ease;
+	// display: flex;
+	// transform: translateX(${(props) => props.slideIndex * -25}vw);
+	// transition: all 1.5s ease;
+
+  margin: auto;
+	display: flex;
+	flex-wrap: wrap;
+	// justify-content: space-between;
+	justify-content: center;
 `;
 
 const linkStyle = {
-  textDecoration: "none",
-  color: "#000000",
+	textDecoration: "none",
+	color: "#000000",
 };
 
 const Category = (props) => {
-  const { category } = useParams();
-  console.log("Category:", category);
-  // The params from the url are all lowercase
-  // To access the subcats, the category from the url has to be capitalized
-  // For eg, "fashion" has to be changed to "Fashion", "electronics" has to be changed to "Electronics"
-  const capitalizedCategory = category[0].toUpperCase() + category.substring(1);
-  document.title = capitalizedCategory + " | TradeZilla";
+	const { category } = useParams();
+	console.log("Category:", category);
+	// The params from the url are all lowercase
+	// To access the subcats, the category from the url has to be capitalized
+	// For eg, "fashion" has to be changed to "Fashion", "electronics" has to be changed to "Electronics"
+	const capitalizedCategory = category[0].toUpperCase() + category.substring(1);
+	document.title = capitalizedCategory + " | TradeZilla";
 
-  const [products, setProducts] = useState([]);
+	const [products, setProducts] = useState([]);
 
-  useEffect(async () => {
-    const resp = await fetch(`http://localhost:5000/products/${category}`);
-    const response = await resp.json();
-    if (response.success) setProducts(response.products);
-    else console.log("failed");
-  }, category);
+	useEffect(async () => {
+		const resp = await fetch(`http://localhost:5000/products/${category}`);
+		const response = await resp.json();
+		if (response.success) setProducts(response.products);
+		else console.log("failed");
+	}, category);
 
-  const [slideIndex, setSlideIndex] = useState(0);
+	const [slideIndex, setSlideIndex] = useState(0);
 
-  const handleClick = (direction) => {
-    if (direction === "left") {
-      setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
-    } else {
-      setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
-    }
-  };
+	const handleClick = (direction) => {
+		if (direction === "left") {
+			setSlideIndex(slideIndex > 0 ? slideIndex - 1 : 2);
+		} else {
+			setSlideIndex(slideIndex < 2 ? slideIndex + 1 : 0);
+		}
+	};
 
-  return (
-    <Container>
-      <TopBars loggedIn={props.loggedIn} />
-      <ContentArea>
-        <Title>{capitalizedCategory}</Title>
-        {categories[capitalizedCategory].map((item) => {
+	return (
+		<Container>
+			<TopBars loggedIn={props.loggedIn} />
+			<ContentArea>
+				<Title>{capitalizedCategory}</Title>
+				{/* {categories[capitalizedCategory].map((item) => {
           return (
             <Box key = {item.id}>
               <Link to={item.path} style={linkStyle}>
@@ -138,11 +161,33 @@ const Category = (props) => {
               </Items>
             </Box>
           );
-        })}
-      </ContentArea>
-      <Footer />
-    </Container>
-  );
+        })} */}
+
+
+        			{/* {categories[capitalizedCategory].map((item) => {
+          return ( */}
+            {/* <Box key = {item.id}> */}
+              <Items>
+                <Products slideIndex={slideIndex}>
+                  {products.map((item) => (
+                    <Product item={item} key={item.id} />
+                  ))}
+                </Products>
+              </Items>
+            {/* </Box> */}
+          {/* );
+        })} */}
+
+
+				{/* {categories[capitalizedCategory].map((item) => {(
+                 {products.map((item) => (
+                  <Product item={item} key={item.id} />
+                ))}
+				))} */}
+			</ContentArea>
+			<Footer />
+		</Container>
+	);
 };
 
 export default Category;

@@ -6,9 +6,10 @@ export const bestSellerItems = [
 	{
 		id: 1,
 		img: img_cover3,
-		title: "LOUNGEWEAR LOVE",
-		desc: "DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS.",
-		bg: "fbf0f4",
+		title: "HOUSEHOLD APPLIANCES",
+		desc: "DON'T COMPROMISE ON QUALITY! GET FLAT 30% OFF FOR NEW ARRIVALS.",
+		// bg: "fbf0f4",
+		bg: "ffffff"
 		// bg: "444f44",
 	},
 	{
@@ -22,7 +23,7 @@ export const bestSellerItems = [
 	{
 		id: 3,
 		img: img_cover1,
-		title: "WINTER SALE",
+		title: "DASHAIN SALE",
 		desc: "DON'T COMPROMISE! GET 30% OFF STRAIGHT.",
 		bg: "f5fafd",
 	}

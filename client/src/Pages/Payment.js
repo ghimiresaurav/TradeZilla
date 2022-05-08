@@ -3,6 +3,7 @@ import "./RegisterForm.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import handleJWTExpiry from "../utils/handleJWTExpiry";
+import Pill from "../Components/Pill";
 import { mobile, tab, vTab } from "../responsive";
 import Pill from "../Components/Pill";
 

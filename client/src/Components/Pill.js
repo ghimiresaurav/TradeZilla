@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
 
 const Container = styled.div`
 	width: 100%;
@@ -42,9 +43,15 @@ const Pill = (props) => {
 		<Container display={props.display}>
 			<Wrapper>
 				<Box>
-					<CheckCircleOutlineIcon
-						style={props.success ? { color: "green" } : { color: "red" }}
-					/>
+					{props.success ? (
+						<CheckCircleOutlineIcon
+							style={props.success ? { color: "green" } : { color: "red" }}
+						/>
+					) : (
+						<CancelOutlinedIcon
+							style={props.success ? { color: "green" } : { color: "red" }}
+						/>
+					)}
 					&nbsp;
 					{/* <CheckCircleOutlineIcon style = {{color: "green"}}/>&nbsp; */}
 					<Text>{props.text}</Text>

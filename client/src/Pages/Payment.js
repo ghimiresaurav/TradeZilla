@@ -3,7 +3,7 @@ import "./RegisterForm.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import handleJWTExpiry from "../utils/handleJWTExpiry";
-import Pill from "../Components/Pill";
+import { mobile, tab, vTab } from "../responsive";
 
 const Container = styled.div`
   position: fixed;
@@ -22,7 +22,7 @@ const Container = styled.div`
 const Wrapper = styled.div`
   margin: auto;
   width: 75%;
-  height: 80vh;
+  height: 90vh;
   z-index: 10000;
   min-width: 500px;
   /* background-color: red; */
@@ -53,6 +53,8 @@ const SectionHeader = styled.div`
   display: flex;
   column-gap: 5%;
   align-items: center;
+
+  ${tab({ flexDirection: "column", alignItems: "start", justifyContent: "flex-start" })}
 `;
 const StartSection = styled.div`
   font-size: 35px;
@@ -70,6 +72,9 @@ const SectionBody = styled.form`
   margin: auto;
   /* background-color: #c2d6d6; */
   display: flex;
+  // flex-direction: column;
+
+  ${tab({ flexDirection: "column" })}
 `;
 
 const SectionForm = styled.div`

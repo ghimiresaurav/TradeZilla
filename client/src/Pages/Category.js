@@ -86,6 +86,7 @@ const linkStyle = {
 
 const Category = (props) => {
   const { category } = useParams();
+  console.log("Category:", category);
   // The params from the url are all lowercase
   // To access the subcats, the category from the url has to be capitalized
   // For eg, "fashion" has to be changed to "Fashion", "electronics" has to be changed to "Electronics"

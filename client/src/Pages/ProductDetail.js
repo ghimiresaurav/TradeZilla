@@ -16,6 +16,7 @@ import "./RegisterForm.css";
 // import GradeOutlinedIcon from "@material-ui/icons/GradeOutlined";
 import handleJWTExpiry from "../utils/handleJWTExpiry";
 import MyProducts from "../Components/UserAccount/MyProducts";
+import isLoggedIn from "../utils/checkLoggedIn";
 // import ProductReview from "../Components/ProductReview";
 
 const Container = styled.div`
@@ -426,12 +427,15 @@ const ProductDetail = (props) => {
   // Keep track of page version with each update
   const [version, setVersion] = useState(0);
   const productID = window.location.pathname.split("product/")[1];
-  const myProducts = localStorage.getItem("myProducts").split(",");
+
+  let myProducts;
+  // const myProducts = localStorage.getItem("myProducts").split
 
   let isSeller = false;
   //Check Vendor or not
-  if (myProducts.includes(productID)) {
-    isSeller = true;
+  if (localStorage.getItem("myProducts")) {
+    const myProducts = localStorage.getItem("myProducts").split(",");
+    if (myProducts.includes(productID)) isSeller = true;
   }
 
   const [product, setProduct] = useState({});
@@ -482,6 +486,8 @@ const ProductDetail = (props) => {
 
   // Add this product to cart of the viewing user
   const addToCart = async () => {
+    if (!isLoggedIn())
+      return displayPill(false, "You need to login to perform this action.");
     const resp = await fetch(
       `http://localhost:5000/s/v/add-to-cart/${productID}`,
       {
@@ -691,7 +697,7 @@ const ProductDetail = (props) => {
       {/* ////////////////////////////////////////////////////////////// */}
       {/* ///////////////////////////PRODUCT REVIEW///////////////////// */}
       {/* ////////////////////////////////////////////////////////////// */}
-      <ReviewContainer id = "reviews">
+      <ReviewContainer id="reviews">
         <ReviewWrapper>
           <ReviewTitle>Review</ReviewTitle>
           <OverallRating>
@@ -782,7 +788,7 @@ const ProductDetail = (props) => {
       {/* ///////////////////////////PRODUCT INQUIRY///////////////////// */}
       {/* ////////////////////////////////////////////////////////////// */}
       {/* <QandA loggedIn={props.loggedIn} /> */}
-      <InquiryContainer id = "inquiries">
+      <InquiryContainer id="inquiries">
         <InquiryWrapper>
           <InquiryTitle>Inquiry</InquiryTitle>
           <InquirySubTitle>Ask questions about this project</InquirySubTitle>

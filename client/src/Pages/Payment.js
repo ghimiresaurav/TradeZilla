@@ -3,6 +3,7 @@ import "./RegisterForm.css";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import handleJWTExpiry from "../utils/handleJWTExpiry";
+import Pill from "../Components/Pill";
 
 const Container = styled.div`
   position: fixed;
@@ -252,16 +253,21 @@ inputBox.addEventListener("keydown", function(e) {
 }); */
 
 const Payment = (props) => {
-  /* var input = document.getElementById("cardName");
+  const [showPill, setShowPill] = useState("");
+  const [pillText, setPillText] = useState("");
+  const [success, setSuccess] = useState(false);
 
-          input.onkeydown = function () {
-              if (input.value.length > 0) {
+  const displayPill = (success, message) => {
+    setSuccess(success);
+    setPillText(message);
+    setTimeout(() => setShowPill("true"), 100);
 
-                  if (input.value.length % 4 === 0) {
-                      input.value += "    ";
-                  }
-              }
-          } */
+    setTimeout(() => {
+      setShowPill("");
+      setPillText("");
+    }, 3000);
+    return;
+  };
 
   const checkOut = async () => {
     const resp = await fetch("http://localhost:5000/s/v/order", {
@@ -280,7 +286,7 @@ const Payment = (props) => {
     });
     const response = await resp.json();
     handleJWTExpiry(response);
-    console.log(response);
+    return displayPill(response.success, response.message);
   };
 
   const [cardInfo, setCardInfo] = useState({
@@ -303,17 +309,24 @@ const Payment = (props) => {
 
     // Check whether the card number is valid
     // A valid card number is 16 digit long
-    if (!number.length === 16) return;
+    if (number.length !== 16) return displayPill(false, "Invalid Card Number");
 
     // Check whether the csv is valid
     // A valid csv is 3 digit long on VISA®, MasterCard® and Discover® branded credit and debit cards
     // 4 digit long on American Express® branded credit or debit card
-    if (csv.length < 3 || csv.length > 4) return;
+    if (csv.length < 3 || csv.length > 4)
+      return displayPill(false, "Invalid CSV Number");
 
     // Check if the name seems correct
     const nameValidatorRegex =
       /^([a-zA-Z]{2,}\s[a-zA-Z]{1,}'?-?[a-zA-Z]{2,}\s?([a-zA-Z]{1,})?)/;
-    if (!nameValidatorRegex.test(name)) return;
+    if (!nameValidatorRegex.test(name))
+      return displayPill(false, "The name you entered seems incorrect.");
+
+    if (expiryMonth == "")
+      return displayPill(false, "Expiry month of the card can not be empty.");
+    if (expiryYear == "")
+      return displayPill(false, "Expiry year of the card can not be empty.");
 
     // Check if the card has already expired or not
     const now = new Date();
@@ -322,14 +335,17 @@ const Payment = (props) => {
     // Check if the year has already passed or not
     // Also check if the year is more than 4 years away
     // Because the validity time period for most cards is 4 years
-    if (expYear < now.getFullYear() || expYear > now.getFullYear() + 4) return;
+    if (expYear < now.getFullYear() || expYear > now.getFullYear() + 4)
+      return displayPill(false, "Invalid Expiry Year");
 
-    if (expMonth < 1 || expMonth > 12) return;
+    if (expMonth < 1 || expMonth > 12)
+      return displayPill(false, "Invalid Expiry Month");
     // If the expiry year is the same as the current year
     if (expYear == now.getFullYear()) {
       // Check if the expiry month has already passed or not
       const currentMonth = now.getMonth() + 1;
-      if (expMonth < currentMonth) return;
+      if (expMonth < currentMonth)
+        return displayPill(false, "Card has already expired");
     }
     // If everything is okay, proceed to checkout
     checkOut();
@@ -467,6 +483,7 @@ const Payment = (props) => {
       </Wrapper>
 
       {/* <Footer/> */}
+      <Pill display={showPill} text={pillText} success={success} />
     </Container>
   ) : (
     ""

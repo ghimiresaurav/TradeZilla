@@ -209,12 +209,24 @@ const UploadButton = styled.div`
   &:hover {
     background-color: #ffffff;
     color: #000000;
+    border: 2px black solid;
   }
 `;
 
 const UploadedImage = styled.div`
   border: 1px solid #000000;
-  height: 120px;
+  height: 180px;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+`;
+
+const ShowImage = styled.img`
+  margin-right: 15px;
+  height: 150px;
+  width: 150px;
+  object-fit: cover;
+  border: 2px solid #000000;
 `;
 
 const Description = styled.div`
@@ -470,16 +482,7 @@ const SellOnTradeZilla = (props) => {
               </UploadButton>
               <UploadedImage>
                 {fileList.map((file) => {
-                  return (
-                    <img
-                      src={URL.createObjectURL(file)}
-                      style={{
-                        height: "100px",
-                        width: "100px",
-                        objectFit: "cover",
-                      }}
-                    />
-                  );
+                  return <ShowImage src={URL.createObjectURL(file)} />;
                 })}
               </UploadedImage>
             </UploadArea>

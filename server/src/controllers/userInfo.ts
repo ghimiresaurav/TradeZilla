@@ -22,22 +22,26 @@ const userInfo = async (req: Request, res: Response) => {
     });
 
   // For vendor
-  // Get the count of own products
+  // Get own products count
   const vendorProductsCount = await Product.count({ vendor: user_id });
+  // Get dispatched orders count
   const vendorDispatchedOrdersCount = await Order.count({
     vendor_id: user_id,
     status: "dispatched",
   });
+  // Get yet to be dispatched orders count
   const vendorPendingOrdersCount = await Order.count({
     vendor_id: user_id,
     status: "pending",
   });
 
   // For customer
+  // Get already bought products count
   const customerDispatchedOrdersCount = await Order.count({
     customer_id: user_id,
     status: "dispatched",
   });
+  // Get yet to be bought order count
   const customerPendingOrdersCount = await Order.count({
     customer_id: user_id,
     status: "pending",

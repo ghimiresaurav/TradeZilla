@@ -8,6 +8,7 @@ import ReturnTop from '../Components/ReturnTop';
 import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { mobile, tab, vTab } from "../responsive";
+import ProductList from '../Components/ProductList';
 
 
 const Container = styled.div`
@@ -65,6 +66,7 @@ const Home = (props) => {
             <Wrapper>
                 <BestSellers/>
                 <TopDeals/>
+                <ProductList/>
                 <Footer />
                 {/* <NewsletterPopup trigger = {timedPopup} setTrigger = {setTimedPopup}/> */}
                 <ReturnTop/>

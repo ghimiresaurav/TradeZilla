@@ -36,6 +36,7 @@ const CategoriesPath = () =>
   ]);
 
 const SearchPath = "";
+
 function App() {
   return (
     <>

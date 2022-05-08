@@ -265,6 +265,7 @@ const Payment = (props) => {
     setTimeout(() => {
       setShowPill("");
       setPillText("");
+      if (success) return window.location.assign("/cart");
     }, 3000);
     return;
   };

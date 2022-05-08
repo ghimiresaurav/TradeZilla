@@ -11,6 +11,7 @@ import defaultImage from "../utils/defaultImage";
 import "./RegisterForm.css";
 import Payment from "./Payment";
 import handleJWTExpiry from "../utils/handleJWTExpiry";
+import Pill from "../Components/Pill";
 
 const Container = styled.div`
   width: 100%;
@@ -221,6 +222,23 @@ const Button = styled.button`
 `;
 
 const Cart = (props) => {
+  const [showPill, setShowPill] = useState("");
+  const [pillText, setPillText] = useState("");
+  const [success, setSuccess] = useState(false);
+  const [version, setVersion] = useState(0);
+
+  const displayPill = (success, message) => {
+    setSuccess(success);
+    setPillText(message);
+    setTimeout(() => setShowPill("true"), 100);
+
+    setTimeout(() => {
+      setShowPill("");
+      setPillText("");
+    }, 3000);
+    return;
+  };
+
   document.title = "Cart | Tradezilla";
 
   const [quantities, setQuantities] = useState({});
@@ -271,7 +289,7 @@ const Cart = (props) => {
         setQuantities(quan);
       } else console.log("failed");
     })();
-  }, []);
+  }, [version]);
 
   const removeItemFromCart = async (id) => {
     const resp = await fetch(
@@ -297,6 +315,8 @@ const Cart = (props) => {
       );
 
     console.log(response);
+    if (response.success) setVersion(version + 1);
+    return displayPill(response.success, response.message);
   };
 
   const updateCountOnCart = (id) => {
@@ -338,7 +358,6 @@ const Cart = (props) => {
     });
     setSubTotalToDisplay(subTotal);
   };
-
 
   return (
     <Container>
@@ -432,6 +451,7 @@ const Cart = (props) => {
         location={location}
         subTotal={SubTotalToDisplay}
       />
+      <Pill display={showPill} text={pillText} success={success} />
     </Container>
   );
 };

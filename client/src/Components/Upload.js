@@ -3,7 +3,6 @@ import CloseIcon from "@mui/icons-material/Close";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import { useState } from "react";
 import { mobile } from "../responsive";
-// import imgSrc from '../images/cover.png';
 
 import { ImageConfig } from "./ImageConfig";
 import PropTypes from "prop-types";
@@ -110,12 +109,6 @@ const Header = styled.header`
 	text-align: center;
 `;
 
-const Text = styled.span`
-	font-size: 25px;
-	font-weight: 500;
-	margin: 10px 0 15px 0;
-`;
-
 const Input = styled.input`
 	display: none;
 	background-color: green;
@@ -154,7 +147,7 @@ const Container2 = styled.div`
 
 const DropFilePreview = styled.div`
 	margin-top: 30px;
-	background-color: yellow;
+	// background-color: yellow;
 `;
 
 const DropFilePreviewTitle = styled.h1`
@@ -163,24 +156,8 @@ const DropFilePreviewTitle = styled.h1`
 `;
 
 const DropFileImg = styled.img`
-	width: 50px;
+	width: 100px;
 	margin-right: 20px;
-`;
-
-const DropFilePreviewItemInfo = styled.div`
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	overflow: hidden;
-`;
-
-const DropFileName = styled.p`
-	overflow: hidden;
-	word-wrap: break-word;
-`;
-
-const DropFileSize = styled.p`
-	overflow: hidden;
 `;
 
 const RemoveDropFile = styled.span`
@@ -203,11 +180,11 @@ const DropFilePreviewItem = styled.div`
 	position: relative;
 	display: flex;
 	margin-bottom: 10px;
-	padding: 15px;
+	padding: 5px;
 	border-radius: 2px;
 	border: 2px dashed;
-	width: 100px;
-	height: 100px;
+	width: 115px;
+	height: 115px;
 	margin: 0 20px;
 	// overflow: hidden;
 
@@ -280,17 +257,6 @@ const getColor = (props) => {
 	return "#eeeeee";
 };
 
-const MaxedOut = () => {
-	return (
-		<>
-			<div>
-				<div></div>
-				<div>You can upload maximum 5 photos.</div>
-			</div>
-		</>
-	);
-};
-
 const Upload = (props) => {
 	const [dragged, setDragged] = useState(false);
 
@@ -313,6 +279,7 @@ const Upload = (props) => {
 
 	const fileDrop = (e) => {
 		e.preventDefault();
+
 		setDragged(false);
 
 		const newFile = e.target.files[0];
@@ -325,14 +292,29 @@ const Upload = (props) => {
 			props.setFiles(updatedList);
 			// props.onFileChange(updatedList);
 		}
+
 		console.log("All Files", props.files);
+		console.log(props.files.length);
+		if(props.files.length >= 3){ //less than 3 because it starts from 0; and we are expecting 4 files
+			setMaxedOut(true);
+			return;
+		}
+
+
 	};
 
 	const fileRemove = (file) => {
+
 		const updatedList = [...props.files];
 		updatedList.splice(props.files.indexOf(file), 1);
 		props.setFiles(updatedList);
 		// props.onFileChange(updatedList);
+
+		console.log(props.files.length);
+		if(props.files.length < 5){ //less than 5 because ??????????
+			setMaxedOut(false);
+		}
+		
 	};
 
 	const changeUI = (arg) => {
@@ -351,14 +333,10 @@ const Upload = (props) => {
 		}
 	};
 
-	// const showWidth = () => {
-	//     console.log("Width is ", Browse.width);
-	// }
+	const [maxedOut, setMaxedOut] = useState(false);
 
-	const imgSrc = require("../images/cover.png");
 
 	return props.trigger ? (
-		// return (
 		<Container>
 			<OuterArea></OuterArea>
 			<DropBox>
@@ -374,33 +352,37 @@ const Upload = (props) => {
 					onDrop={fileDrop}
 					dragged={dragged}
 				>
-					<Wrapper>
-						<UploadIcon>
-							<CloudUploadIcon
-								style={{
-									width: "120px",
-									height: "120px",
-									opacity: changeUI("iconOpacity"),
-								}}
-							/>
-						</UploadIcon>
-						<Header>{changeUI("headerText")}</Header>
-						<p>OR</p>
+					{!maxedOut ? (
+						<Wrapper>
+							<UploadIcon>
+								<CloudUploadIcon
+									style={{
+										width: "120px",
+										height: "120px",
+										opacity: changeUI("iconOpacity"),
+									}}
+								/>
+							</UploadIcon>
+							<Header>{changeUI("headerText")}</Header>
+							<p>OR</p>
 
-						<Browse>
-							<Input
-								type="file"
-								id="file"
-								name="product-image"
-								onChange={fileDrop}
-								accept="image/*"
-							/>
-							<BrowseText htmlFor="file">Browse File</BrowseText>
-						</Browse>
-					</Wrapper>
+							<Browse>
+								<Input
+									type="file"
+									id="file"
+									name="product-image"
+									onChange={fileDrop}
+									accept="image/*"
+								/>
+								<BrowseText htmlFor="file">Browse File</BrowseText>
+							</Browse>
+						</Wrapper>
+					) : (
+						<Header>You can only add upto 4 images</Header>
+					)}
 				</DropZone>
+
 				{props.files.length > 0 ? (
-					props.files.length <= 4 ? (
 						<Container2>
 							<DropFilePreview>
 								<DropFilePreviewTitle>{/* Preview */}</DropFilePreviewTitle>
@@ -410,19 +392,9 @@ const Upload = (props) => {
 										return (
 											<DropFilePreviewItem key={index}>
 												<DropFileImg
-													// src={
-													// 	ImageConfig[item.type.split("/")[1]] ||
-													// 	ImageConfig["png"]
-													// }
 													src={URL.createObjectURL(file)}
 													alt=""
 												/>
-												{/* <DropFileImg src=".../images/cover.png" alt="" /> */}
-												{/* <DropFileImg src="https://media.istockphoto.com/vectors/tie-icon-logo-vector-design-vector-id1186237183?k=20&m=1186237183&s=612x612&w=0&h=MiHnwu7gPu0raudz7cOe7xa645KAaUu0K6mq6sF2TFM=" alt="" /> */}
-												<DropFilePreviewItemInfo>
-													{/* <DropFileName>{item.name}</DropFileName>
-                                                        <DropFileSize>{item.size}B</DropFileSize> */}
-												</DropFilePreviewItemInfo>
 												<RemoveDropFile onClick={() => fileRemove(file)}>
 													x
 												</RemoveDropFile>
@@ -443,14 +415,11 @@ const Upload = (props) => {
 								</CancelButton>
 							</Buttons>
 						</Container2>
-					) : (
-						<MaxedOut />
 					)
-				) : null}
+				 : null}
 			</DropBox>
 		</Container>
 	) : (
-		// )
 		""
 	);
 };

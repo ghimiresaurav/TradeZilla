@@ -94,7 +94,7 @@ const answerQuery = async (req: Request, res: Response) => {
   await product.save();
 
   const mailOptions = {
-    subject: "New Query",
+    subject: "Query Replied",
 
     text: `DO NOT REPLY TO THIS EMAIL.\n
     Your query on ${product.title} has been replied.\n`,

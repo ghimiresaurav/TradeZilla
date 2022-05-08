@@ -20,6 +20,10 @@ const ContentArea = styled.div`
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
+  // padding: 30px 0px 50px 0;
+  width: 90%;
+  margin: auto;
+  // background-color: green;
 `;
 
 const Title = styled.h1`
@@ -57,12 +61,13 @@ const SubCategoryTitle = styled.h2`
 const Items = styled.div`
 	position: relative;
 	height: 80%;
-	width: 95%;
-	margin: 20px auto;
+	width: 90%;
+	// margin: 20px auto;
 	// background-color: red;
 	// overflow: hidden;
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
 
 `;
 
@@ -86,9 +91,15 @@ const Arrow = styled.div`
 `;
 
 const Products = styled.div`
+	// display: flex;
+	// transform: translateX(${(props) => props.slideIndex * -25}vw);
+	// transition: all 1.5s ease;
+
+  margin: auto;
 	display: flex;
-	transform: translateX(${(props) => props.slideIndex * -25}vw);
-	transition: all 1.5s ease;
+	flex-wrap: wrap;
+	// justify-content: space-between;
+	justify-content: center;
 `;
 
 const linkStyle = {

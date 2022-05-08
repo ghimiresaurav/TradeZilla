@@ -121,6 +121,7 @@ const Browse = styled.div`
 	background: #000000;
 	color: #ffffff;
 	border-radius: 5px;
+	margin-top: 10px;
 `;
 
 const BrowseText = styled.label`
@@ -320,7 +321,8 @@ const Upload = (props) => {
 	const changeUI = (arg) => {
 		if (!dragged) {
 			if (arg === "headerText") {
-				return "Drag & Drop to Upload File";
+				// return "Drag & Drop to Upload File";
+				return "Upload File";
 			} else {
 				return 1;
 			}
@@ -364,7 +366,7 @@ const Upload = (props) => {
 								/>
 							</UploadIcon>
 							<Header>{changeUI("headerText")}</Header>
-							<p>OR</p>
+							{/* <p>OR</p> */}
 
 							<Browse>
 								<Input

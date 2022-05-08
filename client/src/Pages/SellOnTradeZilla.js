@@ -274,12 +274,14 @@ const SellOnTradeZilla = (props) => {
 
   const [category, setCategory] = useState("Fashion");
   const [subCategory, setSubCategory] = useState("mens-wear");
+  const [formattedSubCat, setFormattedSubCat] = useState("mens-wear");
   const [success, setSuccess] = useState(false);
   const [showPill, setShowPill] = useState(false);
   const [pillText, setPillText] = useState("");
 
   // Update Category
   const updateCategory = (e) => {
+    console.log("adsfasdf");
     const rawCategory = e.target.value;
     setCategory(rawCategory);
     updateSubCategory({
@@ -288,12 +290,15 @@ const SellOnTradeZilla = (props) => {
   };
   // Update Sub-Category
   const updateSubCategory = (e) => {
+    console.log(e.target.value);
     const rawSubCategory = e.target.value;
     const formattedSubCategory = rawSubCategory
       .toLowerCase()
       .replaceAll(" ", "-")
       .replaceAll("&", "and");
-    setSubCategory(formattedSubCategory);
+    setFormattedSubCat(formattedSubCategory);
+    setSubCategory(rawSubCategory);
+    console.log(formattedSubCategory);
   };
   const handleChange = (e) => {
     setValues({ ...values, [e.target.name]: e.target.value });
@@ -337,7 +342,7 @@ const SellOnTradeZilla = (props) => {
     formData.append("title", values.title);
     formData.append("price", values.price);
     formData.append("category", category.toLowerCase().replaceAll(" ", "-"));
-    formData.append("subCategory", subCategory);
+    formData.append("subCategory", formattedSubCat);
     formData.append("quantity", values.quantity);
     formData.append("description", values.description);
 

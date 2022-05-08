@@ -339,6 +339,7 @@ const Cart = (props) => {
     setSubTotalToDisplay(subTotal);
   };
 
+
   return (
     <Container>
       <TopBars loggedIn={props.loggedIn} />

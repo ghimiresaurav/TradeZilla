@@ -234,6 +234,7 @@ const RightJSX = (props) => {
 };
 
 const NavBar = (props) => {
+
   const [search, setSearch] = useState("");
 
   const handleChange = (e) => {

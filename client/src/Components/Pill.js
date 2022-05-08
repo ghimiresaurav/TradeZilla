@@ -20,7 +20,8 @@ const Wrapper = styled.div`
 `;
 
 const Box = styled.div`
-	width: 200px;
+	min-width: 200px;
+	max-width: 300px;
 	height: 60px;
 	background-color: #f2f2f2;
 	margin: auto;
@@ -34,6 +35,7 @@ const Box = styled.div`
 	bottom: 0px;
 	left: 0;
 	right: 0;
+	padding: 0 20px;
 `;
 
 const Text = styled.p``;
@@ -53,7 +55,6 @@ const Pill = (props) => {
 						/>
 					)}
 					&nbsp;
-					{/* <CheckCircleOutlineIcon style = {{color: "green"}}/>&nbsp; */}
 					<Text>{props.text}</Text>
 				</Box>
 			</Wrapper>

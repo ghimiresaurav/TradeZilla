@@ -23,11 +23,17 @@ const getOrders = async (req: Request, res: Response) => {
       status: "dispatched",
     });
 
+    const rejectedOrders = await Order.find({
+      vendor_id: user_id,
+      status: "rejected",
+    });
+
     // Send a success message
     return res.json({
       success: true,
       dispatchedOrders,
       pendingOrders,
+      rejectedOrders,
     });
   } catch (e: any) {
     // If something goes wrong, send a message

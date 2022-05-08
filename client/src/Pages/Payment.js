@@ -4,6 +4,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
 import handleJWTExpiry from "../utils/handleJWTExpiry";
 import { mobile, tab, vTab } from "../responsive";
+import Pill from "../Components/Pill";
 
 const Container = styled.div`
   position: fixed;
@@ -54,7 +55,11 @@ const SectionHeader = styled.div`
   column-gap: 5%;
   align-items: center;
 
-  ${tab({ flexDirection: "column", alignItems: "start", justifyContent: "flex-start" })}
+  ${tab({
+    flexDirection: "column",
+    alignItems: "start",
+    justifyContent: "flex-start",
+  })}
 `;
 const StartSection = styled.div`
   font-size: 35px;
@@ -242,20 +247,6 @@ const OuterArea = styled.div`
   height: 100%;
   position: fixed;
 `;
-
-/* var inputBox = document.getElementById("cardName");
-
-var invalidChars = [
-  "-",
-  "+",
-  "e",
-];
-
-inputBox.addEventListener("keydown", function(e) {
-  if (invalidChars.includes(e.key)) {
-    e.preventDefault();
-  }
-}); */
 
 const Payment = (props) => {
   const [showPill, setShowPill] = useState("");
